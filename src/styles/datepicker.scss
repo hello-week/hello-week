@@ -1,26 +1,15 @@
-:root {
-  --bg-color: #fff;
-  --bg-week: #ec407a;
-  --border-radius: 2px;
-  --border-color: #e7e9ed;
-  --today-bg-color: #10989E;
-  --today-color: #fff;
-  --selected-bg-color: #E7E9ED;
-  --selected-color: #333;
-}
-
 * {
   box-sizing: border-box;
 }
 
 .datepicker {
-  background-color: var(--bg-color);
-  border-radius: var(--border-radius);
-  border: solid 1px var(--border-color);
+  background-color: var(--datepicker-bg-color);
+  border-radius: var(--datepicker-border-radius);
+  box-shadow: 0px 2px 20px 8px rgba(0, 0, 0, 0.12);
   margin: 0 auto;
   overflow: hidden;
   width: 100%;
-  max-width: 320px;
+  max-width: var(--datepicker-max-width);
 
 
   .btn {
@@ -39,14 +28,14 @@
     padding: 0;
     text-align: center;
     &:active {
-      border-radius: var(--border-radius);
+      border-radius: var(--datepicker-border-radius);
     }
   }
 
   &__header {
     align-items: center;
     display: flex;
-    padding: 1.2rem 1.4rem;
+    padding: 18px 12px;
   }
 
   &__label {
@@ -57,15 +46,20 @@
 
   &__week {
     display: flex;
-    background-color: var(--bg-week);
-    color: #fff;
+    background-color: var(--datepicker-bg-week);
+    color: var(--datepicker-color-week);
 
     &__day {
-      font-weight: 100;
+      display: inline-flex;
       width: 14.28%;
-      text-align: center;
+      align-items: center;
+      justify-content: center;
       padding: 12px;
       text-transform: uppercase;
+      font-weight: 100;
+      font-size: 1rem;
+      background-color: var(--datepicker-bg-day);
+      color: var(--datepicker-color-day);
     }
   }
 
@@ -75,14 +69,13 @@
   }
 
   &__day {
+    display: inline-flex;
+    width: 14.28%;
     align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: var(--datepicker-border-radius);
     background-color: #fff;
-    border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 14.28%;
-    max-width: 14.28%;
-    padding: 1.2rem 0;
 
 
     &.is-active {
@@ -90,19 +83,20 @@
     }
 
     &.is-today {
-      background-color: var(--today-bg-color);
-      color: var(--today-color);
+      background-color: var(--datepicker-bg-tody);
+      color: var(--datepicker-color-tody);
     }
 
     &.is-selected {
-      background-color: var(--selected-bg-color);
-      color: var(--selected-color);
+      background-color: var(--datepicker-bg-selected);
+      color: var(--datepicker-color-selected);
     }
 
     &.is-disabled {
       border-radius: 0;
       cursor: not-allowed;
-      opacity: .5;
+      background-color: var(--datepicker-bg-disabled);
+      color: var(--datepicker-color-disabled);
     }
   }
 }
