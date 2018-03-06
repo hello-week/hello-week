@@ -1,0 +1,43 @@
+{
+  "name": "Datepicker",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "repository": "https://bitbucket.org/mauroreisvieira/datepicker",
+  "keywords": [
+    "typescript",
+    "scss",
+    "datepicker"
+  ],
+  "author": "Mauro Reis Vieira <mauroreisvieira@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/maurovieirareis/datepicker/issues"
+  },
+  "ignore": [
+    "node_modules"
+  ],
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "start:dev": "webpack-dev-server  --config webpack.config.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "stylelint"
+    ],
+    "globals": {
+      "testRule": true
+    }
+  },
+  "dependencies": {
+    "webpack-dev-server": "^2.11.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.3.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "sass-loader": "^6.0.7",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-cli": "^2.0.10"
+  }
+}
