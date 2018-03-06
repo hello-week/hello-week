@@ -1,4 +1,8 @@
-# Datepicker - Lightweight and simple datepicker with no dependencies
+# Datepicker
+### Lightweight and simple datepicker with no dependencies.
+
+![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)
+![Travis](https://img.shields.io/dub/l/vibe-d.svg)
 
 
 ## Options
@@ -17,11 +21,12 @@ new Datepicker({
 });
 ```
 
-
-## Browser support
+### Supported Browsers:
 
 - IE10
 - Chrome 12
 - Firefox 16
 - Opera 15
 - Safari 5.1
+
+Created with ♥️ by [@mauroreisvieira](https://twitter.com/mauroreisvieira) in **Portugal**
