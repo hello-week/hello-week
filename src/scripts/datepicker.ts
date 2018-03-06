@@ -1,55 +1,91 @@
-export default class Datepicker {
+import '../styles/datepicker.scss';
+
+export class Datepicker {
     private options: any;
+    private selector: any;
 
     private month: HTMLElement;
-    private next: HTMLElement;
-    private previous: HTMLElement;
+    private week: HTMLElement;
     private label: HTMLElement;
+
     private activeDates: any;
     private date: any;
+    private langs: any;
     private todaysDate: any;
 
-    constructor (month: HTMLElement, next: HTMLElement, previous: HTMLElement, label: HTMLElement) {
-        this.month = this.month;
-        this.next = this.next;
-        this.previous = this.previous;
-        this.label = this.label;
+    constructor (options: any = {}) {
+
+        console.log('Pla')
+        this.options = Datepicker.extend(options);
+        this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
 
-        console.log('Datepicker');
-    }
+        this.month = document.querySelector('.datepicker__month');
+        this.week = document.querySelector('.datepicker__week');
+        this.label = document.querySelector('.datepicker__label');
 
-    public init (options: any) {
-        this.options = options
+        this.readFile("dist/langs/" + this.options.lang + ".json", (text: any) => {
+            this.langs = JSON.parse(text);
+            this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+
+            const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
+            for (let day = 0; day < weekFormat.length; day ++) {
+                this.creatWeek(weekFormat[day]);
+            }
+        });
+
         this.date.setDate(1)
         this.createMonth()
-        this.createListeners()
-    };
+    }
 
-    public createListeners (): void {
-        var _this = this
-        this.next.addEventListener('click', function () {
-            _this.clearCalendar()
-            var nextMonth = _this.date.getMonth() + 1
-            _this.date.setMonth(nextMonth)
-            _this.createMonth()
-        })
+    private static extend(options: any) {
+        const settings: any = {
+            selector: '.datepicker',
+            lang: 'en',
+            format: "mm/dd/yyyy",
+            weekShort: true,
+            multiplePick: true,
+            disablePastDays: false,
+            onInit: () => {},
+            onChange: () => {}
+        };
 
-        this.previous.addEventListener('click', function () {
-            _this.clearCalendar()
-            var prevMonth = _this.date.getMonth() - 1
-            _this.date.setMonth(prevMonth)
-            _this.createMonth()
-        })
-    };
+        const userSttings = options;
+        for (const attrname in userSttings) {
+            settings[attrname] = userSttings[attrname];
+        }
+
+        return settings;
+    }
+
+    public prev(): void {
+        this.clearCalendar();
+        var prevMonth = this.date.getMonth() - 1;
+        this.date.setMonth(prevMonth);
+        this.createMonth();
+    }
+
+    public next(): void {
+        this.clearCalendar();
+        var nextMonth = this.date.getMonth() + 1;
+        this.date.setMonth(nextMonth);
+        this.createMonth();
+    }
+
+    public creatWeek(dayShort: number) {
+        const weekDay = <any>document.createElement('span');
+        weekDay.className = 'datepicker__week__day';
+        weekDay.innerHTML = dayShort;
+        this.week.appendChild(weekDay);
+    }
 
     public createDay (num: number, day: number, year: number): void {
         var newDay = <any>document.createElement('div');
         var dateEl = <any>document.createElement('span');
         dateEl.innerHTML = num;
-        newDay.className = 'vcal-date'
+        newDay.className = 'datepicker__day';
         newDay.setAttribute('data-calendar-date', this.date)
 
         /** if it's the first day of the month */
@@ -62,72 +98,56 @@ export default class Datepicker {
         }
 
         if (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) {
-            newDay.classList.add('vcal-date--disabled');
+            newDay.classList.add('is-disabled');
         } else {
-            newDay.classList.add('vcal-date--active');
+            newDay.classList.add('is-active');
             newDay.setAttribute('data-calendar-status', 'active');
         }
 
         if (this.date.toString() === this.todaysDate.toString()) {
-            newDay.classList.add('vcal-date--today');
+            newDay.classList.add('is-today');
         }
 
         newDay.appendChild(dateEl);
         console.log(this.month);
-        this.month.appendChild(newDay);
+        if (this.month) {
+            this.month.appendChild(newDay);
+        }
     };
 
     public dateClicked(): void {
-        var _this = this
-        this.activeDates = document.querySelectorAll(
-            '[data-calendar-status="active"]'
-        )
+        this.activeDates = document.querySelectorAll('[data-calendar-status="active"]');
         for (var i = 0; i < this.activeDates.length; i++) {
-            this.activeDates[i].addEventListener('click', function (event: any) {
-                var picked = document.querySelectorAll(
-                    '[data-calendar-label="picked"]'
-                    )[0]
-                picked.innerHTML = this.dataset.calendarDate
-                _this.removeActiveClass()
-                this.classList.add('vcal-date--selected')
+            this.activeDates[i].addEventListener('click', (event: any) => {
+                var picked = document.querySelectorAll('[data-calendar-label="picked"]')[0]
+                if (picked) {
+                    console.log(event);
+                    // picked.innerHTML = this.dataset.calendarDate
+                }
+                this.removeActiveClass();
+                // this.classList.add('is-selected');
             })
         }
     };
 
     public createMonth(): void {
-        var currentMonth = this.date.getMonth()
+        var currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
             this.createDay(
                 this.date.getDate(),
                 this.date.getDay(),
                 this.date.getFullYear()
-                )
+            )
             this.date.setDate(this.date.getDate() + 1)
         }
-        /** while loop trips over and day is at 30/31, bring it back */
+
         this.date.setDate(1)
         this.date.setMonth(this.date.getMonth() - 1)
-
-        this.label.innerHTML =
-        this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
-        this.dateClicked()
+        this.dateClicked();
     };
 
     public monthsAsString(monthIndex: any): any {
-        return [
-        'January',
-        'Febuary',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-        ][monthIndex];
+        return this.langs.months[monthIndex];
     };
 
     public clearCalendar(): void {
@@ -136,7 +156,31 @@ export default class Datepicker {
 
     public removeActiveClass(): void {
         for (var i = 0; i < this.activeDates.length; i++) {
-            this.activeDates[i].classList.remove('vcal-date--selected')
+            this.activeDates[i].classList.remove('is-selected')
         }
     };
+
+    /**
+     * Read json file with langs
+     * @param {any} file
+     * @param {any} callback
+     */
+    public readFile(file: any, callback: any): void {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', file, true);
+        xobj.onreadystatechange = function() {
+            if (xobj.readyState == 4 && <any>xobj.status == "200") {
+                callback(xobj.responseText);
+            }
+        }
+        xobj.send(null);
+    }
 }
+
+import { Datepicker as MyDatepicker } from "./datepicker";
+export namespace MyModule {
+    export const Datepicker = MyDatepicker;
+}
+
+(<any>window).Datepicker = MyModule.Datepicker;

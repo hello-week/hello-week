@@ -1,0 +1,82 @@
+:root {
+  --bg-color: #fff;
+  --bg-week: #ec407a;
+  --border-radius: 2px;
+  --border-color: #e7e9ed;
+  --today-bg-color: #10989E;
+  --today-color: #fff;
+  --selected-bg-color: #E7E9ED;
+  --selected-color: #333; }
+
+* {
+  box-sizing: border-box; }
+
+.datepicker {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  border: solid 1px var(--border-color);
+  margin: 0 auto;
+  overflow: hidden;
+  width: 100%;
+  max-width: 320px; }
+  .datepicker .btn {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-appearance: button;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    line-height: normal;
+    min-width: 27px;
+    outline: none;
+    overflow: visible;
+    padding: 0;
+    text-align: center; }
+    .datepicker .btn:active {
+      border-radius: var(--border-radius); }
+  .datepicker__header {
+    align-items: center;
+    display: flex;
+    padding: 1.2rem 1.4rem; }
+  .datepicker__label {
+    font-weight: bold;
+    text-align: center;
+    width: 100%; }
+  .datepicker__week {
+    display: flex;
+    background-color: var(--bg-week);
+    color: #fff; }
+    .datepicker__week__day {
+      font-weight: 100;
+      width: 14.28%;
+      text-align: center;
+      padding: 12px;
+      text-transform: uppercase; }
+  .datepicker__month {
+    display: flex;
+    flex-wrap: wrap; }
+  .datepicker__day {
+    align-items: center;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 14.28%;
+    max-width: 14.28%;
+    padding: 1.2rem 0; }
+    .datepicker__day.is-active {
+      cursor: pointer; }
+    .datepicker__day.is-today {
+      background-color: var(--today-bg-color);
+      color: var(--today-color); }
+    .datepicker__day.is-selected {
+      background-color: var(--selected-bg-color);
+      color: var(--selected-color); }
+    .datepicker__day.is-disabled {
+      border-radius: 0;
+      cursor: not-allowed;
+      opacity: .5; }
+
+/*# sourceMappingURL=datepicker.css.map*/
