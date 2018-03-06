@@ -159,7 +159,7 @@ export class Datepicker {
     public updted(): void {
 
         this.createMonth();
-        this.readFile("/dist/langs/" + this.options.lang + ".json", (text: any) => {
+        this.readFile("./dist/langs/" + this.options.lang + ".json", (text: any) => {
             this.langs = JSON.parse(text);
             this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
 
