@@ -24,9 +24,7 @@ export class Datepicker {
         this.week = document.querySelector('.datepicker__week');
         this.label = document.querySelector('.datepicker__label');
 
-        this.date.setDate(1);
-        this.updted();
-
+        this.init(false);
     }
 
     private static extend(options: any) {
@@ -37,7 +35,7 @@ export class Datepicker {
             weekShort: true,
             multiplePick: true,
             disablePastDays: false,
-            onInit: () => {},
+            onLoad: () => {},
             onChange: () => {},
             onSelect: () => {}
         };
@@ -48,6 +46,17 @@ export class Datepicker {
         }
 
         return settings;
+    }
+
+
+    public init(callback: any) {
+
+        this.date.setDate(1);
+        this.updted();
+        this.options.onLoad.call(this);
+        if (callback) {
+            callback.call(this);
+        }
     }
 
     public prev(callback: any): void {
