@@ -237,15 +237,17 @@
 			<h2>Options</h2>
 			<pre class="highlight">
 			new Datepicker({
-				selector: '.datepicker',
-				lang: 'en',
-				format: "mm/dd/yyyy",
-				weekShort: true,
-				multiplePick: true,
-				disablePastDays: false,
-				onLoad: () => {},
-				onChange: () => {},
-				onSelect: () => {}
+	            selector: '.datepicker',
+	            lang: 'en',
+	            format: false,
+	            weekShort: true,
+	            disablePastDays: false,
+	            multiplePick: true,
+	            minDate: false,
+	            maxDate: false,
+	            onLoad: () => { /** callback function */ },
+	            onChange: () => { /** callback function */ },
+	            onSelect: () => { /** callback function */ },
 			});
 		</pre>
 	</div>
