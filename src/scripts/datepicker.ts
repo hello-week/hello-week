@@ -16,22 +16,32 @@ export class Datepicker {
     private selectedDay: number;
 
     constructor (options: any = {}) {
+
         this.options = Datepicker.extend(options);
+
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
 
-        this.month = document.querySelector('.datepicker__month');
-        this.week = document.querySelector('.datepicker__week');
-        this.label = document.querySelector('.datepicker__label');
+        this.month = document.querySelector('.' + Datepicker.CSS_CLASSES.MONTH);
+        this.week = document.querySelector('.' + Datepicker.CSS_CLASSES.WEEK);
+        this.label = document.querySelector('.' + Datepicker.CSS_CLASSES.LABEL);
 
         this.init(() => { /** callback function */ });
-
-        console.log(this.selector);
-        console.log(this.currentDay);
-        console.log(this.selectedDay);
     }
+
+    public static readonly CSS_CLASSES: any = {
+        MONTH: 'datepicker__month',
+        DAY: 'datepicker__day',
+        WEEK: 'datepicker__week',
+        WEEK_DAY: 'datepicker__week__day',
+        LABEL: 'datepicker__label',
+        IS_ACTIVE: 'is-active',
+        IS_SELECTED: 'is-selected',
+        IS_DISABLED: 'is-disabled',
+        IS_TODAY: 'is-today',
+    };
 
     public init(callback: CallbackFunction) {
 
@@ -68,12 +78,12 @@ export class Datepicker {
     }
 
     public selectDay(callback: CallbackFunction): void {
-        this.activeDates = document.querySelectorAll('.is-active');
-        for (const i of this.activeDates) {
+        this.activeDates = document.querySelectorAll('.' + Datepicker.CSS_CLASSES.IS_ACTIVE);
+        for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 this.selectedDay = event.target;
                 this.removeActiveClass();
-                event.target.classList.add('is-selected');
+                event.target.classList.add(Datepicker.CSS_CLASSES.IS_SELECTED);
                 this.options.onSelect.call(this);
                 if (callback) {
                     callback.call(this);
@@ -85,7 +95,7 @@ export class Datepicker {
     public createMonth(): void {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
-            this.createDay( this.date.getDate(), this.date.getDay(), this.date.getFullYear());
+            this.createDay(this.date.getDate(), this.date.getDay());
             this.date.setDate(this.date.getDate() + 1);
         }
 
@@ -96,16 +106,17 @@ export class Datepicker {
 
     public creatWeek(dayShort: number) {
         const weekDay = <any>document.createElement('span');
-        weekDay.className = 'datepicker__week__day';
-        weekDay.innerHTML = dayShort;
+        weekDay.className = Datepicker.CSS_CLASSES.WEEK_DAY;
+        weekDay.textContent = dayShort;
         this.week.appendChild(weekDay);
     }
 
-    public createDay (num: number, day: number, year: number): void {
+    public createDay (num: number, day: number): void {
+        let timestamp = Date.parse(this.date);
         const newDay = <any>document.createElement('div');
-        newDay.innerHTML = num;
-        newDay.className = 'datepicker__day';
-        newDay.setAttribute('data-calendar-date', this.date);
+        newDay.textContent = num;
+        newDay.className = Datepicker.CSS_CLASSES.DAY;
+        newDay.setAttribute('data-timestamp', timestamp / 1000);
 
         if (num === 1) {
             if (day === 0) {
@@ -116,14 +127,13 @@ export class Datepicker {
         }
 
         if (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) {
-            newDay.classList.add('is-disabled');
+            newDay.classList.add(Datepicker.CSS_CLASSES.IS_DISABLED);
         } else {
-            newDay.classList.add('is-active');
-            newDay.setAttribute('data-calendar-status', 'active');
+            newDay.classList.add(Datepicker.CSS_CLASSES.IS_ACTIVE);
         }
 
         if (this.date.toString() === this.todaysDate.toString()) {
-            newDay.classList.add('is-today');
+            newDay.classList.add(Datepicker.CSS_CLASSES.IS_TODAY);
             this.currentDay = newDay;
         }
 
@@ -137,26 +147,25 @@ export class Datepicker {
     }
 
     public updted(): void {
-
         this.createMonth();
-        this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
+        this.readFile('../dist/langs/' + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
-            this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
-
+            this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
             const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
-            for (const day of weekFormat) {
+            this.week.textContent = '';
+            for (const day of Object.keys(weekFormat)) {
                 this.creatWeek(weekFormat[day]);
             }
         });
     }
 
     public clearCalendar(): void {
-        this.month.innerHTML = '';
+        this.month.textContent = '';
     }
 
     public removeActiveClass(): void {
-        for (const i of this.activeDates) {
-            this.activeDates[i].classList.remove('is-selected');
+        for (const i of Object.keys(this.activeDates)) {
+            this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
         }
     }
 
@@ -165,29 +174,31 @@ export class Datepicker {
         xobj.overrideMimeType('application/json');
         xobj.open('GET', file, true);
         xobj.onreadystatechange = () => {
-            if (xobj.readyState === 4 && <any>xobj.status === '200') {
+            if (xobj.readyState === 4 && <any>xobj.status === 200) {
                 callback(xobj.responseText);
             }
         };
         xobj.send(null);
     }
 
-    private static extend(options: any) {
+    private static extend(options: CallbackFunction) {
         const settings: any = {
             selector: '.datepicker',
             lang: 'en',
-            format: 'mm/dd/yyyy',
+            format: 'dd/mm/yyyy',
             weekShort: true,
-            multiplePick: true,
             disablePastDays: false,
+            multiplePick: true,
+            minDate: false,
+            maxDate: false,
             onLoad: () => { /** callback function */ },
             onChange: () => { /** callback function */ },
             onSelect: () => { /** callback function */ },
         };
 
-        const userSttings = options;
-        for (const attrname of userSttings) {
-            settings[attrname] = userSttings[attrname];
+        const userSttings = <any>options;
+        for (const i of Object.keys(userSttings)) {
+            settings[i] = userSttings[i];
         }
 
         return settings;
