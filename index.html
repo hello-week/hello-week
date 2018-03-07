@@ -221,21 +221,21 @@
 
 	function updateInfo() {
 		if (this.currentDay) {
-			console.log('this.currentDay', this.currentDay);
 			today.innerHTML = this.currentDay.dataset.timestamp;
 		}
 
 		if (this.selectedDay) {
-			console.log('this.selectedDay', this.selectedDay);
 			picked.innerHTML = this.selectedDay.dataset.timestamp;
 		}
 	}
 
 	const myCalendar = new Datepicker({
 		multiplePick: true,
-		weekShort: false,
-		minDate: 1520696057,
-		maxDate: 1521988572,
+		weekShort: true,
+		disablePastDays: true,
+		format: 'dd/mm/yyyy',
+		// minDate: 1520696057,
+		// maxDate: 1521988572,
 		onLoad: updateInfo,
 		onChange: updateInfo,
 		onSelect: updateInfo

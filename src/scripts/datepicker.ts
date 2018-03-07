@@ -13,7 +13,7 @@ export class Datepicker {
     private langs: any;
     private todaysDate: any;
     private currentDay: number;
-    private selectedDay: number;
+    private selectedDay: HTMLElement;
 
     constructor (options: any = {}) {
 
@@ -83,7 +83,7 @@ export class Datepicker {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 this.selectedDay = event.target;
                 this.removeActiveClass();
-                event.target.classList.add(Datepicker.CSS_CLASSES.IS_SELECTED);
+                event.target.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
                 this.options.onSelect.call(this);
                 if (callback) {
                     callback.call(this);
@@ -129,8 +129,8 @@ export class Datepicker {
 
         if (
             (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
-            (timestamp <= this.options.minDate) ||
-            (timestamp >= this.options.maxDate)) {
+            (this.options.minDate && timestamp <= this.options.minDate) ||
+            (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_DISABLED);
         } else {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_ACTIVE);
@@ -169,7 +169,9 @@ export class Datepicker {
 
     public removeActiveClass(): void {
         for (const i of Object.keys(this.activeDates)) {
-            this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
+            if (!this.options.multiplePick) {
+                this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
+            }
         }
     }
 
@@ -189,7 +191,7 @@ export class Datepicker {
         const settings: any = {
             selector: '.datepicker',
             lang: 'en',
-            format: 'dd/mm/yyyy',
+            format: false,
             weekShort: true,
             disablePastDays: false,
             multiplePick: true,
@@ -200,9 +202,9 @@ export class Datepicker {
             onSelect: () => { /** callback function */ },
         };
 
-        const userSttings = <any>options;
-        for (const i of Object.keys(userSttings)) {
-            settings[i] = userSttings[i];
+        const defaultSettings = <any>options;
+        for (const i of Object.keys(defaultSettings)) {
+            settings[i] = defaultSettings[i];
         }
 
         return settings;
