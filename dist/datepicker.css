@@ -58,6 +58,9 @@
     .datepicker__day.is-today {
       background-color: var(--datepicker-bg-tody);
       color: var(--datepicker-color-tody); }
+    .datepicker__day.is-weekend {
+      background-color: var(--datepicker-bg-weekend);
+      color: var(--datepicker-color-weekend); }
     .datepicker__day.is-selected {
       background-color: var(--datepicker-bg-selected);
       color: var(--datepicker-color-selected); }

@@ -12,8 +12,9 @@ export class Datepicker {
     private date: any;
     private langs: any;
     private todaysDate: any;
-    private currentDay: number;
+    private today: number;
     private selectedDay: HTMLElement;
+    private multipleDays: Array<string> = [];
 
     constructor (options: any = {}) {
 
@@ -41,6 +42,7 @@ export class Datepicker {
         IS_SELECTED: 'is-selected',
         IS_DISABLED: 'is-disabled',
         IS_TODAY: 'is-today',
+        IS_WEEKEND: 'is-weekend'
     };
 
     public init(callback: CallbackFunction) {
@@ -82,14 +84,26 @@ export class Datepicker {
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 this.selectedDay = event.target;
-                this.removeActiveClass();
+                if (this.options.multiplePick) {
+                    this.multipleDays.push(this.selectedDay.dataset.timestamp);
+                    if (event.target.classList.contains(Datepicker.CSS_CLASSES.IS_SELECTED)) {
+                        this.multipleDays = this.multipleDays.filter((day: string) => day !== this.selectedDay.dataset.timestamp);
+                    }
+                } else {
+                    this.removeActiveClass();
+                    this.multipleDays = [];
+                    this.multipleDays.push(this.selectedDay.dataset.timestamp);
+                }
+
                 event.target.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+
                 this.options.onSelect.call(this);
                 if (callback) {
                     callback.call(this);
                 }
             });
         }
+
     }
 
     public createMonth(): void {
@@ -106,7 +120,7 @@ export class Datepicker {
 
     public creatWeek(dayShort: number) {
         const weekDay = <any>document.createElement('span');
-        weekDay.className = Datepicker.CSS_CLASSES.WEEK_DAY;
+        weekDay.classList.add(Datepicker.CSS_CLASSES.WEEK_DAY);
         weekDay.textContent = dayShort;
         this.week.appendChild(weekDay);
     }
@@ -116,7 +130,7 @@ export class Datepicker {
         timestamp = timestamp / 1000;
         const newDay = <any>document.createElement('div');
         newDay.textContent = num;
-        newDay.className = Datepicker.CSS_CLASSES.DAY;
+        newDay.classList.add(Datepicker.CSS_CLASSES.DAY);
         newDay.setAttribute('data-timestamp', timestamp);
 
         if (num === 1) {
@@ -126,9 +140,12 @@ export class Datepicker {
                 newDay.style.marginLeft = ((day - 1) * 14.28) + '%';
             }
         }
+        console.log(day);
+        if (day === 0 || day === 1) {
+            newDay.classList.add(Datepicker.CSS_CLASSES.IS_WEEKEND);
+        }
 
-        if (
-            (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
+        if ((this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
             (this.options.minDate && timestamp <= this.options.minDate) ||
             (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_DISABLED);
@@ -138,7 +155,7 @@ export class Datepicker {
 
         if (this.date.toString() === this.todaysDate.toString()) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_TODAY);
-            this.currentDay = newDay;
+            this.today = timestamp;
         }
 
         if (this.month) {
@@ -169,9 +186,7 @@ export class Datepicker {
 
     public removeActiveClass(): void {
         for (const i of Object.keys(this.activeDates)) {
-            if (!this.options.multiplePick) {
-                this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
-            }
+            this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
         }
     }
 

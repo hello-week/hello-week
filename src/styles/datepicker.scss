@@ -77,6 +77,11 @@
       color: var(--datepicker-color-tody);
     }
 
+    &.is-weekend {
+      background-color: var(--datepicker-bg-weekend);
+      color: var(--datepicker-color-weekend);
+    }
+
     &.is-selected {
       background-color: var(--datepicker-bg-selected);
       color: var(--datepicker-color-selected);

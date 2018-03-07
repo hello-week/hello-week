@@ -1,23 +1,21 @@
 # Datepicker
 ### Lightweight and simple datepicker with no dependencies.
 
-![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)
-![Travis](https://img.shields.io/dub/l/vibe-d.svg)
-
-
 ## Options
 
 ```js
 new Datepicker({
     selector: '.datepicker',
     lang: 'en',
-    format: "mm/dd/yyyy",
+    format: false,
     weekShort: true,
-    multiplePick: true,
     disablePastDays: false,
-    onLoad: () => {},
-    onChange: () => {},
-    onSelect: () => {}
+    multiplePick: true,
+    minDate: false,
+    maxDate: false,
+    onLoad: () => { /** callback function */ },
+    onChange: () => { /** callback function */ },
+    onSelect: () => { /** callback function */ },
 });
 ```
 

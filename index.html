@@ -17,7 +17,7 @@
 			--datepicker-bg-color: #fff;
 
 			--datepicker-bg-day: var(--datepicker-bg-color);
-			--datepicker-color-day: #3e3e3e;
+			--datepicker-color-day: #ffa07a;
 
 			--datepicker-bg-week: #fff;
 			--datepicker-color-week: #cfcfcf;
@@ -28,7 +28,10 @@
 			--datepicker-bg-selected: #7FCBC3;
 			--datepicker-color-selected: #fff;
 
-			--datepicker-bg-disabled: #f3f3f3;
+			--datepicker-bg-weekend: #f3f3f3;
+			--datepicker-color-weekend: #3e3e3e;
+
+			--datepicker-bg-disabled: #f7f8fb;
 			--datepicker-color-disabled: #cfcfcf;
 
 			--datepicker-border-radius: 0;
@@ -47,7 +50,7 @@
 		}
 
 		h1 {
-			font-size: 3rem;
+			font-size: 2.2rem;
 			font-weight: 400;
 			color: #3e3e3e;
 			text-align: center;
@@ -103,7 +106,7 @@
 		}
 
 		.section--hero {
-			height: 100vh;
+			min-height: 100vh;
 			background-color: #FCEE55;
 		}
 
@@ -138,16 +141,49 @@
 		}
 
 		.demo-exemplo {
+			width: 100%;
 			display: flex;
 			padding: 0;
 			margin: 0;
 			list-style: none;
 			justify-content: center;
+			flex-direction: column;
 			margin-top: 2rem;
 		}
 
-		.demo-exemplo li {
-			padding: 1rem 2rem;
+		.demo-exemplo ul {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.demo-exemplo ul li {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			background: var(--datepicker-bg-tody);
+			height: auto;
+			align-items: center;
+			justify-content: center;
+			display: inline-flex;
+			padding: 2px 4px;
+			margin: 4px;
+			border-radius: 4px;
+			color: #fff;
+			font-weight: 300;
+		}
+
+		.demo-today {
+			display: flex;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			width: 100%;
+			flex-wrap: wrap;
 		}
 
 		footer {
@@ -183,10 +219,17 @@
 				<div class="datepicker__week"></div>
 				<div class="datepicker__month"></div>
 			</div>
-			<ul class="demo-exemplo">
-				<li><strong>Today:</strong> <span class="demo-today">n/a</span></li>
-				<li><strong>Picked Day:</strong> <span class="demo-picked">n/a</span></li>
-			</ul>
+
+			<div class="demo-exemplo">
+				<p><strong>Today:</strong> </p>
+				<ul class="demo-today"><span>n/a</span></ul>
+
+				<p><strong>Last Picked Day:</strong></p>
+				<ul class="demo-last"><span>n/a</span></ul>
+
+				<p><strong>Picked Days:</strong></p>
+				<ul class="demo-picked"><span>n/a</span></ul>
+			</div>
 		</div>
 	</section>
 	<section class="section section--options">
@@ -218,24 +261,39 @@
 	const next = document.querySelector('.demo-next');
 	const today = document.querySelector('.demo-today');
 	const picked = document.querySelector('.demo-picked');
+	const last = document.querySelector('.demo-last');
 
 	function updateInfo() {
-		if (this.currentDay) {
-			today.innerHTML = this.currentDay.dataset.timestamp;
+		if (this.today) {
+			today.innerHTML = '';
+			var li = document.createElement('li');
+			li.innerHTML = this.today;
+			today.appendChild(li);
 		}
 
 		if (this.selectedDay) {
-			picked.innerHTML = this.selectedDay.dataset.timestamp;
+
+			picked.innerHTML = '';
+			for (days of this.multipleDays) {
+				var li = document.createElement('li');
+				li.innerHTML = days;
+				picked.appendChild(li);
+			}
+
+			last.innerHTML = '';
+			var li = document.createElement('li');
+			li.innerHTML = this.selectedDay.dataset.timestamp;
+			last.appendChild(li);
 		}
 	}
 
 	const myCalendar = new Datepicker({
-		multiplePick: true,
+		multiplePick: false,
 		weekShort: true,
 		disablePastDays: true,
 		format: 'dd/mm/yyyy',
 		// minDate: 1520696057,
-		// maxDate: 1521988572,
+		maxDate: 1525191450,
 		onLoad: updateInfo,
 		onChange: updateInfo,
 		onSelect: updateInfo
