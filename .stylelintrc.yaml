@@ -228,8 +228,6 @@ rules:
   # Styles for components should never need the universal selector.
   selector-max-universal: 1
 
-  # Names are more semantic than numbers
-  font-weight-notation: named-where-possible
   # http://www.paulirish.com/2010/the-protocol-relative-url/
   function-url-no-scheme-relative: true
   # TODO: and FIXME: warnings are super useful because they remind us that we should address these

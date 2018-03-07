@@ -10,7 +10,6 @@
   border-radius: var(--datepicker-border-radius);
   background-color: var(--datepicker-bg-color);
   box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
-  overflow: hidden;
 
   .btn {
     width: 30px;
@@ -30,7 +29,8 @@
 
   &__label {
     width: 100%;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 100;
     text-align: center;
   }
 
@@ -48,7 +48,7 @@
       background-color: var(--datepicker-bg-day);
       color: var(--datepicker-color-day);
       font-size: 1rem;
-      font-weight: 100;
+      font-weight: 400;
       text-transform: uppercase;
       cursor: pointer;
     }

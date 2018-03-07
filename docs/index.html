@@ -6,24 +6,14 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
-	<link href="dist/datepicker.css" rel="stylesheet">
+	<link href="../dist/datepicker.css" rel="stylesheet">
 </head>
 <body>
 
 	<style>
-		html {
-			font-size: 16px;
-			font-family: 'Source Sans Pro', sans-serif;
-		}
-
-		body {
-			background-color: #FCEE55;
-			max-width: 1024px;
-			margin: auto;
-		}
 
 		:root {
-			--datepicker-max-width: 340px;
+			--datepicker-max-width: 980px;
 			--datepicker-bg-color: #fff;
 
 			--datepicker-bg-day: var(--datepicker-bg-color);
@@ -44,9 +34,20 @@
 			--datepicker-border-radius: 0;
 		}
 
+		html {
+			font-size: 16px;
+			font-family: 'Source Sans Pro', sans-serif;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			line-height: 1.4;
+			box-sizing: border-box;
+		}
+
 		h1 {
-			font-size: 4rem;
-			line-height: 1.8;
+			font-size: 3rem;
 			font-weight: 400;
 			color: #3e3e3e;
 			text-align: center;
@@ -54,8 +55,7 @@
 
 		h2 {
 			font-size: 1.6rem;
-			margin-top: 4rem;
-			margin-bottom: 2rem;
+			margin: 2rem 0;
 		}
 
 		p {
@@ -63,10 +63,19 @@
 			font-size: 1rem;
 		}
 
+		.btn {
+			transition: all .33s ease;
+			font-size: 1rem;
+		}
+
+		.btn:hover {
+			color: var(--datepicker-bg-selected);
+		}
+
 		.btn-download {
 			font-weight: 300;
 			display: inline-block;
-			padding: 16px 46px;
+			padding: 1rem 4rem;
 			text-align: center;
 			text-decoration: none;
 			border: none;
@@ -75,8 +84,8 @@
 			color: #fff;
 			cursor: pointer;
 			box-shadow: 0 14px 20px 0 rgba(15,20,25,0.1);
-			transition: all .25s ease;
-			margin: 2rem auto;
+			transition: all .33s ease;
+			margin: 1rem auto;
 			background-color: var(--datepicker-bg-selected);
 		}
 
@@ -85,17 +94,38 @@
 		}
 
 		.datepicker {
-			margin-top: 40px;
+			margin-top: 2rem;
 		}
 
 		.section {
 			display: block;
-			margin: 24px 0;
+			padding: 2rem 0;
+		}
+
+		.section--hero {
+			height: 100vh;
+			background-color: #FCEE55;
+		}
+
+		.section--options {
+			background-color: var(--datepicker-bg-selected);
+			min-height: 100vh;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 960px;
+			height: 100%;
+			margin: auto;
 		}
 
 		.highlight {
+			width: 100%;
 			background-color: #fdfdfd;
-			padding: 24px;
+			padding: 2rem;
 			font-size: .8rem;
 			box-shadow: 15px 7px 20px 1px rgba(0, 0, 0, 0.21);
 			border: 1px solid #f3f3f3;
@@ -113,11 +143,11 @@
 			margin: 0;
 			list-style: none;
 			justify-content: center;
-			margin-top: 4rem;
+			margin-top: 2rem;
 		}
 
 		.demo-exemplo li {
-			padding: 12px 24px;
+			padding: 1rem 2rem;
 		}
 
 		footer {
@@ -128,55 +158,61 @@
 
 		footer a {
 			text-decoration: none;
-			color: #E91E63;
+			color: var(--datepicker-bg-selected);
 			font-size: 1rem;
-			padding: 24px 0;
+			padding: 2rem 0;
 		}
 	</style>
-	<section class="section">
-		<h1>⏰<br>Javascript Datepicker</h1>
-		<p>Lightweight and simple datepicker with no dependencies</p>
+	<section class="section section--hero">
+		<div class="container">
+			<h1>⏰<br>Javascript Datepicker</h1>
+			<p>Lightweight and simple datepicker with no dependencies</p>
 
-		<div class="demo-download">
-			<a class="btn-download" title="Download Datepicker" href="https://codeload.github.com/maurovieirareis/datepicker/zip/master" download="">Download</a>
-		</div>
-
-		<div class="datepicker">
-			<div class="datepicker__header">
-				<button class="btn demo-prev">◀</button>
-				<div class="datepicker__label"></div>
-				<button class="btn demo-next">▶</button>
+			<div class="demo-download">
+				<a class="btn-download"
+				title="Download Datepicker"
+				href="https://codeload.github.com/maurovieirareis/datepicker/zip/master" download="">Download</a>
 			</div>
-			<div class="datepicker__week"></div>
-			<div class="datepicker__month"></div>
+
+			<div class="datepicker">
+				<div class="datepicker__header">
+					<button class="btn demo-prev">◀</button>
+					<div class="datepicker__label"></div>
+					<button class="btn demo-next">▶</button>
+				</div>
+				<div class="datepicker__week"></div>
+				<div class="datepicker__month"></div>
+			</div>
+			<ul class="demo-exemplo">
+				<li><strong>Today:</strong> <span class="demo-today">n/a</span></li>
+				<li><strong>Picked Day:</strong> <span class="demo-picked">n/a</span></li>
+			</ul>
 		</div>
-		<ul class="demo-exemplo">
-			<li><strong>Today:</strong> <span class="demo-today">n/a</span></li>
-			<li><strong>Picked Day:</strong> <span class="demo-picked">n/a</span></li>
-		</ul>
 	</section>
-	<section class="section">
-		<h2>Options</h2>
-		<pre class="highlight">
-		new Datepicker({
-			selector: '.datepicker',
-			lang: 'en',
-			format: "mm/dd/yyyy",
-			weekShort: true,
-			multiplePick: true,
-			disablePastDays: false,
-			onLoad: () => {},
-			onChange: () => {},
-			onSelect: () => {}
-		});
-	</pre>
+	<section class="section section--options">
+		<div class="container">
+			<h2>Options</h2>
+			<pre class="highlight">
+				new Datepicker({
+				selector: '.datepicker',
+				lang: 'en',
+				format: "mm/dd/yyyy",
+				weekShort: true,
+				multiplePick: true,
+				disablePastDays: false,
+				onLoad: () => {},
+				onChange: () => {},
+				onSelect: () => {}
+			});
+		</pre>
+	</div>
 </section>
 
-<!-- <footer>
+<footer>
 	<a href="https://github.com/maurovieirareis/datepicker" title="View on GitHub">View on GitHub</a>
-</footer> -->
+</footer>
 
-<script src="dist/datepicker.js" type="text/javascript"></script>
+<script src="../dist/datepicker.js" type="text/javascript"></script>
 <script>
 	const prev = document.querySelector('.demo-prev');
 	const next = document.querySelector('.demo-next');
@@ -185,16 +221,19 @@
 
 	function updateInfo() {
 		if (this.currentDay) {
-			today.innerHTML = this.currentDay.dataset.calendarDate;
+			console.log('this.currentDay', this.currentDay);
+			today.innerHTML = this.currentDay.dataset.timestamp;
 		}
 
 		if (this.selectedDay) {
-			picked.innerHTML = this.selectedDay.dataset.calendarDate;
+			console.log('this.selectedDay', this.selectedDay);
+			picked.innerHTML = this.selectedDay.dataset.timestamp;
 		}
 	}
 
 	const myCalendar = new Datepicker({
-		weekShort: true,
+		multiplePick: true,
+		weekShort: false,
 		disablePastDays: true,
 		onLoad: updateInfo,
 		onChange: updateInfo,
