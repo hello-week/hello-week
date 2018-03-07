@@ -6,28 +6,26 @@
   width: 100%;
   max-width: var(--datepicker-max-width);
   margin: 0 auto;
+  padding: 1rem;
   border-radius: var(--datepicker-border-radius);
   background-color: var(--datepicker-bg-color);
   box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
   overflow: hidden;
 
   .btn {
-    min-width: 27px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     border: 0;
     outline: none;
     text-align: center;
     cursor: pointer;
-
-    &:active {
-      border-radius: var(--datepicker-border-radius);
-    }
   }
 
   &__header {
     display: flex;
     align-items: center;
-    padding: 18px 12px;
+    padding: 2rem 1rem;
   }
 
   &__label {
@@ -46,12 +44,13 @@
       align-items: center;
       justify-content: center;
       width: 14.28%;
-      padding: 12px;
+      padding: 1rem;
       background-color: var(--datepicker-bg-day);
       color: var(--datepicker-color-day);
       font-size: 1rem;
       font-weight: 100;
       text-transform: uppercase;
+      cursor: pointer;
     }
   }
 
@@ -65,7 +64,7 @@
     align-items: center;
     justify-content: center;
     width: 14.28%;
-    padding: 12px;
+    padding: 1rem;
     border-radius: var(--datepicker-border-radius);
     background-color: #fff;
 
