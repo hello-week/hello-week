@@ -12,8 +12,8 @@ export class Datepicker {
     private date: any;
     private langs: any;
     private todaysDate: any;
-    public today: number;
-    public selectedDay: HTMLElement;
+    public today: string;
+    public selectedDay: string;
     public multipleDays: Array<string> = [];
 
     constructor (options: any = {}) {
@@ -29,7 +29,11 @@ export class Datepicker {
         this.week = document.querySelector('.' + Datepicker.CSS_CLASSES.WEEK);
         this.label = document.querySelector('.' + Datepicker.CSS_CLASSES.LABEL);
 
-        this.init(() => { /** callback function */ });
+        this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
+            this.langs = JSON.parse(text);
+            this.init(() => { /** callback function */ });
+        });
+
     }
 
     public static readonly CSS_CLASSES: any = {
@@ -83,16 +87,25 @@ export class Datepicker {
         this.activeDates = document.querySelectorAll('.' + Datepicker.CSS_CLASSES.IS_ACTIVE);
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
-                this.selectedDay = event.target;
+                const selectDay = event.target;
+
+                if (this.options.format) {
+                    // Formated
+                    this.selectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
+                } else {
+                    // Timestamp
+                    this.selectedDay = selectDay.dataset.timestamp;
+                }
+
                 if (this.options.multiplePick) {
-                    this.multipleDays.push(this.selectedDay.dataset.timestamp);
+                    this.multipleDays.push(this.selectedDay);
                     if (event.target.classList.contains(Datepicker.CSS_CLASSES.IS_SELECTED)) {
-                        this.multipleDays = this.multipleDays.filter((day: string) => day !== this.selectedDay.dataset.timestamp);
+                        this.multipleDays = this.multipleDays.filter((day: string) => day !== this.selectedDay);
                     }
                 } else {
                     this.removeActiveClass();
                     this.multipleDays = [];
-                    this.multipleDays.push(this.selectedDay.dataset.timestamp);
+                    this.multipleDays.push(this.selectedDay);
                 }
 
                 event.target.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
@@ -126,8 +139,8 @@ export class Datepicker {
     }
 
     public createDay (num: number, day: number): void {
-        let timestamp = Date.parse(this.date);
-        timestamp = timestamp / 1000;
+        let unixTimestamp = Date.parse(this.date);
+        let timestamp = unixTimestamp / 1000;
         const newDay = <any>document.createElement('div');
         newDay.textContent = num;
         newDay.classList.add(Datepicker.CSS_CLASSES.DAY);
@@ -155,7 +168,10 @@ export class Datepicker {
 
         if (this.date.toString() === this.todaysDate.toString()) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_TODAY);
-            this.today = timestamp;
+            this.today = timestamp.toString();
+            if (this.options.format) {
+                this.today= this.formatDate(unixTimestamp, this.options.format);
+            }
         }
 
         if (this.month) {
@@ -170,7 +186,6 @@ export class Datepicker {
     public updted(): void {
         this.createMonth();
         this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
-            this.langs = JSON.parse(text);
             this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
             const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
             this.week.textContent = '';
@@ -202,6 +217,21 @@ export class Datepicker {
         xobj.send(null);
     }
 
+    public formatDate(timestamp: number, format: string): string {
+        const dt = new Date(timestamp);
+        format = format.replace('dd', dt.getDate().toString());
+        format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+        format = format.replace('mm', (dt.getMonth() + 1).toString());
+        format = format.replace('MMM', this.langs.months[dt.getMonth()]);
+        format = format.replace('MM', ((dt.getMonth() + 1) > 9 ? (dt.getMonth() + 1) : '0' + (dt.getMonth() + 1)).toString());
+        format = format.replace('mmm', this.langs.monthsShort[dt.getMonth()]);
+        format = format.replace('yyyy', dt.getFullYear().toString());
+        format = format.replace('YYYY', dt.getFullYear().toString());
+        format = format.replace('YY', (dt.getFullYear().toString()).substring(2));
+        format = format.replace('yy', (dt.getFullYear().toString()).substring(2));
+        return format;
+    }
+
     private static extend(options: CallbackFunction) {
         const settings: any = {
             selector: '.datepicker',
@@ -224,7 +254,6 @@ export class Datepicker {
 
         return settings;
     }
-
 }
 
 import { Datepicker as MyDatepicker } from './datepicker';

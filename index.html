@@ -282,16 +282,17 @@
 
 			last.innerHTML = '';
 			var li = document.createElement('li');
-			li.innerHTML = this.selectedDay.dataset.timestamp;
+			li.innerHTML = this.selectedDay;
 			last.appendChild(li);
 		}
 	}
 
 	const myCalendar = new Datepicker({
+		lang: 'pt',
 		multiplePick: true,
 		weekShort: true,
 		disablePastDays: false,
-		format: 'dd/mm/yyyy',
+		format: 'DD MMM yyyy',
 		// minDate: 1520696057,
 		maxDate: 1525191450,
 		onLoad: updateInfo,
