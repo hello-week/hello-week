@@ -289,12 +289,12 @@
 
 	const myCalendar = new Datepicker({
 		lang: 'pt',
-		multiplePick: true,
-		weekShort: true,
-		disablePastDays: false,
-		format: 'DD MMM yyyy',
+		multiplePick: true, // true, false, range
+		weekShort: false,
+		disablePastDays: true,
+		format: 'YYYY, DD MMM',
 		// minDate: 1520696057,
-		maxDate: 1525191450,
+		// maxDate: 1522519829,
 		onLoad: updateInfo,
 		onChange: updateInfo,
 		onSelect: updateInfo
