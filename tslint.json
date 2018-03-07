@@ -46,6 +46,7 @@
           "typeLiterals": "ignore"
         }
       }
-    ]
+    ],
+    "no-namespace": [false, "allow-declarations"]
   }
 }
