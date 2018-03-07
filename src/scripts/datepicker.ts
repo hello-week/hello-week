@@ -24,7 +24,9 @@ export class Datepicker {
         this.week = document.querySelector('.datepicker__week');
         this.label = document.querySelector('.datepicker__label');
 
-        this.init(false);
+        type CallbackFunction = (n: any) => any;
+
+        this.init(() => {});
     }
 
     private static extend(options: any) {
@@ -46,10 +48,10 @@ export class Datepicker {
         }
 
         return settings;
-    }
+    };
 
 
-    public init(callback: any) {
+    public init(callback: Function) {
 
         this.date.setDate(1);
         this.updted();
@@ -57,11 +59,11 @@ export class Datepicker {
         if (callback) {
             callback.call(this);
         }
-    }
+    };
 
-    public prev(callback: any): void {
+    public prev(callback: Function): void {
         this.clearCalendar();
-        var prevMonth = this.date.getMonth() - 1;
+        const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.updted();
 
@@ -69,11 +71,11 @@ export class Datepicker {
         if (callback) {
             callback.call(this);
         }
-    }
+    };
 
-    public next(callback: any): void {
+    public next(callback: Function): void {
         this.clearCalendar();
-        var nextMonth = this.date.getMonth() + 1;
+        const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.updted();
 
@@ -81,11 +83,11 @@ export class Datepicker {
         if (callback) {
             callback.call(this);
         }
-    }
+    };
 
-    public selectDay(callback: any): void {
+    public selectDay(callback: Function): void {
         this.activeDates = document.querySelectorAll('.is-active');
-        for (var i = 0; i < this.activeDates.length; i++) {
+        for (let i = 0; i < this.activeDates.length; i++) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 this.selectedDay = event.target;
                 this.removeActiveClass();
@@ -99,7 +101,7 @@ export class Datepicker {
     };
 
     public createMonth(): void {
-        var currentMonth = this.date.getMonth();
+        const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
             this.createDay(
                 this.date.getDate(),
@@ -111,7 +113,7 @@ export class Datepicker {
 
         this.date.setDate(1)
         this.date.setMonth(this.date.getMonth() - 1)
-        this.selectDay(false);
+        this.selectDay(() => {});
     };
 
     public creatWeek(dayShort: number) {
@@ -119,10 +121,10 @@ export class Datepicker {
         weekDay.className = 'datepicker__week__day';
         weekDay.innerHTML = dayShort;
         this.week.appendChild(weekDay);
-    }
+    };
 
     public createDay (num: number, day: number, year: number): void {
-        var newDay = <any>document.createElement('div');
+        const newDay = <any>document.createElement('div');
         newDay.innerHTML = num;
         newDay.className = 'datepicker__day';
         newDay.setAttribute('data-calendar-date', this.date)
@@ -168,39 +170,34 @@ export class Datepicker {
                 this.creatWeek(weekFormat[day]);
             }
         });
-    }
+    };
 
     public clearCalendar(): void {
         this.month.innerHTML = '';
     };
 
     public removeActiveClass(): void {
-        for (var i = 0; i < this.activeDates.length; i++) {
+        for (let i = 0; i < this.activeDates.length; i++) {
             this.activeDates[i].classList.remove('is-selected');
         }
     };
 
-    /**
-     * Read json file with langs
-     * @param {any} file
-     * @param {any} callback
-     */
-     public readFile(file: any, callback: any): void {
-         var xobj = new XMLHttpRequest();
-         xobj.overrideMimeType("application/json");
-         xobj.open('GET', file, true);
-         xobj.onreadystatechange = function() {
-             if (xobj.readyState == 4 && <any>xobj.status == "200") {
-                 callback(xobj.responseText);
-             }
-         }
-         xobj.send(null);
-     }
- }
+    public readFile(file: string, callback: Function): void {
+        const xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', file, true);
+        xobj.onreadystatechange = function() {
+            if (xobj.readyState == 4 && <any>xobj.status == "200") {
+                callback(xobj.responseText);
+            }
+        }
+        xobj.send(null);
+    };
+}
 
- import { Datepicker as MyDatepicker } from "./datepicker";
- export namespace MyModule {
-     export const Datepicker = MyDatepicker;
- }
+import { Datepicker as MyDatepicker } from "./datepicker";
+export namespace MyModule {
+    export const Datepicker = MyDatepicker;
+}
 
- (<any>window).Datepicker = MyModule.Datepicker;
+(<any>window).Datepicker = MyModule.Datepicker;
