@@ -193,7 +193,7 @@
 		<div class="container">
 			<h2>Options</h2>
 			<pre class="highlight">
-				new Datepicker({
+			new Datepicker({
 				selector: '.datepicker',
 				lang: 'en',
 				format: "mm/dd/yyyy",
@@ -234,7 +234,8 @@
 	const myCalendar = new Datepicker({
 		multiplePick: true,
 		weekShort: false,
-		disablePastDays: true,
+		minDate: 1520696057,
+		maxDate: 1521988572,
 		onLoad: updateInfo,
 		onChange: updateInfo,
 		onSelect: updateInfo

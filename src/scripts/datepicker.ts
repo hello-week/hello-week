@@ -113,10 +113,11 @@ export class Datepicker {
 
     public createDay (num: number, day: number): void {
         let timestamp = Date.parse(this.date);
+        timestamp = timestamp / 1000;
         const newDay = <any>document.createElement('div');
         newDay.textContent = num;
         newDay.className = Datepicker.CSS_CLASSES.DAY;
-        newDay.setAttribute('data-timestamp', timestamp / 1000);
+        newDay.setAttribute('data-timestamp', timestamp);
 
         if (num === 1) {
             if (day === 0) {
@@ -126,7 +127,10 @@ export class Datepicker {
             }
         }
 
-        if (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) {
+        if (
+            (this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
+            (timestamp <= this.options.minDate) ||
+            (timestamp >= this.options.maxDate)) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_DISABLED);
         } else {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_ACTIVE);
@@ -148,7 +152,7 @@ export class Datepicker {
 
     public updted(): void {
         this.createMonth();
-        this.readFile('../dist/langs/' + this.options.lang + '.json', (text: any) => {
+        this.readFile('/dist/langs/' + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
             this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
             const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
