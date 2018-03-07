@@ -12,9 +12,9 @@ export class Datepicker {
     private date: any;
     private langs: any;
     private todaysDate: any;
-    private today: number;
-    private selectedDay: HTMLElement;
-    private multipleDays: Array<string> = [];
+    public today: number;
+    public selectedDay: HTMLElement;
+    public multipleDays: Array<string> = [];
 
     constructor (options: any = {}) {
 
@@ -140,7 +140,7 @@ export class Datepicker {
                 newDay.style.marginLeft = ((day - 1) * 14.28) + '%';
             }
         }
-        console.log(day);
+
         if (day === 0 || day === 1) {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_WEEKEND);
         }
@@ -169,7 +169,7 @@ export class Datepicker {
 
     public updted(): void {
         this.createMonth();
-        this.readFile('/dist/langs/' + this.options.lang + '.json', (text: any) => {
+        this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
             this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
             const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
