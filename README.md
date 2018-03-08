@@ -1,7 +1,5 @@
 
-# Datepicker
-
-#### Lightweight and simple datepicker with no dependencies.
+<p align="center"><img src="assets/images/datepicker.png" width="360"/></p>
 
 ## Installation
 
