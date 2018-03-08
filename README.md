@@ -25,7 +25,7 @@ Setup is trivially easy.
 #### Init Plugin
 
 ```html
-<script src="datepicker.js"></script>
+<script src="datepicker.min.js"></script>
 <script>
   new Datepicker();
 </script>
