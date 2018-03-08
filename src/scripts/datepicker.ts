@@ -14,7 +14,7 @@ export class Datepicker {
     private todaysDate: any;
     public today: string;
     public selectedDay: string;
-    public multipleDays: Array<string> = [];
+    public multipleDays: any = [];
 
     constructor (options: any = {}) {
 
@@ -24,6 +24,8 @@ export class Datepicker {
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
+
+        console.log(this.selector);
 
         this.month = document.querySelector('.' + Datepicker.CSS_CLASSES.MONTH);
         this.week = document.querySelector('.' + Datepicker.CSS_CLASSES.WEEK);
@@ -46,7 +48,7 @@ export class Datepicker {
         IS_SELECTED: 'is-selected',
         IS_DISABLED: 'is-disabled',
         IS_TODAY: 'is-today',
-        IS_WEEKEND: 'is-weekend'
+        IS_WEEKEND: 'is-weekend',
     };
 
     public init(callback: CallbackFunction) {
@@ -131,7 +133,7 @@ export class Datepicker {
         this.selectDay(() => { /** callback function */ });
     }
 
-    public creatWeek(dayShort: number) {
+    public creatWeek(dayShort: number): void {
         const weekDay = <any>document.createElement('span');
         weekDay.classList.add(Datepicker.CSS_CLASSES.WEEK_DAY);
         weekDay.textContent = dayShort;
@@ -139,8 +141,8 @@ export class Datepicker {
     }
 
     public createDay (num: number, day: number): void {
-        let unixTimestamp = Date.parse(this.date);
-        let timestamp = unixTimestamp / 1000;
+        const unixTimestamp = Date.parse(this.date);
+        const timestamp = unixTimestamp / 1000;
         const newDay = <any>document.createElement('div');
         newDay.textContent = num;
         newDay.classList.add(Datepicker.CSS_CLASSES.DAY);

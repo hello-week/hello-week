@@ -2,6 +2,7 @@
   "extends": "tslint:recommended",
   "rules": {
     "indent": [ true, "spaces" ],
+    "radix": false,
     "jsdoc-format": true,
     "whitespace": [
       false,
