@@ -273,10 +273,10 @@
 			today.appendChild(li);
 		}
 
-		if (this.selectedDay) {
+		if (this.lastSelectedDay) {
 
 			picked.innerHTML = '';
-			for (days of this.multipleDays) {
+			for (days of this.selectedDays) {
 				var li = document.createElement('li');
 				li.innerHTML = days;
 				picked.appendChild(li);
@@ -284,7 +284,7 @@
 
 			last.innerHTML = '';
 			var li = document.createElement('li');
-			li.innerHTML = this.selectedDay;
+			li.innerHTML = this.lastSelectedDay;
 			last.appendChild(li);
 		}
 	}
@@ -294,7 +294,7 @@
 		multiplePick: true, // true, false, range
 		weekShort: false,
 		disablePastDays: true,
-		format: 'YYYY, DD MMM',
+		// format: 'YYYY, DD MMM',
 		// minDate: 1520696057,
 		// maxDate: 1522519829,
 		onLoad: updateInfo,

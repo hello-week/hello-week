@@ -13,8 +13,8 @@ export class Datepicker {
     private langs: any;
     private todaysDate: any;
     public today: string;
-    public selectedDay: string;
-    public multipleDays: any = [];
+    public lastSelectedDay: string;
+    public selectedDays: any = [];
 
     constructor (options: any = {}) {
 
@@ -85,6 +85,10 @@ export class Datepicker {
         }
     }
 
+    /**
+     * Select day
+     * @param {CallbackFunction} callback
+     */
     public selectDay(callback: CallbackFunction): void {
         this.activeDates = document.querySelectorAll('.' + Datepicker.CSS_CLASSES.IS_ACTIVE);
         for (const i of Object.keys(this.activeDates)) {
@@ -93,23 +97,22 @@ export class Datepicker {
 
                 if (this.options.format) {
                     // Formated
-                    this.selectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
+                    this.lastSelectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
                 } else {
                     // Timestamp
-                    this.selectedDay = selectDay.dataset.timestamp;
+                    this.lastSelectedDay = selectDay.dataset.timestamp;
                 }
 
                 if (this.options.multiplePick) {
-                    this.multipleDays.push(this.selectedDay);
+                    this.selectedDays.push(this.lastSelectedDay);
                     if (event.target.classList.contains(Datepicker.CSS_CLASSES.IS_SELECTED)) {
-                        this.multipleDays = this.multipleDays.filter((day: string) => day !== this.selectedDay);
+                        this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
                     }
                 } else {
                     this.removeActiveClass();
-                    this.multipleDays = [];
-                    this.multipleDays.push(this.selectedDay);
+                    this.selectedDays = [];
+                    this.selectedDays.push(this.lastSelectedDay);
                 }
-
                 event.target.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
 
                 this.options.onSelect.call(this);
@@ -118,7 +121,6 @@ export class Datepicker {
                 }
             });
         }
-
     }
 
     public createMonth(): void {
@@ -140,10 +142,16 @@ export class Datepicker {
         this.week.appendChild(weekDay);
     }
 
+    /**
+     * Create days inside datepicker
+     * @param {number} num
+     * @param {number} day
+     */
     public createDay (num: number, day: number): void {
         const unixTimestamp = Date.parse(this.date);
         const timestamp = unixTimestamp / 1000;
         const newDay = <any>document.createElement('div');
+
         newDay.textContent = num;
         newDay.classList.add(Datepicker.CSS_CLASSES.DAY);
         newDay.setAttribute('data-timestamp', timestamp);
@@ -172,8 +180,22 @@ export class Datepicker {
             newDay.classList.add(Datepicker.CSS_CLASSES.IS_TODAY);
             this.today = timestamp.toString();
             if (this.options.format) {
-                this.today= this.formatDate(unixTimestamp, this.options.format);
+                this.today = this.formatDate(unixTimestamp, this.options.format);
             }
+        }
+
+        if (this.options.format) {
+            this.selectedDays.find( (day: string) => {
+                if (day === this.formatDate(unixTimestamp, this.options.format)) {
+                    newDay.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+                }
+            });
+        } else {
+            this.selectedDays.find( (day: string) => {
+                if (day === timestamp.toString()) {
+                    newDay.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+                }
+            });
         }
 
         if (this.month) {
