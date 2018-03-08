@@ -17,15 +17,12 @@ export class Datepicker {
     public selectedDays: any = [];
 
     constructor (options: any = {}) {
-
         this.options = Datepicker.extend(options);
 
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
-
-        console.log(this.selector);
 
         this.month = document.querySelector('.' + Datepicker.CSS_CLASSES.MONTH);
         this.week = document.querySelector('.' + Datepicker.CSS_CLASSES.WEEK);
@@ -51,8 +48,11 @@ export class Datepicker {
         IS_WEEKEND: 'is-weekend',
     };
 
+    /**
+     * Call
+     * @param {CallbackFunction} callback
+     */
     public init(callback: CallbackFunction) {
-
         this.date.setDate(1);
         this.updted();
         this.options.onLoad.call(this);
@@ -61,6 +61,10 @@ export class Datepicker {
         }
     }
 
+    /**
+     * Prev month
+     * @param {CallbackFunction} callback
+     */
     public prev(callback: CallbackFunction): void {
         this.clearCalendar();
         const prevMonth = this.date.getMonth() - 1;
@@ -73,6 +77,10 @@ export class Datepicker {
         }
     }
 
+    /**
+     * Next month
+     * @param {CallbackFunction} callback
+     */
     public next(callback: CallbackFunction): void {
         this.clearCalendar();
         const nextMonth = this.date.getMonth() + 1;
@@ -256,7 +264,7 @@ export class Datepicker {
         return format;
     }
 
-    private static extend(options: CallbackFunction) {
+    private static extend(options: CallbackFunction): object {
         const settings: any = {
             selector: '.datepicker',
             lang: 'en',
