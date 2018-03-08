@@ -212,19 +212,24 @@ export class Datepicker {
     }
 
     public monthsAsString(monthIndex: any): any {
-        return this.langs.months[monthIndex];
+        return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+    }
+
+    public weekAsString(weekIndex: any): any {
+        return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
     }
 
     public updted(): void {
+        this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+
+        /** Define week format */
+        const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
+        this.week.textContent = '';
+        for (const day of Object.keys(this.langs.daysShort)) {
+            this.creatWeek(this.weekAsString(day));
+        }
+
         this.createMonth();
-        this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
-            this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
-            const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
-            this.week.textContent = '';
-            for (const day of Object.keys(weekFormat)) {
-                this.creatWeek(weekFormat[day]);
-            }
-        });
     }
 
     public clearCalendar(): void {
@@ -270,6 +275,7 @@ export class Datepicker {
             lang: 'en',
             format: false,
             weekShort: true,
+            monthShort: false,
             disablePastDays: false,
             multiplePick: true,
             minDate: false,

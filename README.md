@@ -41,6 +41,7 @@ new Datepicker({
     selector: '.datepicker',
     lang: 'en',
     format: false,
+    monthShort: false,
     weekShort: true,
     disablePastDays: false,
     multiplePick: true,
