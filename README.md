@@ -31,17 +31,17 @@ yarn add hello-week
 ```html
 <script src="hello-week.min.js"></script>
 <script>
-  new Datepicker();
+  new HelloWeek();
 </script>
 ```
 
 ## Options
 
-Datepicker comes with a few (optional) settings that you can change by passing an object as an argument.
+HelloWeek comes with a few (optional) settings that you can change by passing an object as an argument.
 Default values are presented below.
 
 ```js
-new Datepicker({
+new HelloWeek({
     selector: '.hello-week',
     lang: 'en',
     format: false,
@@ -55,6 +55,88 @@ new Datepicker({
     onChange: () => { /** callback function */ },
     onSelect: () => { /** callback function */ },
 });
+```
+
+`selector`
+Define selector to use as a datepicker.
+
+```
+Default: false
+Accepts: string
+```
+
+`lang`
+Determines which translation file will be read.
+
+```
+Default: false
+Accepts: string
+```
+
+`format`
+See the table of available formats. The format also determines which components are displayed.
+```
+Default: false
+Accepts: string
+```
+
+`monthShort`
+Sets the format of the month.
+```
+Default: false
+```
+
+`weekShort`
+Sets the format of the week.
+```
+Default: true
+```
+
+`disablePastDays`
+Disable date before the current day.
+```
+Default: false
+```
+
+`multiplePick`
+Alows multiple days selection.
+```
+Default: false
+```
+
+`minDate`
+Disable date selections before this date.
+```
+Default: false
+Accepts: timestamp
+```
+
+`maxDate`
+Disable date selections after this date.
+```
+Default: false
+Accepts: timestamp
+```
+
+`onLoad`
+Runs immediately after initialization.
+```
+Default: false
+Accepts: function
+```
+
+`onChange`
+Runs after month change.
+```
+Default: false
+Accepts: function
+```
+
+`onSelect`
+Runs on select the day.
+```
+Default: false
+Accepts: function
 ```
 
 ### Date Format
@@ -80,6 +162,6 @@ Input | Example | Description |
 
 ## License
 
-**Datepicker** is open-sourced software licensed under the \[MIT license\](http://opensource.org/licenses/MIT)
+**Hello Week** is open-sourced software licensed under the \[MIT license\](http://opensource.org/licenses/MIT)
 
 Created with ♥️ by [@mauroreisvieira](https://twitter.com/mauroreisvieira) in **Portugal**
