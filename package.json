@@ -1,11 +1,14 @@
 {
-  "name": "Datepicker",
-  "version": "0.0.1",
+  "name": "hello-week",
+  "version": "0.0.2",
   "description": "",
   "license": "MIT",
   "repository": "https://bitbucket.org/mauroreisvieira/datepicker",
   "keywords": [
+    "yarn",
+    "webpack",
     "typescript",
+    "javascript",
     "scss",
     "datepicker"
   ],
