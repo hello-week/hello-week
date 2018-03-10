@@ -20,13 +20,19 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
 
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
+
+        // Early throw if selector doesn't exists
+        if (this.selector === null) {
+            throw new Error('You need to specify a selector!');
+        }
+
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
 
-        this.month = document.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
-        this.week = document.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
-        this.label = document.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
+        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
+        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
+        this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -240,6 +246,10 @@ export class HelloWeek {
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
         }
+    }
+
+    public destroy(): void {
+        this.removeActiveClass();
     }
 
     public readFile(file: string, callback: CallbackFunction): void {
