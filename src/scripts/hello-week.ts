@@ -1,8 +1,8 @@
-import '../styles/datepicker.scss';
+import '../styles/hello-week.scss';
 
 type CallbackFunction = (...args: any[]) => void;
 
-export class Datepicker {
+export class HelloWeek {
     private options: any;
     private selector: any;
     private month: HTMLElement;
@@ -17,16 +17,16 @@ export class Datepicker {
     public selectedDays: any = [];
 
     constructor (options: any = {}) {
-        this.options = Datepicker.extend(options);
+        this.options = HelloWeek.extend(options);
 
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
         this.activeDates = null;
         this.date = new Date();
         this.todaysDate = new Date();
 
-        this.month = document.querySelector('.' + Datepicker.CSS_CLASSES.MONTH);
-        this.week = document.querySelector('.' + Datepicker.CSS_CLASSES.WEEK);
-        this.label = document.querySelector('.' + Datepicker.CSS_CLASSES.LABEL);
+        this.month = document.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
+        this.week = document.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
+        this.label = document.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -36,11 +36,11 @@ export class Datepicker {
     }
 
     public static readonly CSS_CLASSES: any = {
-        MONTH: 'datepicker__month',
-        DAY: 'datepicker__day',
-        WEEK: 'datepicker__week',
-        WEEK_DAY: 'datepicker__week__day',
-        LABEL: 'datepicker__label',
+        MONTH: 'hello-week__month',
+        DAY: 'hello-week__day',
+        WEEK: 'hello-week__week',
+        WEEK_DAY: 'hello-week__week__day',
+        LABEL: 'hello-week__label',
         IS_ACTIVE: 'is-active',
         IS_SELECTED: 'is-selected',
         IS_DISABLED: 'is-disabled',
@@ -98,7 +98,7 @@ export class Datepicker {
      * @param {CallbackFunction} callback
      */
     public selectDay(callback: CallbackFunction): void {
-        this.activeDates = document.querySelectorAll('.' + Datepicker.CSS_CLASSES.IS_ACTIVE);
+        this.activeDates = document.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_ACTIVE);
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 const selectDay = event.target;
@@ -113,7 +113,7 @@ export class Datepicker {
 
                 if (this.options.multiplePick) {
                     this.selectedDays.push(this.lastSelectedDay);
-                    if (event.target.classList.contains(Datepicker.CSS_CLASSES.IS_SELECTED)) {
+                    if (event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                         this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
                     }
                 } else {
@@ -121,7 +121,7 @@ export class Datepicker {
                     this.selectedDays = [];
                     this.selectedDays.push(this.lastSelectedDay);
                 }
-                event.target.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+                event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
 
                 this.options.onSelect.call(this);
                 if (callback) {
@@ -145,13 +145,13 @@ export class Datepicker {
 
     public creatWeek(dayShort: number): void {
         const weekDay = <any>document.createElement('span');
-        weekDay.classList.add(Datepicker.CSS_CLASSES.WEEK_DAY);
+        weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
         weekDay.textContent = dayShort;
         this.week.appendChild(weekDay);
     }
 
     /**
-     * Create days inside datepicker
+     * Create days inside hello-week
      * @param {number} num
      * @param {number} day
      */
@@ -161,7 +161,7 @@ export class Datepicker {
         const newDay = <any>document.createElement('div');
 
         newDay.textContent = num;
-        newDay.classList.add(Datepicker.CSS_CLASSES.DAY);
+        newDay.classList.add(HelloWeek.CSS_CLASSES.DAY);
         newDay.setAttribute('data-timestamp', timestamp);
 
         if (num === 1) {
@@ -173,19 +173,19 @@ export class Datepicker {
         }
 
         if (day === 0 || day === 1) {
-            newDay.classList.add(Datepicker.CSS_CLASSES.IS_WEEKEND);
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_WEEKEND);
         }
 
         if ((this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
             (this.options.minDate && timestamp <= this.options.minDate) ||
             (this.options.maxDate && timestamp >= this.options.maxDate)) {
-            newDay.classList.add(Datepicker.CSS_CLASSES.IS_DISABLED);
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
         } else {
-            newDay.classList.add(Datepicker.CSS_CLASSES.IS_ACTIVE);
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
         }
 
         if (this.date.toString() === this.todaysDate.toString()) {
-            newDay.classList.add(Datepicker.CSS_CLASSES.IS_TODAY);
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
             this.today = timestamp.toString();
             if (this.options.format) {
                 this.today = this.formatDate(unixTimestamp, this.options.format);
@@ -195,13 +195,13 @@ export class Datepicker {
         if (this.options.format) {
             this.selectedDays.find( (day: string) => {
                 if (day === this.formatDate(unixTimestamp, this.options.format)) {
-                    newDay.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+                    newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
             });
         } else {
             this.selectedDays.find( (day: string) => {
                 if (day === timestamp.toString()) {
-                    newDay.classList.toggle(Datepicker.CSS_CLASSES.IS_SELECTED);
+                    newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
             });
         }
@@ -238,7 +238,7 @@ export class Datepicker {
 
     public removeActiveClass(): void {
         for (const i of Object.keys(this.activeDates)) {
-            this.activeDates[i].classList.remove(Datepicker.CSS_CLASSES.IS_SELECTED);
+            this.activeDates[i].classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
         }
     }
 
@@ -271,7 +271,7 @@ export class Datepicker {
 
     private static extend(options: CallbackFunction): object {
         const settings: any = {
-            selector: '.datepicker',
+            selector: '.hello-week',
             lang: 'en',
             format: false,
             weekShort: true,
@@ -294,9 +294,9 @@ export class Datepicker {
     }
 }
 
-import { Datepicker as MyDatepicker } from './datepicker';
+import { HelloWeek as MyHelloWeek } from './hello-week';
 export namespace MyModule {
-    export const Datepicker = MyDatepicker;
+    export const HelloWeek = MyHelloWeek;
 }
 
-(<any>window).Datepicker = MyModule.Datepicker;
+(<any>window).HelloWeek = MyModule.HelloWeek;

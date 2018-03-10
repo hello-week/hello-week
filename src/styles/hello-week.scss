@@ -2,13 +2,13 @@
   box-sizing: border-box;
 }
 
-.datepicker {
+.hello-week {
   width: 100%;
-  max-width: var(--datepicker-max-width);
+  max-width: var(--hello-week-max-width);
   margin: 0 auto;
   padding: 1rem;
-  border-radius: var(--datepicker-border-radius);
-  background-color: var(--datepicker-bg-color);
+  border-radius: var(--hello-week-border-radius);
+  background-color: var(--hello-week-bg-color);
   box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
   user-select: none;
 
@@ -37,8 +37,8 @@
 
   &__week {
     display: flex;
-    background-color: var(--datepicker-bg-week);
-    color: var(--datepicker-color-week);
+    background-color: var(--hello-week-bg-week);
+    color: var(--hello-week-color-week);
 
     &__day {
       display: inline-flex;
@@ -46,8 +46,8 @@
       justify-content: center;
       width: 14.28%;
       padding: 1rem;
-      background-color: var(--datepicker-bg-day);
-      color: var(--datepicker-color-day);
+      background-color: var(--hello-week-bg-day);
+      color: var(--hello-week-color-day);
       font-size: 1rem;
       font-weight: 400;
       text-transform: uppercase;
@@ -66,7 +66,7 @@
     justify-content: center;
     width: 14.28%;
     padding: 1rem;
-    border-radius: var(--datepicker-border-radius);
+    border-radius: var(--hello-week-border-radius);
     background-color: #fff;
 
     &.is-active {
@@ -74,24 +74,24 @@
     }
 
     &.is-today {
-      background-color: var(--datepicker-bg-tody);
-      color: var(--datepicker-color-tody);
+      background-color: var(--hello-week-bg-tody);
+      color: var(--hello-week-color-tody);
     }
 
     &.is-weekend {
-      background-color: var(--datepicker-bg-weekend);
-      color: var(--datepicker-color-weekend);
+      background-color: var(--hello-week-bg-weekend);
+      color: var(--hello-week-color-weekend);
     }
 
     &.is-selected {
-      background-color: var(--datepicker-bg-selected);
-      color: var(--datepicker-color-selected);
+      background-color: var(--hello-week-bg-selected);
+      color: var(--hello-week-color-selected);
     }
 
     &.is-disabled {
       border-radius: 0;
-      background-color: var(--datepicker-bg-disabled);
-      color: var(--datepicker-color-disabled);
+      background-color: var(--hello-week-bg-disabled);
+      color: var(--hello-week-color-disabled);
       cursor: not-allowed;
     }
   }

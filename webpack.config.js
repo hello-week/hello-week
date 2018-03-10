@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry : {
-        datepicker: './src/scripts/datepicker.ts'
+        helloweek: './src/scripts/hello-week.ts'
     },
     output: {
         path: path.resolve(__dirname, 'dist/'),

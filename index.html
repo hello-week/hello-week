@@ -6,35 +6,35 @@
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
-	<link href="dist/datepicker.css" rel="stylesheet">
+	<link href="dist/helloweek.css" rel="stylesheet">
 </head>
 <body>
 
 	<style>
 
 		:root {
-			--datepicker-max-width: 980px;
-			--datepicker-bg-color: #fff;
+			--hello-week-max-width: 980px;
+			--hello-week-bg-color: #fff;
 
-			--datepicker-bg-day: var(--datepicker-bg-color);
-			--datepicker-color-day: #ffa07a;
+			--hello-week-bg-day: var(--hello-week-bg-color);
+			--hello-week-color-day: #ffa07a;
 
-			--datepicker-bg-week: #fff;
-			--datepicker-color-week: #cfcfcf;
+			--hello-week-bg-week: #fff;
+			--hello-week-color-week: #cfcfcf;
 
-			--datepicker-bg-tody: #3e3e3e;
-			--datepicker-color-tody: #fff;
+			--hello-week-bg-tody: #3e3e3e;
+			--hello-week-color-tody: #fff;
 
-			--datepicker-bg-selected: #7FCBC3;
-			--datepicker-color-selected: #fff;
+			--hello-week-bg-selected: #7FCBC3;
+			--hello-week-color-selected: #fff;
 
-			--datepicker-bg-weekend: #f3f3f3;
-			--datepicker-color-weekend: #3e3e3e;
+			--hello-week-bg-weekend: #f3f3f3;
+			--hello-week-color-weekend: #3e3e3e;
 
-			--datepicker-bg-disabled: #f7f8fb;
-			--datepicker-color-disabled: #cfcfcf;
+			--hello-week-bg-disabled: #f7f8fb;
+			--hello-week-color-disabled: #cfcfcf;
 
-			--datepicker-border-radius: 0;
+			--hello-week-border-radius: 0;
 		}
 
 		html {
@@ -72,7 +72,7 @@
 		}
 
 		.btn:hover {
-			color: var(--datepicker-bg-selected);
+			color: var(--hello-week-bg-selected);
 		}
 
 		.btn-download {
@@ -89,14 +89,14 @@
 			box-shadow: 0 14px 20px 0 rgba(15,20,25,0.1);
 			transition: all .33s ease;
 			margin: 1rem auto;
-			background-color: var(--datepicker-bg-selected);
+			background-color: var(--hello-week-bg-selected);
 		}
 
 		.btn-download:hover {
-			background-color: var(--datepicker-bg-tody);
+			background-color: var(--hello-week-bg-tody);
 		}
 
-		.datepicker {
+		.hello-week {
 			margin-top: 2rem;
 		}
 
@@ -111,7 +111,7 @@
 		}
 
 		.section--options {
-			background-color: var(--datepicker-bg-selected);
+			background-color: var(--hello-week-bg-selected);
 			min-height: 100vh;
 		}
 
@@ -165,7 +165,7 @@
 			list-style: none;
 			padding: 0;
 			margin: 0;
-			background: var(--datepicker-bg-tody);
+			background: var(--hello-week-bg-tody);
 			height: auto;
 			align-items: center;
 			justify-content: center;
@@ -194,30 +194,30 @@
 
 		footer a {
 			text-decoration: none;
-			color: var(--datepicker-bg-selected);
+			color: var(--hello-week-bg-selected);
 			font-size: 1rem;
 			padding: 2rem 0;
 		}
 	</style>
 	<section class="section section--hero">
 		<div class="container">
-			<h1>📅<br>Javascript Datepicker</h1>
-			<p>Lightweight and simple datepicker with no dependencies</p>
+			<h1>📅<br>Javascript hello-week</h1>
+			<p>Lightweight and simple hello-week with no dependencies</p>
 
 			<div class="demo-download">
 				<a class="btn-download"
-				title="Download Datepicker"
-				href="https://codeload.github.com/maurovieirareis/datepicker/zip/master" download="">Download</a>
+				title="Download hello-week"
+				href="https://codeload.github.com/maurovieirareis/hello-week/zip/master" download="">Download</a>
 			</div>
 
-			<div class="datepicker">
-				<div class="datepicker__header">
+			<div class="hello-week">
+				<div class="hello-week__header">
 					<button class="btn demo-prev">◀</button>
-					<div class="datepicker__label"></div>
+					<div class="hello-week__label"></div>
 					<button class="btn demo-next">▶</button>
 				</div>
-				<div class="datepicker__week"></div>
-				<div class="datepicker__month"></div>
+				<div class="hello-week__week"></div>
+				<div class="hello-week__month"></div>
 			</div>
 
 			<div class="demo-exemplo">
@@ -236,8 +236,8 @@
 		<div class="container">
 			<h2>Options</h2>
 			<pre class="highlight">
-			new Datepicker({
-	            selector: '.datepicker',
+			new hello-week({
+	            selector: '.hello-week',
 	            lang: 'en',
 	            format: false,
 	            monthShort: false,
@@ -255,10 +255,10 @@
 </section>
 
 <footer>
-	<a href="https://github.com/maurovieirareis/datepicker" title="View on GitHub">View on GitHub</a>
+	<a href="https://github.com/maurovieirareis/hello-week" title="View on GitHub">View on GitHub</a>
 </footer>
 
-<script src="dist/datepicker.min.js" type="text/javascript"></script>
+<script src="dist/helloweek.min.js" type="text/javascript"></script>
 <script>
 	const prev = document.querySelector('.demo-prev');
 	const next = document.querySelector('.demo-next');
@@ -290,8 +290,8 @@
 		}
 	}
 
-	const myCalendar = new Datepicker({
-		selector: '.datepicker',
+	const myCalendar = new HelloWeek({
+		selector: '.hello-week',
 		lang: 'en',
 		format: 'DD/MM/YYYY',
 		monthShort: true,

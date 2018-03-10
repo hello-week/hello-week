@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/images/datepicker.png" width="360"/></p>
+<p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
 
 ## Quick start
 
@@ -7,21 +7,21 @@
 #### HTML Markup
 
 ```html
-<div class="datepicker">
-    <div class="datepicker__header">
+<div class="hello-week">
+    <div class="hello-week__header">
         <button class="demo-prev">Prev</button>
-        <div class="datepicker__label"></div>
+        <div class="hello-week__label"></div>
         <button class="demo-next">Next</button>
     </div>
-    <div class="datepicker__week"></div>
-    <div class="datepicker__month"></div>
+    <div class="hello-week__week"></div>
+    <div class="hello-week__month"></div>
 </div>
 ```
 
 #### Init Plugin
 
 ```html
-<script src="datepicker.min.js"></script>
+<script src="hello-week.min.js"></script>
 <script>
   new Datepicker();
 </script>
@@ -34,7 +34,7 @@ Default values are presented below.
 
 ```js
 new Datepicker({
-    selector: '.datepicker',
+    selector: '.hello-week',
     lang: 'en',
     format: false,
     monthShort: false,

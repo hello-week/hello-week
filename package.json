@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "",
   "license": "MIT",
-  "repository": "https://bitbucket.org/mauroreisvieira/datepicker",
+  "repository": "https://bitbucket.org/mauroreisvieira/hello-week",
   "keywords": [
     "yarn",
     "webpack",
@@ -14,7 +14,7 @@
   ],
   "author": "Mauro Reis Vieira <mauroreisvieira@gmail.com>",
   "bugs": {
-    "url": "https://github.com/maurovieirareis/datepicker/issues"
+    "url": "https://github.com/maurovieirareis/hello-week/issues"
   },
   "ignore": [
     "node_modules"
