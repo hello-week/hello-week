@@ -4,6 +4,14 @@
 
 ### Installation
 
+```bash
+npm install hello-week --save
+```
+
+```bash
+yarn add hello-week
+```
+
 #### HTML Markup
 
 ```html
