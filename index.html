@@ -305,12 +305,12 @@
 			weekShort: true,
 			disablePastDays: true,
 			multiplePick: false,
-		// minDate: 1520696057,
-		// maxDate: 1522519829,
-		onLoad: updateInfo,
-		onChange: updateInfo,
-		onSelect: updateInfo
-	});
+			onLoad: updateInfo,
+			onChange: updateInfo,
+			onSelect: updateInfo
+		});
+
+		myCalendar.selectedDays.push('1525556882', '1525643282');
 
 		prev.addEventListener('click', () => myCalendar.prev());
 		next.addEventListener('click', () => myCalendar.next());

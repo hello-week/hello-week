@@ -1,6 +1,6 @@
 <p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
 
-See the demo: [https://maurovieirareis.github.io/hello-week/](https://maurovieirareis.github.io/hello-week/).
+See the demo: [https://maurovieirareis.github.io/hello-week/](Hello Week).
 
 ## Quick start
 
