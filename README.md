@@ -1,6 +1,6 @@
 <p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
 
-See the demo: [https://maurovieirareis.github.io/hello-week/](Hello Week).
+See the demo: [Hello Week](https://maurovieirareis.github.io/hello-week/).
 
 ## Quick start
 
@@ -156,11 +156,11 @@ Input | Example | Description |
 
 ### Supported Browsers:
 
-- IE10
+- IE11
 - Chrome 12
 - Firefox 16
 - Opera 15
-- Safari 5.1
+- Safari 6
 
 ## License
 
