@@ -51,6 +51,7 @@ new HelloWeek({
     weekShort: true,
     disablePastDays: false,
     multiplePick: true,
+    defaultDate: '2018-09-12',
     minDate: false,
     maxDate: false,
     onLoad: () => { /** callback function */ },
@@ -102,6 +103,12 @@ Default: false
 
 `multiplePick`
 Alows multiple days selection.
+```
+Default: false
+```
+
+`defaultDate`
+Define the start date in calendar.
 ```
 Default: false
 ```
