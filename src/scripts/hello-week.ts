@@ -30,6 +30,11 @@ export class HelloWeek {
         this.date = new Date();
         this.todaysDate = new Date();
 
+        if (this.options.defaultDate) {
+            this.date = new Date(this.options.defaultDate);
+            this.todaysDate = new Date(this.options.defaultDate);
+        }
+
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
@@ -288,6 +293,7 @@ export class HelloWeek {
             monthShort: false,
             disablePastDays: false,
             multiplePick: true,
+            defaultDate: true,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },
