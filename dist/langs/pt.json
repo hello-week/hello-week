@@ -1,48 +1,59 @@
 {
     "days": [
-        "Domingo",
-        "Segunda",
-        "Terça",
-        "Quarta",
-        "Quinta",
-        "Sexta",
-        "Sábado"
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
     ],
     "daysShort": [
-        "Dom",
-        "Seg",
-        "Ter",
-        "Qua",
-        "Qui",
-        "Sex",
-        "Sab"
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+    ],
+    "daysMin": [
+        "Mo",
+        "Tu",
+        "We",
+        "Th",
+        "Fr",
+        "Sa",
+        "Su"
     ],
     "months": [
         "Janeiro",
         "Fevereiro",
         "Março",
         "April",
-        "Maio",
-        "Junho",
-        "Juho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro"
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
     ],
     "monthsShort": [
         "Jan",
-        "Fev",
+        "Feb",
         "Mar",
-        "Abr",
-        "Mai",
+        "Apr",
+        "May",
         "Jun",
         "Jul",
         "Aug",
-        "Set",
-        "Out",
+        "Sep",
+        "Oct",
         "Nov",
-        "Dez"
-    ]
+        "Dec"
+    ],
+    "today": "Today",
+    "clear": "Clear"
 }
