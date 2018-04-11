@@ -334,7 +334,6 @@ export class HelloWeek {
             disablePastDays: false,
             disabledDaysOfWeek: false,
             disableDates: false,
-            weekStart: 0,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

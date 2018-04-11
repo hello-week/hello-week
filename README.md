@@ -47,11 +47,15 @@ new HelloWeek({
     selector: '.hello-week',
     lang: 'en',
     format: false,
-    monthShort: false,
     weekShort: true,
-    disablePastDays: false,
+    monthShort: false,
     multiplePick: true,
     defaultDate: '2018-09-12',
+    todayHighlight: true,
+    disablePastDays: false,
+    disabledDaysOfWeek: false,
+    disableDates: false,
+    weekStart: 0,
     minDate: false,
     maxDate: false,
     onLoad: () => { /** callback function */ },
@@ -83,20 +87,14 @@ Default: false
 Accepts: string
 ```
 
-`monthShort`
-Sets the format of the month.
-```
-Default: false
-```
-
 `weekShort`
 Sets the format of the week.
 ```
 Default: true
 ```
 
-`disablePastDays`
-Disable date before the current day.
+`monthShort`
+Sets the format of the month.
 ```
 Default: false
 ```
@@ -119,8 +117,20 @@ If true, highlights the current date.
 Default: true
 ```
 
+`disablePastDays`
+Disable date before the current day.
+```
+Default: false
+```
+
 `disabledDaysOfWeek`
 Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated.
+```
+Default: false
+```
+
+`disableDates`
+Array of date strings or a single date string formatted in the given date format
 ```
 Default: false
 ```
