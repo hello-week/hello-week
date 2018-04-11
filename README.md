@@ -113,6 +113,18 @@ Define the start date in calendar.
 Default: false
 ```
 
+`todayHighlight`
+If true, highlights the current date.
+```
+Default: true
+```
+
+`disabledDaysOfWeek`
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated.
+```
+Default: false
+```
+
 `minDate`
 Disable date selections before this date.
 ```
