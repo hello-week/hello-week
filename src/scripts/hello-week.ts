@@ -183,8 +183,12 @@ export class HelloWeek {
             }
         }
 
-        if (day === 0 || day === 1) {
+        if (day === 0 || day === 6) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_WEEKEND);
+        }
+
+        if (this.options.disabledDaysOfWeek && (day === 0 || day === 6)) {
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
         }
 
         if ((this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
@@ -307,8 +311,9 @@ export class HelloWeek {
             disablePastDays: false,
             multiplePick: true,
             defaultDate: false,
-            disableDates: false,
             todayHighlight: true,
+            disableDates: false,
+            disabledDaysOfWeek: false,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

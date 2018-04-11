@@ -306,7 +306,15 @@
 			multiplePick: false,
 			defaultDate: false,
 			disablePastDays: true,
+			disabledDaysOfWeek: true,
 			todayHighlight: true,
+			disableDates: [
+				'2018-09-11', '2018-09-13', '2018-09-14'
+			],
+			// disableDates: [
+			// 	['2018-09-01', '2018-09-10'],
+			// 	['2018-09-16', '2018-09-22']
+			// ],
 			onLoad: updateInfo,
 			onChange: updateInfo,
 			onSelect: updateInfo
