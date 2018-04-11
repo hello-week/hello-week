@@ -195,7 +195,20 @@ export class HelloWeek {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
         }
 
-        if (this.date.toString() === this.todaysDate.toString()) {
+        if (this.options.disableDates) {
+            console.log(this.options.disableDates);
+            this.options.disableDates.map((date: any) => {
+                if (date instanceof Array) {
+                    console.log(date);
+                } else {
+                    console.log(date);
+                }
+            });
+            const unixTimestamp = Date.parse(this.date);
+            const timestamp = unixTimestamp / 1000;
+        }
+
+        if (this.date.toString() === this.todaysDate.toString() && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
             this.today = timestamp.toString();
             if (this.options.format) {
@@ -293,7 +306,9 @@ export class HelloWeek {
             monthShort: false,
             disablePastDays: false,
             multiplePick: true,
-            defaultDate: true,
+            defaultDate: false,
+            disableDates: false,
+            todayHighlight: true,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

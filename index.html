@@ -303,9 +303,10 @@
 			format: 'DD/MM/YYYY',
 			monthShort: true,
 			weekShort: true,
-			disablePastDays: true,
 			multiplePick: false,
-			defaultDate: '2018-09-12', // for now only support this format.
+			defaultDate: false,
+			disablePastDays: true,
+			todayHighlight: true,
 			onLoad: updateInfo,
 			onChange: updateInfo,
 			onSelect: updateInfo
