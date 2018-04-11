@@ -220,12 +220,7 @@ export class HelloWeek {
                     }
                 } else {
                     this.options.disableDates.map((date: any) => {
-                        console.log(<number>date);
-                        const dt = new Date(<number>date).toDateString();
-                        const udt = new Date(unixTimestamp).toDateString();
-                        console.log(dt);
-                        console.log(udt);
-                        if (unixTimestamp >= new Date(date).getTime()  && unixTimestamp <= new Date(date).getTime()) {
+                        if (this.formatDate(new Date(unixTimestamp).getTime(), 'YYYY-MM-DD') === this.formatDate(new Date(+date).getTime(), 'YYYY-MM-DD')) {
                             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
                         }
                     });
