@@ -300,20 +300,27 @@
 		const myCalendar = new HelloWeek({
 			selector: '.hello-week',
 			lang: 'en',
-			format: 'DD/MM/YYYY',
+			// format: 'YYYY-MM-DD',
 			monthShort: true,
 			weekShort: true,
 			multiplePick: false,
 			defaultDate: false,
-			disablePastDays: true,
-			disabledDaysOfWeek: true,
-			todayHighlight: true,
+			todayHighlight: false,
+			disablePastDays: false,
+			disabledDaysOfWeek: false,
+			// disableDates: [
+			// 	'2018-04-17', '2018-04-19', '2018-04-23'
+			// ],
 			disableDates: [
-				'2018-09-11', '2018-09-13', '2018-09-14'
+				'1523028198000', '1523028198000', '1523978598000'
 			],
 			// disableDates: [
-			// 	['2018-09-01', '2018-09-10'],
-			// 	['2018-09-16', '2018-09-22']
+			// 	['2018-04-01', '2018-04-10'],
+			// 	['2018-04-16', '2018-04-22']
+			// ],
+			// disableDates: [
+			// 	['1522595419000', '1523286619000'],
+			// 	['1524323419000', '1524755419000']
 			// ],
 			onLoad: updateInfo,
 			onChange: updateInfo,

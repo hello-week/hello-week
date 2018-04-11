@@ -27,13 +27,8 @@ export class HelloWeek {
         }
 
         this.activeDates = null;
-        this.date = new Date();
-        this.todaysDate = new Date();
-
-        if (this.options.defaultDate) {
-            this.date = new Date(this.options.defaultDate);
-            this.todaysDate = new Date(this.options.defaultDate);
-        }
+        this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
+        this.todaysDate = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
 
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
@@ -43,7 +38,6 @@ export class HelloWeek {
             this.langs = JSON.parse(text);
             this.init(() => { /** callback function */ });
         });
-
     }
 
     public static readonly CSS_CLASSES: any = {
@@ -128,11 +122,16 @@ export class HelloWeek {
                         this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
                     }
                 } else {
-                    this.removeActiveClass();
+                    if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                        this.removeActiveClass();
+                    }
                     this.selectedDays = [];
                     this.selectedDays.push(this.lastSelectedDay);
                 }
-                event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+
+                if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                    event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                }
 
                 this.options.onSelect.call(this);
                 if (callback) {
@@ -146,10 +145,10 @@ export class HelloWeek {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
             this.createDay(this.date.getDate(), this.date.getDay());
+            // jump while
             this.date.setDate(this.date.getDate() + 1);
         }
-
-        this.date.setDate(1);
+        // put correct month
         this.date.setMonth(this.date.getMonth() - 1);
         this.selectDay(() => { /** callback function */ });
     }
@@ -187,8 +186,10 @@ export class HelloWeek {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_WEEKEND);
         }
 
-        if (this.options.disabledDaysOfWeek && (day === 0 || day === 6)) {
-            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+        if (this.options.disabledDaysOfWeek) {
+            if (this.options.disabledDaysOfWeek.includes(day)) {
+                newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+            }
         }
 
         if ((this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
@@ -200,16 +201,40 @@ export class HelloWeek {
         }
 
         if (this.options.disableDates) {
-            console.log(this.options.disableDates);
-            this.options.disableDates.map((date: any) => {
-                if (date instanceof Array) {
-                    console.log(date);
+            if (this.options.disableDates[0] instanceof Array) {
+                this.options.disableDates.map((date: any) => {
+                    if (this.options.format) {
+                        if (unixTimestamp >= new Date(date[0]).getTime()  && unixTimestamp <= new Date(date[1]).getTime()) {
+                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                        }
+                    } else {
+                        if (unixTimestamp >= date[0] && unixTimestamp <= date[1]) {
+                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                        }
+                    }
+                });
+            } else {
+                if (this.options.format) {
+                    if (this.options.disableDates.includes(this.formatDate(unixTimestamp, this.options.format))) {
+                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                    }
                 } else {
-                    console.log(date);
+                    this.options.disableDates.map((date: any) => {
+                        console.log(<number>date);
+                        const dt = new Date(<number>date).toDateString();
+                        const udt = new Date(unixTimestamp).toDateString();
+                        console.log(dt);
+                        console.log(udt);
+                        if (unixTimestamp >= new Date(date).getTime()  && unixTimestamp <= new Date(date).getTime()) {
+                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                        }
+                    });
+                    if (this.options.disableDates.includes(unixTimestamp.toString())) {
+                        console.log('Hi');
+                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                    }
                 }
-            });
-            const unixTimestamp = Date.parse(this.date);
-            const timestamp = unixTimestamp / 1000;
+            }
         }
 
         if (this.date.toString() === this.todaysDate.toString() && this.options.todayHighlight) {
@@ -308,12 +333,13 @@ export class HelloWeek {
             format: false,
             weekShort: true,
             monthShort: false,
-            disablePastDays: false,
             multiplePick: true,
             defaultDate: false,
             todayHighlight: true,
-            disableDates: false,
+            disablePastDays: false,
             disabledDaysOfWeek: false,
+            disableDates: false,
+            weekStart: 0,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },
