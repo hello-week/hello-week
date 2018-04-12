@@ -67,7 +67,9 @@ export class HelloWeek {
     }
 
     /**
-     * Prev month
+     * Public method
+     * Method to change the month to the previous, also you can send a callback function like a parameter.
+     *
      * @param {CallbackFunction} callback
      */
     public prev(callback: CallbackFunction): void {
@@ -83,7 +85,8 @@ export class HelloWeek {
     }
 
     /**
-     * Next month
+     * Public method
+     * Method to change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
     public next(callback: CallbackFunction): void {
@@ -109,10 +112,10 @@ export class HelloWeek {
                 const selectDay = event.target;
 
                 if (this.options.format) {
-                    // Formated
+                    // date formated
                     this.lastSelectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
                 } else {
-                    // Timestamp
+                    // date in timestamp
                     this.lastSelectedDay = selectDay.dataset.timestamp;
                 }
 

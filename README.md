@@ -74,9 +74,14 @@ Accepts: string
 
 `lang`
 Determines which translation file will be read.
-
 ```
 Default: false
+Accepts: string
+```
+
+`langFolder`
+Determines path of your langs
+```
 Accepts: string
 ```
 
@@ -185,11 +190,13 @@ Input | Example | Description |
 
 ### Supported Browsers:
 
-- IE11
+- IE10/Edge
 - Chrome 12
 - Firefox 16
 - Opera 15
-- Safari 6
+- Safari 5.1
+- Android Browser 4.0
+- iOS Safari 6.0
 
 ## License
 
