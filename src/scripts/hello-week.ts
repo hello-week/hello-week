@@ -34,7 +34,7 @@ export class HelloWeek {
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
-        this.readFile('./dist/langs/' + this.options.lang + '.json', (text: any) => {
+        this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
             this.init(() => { /** callback function */ });
         });
@@ -325,6 +325,7 @@ export class HelloWeek {
         const settings: any = {
             selector: '.hello-week',
             lang: 'en',
+            langFolder: './dist/langs/',
             format: false,
             weekShort: true,
             monthShort: false,

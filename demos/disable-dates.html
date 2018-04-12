@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Week - Datepicker Javascript</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    <link href="demo.css" rel="stylesheet">
+    <link href="helloweek.css" rel="stylesheet">
+</head>
+<body>
+    <section class="section section--hero">
+        <div class="container">
+            <h1>Hello Week</h1>
+            <p>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</p>
+
+            <div class="demo-download">
+                <a class="btn-download" title="Download hello-week" href="https://codeload.github.com/maurovieirareis/hello-week/zip/master" download="">Download</a>
+            </div>
+
+            <div class="hello-week">
+                <div class="hello-week__header">
+                    <button class="btn demo-prev">◀</button>
+                    <div class="hello-week__label"></div>
+                    <button class="btn demo-next">▶</button>
+                </div>
+                <div class="hello-week__week"></div>
+                <div class="hello-week__month"></div>
+            </div>
+
+            <div class="demo-exemplo">
+                <p><strong>Today:</strong> </p>
+                <ul class="demo-today"><span>n/a</span></ul>
+
+                <p><strong>Last Picked Day:</strong></p>
+                <ul class="demo-last"><span>n/a</span></ul>
+
+                <p><strong>Picked Days:</strong></p>
+                <ul class="demo-picked"><span>n/a</span></ul>
+            </div>
+        </div>
+    </section>
+    <section class="section section--options">
+        <div class="container">
+            <h2>Installation</h2>
+            <code>npm install hello-week --save</code>
+            <code>yarn add hello-week</code>
+            <script src="https://gist.github.com/maurovieirareis/4827222425869cf251570403785fecde.js"></script>
+            <h2>Options</h2>
+            <p>HelloWeek comes with a few (optional) settings that you can change by passing an object as an argument.<br>
+            Default values are presented below.</p>
+            <div class="highlight">
+                <script src="https://gist.github.com/maurovieirareis/9a4b801a0dcf6bf43e240aeefd654b92.js"></script>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Follow me on:
+            <a href="https://github.com/maurovieirareis/" title="GitHub">GitHub</a> and
+            <a href="https://twitter.com/mauroreisvieira/" title="Twitter">Twitter</a>
+        </p>
+    </footer>
+
+    <script src="helloweek.min.js" type="text/javascript"></script>
+    <script>
+        const prev = document.querySelector('.demo-prev');
+        const next = document.querySelector('.demo-next');
+        const today = document.querySelector('.demo-today');
+        const picked = document.querySelector('.demo-picked');
+        const last = document.querySelector('.demo-last');
+
+        function updateInfo() {
+            if (this.today) {
+                today.innerHTML = '';
+                var li = document.createElement('li');
+                li.innerHTML = this.today;
+                today.appendChild(li);
+            }
+
+            if (this.lastSelectedDay) {
+
+                picked.innerHTML = '';
+                for (days of this.selectedDays) {
+                    var li = document.createElement('li');
+                    li.innerHTML = days;
+                    picked.appendChild(li);
+                }
+
+                last.innerHTML = '';
+                var li = document.createElement('li');
+                li.innerHTML = this.lastSelectedDay;
+                last.appendChild(li);
+            }
+        }
+
+        const myCalendar = new HelloWeek({
+            selector: '.hello-week',
+            lang: 'en',
+            langFolder: './langs/',
+            format: 'YYYY-MM-DD',
+            monthShort: true,
+            weekShort: true,
+            multiplePick: false,
+            todayHighlight: true,
+            disableDates: [
+                '2018-04-17', '2018-04-19', '2018-04-23'
+            ],
+            onLoad: updateInfo,
+            onChange: updateInfo,
+            onSelect: updateInfo
+        });
+
+        myCalendar.selectedDays.push('1525556882', '1525643282');
+
+        prev.addEventListener('click', () => myCalendar.prev());
+        next.addEventListener('click', () => myCalendar.next());
+
+    </script>
+</body>
+
+</html>
