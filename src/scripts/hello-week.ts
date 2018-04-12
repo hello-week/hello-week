@@ -16,6 +16,29 @@ export class HelloWeek {
     public lastSelectedDay: string;
     public selectedDays: any = [];
 
+    public static readonly CSS_CLASSES: any = {
+        MONTH       : 'hello-week__month',
+        DAY         : 'hello-week__day',
+        WEEK        : 'hello-week__week',
+        WEEK_DAY    : 'hello-week__week__day',
+        LABEL       : 'hello-week__label',
+        IS_ACTIVE   : 'is-active',
+        IS_SELECTED : 'is-selected',
+        IS_DISABLED : 'is-disabled',
+        IS_TODAY    : 'is-today',
+        IS_WEEKEND  : 'is-weekend',
+    };
+
+    public static readonly DAYS_WEEK: any = {
+        SUNDAY    : 0,
+        MONDAY    : 1,
+        TUESDAY   : 2,
+        WEDNESDAY : 3,
+        THURSDAY  : 4,
+        FRIDAY    : 5,
+        SATURDAY  : 6,
+    };
+
     constructor (options: any = {}) {
         this.options = HelloWeek.extend(options);
 
@@ -40,19 +63,6 @@ export class HelloWeek {
         });
     }
 
-    public static readonly CSS_CLASSES: any = {
-        MONTH: 'hello-week__month',
-        DAY: 'hello-week__day',
-        WEEK: 'hello-week__week',
-        WEEK_DAY: 'hello-week__week__day',
-        LABEL: 'hello-week__label',
-        IS_ACTIVE: 'is-active',
-        IS_SELECTED: 'is-selected',
-        IS_DISABLED: 'is-disabled',
-        IS_TODAY: 'is-today',
-        IS_WEEKEND: 'is-weekend',
-    };
-
     /**
      * Call
      * @param {CallbackFunction} callback
@@ -69,7 +79,6 @@ export class HelloWeek {
     /**
      * Public method
      * Method to change the month to the previous, also you can send a callback function like a parameter.
-     *
      * @param {CallbackFunction} callback
      */
     public prev(callback: CallbackFunction): void {
@@ -144,6 +153,13 @@ export class HelloWeek {
         }
     }
 
+    public creatWeek(dayShort: number): void {
+        const weekDay = <any>document.createElement('span');
+        weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
+        weekDay.textContent = dayShort;
+        this.week.appendChild(weekDay);
+    }
+
     public createMonth(): void {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
@@ -154,13 +170,6 @@ export class HelloWeek {
         // put correct month
         this.date.setMonth(this.date.getMonth() - 1);
         this.selectDay(() => { /** callback function */ });
-    }
-
-    public creatWeek(dayShort: number): void {
-        const weekDay = <any>document.createElement('span');
-        weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
-        weekDay.textContent = dayShort;
-        this.week.appendChild(weekDay);
     }
 
     /**
@@ -178,14 +187,18 @@ export class HelloWeek {
         newDay.setAttribute('data-timestamp', timestamp);
 
         if (num === 1) {
-            if (day === 0) {
-                newDay.style.marginLeft = (6 * 14.28) + '%';
+            if (this.options.weekStart === HelloWeek.DAYS_WEEK.SUNDAY) {
+                newDay.style.marginLeft = ((day) * (100 / 7)) + '%';
             } else {
-                newDay.style.marginLeft = ((day - 1) * 14.28) + '%';
+                if (day === HelloWeek.DAYS_WEEK.SUNDAY) {
+                    newDay.style.marginLeft = ((7 - this.options.weekStart) * (100 / 7)) + '%';
+                } else {
+                    newDay.style.marginLeft = ((day - 1) * (100 / 7)) + '%';
+                }
             }
         }
 
-        if (day === 0 || day === 6) {
+        if (day === HelloWeek.DAYS_WEEK.SUNDAY || day === HelloWeek.DAYS_WEEK.SATURDAY) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_WEEKEND);
         }
 
@@ -207,7 +220,7 @@ export class HelloWeek {
             if (this.options.disableDates[0] instanceof Array) {
                 this.options.disableDates.map((date: any) => {
                     if (this.options.format) {
-                        if (unixTimestamp >= new Date(date[0]).getTime()  && unixTimestamp <= new Date(date[1]).getTime()) {
+                        if (unixTimestamp >= new Date(date[0]).getTime() && unixTimestamp <= new Date(date[1] + ' 23:59:59').getTime()) {
                             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
                         }
                     } else {
@@ -228,7 +241,6 @@ export class HelloWeek {
                         }
                     });
                     if (this.options.disableDates.includes(unixTimestamp.toString())) {
-                        console.log('Hi');
                         newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
                     }
                 }
@@ -271,12 +283,22 @@ export class HelloWeek {
     }
 
     public updted(): void {
-        this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+        const listDays: number[] = [];
 
+        this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
         /** Define week format */
         const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
         this.week.textContent = '';
-        for (const day of Object.keys(this.langs.daysShort)) {
+
+        for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
+            listDays.push(i);
+        }
+
+        for (let i = 0; i < this.options.weekStart; i++) {
+            listDays.push(i);
+        }
+
+        for (const day of listDays) {
             this.creatWeek(this.weekAsString(day));
         }
 
@@ -338,6 +360,7 @@ export class HelloWeek {
             disablePastDays: false,
             disabledDaysOfWeek: false,
             disableDates: false,
+            weekStart: 0,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

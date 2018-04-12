@@ -140,6 +140,13 @@ Array of date strings or a single date string formatted in the given date format
 Default: false
 ```
 
+`weekStart`
+Day of the week start. 0 (Sunday) to 6 (Saturday)
+```
+Default: 0
+Accepts: Integer
+```
+
 `minDate`
 Disable date selections before this date.
 ```

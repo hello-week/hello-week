@@ -1,30 +1,30 @@
 {
     "days": [
+        "Domingo",
         "Segunda-feira",
         "Terça-feira",
         "Quarta-feira",
         "Quinta-feira",
         "Sexta-feira",
-        "Sábado",
-        "Domingo"
+        "Sábado"
     ],
     "daysShort": [
+        "Dom",
         "Seg",
         "Ter",
         "Qua",
         "Qui",
         "Sex",
-        "Sáb",
-        "Dom"
+        "Sáb"
     ],
     "daysMin": [
+        "Do",
         "2ª",
         "3ª",
         "4ª",
         "5ª",
         "6ª",
-        "Sa",
-        "Do"
+        "Sa"
     ],
     "months": [
         "Janeiro",

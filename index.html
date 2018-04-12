@@ -6,7 +6,6 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
 	<link href="dist/helloweek.css" rel="stylesheet">
-	<link href="assets/css/demo.css" rel="stylesheet">
 </head>
 <body>
 	<style>
@@ -71,6 +70,10 @@
 
 		.btn:hover {
 		  color: var(--hello-week-bg-selected);
+		}
+
+		.is-today.is-selected {
+			color: var(--hello-week-bg-tody);
 		}
 
 		.btn-download {
@@ -297,17 +300,14 @@
 			selector: '.hello-week',
 			lang: 'en',
 			format: 'YYYY-MM-DD',
-			monthShort: true,
+			monthShort: false,
 			weekShort: true,
 			multiplePick: false,
 			defaultDate: false,
 			todayHighlight: true,
-			disablePastDays: true,
-			disabledDaysOfWeek: [0, 6],
-			disableDates: [
-				['2018-04-16', '2018-04-24'],
-				['2018-05-16', '2018-05-22']
-			],
+			disablePastDays: false,
+			disabledDaysOfWeek: [6, 0],
+			weekStart: 0,
 			onLoad: updateInfo,
 			onChange: updateInfo,
 			onSelect: updateInfo
@@ -318,5 +318,4 @@
 
 	</script>
 </body>
-
 </html>
