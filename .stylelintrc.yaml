@@ -19,13 +19,13 @@ rules:
   string-quotes: double
   # https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/smacss.yml
   order/properties-order:
-    - display
     - position
     - top
     - right
     - bottom
     - left
 
+    - display
     - flex
     - flex-basis
     - flex-direction
@@ -70,6 +70,7 @@ rules:
     - column-count
     - column-width
 
+    - will-change
     - transform
     - transform-box
     - transform-origin

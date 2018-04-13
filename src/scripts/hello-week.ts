@@ -43,7 +43,7 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
 
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
-
+        console.log(this.selector);
         // Early throw if selector doesn't exists
         if (this.selector === null) {
             throw new Error('You need to specify a selector!');
@@ -115,7 +115,7 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public selectDay(callback: CallbackFunction): void {
-        this.activeDates = document.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_ACTIVE);
+        this.activeDates = this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_ACTIVE);
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 const selectDay = event.target;
@@ -354,7 +354,7 @@ export class HelloWeek {
             format: false,
             weekShort: true,
             monthShort: false,
-            multiplePick: true,
+            multiplePick: false,
             defaultDate: false,
             todayHighlight: true,
             disablePastDays: false,
