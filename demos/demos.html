@@ -1,54 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Hello Week - Javascript Calendar</title>
-        <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
-        <link href="../dist/helloweek.css" rel="stylesheet">
-        <link href="css/demo.css" rel="stylesheet">
-    </head>
-    <body>
-        <header class="header">
-            <nav class="nav">
-                <h1 class="title">Hello Week <span class="tag">v1.0.0</span></h1>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="" class="is-active">Exemple</a></li>
-                    <li><a href="https://codeload.github.com/maurovieirareis/hello-week/zip/master" title="Download" download="">Download</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <section class="section">
-                <div class="container">
-                            <div class="hello-week" id="calendar-1">
-                                <div class="hello-week__header">
-                                    <button class="btn demo-prev">◀</button>
-                                    <div class="hello-week__label"></div>
-                                    <button class="btn demo-next">▶</button>
-                                </div>
-                                <div class="hello-week__week"></div>
-                                <div class="hello-week__month"></div>
-                            </div>
-                    <div class="demo-exemplo">
-                        <p><strong>Today:</strong> </p>
-                        <ul class="demo-today"><span>n/a</span></ul>
+<head>
+    <title>Hello Week - Javascript Calendar</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    <link href="../dist/helloweek.css" rel="stylesheet">
+    <link href="css/demo.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <h1 class="title">Hello Week <span class="tag">v1.0.0</span></h1>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="" class="is-active">Exemple</a></li>
+                <li><a href="https://codeload.github.com/maurovieirareis/hello-week/zip/master" title="Download" download="">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="hello-week" id="calendar-1">
+                    <div class="hello-week__header">
+                        <button class="btn demo-prev">◀</button>
+                        <div class="hello-week__label"></div>
+                        <button class="btn demo-next">▶</button>
+                    </div>
+                    <div class="hello-week__week"></div>
+                    <div class="hello-week__month"></div>
+                </div>
+                <div class="demo-exemplo">
+                    <p><strong>Today:</strong> </p>
+                    <ul class="demo-today"><span>n/a</span></ul>
 
-                        <p><strong>Last Picked Day:</strong></p>
-                        <ul class="demo-last"><span>n/a</span></ul>
+                    <p><strong>Last Picked Day:</strong></p>
+                    <ul class="demo-last"><span>n/a</span></ul>
 
-                        <p><strong>Picked Days:</strong></p>
-                        <ul class="demo-picked"><span>n/a</span></ul>
+                    <p><strong>Picked Days:</strong></p>
+                    <ul class="demo-picked"><span>n/a</span></ul>
+                </div>
+                <div class="highlight">
+                    <script src="https://gist.github.com/maurovieirareis/9a4b801a0dcf6bf43e240aeefd654b92.js"></script>
                 </div>
             </section>
             <section class="section section--options">
                 <div class="container">
-                    <h2 class="class="sub-title"">Options</h2>
-                    <p>HelloWeek comes with a few (optional) settings that you can change by passing an object as an argument.</p>
-                    <p>Default values are presented below.</p>
-                    <div class="highlight">
-                        <script src="https://gist.github.com/maurovieirareis/9a4b801a0dcf6bf43e240aeefd654b92.js"></script>
+                    <h2 class="sub-title">Options</h2>
+                    <blockquote>
+                        <p>HelloWeek comes with a few (optional) settings that you can change by passing an object as an argument.</p>
+                    </blockquote>
+                    <div class="options">
+                        <div class="options__item">
+                            <h4>selector</h4>
+                            <p>Type: <code class="code">String</code> <br> Default: <code class="code">.hello-week</code></p>
+                            <label>Define selector to use as a datepicker.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>lang</h4>
+                            <p>Type: <code class="code">String</code> <br> Default: <code class="code">en</code></p>
+                            <label>Determines which translation file will be read.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>langFolder</h4>
+                            <p>Type: <code class="code">String</code> <br> Default: <code class="code">./dist/langs/</code></p>
+                            <label>Determines folder path of your langs.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>format</h4>
+                            <p>Type: <code class="code">String</code> <br> Default: <code class="code">false</code></p>
+                            <label>The format also determines which components are displayed.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>weekShort</h4>
+                            <p>Type: <code class="code">Boolean</code> <br> Default: <code class="code">false</code></p>
+                            <label>Sets the format of the week.</label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -118,4 +146,4 @@
 
         </script>
     </body>
-</html>
+    </html>

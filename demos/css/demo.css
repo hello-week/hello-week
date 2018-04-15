@@ -37,11 +37,12 @@ body {
 
 .sub-title {
   margin: 2rem 0;
-  font-size: 1.6rem;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .intro {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-weight: 100;
 }
 
@@ -53,10 +54,49 @@ body {
   font-size: 1rem;
 }
 
+h4 {
+  margin: 0;
+  line-height: 2;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
 p {
   margin: 0;
   font-size: 1rem;
   line-height: 1.4;
+}
+
+label {
+  display: block;
+  margin: .5rem 0;
+  color: #69727c;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+blockquote {
+  margin: 0;
+  padding: 1rem 1rem;
+  color: #69727c;
+  border-left: 4px solid #7fcbc3;
+  line-height: 1.6;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.options__item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .hello-week {
@@ -131,6 +171,10 @@ p {
 .section--hero {
   min-height: 100vh;
   background-color: #fcee55;
+}
+
+.section--options {
+  padding-top: 0;
 }
 
 .container {
@@ -213,10 +257,10 @@ p {
 .code {
   display: inline-flex;
   margin-bottom: .5rem;
-  padding: .1rem .5rem;
+  padding: .05rem .5rem;
   border-radius: 2px;
-  background: #93d5d5;
-  color: #3e3e3e;
+  background: #f7f7f7;
+  border: 1px solid #dfdfdf;
   font-family: monospace;
   font-size: .9rem;
 }
@@ -260,7 +304,7 @@ p {
 }
 
 .nav a.is-active {
-opacity: .4;
+  opacity: .4;
   cursor: default;
 }
 
