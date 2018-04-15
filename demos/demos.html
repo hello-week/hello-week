@@ -22,7 +22,7 @@
     <main>
         <section class="section">
             <div class="container">
-                <div class="hello-week" id="calendar-1">
+                <div class="hello-week">
                     <div class="hello-week__header">
                         <button class="btn demo-prev">◀</button>
                         <div class="hello-week__label"></div>
@@ -69,13 +69,63 @@
                         </div>
                         <div class="options__item">
                             <h4>format</h4>
-                            <p>Type: <code class="code">String</code> <br> Default: <code class="code">false</code></p>
+                            <p>Type: <code class="code">Boolean</code><code class="code">String</code> <br> Default: <code class="code">false</code></p>
                             <label>The format also determines which components are displayed.</label>
                         </div>
                         <div class="options__item">
                             <h4>weekShort</h4>
-                            <p>Type: <code class="code">Boolean</code> <br> Default: <code class="code">false</code></p>
+                            <p>Type: <code class="code">Boolean</code> <br> Default: <code class="code">true</code></p>
                             <label>Sets the format of the week.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>monthShort</h4>
+                            <p>Type: <code class="code">Boolean</code> <br> Default: <code class="code">false</code></p>
+                            <label>Sets the format of the month.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>multiplePick</h4>
+                            <p>Type: <code class="code">Boolean</code> <br> Default: <code class="code">false</code></p>
+                            <label>Alows multiple days selection.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>defaultDate</h4>
+                            <p>Type: <code class="code">Boolean</code><code class="code">String</code> <br> Default: <code class="code">false</code></p>
+                            <label>Define the start date in calendar.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>todayHighlight</h4>
+                            <p>Type: <code class="code">Boolean</code><br> Default: <code class="code">true</code></p>
+                            <label>Highlights the current date.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>disablePastDays</h4>
+                            <p>Type: <code class="code">Boolean</code><br> Default: <code class="code">false</code></p>
+                            <label>Disable date before the current day.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>disabledDaysOfWeek</h4>
+                            <p>Type: <code class="code">Boolean</code><code class="code">Array</code><br> Default: <code class="code">false</code></p>
+                            <label>Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>disableDates</h4>
+                            <p>Type: <code class="code">Boolean</code><code class="code">Array</code><br> Default: <code class="code">false</code></p>
+                            <label>Array of date strings or a single date string formatted in the given date format.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>weekStart</h4>
+                            <p>Type: <code class="code">Integer</code><br> Default: <code class="code">false</code></p>
+                            <label>Day of the week start. 0 (Sunday) to 6 (Saturday).</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>minDate</h4>
+                            <p>Type: <code class="code">Boolean</code><code class="code">Sring</code><br> Default: <code class="code">false</code></p>
+                            <label>Disable date selections before this date.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>maxDate</h4>
+                            <p>Type: <code class="code">Boolean</code><code class="code">Sring</code><br> Default: <code class="code">false</code></p>
+                            <label>Disable date selections after this date.</label>
                         </div>
                     </div>
                 </div>
@@ -123,7 +173,6 @@
             }
 
             const myCalendar = new HelloWeek({
-                selector: '#calendar-1',
                 langFolder: '../dist/langs/',
                 lang: 'en',
                 langFolder: '../dist/langs/',

@@ -256,7 +256,7 @@ blockquote {
 
 .code {
   display: inline-flex;
-  margin-bottom: .5rem;
+  margin: 0 .2rem .5rem;
   padding: .05rem .5rem;
   border-radius: 2px;
   background: #f7f7f7;
