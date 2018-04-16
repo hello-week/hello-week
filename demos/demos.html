@@ -14,7 +14,7 @@
             <h1 class="title">Hello Week <span class="tag">v1.0.0</span></h1>
             <ul>
                 <li><a href="../index.html">Home</a></li>
-                <li><a href="" class="is-active">Exemple</a></li>
+                <li><a href="" class="is-active">Documentation</a></li>
                 <li><a href="https://codeload.github.com/maurovieirareis/hello-week/zip/master" title="Download" download="">Download</a></li>
             </ul>
         </nav>
@@ -126,6 +126,27 @@
                             <h4>maxDate</h4>
                             <p>Type: <code class="code">Boolean</code><code class="code">Sring</code><br> Default: <code class="code">false</code></p>
                             <label>Disable date selections after this date.</label>
+                        </div>
+                    </div>
+                    <h2 class=“sub-title”>Events</h2>
+                    <blockquote>
+                        <p>This gives you the ability to listen for any changes and perform your own actions.</p>
+                    </blockquote>
+                    <div class=“options”>
+                        <div class=“options__item”>
+                            <h4>onLoad</h4>
+                            <p>Type: <code class=“code”>attachable</code></p>
+                            <label>Runs immediately after initialization.</label>
+                        </div>
+                        <div class=“options__item”>
+                            <h4>onChange</h4>
+                            <p>Type: <code class=“code”>attachable</code></p>
+                            <label>Runs after month change.</label>
+                        </div>
+                        <div class=“options__item”>
+                            <h4>onLoad</h4>
+                            <p>Type: <code class=“code”>attachable</code></p>
+                            <label>Runs on select the day.</label>
                         </div>
                     </div>
                 </div>

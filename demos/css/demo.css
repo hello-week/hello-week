@@ -313,6 +313,7 @@ blockquote {
   align-items: center;
   justify-content: center;
   padding: 2rem 0;
+  background-color: #f7f7f7;
 }
 
 .footer a {
