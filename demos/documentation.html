@@ -23,10 +23,13 @@
         <section class="section">
             <div class="container">
                 <div class="hello-week">
+                    <div class="hello-week__options">
+                        <button class="btn btn-reset">Reset</button>
+                    </div>
                     <div class="hello-week__header">
-                        <button class="btn demo-prev">◀</button>
+                        <button class="btn btn-prev">◀</button>
                         <div class="hello-week__label"></div>
-                        <button class="btn demo-next">▶</button>
+                        <button class="btn btn-next">▶</button>
                     </div>
                     <div class="hello-week__week"></div>
                     <div class="hello-week__month"></div>
@@ -163,8 +166,9 @@
 
         <script src="../dist/helloweek.min.js" type="text/javascript"></script>
         <script>
-            const prev = document.querySelector('.demo-prev');
-            const next = document.querySelector('.demo-next');
+            const prev = document.querySelector('.btn-prev');
+            const next = document.querySelector('.btn-next');
+            const reset = document.querySelector('.btn-reset');
             const today = document.querySelector('.demo-today');
             const picked = document.querySelector('.demo-picked');
             const last = document.querySelector('.demo-last');
@@ -204,7 +208,7 @@
                 defaultDate: false,
                 todayHighlight: true,
                 disablePastDays: false,
-                disabledDaysOfWeek: [6, 0],
+                disabledDaysOfWeek: [0, 1],
                 weekStart: 0,
                 onLoad: updateInfo,
                 onChange: updateInfo,
@@ -213,6 +217,7 @@
 
             prev.addEventListener('click', () => myCalendar.prev());
             next.addEventListener('click', () => myCalendar.next());
+            reset.addEventListener('click', () => myCalendar.reset());
 
         </script>
     </body>

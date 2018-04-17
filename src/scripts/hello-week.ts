@@ -43,7 +43,7 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
 
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
-        console.log(this.selector);
+
         // Early throw if selector doesn't exists
         if (this.selector === null) {
             throw new Error('You need to specify a selector!');
@@ -108,6 +108,18 @@ export class HelloWeek {
         if (callback) {
             callback.call(this);
         }
+    }
+
+    /**
+     * Public method
+     * Method to change the month to the next, also you can send a callback function like a parameter.
+     * @param {CallbackFunction} callback
+     */
+    public reset(): void {
+        this.clearCalendar();
+        this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
+        this.date.setDate(1);
+        this.updted();
     }
 
     /**
