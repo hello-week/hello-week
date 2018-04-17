@@ -259,7 +259,7 @@ export class HelloWeek {
             }
         }
 
-        if (this.date.toString() === this.todaysDate.toString() && this.options.todayHighlight) {
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.todaysDate).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
             this.today = timestamp.toString();
             if (this.options.format) {

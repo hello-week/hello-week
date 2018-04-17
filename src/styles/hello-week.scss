@@ -1,3 +1,9 @@
+@import "variables";
+
+* {
+  box-sizing: border-box;
+}
+
 .hello-week {
   width: 100%;
   margin: 0 auto;
@@ -41,8 +47,6 @@
       justify-content: center;
       width: 14.28%;
       padding: 1rem;
-      background-color: var(--hello-week-bg-day);
-      color: var(--hello-week-color-day);
       font-size: 1rem;
       font-weight: 400;
       text-transform: uppercase;
