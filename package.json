@@ -21,35 +21,34 @@
   ],
   "scripts": {
     "watch": " webpack --watch --progress --mode development",
-    "build": "node_modules/.bin/webpack --config webpack.config.js --mode development",
     "start": "node_modules/.bin/webpack-dev-server --config webpack.config.js --open --mode development",
-    "prod": "node_modules/.bin/webpack --config webpack.config.js --mode production",
+    "build": "node_modules/.bin/webpack --config webpack.config.js --mode production",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
     "lint:scss": "stylelint src/**/*.scss"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.3.0",
+    "awesome-typescript-loader": "^5.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "source-map-loader": "^0.2.3",
-    "stylelint": "^9.1.1",
+    "stylelint": "^9.2.0",
     "stylelint-config-recommended-scss": "^3.1.0",
     "stylelint-order": "^0.8.1",
-    "stylelint-scss": "^2.5.0",
+    "stylelint-scss": "^3.0.1",
     "tslint": "^5.9.1",
     "webpack-cli": "^2.0.14"
   },
   "dependencies": {
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
     "file-loader": "^0.11.1",
     "node-sass": "^4.5.2",
-    "sass-loader": "^6.0.3",
+    "sass-loader": "^7.0.1",
     "script-loader": "^0.7.0",
-    "style-loader": "^0.16.1",
+    "style-loader": "^0.20.3",
     "stylelint-config-standard": "^18.2.0",
     "ts-loader": "^4.2.0",
     "typescript": "^2.8.1",
     "uglifyjs-webpack-plugin": "^1.2.2",
-    "webpack": "^4.5.0",
+    "webpack": "^4.6.0",
     "webpack-dev-server": "^3.1.3"
   }
 }

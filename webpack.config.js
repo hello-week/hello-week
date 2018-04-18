@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-    filename: "../dist/[name].css'",
+    filename: "../dist/[name].min.css",
     disable: process.env.NODE_ENV === "development"
 });
 
@@ -18,29 +18,37 @@ module.exports = {
     devtool: 'inline-source-map',
     module: {
         rules: [
-        {
-            test: /\.tsx?$/,
-            use: 'ts-loader',
-            exclude: /node_modules/
-        },
-        {
-            test: /\.scss$/,
-            use: [
-                {
-                    loader: "style-loader"
-                },
-                {
-                    loader: "css-loader"
-                },
-                {
-                    loader: "sass-loader"
-                }
-            ]
-        }
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                url: false,
+                                minimize: true,
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                })
+            }
         ]
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: [ '.tsx', '.ts', '.js']
     },
     plugins: [
         extractSass

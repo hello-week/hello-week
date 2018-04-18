@@ -7,15 +7,15 @@ $hello-week-color-disabled: #f7f8fb;
 :root {
   --hello-week-bg-color: #fff;
   --hello-week-bg-day: #fff;
-  --hello-week-color-day: $hello-week-color-secondary;
+  --hello-week-color-day: #{$hello-week-color-secondary};
   --hello-week-bg-week: #fff;
-  --hello-week-color-week: $hello-week-color-secondary;
-  --hello-week-bg-tody: $hello-week-color-days;
+  --hello-week-color-week: #{$hello-week-color-secondary};
+  --hello-week-bg-tody: #{$hello-week-color-days};
   --hello-week-color-tody: #fff;
-  --hello-week-bg-selected: $hello-week-color-primary;
+  --hello-week-bg-selected: #{$hello-week-color-primary};
   --hello-week-color-selected: #fff;
-  --hello-week-bg-weekend: $hello-week-color-weekend;
-  --hello-week-color-weekend: darken($hello-week-color-weekend, 20%);
-  --hello-week-bg-disabled: $hello-week-color-disabled;
-  --hello-week-color-disabled: darken($hello-week-color-disabled, 20%);
+  --hello-week-bg-weekend: #{$hello-week-color-weekend};
+  --hello-week-color-weekend: #{darken($hello-week-color-weekend, 20%)};
+  --hello-week-bg-disabled: #{$hello-week-color-disabled};
+  --hello-week-color-disabled: #{darken($hello-week-color-disabled, 20%)};
 }
