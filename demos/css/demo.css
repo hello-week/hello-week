@@ -40,9 +40,9 @@ body {
 
 h4 {
   margin: 0;
-  line-height: 2;
   font-size: 1.6rem;
   font-weight: 500;
+  line-height: 2;
 }
 
 p {
@@ -88,8 +88,15 @@ blockquote {
 }
 
 .btn {
-  transition: all .33s ease;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  text-align: center;
   font-size: 1rem;
+  cursor: pointer;
+  transition: all .33s ease;
   text-transform: uppercase;
 }
 
@@ -98,6 +105,8 @@ blockquote {
 }
 
 .btn-reset {
+  width: auto;
+  height: auto;
   margin-top: 3rem;
   padding: 1rem 2rem;
   border: 1px solid #7fcbc3;
