@@ -12,7 +12,7 @@ export class HelloWeek {
     private date: any;
     private langs: any;
     private defaultDate: any;
-    public currentDay: string;
+    public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
 
@@ -52,6 +52,7 @@ export class HelloWeek {
         this.activeDates = null;
         this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
         this.defaultDate = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
+        this.currentDay = new Date();
 
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
@@ -68,6 +69,11 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public init(callback: CallbackFunction) {
+
+        if (this.options.format) {
+            this.currentDay = this.formatDate(this.currentDay, this.options.format);
+        }
+
         this.date.setDate(1);
         this.updted();
         this.options.onLoad.call(this);
@@ -112,8 +118,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * Method to change the month to the next, also you can send a callback function like a parameter.
-     * @param {CallbackFunction} callback
+     *
      */
     public today(): void {
         this.clearCalendar();
@@ -259,12 +264,8 @@ export class HelloWeek {
             }
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.defaultDate).setHours(0,0,0,0) && this.options.todayHighlight) {
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
-            this.currentDay = timestamp.toString();
-            if (this.options.format) {
-                this.currentDay = this.formatDate(unixTimestamp, this.options.format);
-            }
         }
 
         if (this.options.format) {
