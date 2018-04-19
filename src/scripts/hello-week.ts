@@ -11,8 +11,8 @@ export class HelloWeek {
     private activeDates: any;
     private date: any;
     private langs: any;
-    private todaysDate: any;
-    public today: string;
+    private defaultDate: any;
+    public currentDay: string;
     public lastSelectedDay: string;
     public selectedDays: any = [];
 
@@ -51,7 +51,7 @@ export class HelloWeek {
 
         this.activeDates = null;
         this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
-        this.todaysDate = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
+        this.defaultDate = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
 
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
@@ -115,9 +115,9 @@ export class HelloWeek {
      * Method to change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
-    public reset(): void {
+    public today(): void {
         this.clearCalendar();
-        this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
+        this.date = new Date();
         this.date.setDate(1);
         this.updted();
     }
@@ -220,7 +220,7 @@ export class HelloWeek {
             }
         }
 
-        if ((this.options.disablePastDays && this.date.getTime() <= this.todaysDate.getTime() - 1) ||
+        if ((this.options.disablePastDays && this.date.getTime() <= this.defaultDate.getTime() - 1) ||
             (this.options.minDate && timestamp <= this.options.minDate) ||
             (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
@@ -259,11 +259,11 @@ export class HelloWeek {
             }
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.todaysDate).setHours(0,0,0,0) && this.options.todayHighlight) {
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.defaultDate).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
-            this.today = timestamp.toString();
+            this.currentDay = timestamp.toString();
             if (this.options.format) {
-                this.today = this.formatDate(unixTimestamp, this.options.format);
+                this.currentDay = this.formatDate(unixTimestamp, this.options.format);
             }
         }
 

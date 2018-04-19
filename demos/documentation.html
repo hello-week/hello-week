@@ -31,7 +31,7 @@
                     <div class="hello-week__week"></div>
                     <div class="hello-week__month"></div>
                 </div>
-                <button class="btn btn-reset">Reset</button>
+                <button class="btn btn-today">Today</button>
                 <div class="demo-exemplo">
                     <p><strong>Today:</strong> </p>
                     <ul class="demo-today"><span>n/a</span></ul>
@@ -166,21 +166,20 @@
         <script>
             const prev = document.querySelector('.btn-prev');
             const next = document.querySelector('.btn-next');
-            const reset = document.querySelector('.btn-reset');
-            const today = document.querySelector('.demo-today');
+            const today = document.querySelector('.btn-today');
+            const currentDay = document.querySelector('.demo-today');
             const picked = document.querySelector('.demo-picked');
             const last = document.querySelector('.demo-last');
 
             function updateInfo() {
-                if (this.today) {
-                    today.innerHTML = '';
+                if (this.currentDay) {
+                    currentDay.innerHTML = '';
                     var li = document.createElement('li');
-                    li.innerHTML = this.today;
-                    today.appendChild(li);
+                    li.innerHTML = this.currentDay;
+                    currentDay.appendChild(li);
                 }
 
                 if (this.lastSelectedDay) {
-
                     picked.innerHTML = '';
                     for (days of this.selectedDays) {
                         var li = document.createElement('li');
@@ -203,7 +202,7 @@
                 monthShort: false,
                 weekShort: true,
                 multiplePick: false,
-                defaultDate: false,
+                defaultDate: '2020-01-10',
                 todayHighlight: true,
                 disablePastDays: false,
                 disabledDaysOfWeek: [0, 1],
@@ -215,7 +214,7 @@
 
             prev.addEventListener('click', () => myCalendar.prev());
             next.addEventListener('click', () => myCalendar.next());
-            reset.addEventListener('click', () => myCalendar.reset());
+            today.addEventListener('click', () => myCalendar.today());
 
         </script>
     </body>
