@@ -31,7 +31,10 @@
                     <div class="hello-week__week"></div>
                     <div class="hello-week__month"></div>
                 </div>
-                <button class="btn btn-today">Today</button>
+                <div class="options">
+                    <button class="btn btn-today">Today</button>
+                    <button class="btn btn-clear">Clear</button>
+                </div>
                 <div class="demo-exemplo">
                     <p><strong>Today:</strong> </p>
                     <ul class="demo-today"><span>n/a</span></ul>
@@ -167,6 +170,7 @@
             const prev = document.querySelector('.btn-prev');
             const next = document.querySelector('.btn-next');
             const today = document.querySelector('.btn-today');
+            const clear = document.querySelector('.btn-clear');
             const currentDay = document.querySelector('.demo-today');
             const picked = document.querySelector('.demo-picked');
             const last = document.querySelector('.demo-last');
@@ -215,6 +219,7 @@
             prev.addEventListener('click', () => myCalendar.prev());
             next.addEventListener('click', () => myCalendar.next());
             today.addEventListener('click', () => myCalendar.today());
+            clear.addEventListener('click', () => myCalendar.clear());
 
         </script>
     </body>

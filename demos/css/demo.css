@@ -87,6 +87,14 @@ blockquote {
   max-width: 980px;
 }
 
+.options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
 .btn {
   width: 30px;
   height: 30px;
@@ -98,16 +106,21 @@ blockquote {
   cursor: pointer;
   transition: all .33s ease;
   text-transform: uppercase;
+  margin: 0 .5rem;
 }
 
 .btn:hover {
   color: #7fcbc3;
 }
 
+.btn:focus {
+  outline: none;
+}
+
 .btn-today {
+  display: inline-flex;
   width: auto;
   height: auto;
-  margin-top: 3rem;
   padding: 1rem 2rem;
   border: 1px solid #7fcbc3;
   color: #7fcbc3;
@@ -119,8 +132,19 @@ blockquote {
   color: #fff;
 }
 
-.btn-reset:focus {
-  outline: none;
+.btn-clear {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 1rem 2rem;
+  border: 1px solid #69727c;
+  color: #69727c;
+  cursor: pointer;
+}
+
+.btn-clear:hover {
+  background: #69727c;
+  color: #fff;
 }
 
 .is-today.is-selected {
