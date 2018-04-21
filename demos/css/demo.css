@@ -87,7 +87,7 @@ blockquote {
   max-width: 980px;
 }
 
-.options {
+.flex-line {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -137,13 +137,13 @@ blockquote {
   width: auto;
   height: auto;
   padding: 1rem 2rem;
-  border: 1px solid #69727c;
-  color: #69727c;
+  border: 1px solid #ed143d;
+  color: #ed143d;
   cursor: pointer;
 }
 
 .btn-clear:hover {
-  background: #69727c;
+  background: #ed143d;
   color: #fff;
 }
 
