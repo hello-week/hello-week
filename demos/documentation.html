@@ -176,10 +176,10 @@
             const last = document.querySelector('.demo-last');
 
             function updateInfo() {
-                if (this.currentDay) {
+                if (this.getToday()) {
                     currentDay.innerHTML = '';
                     var li = document.createElement('li');
-                    li.innerHTML = this.currentDay;
+                    li.innerHTML = this.getToday();
                     currentDay.appendChild(li);
                 }
 

@@ -60,95 +60,108 @@ export class HelloWeek {
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
             this.init(() => { /** callback function */ });
-    });
+        });
     }
 
     /**
      * Call
      * @param {CallbackFunction} callback
      */
-     public init(callback: CallbackFunction) {
-         if (this.options.format) {
-             if (this.defaultDate) {
-                 this.selectedDays.push(this.formatDate(this.defaultDate, this.options.format));
-             }
-         }
+    public init(callback: CallbackFunction) {
+        if (this.options.format) {
+            if (this.defaultDate) {
+                this.selectedDays.push(this.formatDate(this.defaultDate, this.options.format));
+            }
+        }
 
-         this.date.setDate(1);
-         this.updted();
-         this.options.onLoad.call(this);
-         if (callback) {
-             callback.call(this);
-         }
-     }
+        this.date.setDate(1);
+        this.updted();
+        this.options.onLoad.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
 
     /**
      * Public method
      * Method to change the month to the previous, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
-     public prev(callback: CallbackFunction): void {
-         this.clearCalendar();
-         const prevMonth = this.date.getMonth() - 1;
-         this.date.setMonth(prevMonth);
-         this.updted();
+    public prev(callback: CallbackFunction): void {
+        this.clearCalendar();
+        const prevMonth = this.date.getMonth() - 1;
+        this.date.setMonth(prevMonth);
+        this.updted();
 
-         this.options.onChange.call(this);
-         if (callback) {
-             callback.call(this);
-         }
-     }
+        this.options.onChange.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
 
     /**
      * Public method
      * Method to change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
-     public next(callback: CallbackFunction): void {
-         this.clearCalendar();
-         const nextMonth = this.date.getMonth() + 1;
-         this.date.setMonth(nextMonth);
-         this.updted();
+    public next(callback: CallbackFunction): void {
+        this.clearCalendar();
+        const nextMonth = this.date.getMonth() + 1;
+        this.date.setMonth(nextMonth);
+        this.updted();
 
-         this.options.onChange.call(this);
-         if (callback) {
-             callback.call(this);
-         }
-     }
-
-    /**
-     * Public method
-     *
-     */
-     public today(): void {
-         this.clearCalendar();
-         this.date = new Date();
-         this.date.setDate(1);
-         this.updted();
-     }
+        this.options.onChange.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
 
     /**
      * Public method
-     *
+     * This function returns the current day with the format if specified, timestamp in another case.
      */
-     public clear(): void {
-         this.clearCalendar();
-         this.date.setDate(1);
-         this.selectedDays = [];
-         this.updted();
-     }
+    public getToday(): string {
+        return this.options.format ? this.formatDate(this.currentDay, this.options.format) : this.currentDay;
+    }
+
+    /**
+     * Public method
+     * This function move the calendar to current day.
+     */
+    public today(): void {
+        this.clearCalendar();
+        this.date = new Date();
+        this.date.setDate(1);
+        this.updted();
+    }
+
+    /**
+     * Public method
+     * Clean yours selected days in calendar.
+     */
+    public clear(callback: CallbackFunction): void {
+        this.clearCalendar();
+        this.date.setDate(1);
+        this.selectedDays = [];
+        this.updted();
+
+        this.options.onClear.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
 
     /**
      * Select day
      * @param {CallbackFunction} callback
      */
     public selectDay(callback: CallbackFunction): void {
-         this.activeDates = this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_ACTIVE);
-         for (const i of Object.keys(this.activeDates)) {
-             this.activeDates[i].addEventListener('click', (event: any) => {
-                 const selectDay = event.target;
+        this.activeDates = this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_ACTIVE);
+        for (const i of Object.keys(this.activeDates)) {
+            this.activeDates[i].addEventListener('click', (event: any) => {
+                const selectDay = event.target;
 
-                 if (this.options.format) {
+                if (this.options.format) {
                     // date formated
                     this.lastSelectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
                 } else {
@@ -156,7 +169,7 @@ export class HelloWeek {
                     this.lastSelectedDay = selectDay.dataset.timestamp;
                 }
 
-               if (this.options.multiplePick) {
+                if (this.options.multiplePick) {
                     this.selectedDays.push(this.lastSelectedDay);
                     if (event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                         this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
@@ -172,6 +185,7 @@ export class HelloWeek {
                 if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                     event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
+
                 this.options.onSelect.call(this);
                 if (callback) {
                     callback.call(this);
@@ -181,10 +195,10 @@ export class HelloWeek {
     }
 
     public creatWeek(dayShort: number): void {
-         const weekDay = <any>document.createElement('span');
-         weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
-         weekDay.textContent = dayShort;
-         this.week.appendChild(weekDay);
+        const weekDay = <any>document.createElement('span');
+        weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
+        weekDay.textContent = dayShort;
+        this.week.appendChild(weekDay);
     }
 
     public createMonth(): void {
@@ -205,7 +219,7 @@ export class HelloWeek {
      * @param {number} num
      * @param {number} day
      */
-     public createDay (num: number, day: number): void {
+    public createDay (num: number, day: number): void {
         const unixTimestamp = Date.parse(this.date);
         const timestamp = unixTimestamp / 1000;
         const newDay = <any>document.createElement('div');
@@ -273,9 +287,6 @@ export class HelloWeek {
             }
         }
 
-        // console.log(new Date(this.date).setHours(0,0,0,0));
-        // console.log(this.currentDay);
-        // console.log(new Date(this.currentDay).setHours(0,0,0,0));
         if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0)
                 && this.options.todayHighlight) {
             console.log('TODAY');
@@ -299,54 +310,51 @@ export class HelloWeek {
         if (this.month) {
             this.month.appendChild(newDay);
         }
-     }
+    }
 
     public monthsAsString(monthIndex: any): any {
         return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
     }
 
-     public weekAsString(weekIndex: any): any {
-         return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
-     }
+    public weekAsString(weekIndex: any): any {
+        return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+    }
 
-     public updted(): void {
-         const listDays: number[] = [];
+    public updted(): void {
+        const listDays: number[] = [];
+        this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+        /** Define week format */
+        this.week.textContent = '';
+        for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
+            listDays.push(i);
+        }
 
-         this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
-         /** Define week format */
-         const weekFormat = this.options.weekShort ? this.langs.daysShort : this.langs.days;
-         this.week.textContent = '';
+        for (let i = 0; i < this.options.weekStart; i++) {
+            listDays.push(i);
+        }
 
-         for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
-             listDays.push(i);
-         }
+        for (const day of listDays) {
+            this.creatWeek(this.weekAsString(day));
+        }
 
-         for (let i = 0; i < this.options.weekStart; i++) {
-             listDays.push(i);
-         }
+        this.createMonth();
+    }
 
-         for (const day of listDays) {
-             this.creatWeek(this.weekAsString(day));
-         }
+    public clearCalendar(): void {
+        this.month.textContent = '';
+    }
 
-         this.createMonth();
-     }
+    public removeActiveClass(): void {
+        for (const i of Object.keys(this.activeDates)) {
+            this.activeDates[i].classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
+        }
+    }
 
-     public clearCalendar(): void {
-         this.month.textContent = '';
-     }
+    public destroy(): void {
+        this.removeActiveClass();
+    }
 
-     public removeActiveClass(): void {
-         for (const i of Object.keys(this.activeDates)) {
-             this.activeDates[i].classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
-         }
-     }
-
-     public destroy(): void {
-         this.removeActiveClass();
-     }
-
-     public readFile(file: string, callback: CallbackFunction): void {
+    public readFile(file: string, callback: CallbackFunction): void {
          const xobj = new XMLHttpRequest();
          xobj.overrideMimeType('application/json');
          xobj.open('GET', file, true);
@@ -356,9 +364,9 @@ export class HelloWeek {
              }
          };
          xobj.send(null);
-     }
+    }
 
-     public formatDate(timestamp: number, format: string): string {
+    public formatDate(timestamp: number, format: string): string {
          const dt = new Date(timestamp);
          format = format.replace('dd', dt.getDate().toString());
          format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
@@ -371,37 +379,38 @@ export class HelloWeek {
          format = format.replace('YY', (dt.getFullYear().toString()).substring(2));
          format = format.replace('yy', (dt.getFullYear().toString()).substring(2));
          return format;
-     }
+    }
 
-     private static extend(options: CallbackFunction): object {
-         const settings: any = {
-             selector: '.hello-week',
-             lang: 'en',
-             langFolder: './dist/langs/',
-             format: false,
-             weekShort: true,
-             monthShort: false,
-             multiplePick: false,
-             defaultDate: false,
-             todayHighlight: true,
-             disablePastDays: false,
-             disabledDaysOfWeek: false,
-             disableDates: false,
-             weekStart: 0,
-             minDate: false,
-             maxDate: false,
-         onLoad: () => { /** callback function */ },
-     onChange: () => { /** callback function */ },
- onSelect: () => { /** callback function */ },
-};
+    private static extend(options: CallbackFunction): object {
+        const settings: any = {
+            selector: '.hello-week',
+            lang: 'en',
+            langFolder: './dist/langs/',
+            format: false,
+            weekShort: true,
+            monthShort: false,
+            multiplePick: false,
+            defaultDate: false,
+            todayHighlight: true,
+            disablePastDays: false,
+            disabledDaysOfWeek: false,
+            disableDates: false,
+            weekStart: 0,
+            minDate: false,
+            maxDate: false,
+            onLoad: () => { /** callback function */ },
+            onChange: () => { /** callback function */ },
+            onSelect: () => { /** callback function */ },
+            onClear: () => { /** callback function */ },
+        };
 
-const defaultSettings = <any>options;
-for (const i of Object.keys(defaultSettings)) {
-    settings[i] = defaultSettings[i];
-}
+        const defaultSettings = <any>options;
+        for (const i of Object.keys(defaultSettings)) {
+            settings[i] = defaultSettings[i];
+        }
 
-return settings;
-}
+        return settings;
+    }
 }
 
 import { HelloWeek as MyHelloWeek } from './hello-week';
