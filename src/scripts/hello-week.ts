@@ -287,9 +287,7 @@ export class HelloWeek {
             }
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0)
-                && this.options.todayHighlight) {
-            console.log('TODAY');
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
         }
 
@@ -300,12 +298,12 @@ export class HelloWeek {
                 }
             });
         } else {
-             this.selectedDays.find( (day: string) => {
-                 if (day === timestamp.toString()) {
-                     newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                 }
-             });
-         }
+            this.selectedDays.find( (day: string) => {
+                if (day === timestamp.toString()) {
+                    newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                }
+            });
+        }
 
         if (this.month) {
             this.month.appendChild(newDay);

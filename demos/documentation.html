@@ -152,6 +152,11 @@
                             <p>Type: <code class="code">attachable</code></p>
                             <label>Runs on select the day.</label>
                         </div>
+                        <div class="options__item">
+                            <h4>onClear</h4>
+                            <p>Type: <code class="code">attachable</code></p>
+                            <label>Runs on clear calendar.</label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -198,13 +203,14 @@
                 }
             }
 
+            function updateView() {
+                picked.innerHTML = '<li>n/a</li>';
+            }
+
             const myCalendar = new HelloWeek({
                 langFolder: '../dist/langs/',
                 lang: 'en',
-                langFolder: '../dist/langs/',
                 format: 'DD-MM-YYYY',
-                monthShort: false,
-                weekShort: true,
                 multiplePick: true,
                 defaultDate: '10-01-2020',
                 todayHighlight: true,
@@ -213,7 +219,8 @@
                 weekStart: 0,
                 onLoad: updateInfo,
                 onChange: updateInfo,
-                onSelect: updateInfo
+                onSelect: updateInfo,
+                onClear: updateView,
             });
 
             prev.addEventListener('click', () => myCalendar.prev());
@@ -223,4 +230,4 @@
 
         </script>
     </body>
-    </html>
+</html>

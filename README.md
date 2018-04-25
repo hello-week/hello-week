@@ -182,6 +182,13 @@ Default: false
 Accepts: function
 ```
 
+`onClear`
+Runs on clear calendar
+```
+Default: false
+Accepts: function
+```
+
 ### Date Format
 
 Input | Example | Description |
