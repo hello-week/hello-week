@@ -59,7 +59,7 @@ export class HelloWeek {
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
-        this.init(() => { /** callback function */ });
+            this.init(() => { /** callback function */ });
     });
     }
 
@@ -68,9 +68,7 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
      public init(callback: CallbackFunction) {
-
          if (this.options.format) {
-             this.currentDay = this.formatDate(this.currentDay, this.options.format);
              if (this.defaultDate) {
                  this.selectedDays.push(this.formatDate(this.defaultDate, this.options.format));
              }
@@ -158,7 +156,7 @@ export class HelloWeek {
                     this.lastSelectedDay = selectDay.dataset.timestamp;
                 }
 
-                if (this.options.multiplePick) {
+               if (this.options.multiplePick) {
                     this.selectedDays.push(this.lastSelectedDay);
                     if (event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                         this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
@@ -174,13 +172,12 @@ export class HelloWeek {
                 if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                     event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
-
                 this.options.onSelect.call(this);
                 if (callback) {
                     callback.call(this);
                 }
             });
-         }
+        }
     }
 
     public creatWeek(dayShort: number): void {
@@ -276,22 +273,22 @@ export class HelloWeek {
             }
         }
 
-         // console.log(new Date(this.date).setHours(0,0,0,0));
-         // console.log(this.currentDay);
-         // console.log(new Date(this.currentDay).setHours(0,0,0,0));
+        // console.log(new Date(this.date).setHours(0,0,0,0));
+        // console.log(this.currentDay);
+        // console.log(new Date(this.currentDay).setHours(0,0,0,0));
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0)
+                && this.options.todayHighlight) {
+            console.log('TODAY');
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
+        }
 
-         if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
-             console.log('TODAY');
-             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
-         }
-
-         if (this.options.format) {
-             this.selectedDays.find( (day: string) => {
-                 if (day === this.formatDate(unixTimestamp, this.options.format)) {
-                     newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                 }
-             });
-         } else {
+        if (this.options.format) {
+            this.selectedDays.find( (day: string) => {
+                if (day === this.formatDate(unixTimestamp, this.options.format)) {
+                    newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                }
+            });
+        } else {
              this.selectedDays.find( (day: string) => {
                  if (day === timestamp.toString()) {
                      newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
@@ -299,9 +296,9 @@ export class HelloWeek {
              });
          }
 
-         if (this.month) {
-             this.month.appendChild(newDay);
-         }
+        if (this.month) {
+            this.month.appendChild(newDay);
+        }
      }
 
     public monthsAsString(monthIndex: any): any {
