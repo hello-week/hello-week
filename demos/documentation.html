@@ -188,14 +188,17 @@
                     currentDay.appendChild(li);
                 }
 
-                if (this.lastSelectedDay) {
+
+                if (this.selectedDays) {
                     picked.innerHTML = '';
                     for (days of this.selectedDays) {
                         var li = document.createElement('li');
                         li.innerHTML = days;
                         picked.appendChild(li);
                     }
+                }
 
+                if (this.lastSelectedDay) {
                     last.innerHTML = '';
                     var li = document.createElement('li');
                     li.innerHTML = this.lastSelectedDay;

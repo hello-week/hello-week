@@ -68,12 +68,13 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public init(callback: CallbackFunction) {
-        if (this.options.format) {
-            if (this.defaultDate) {
+        if (this.defaultDate) {
+            if (this.options.format) {
                 this.selectedDays.push(this.formatDate(this.defaultDate, this.options.format));
+            } else {
+                this.selectedDays.push(this.defaultDate);
             }
         }
-
         this.date.setDate(1);
         this.updted();
         this.options.onLoad.call(this);
