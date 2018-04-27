@@ -188,7 +188,6 @@
                     currentDay.appendChild(li);
                 }
 
-
                 if (this.selectedDays) {
                     picked.innerHTML = '';
                     for (days of this.selectedDays) {
@@ -213,11 +212,31 @@
             const myCalendar = new HelloWeek({
                 langFolder: '../dist/langs/',
                 lang: 'en',
-                format: 'DD-MM-YYYY',
+                format: 'YYYY-MM-DD',
                 multiplePick: true,
-                defaultDate: '10-01-2020',
+                // defaultDate: '10-01-2020',
+                daysHighlight: [
+                    {
+                        days: [
+                            ['2018-04-16', '2018-04-24'],
+                            ['2018-05-08', '2018-05-14']
+                        ],
+                        backgroundColor: '#6495ed',
+                        color: '#fff',
+                        title: 'Holidays'
+                    },
+                    {
+                        days: ['2018-07-16', '2018-07-17', '2018-07-18', '2018-07-24'],
+                        backgroundColor: '#5f9ea0',
+                        color: '#000',
+                        title: 'Vacations'
+                    }
+                ],
                 todayHighlight: true,
-                disablePastDays: false,
+                disableDates: [
+                    ['2018-02-16', '2018-02-24'],
+                    ['2018-03-16', '2018-03-22']
+                ],
                 disabledDaysOfWeek: [0, 1],
                 weekStart: 0,
                 onLoad: updateInfo,

@@ -8,7 +8,7 @@ export class HelloWeek {
     private month: HTMLElement;
     private week: HTMLElement;
     private label: HTMLElement;
-    private activeDates: any;
+    private activeDates: any = null;
     private date: any;
     private langs: any;
     private defaultDate: any;
@@ -48,11 +48,14 @@ export class HelloWeek {
             throw new Error('You need to specify a selector!');
         }
 
-        this.activeDates = null;
-        this.date = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
-        this.defaultDate = this.options.defaultDate ? new Date(this.options.defaultDate) : new Date();
-        this.currentDay = new Date();
+        this.date = new Date();
 
+        if (this.options.defaultDate) {
+            this.defaultDate = new Date(this.options.defaultDate);
+            this.date = this.defaultDate;
+        }
+
+        this.currentDay = new Date();
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
@@ -69,11 +72,7 @@ export class HelloWeek {
      */
     public init(callback: CallbackFunction) {
         if (this.defaultDate) {
-            if (this.options.format) {
-                this.selectedDays.push(this.formatDate(this.defaultDate, this.options.format));
-            } else {
-                this.selectedDays.push(this.defaultDate);
-            }
+            this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate);
         }
         this.date.setDate(1);
         this.updted();
@@ -162,6 +161,10 @@ export class HelloWeek {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 const selectDay = event.target;
 
+                if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                    return;
+                }
+
                 if (this.options.format) {
                     // date formated
                     this.lastSelectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
@@ -172,19 +175,19 @@ export class HelloWeek {
 
                 if (this.options.multiplePick) {
                     this.selectedDays.push(this.lastSelectedDay);
-                    if (event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
+                    if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                         this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
                     }
                 } else {
-                    if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                    if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                         this.removeActiveClass();
                     }
                     this.selectedDays = [];
                     this.selectedDays.push(this.lastSelectedDay);
                 }
 
-                if (!event.target.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
-                    event.target.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                    selectDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
 
                 this.options.onSelect.call(this);
@@ -306,6 +309,76 @@ export class HelloWeek {
             });
         }
 
+        if (this.options.daysHighlight) {
+            for (const key in this.options.daysHighlight) {
+                if (this.options.daysHighlight[key].days[0] instanceof Array) {
+                    this.options.daysHighlight[key].days.map((date: any, index: number) => {
+                        if (this.options.format) {
+                            if (unixTimestamp >= new Date(date[0]).getTime() && unixTimestamp <= new Date(date[1] + ' 23:59:59').getTime()) {
+                                if (this.options.daysHighlight[key].title) {
+                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                                }
+                                if (this.options.daysHighlight[key].color) {
+                                    newDay.style.color = this.options.daysHighlight[key].color;
+                                }
+                                if (this.options.daysHighlight[key].backgroundColor) {
+                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                                } else {
+                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
+                                }
+                            }
+                        } else {
+                            if (unixTimestamp >= date[0] && unixTimestamp <= date[1]) {
+                                if (this.options.daysHighlight[key].title) {
+                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                                }
+                                if (this.options.daysHighlight[key].color) {
+                                    newDay.style.color = this.options.daysHighlight[key].color;
+                                }
+                                if (this.options.daysHighlight[key].backgroundColor) {
+                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                                } else {
+                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    if (this.options.format) {
+                        if (this.options.daysHighlight[key].days.includes(this.formatDate(unixTimestamp, this.options.format))) {
+                            if (this.options.daysHighlight[key].title) {
+                                newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                            }
+                            if (this.options.daysHighlight[key].color) {
+                                newDay.style.color = this.options.daysHighlight[key].color;
+                            }
+                            if (this.options.daysHighlight[key].backgroundColor) {
+                                newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                            } else {
+                                newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                            }
+                        }
+                    } else {
+                        this.options.daysHighlight[key].days.map((date: any) => {
+                            if (this.formatDate(new Date(unixTimestamp).getTime(), 'YYYY-MM-DD') === this.formatDate(new Date(+date).getTime(), 'YYYY-MM-DD')) {
+                                if (this.options.daysHighlight[key].title) {
+                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                                }
+                                if (this.options.daysHighlight[key].color) {
+                                    newDay.style.color = this.options.daysHighlight[key].color;
+                                }
+                                if (this.options.daysHighlight[key].backgroundColor) {
+                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                                } else {
+                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
         if (this.month) {
             this.month.appendChild(newDay);
         }
@@ -395,6 +468,7 @@ export class HelloWeek {
             disabledDaysOfWeek: false,
             disableDates: false,
             weekStart: 0,
+            daysHighlight: false,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

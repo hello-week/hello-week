@@ -73,8 +73,8 @@
     }
 
     &.is-selected {
-      background-color: var(--hello-week-bg-selected);
-      color: var(--hello-week-color-selected);
+      background-color: var(--hello-week-bg-selected) !important;
+      color: var(--hello-week-color-selected) !important;
     }
 
     &.is-disabled {
