@@ -75,7 +75,6 @@ export class HelloWeek {
         if (this.defaultDate) {
             this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate / 1000);
             this.date = new Date(this.defaultDate);
-            console.log("this.date", this.date);
         }
 
         this.date.setDate(1);
@@ -125,7 +124,8 @@ export class HelloWeek {
      * This function returns the current day with the format if specified, timestamp in another case.
      */
     public getToday(): string {
-        return this.options.format ? this.formatDate(this.currentDay, this.options.format) : this.currentDay;
+        const unixTimestamp = new Date(this.currentDay).setHours(0,0,0,0);
+        return this.options.format ? this.formatDate(this.currentDay, this.options.format) : (unixTimestamp / 1000).toString();
     }
 
     /**
