@@ -1,5 +1,6 @@
 $hello-week-color-primary :#7fcbc3;
 $hello-week-color-secondary :#ffa07a;
+$hello-week-color-highlight :#8fbc8f;
 $hello-week-color-days :#3e3e3e;
 $hello-week-color-weekend: #f3f3f3;
 $hello-week-color-disabled: #f7f8fb;
@@ -18,4 +19,6 @@ $hello-week-color-disabled: #f7f8fb;
   --hello-week-color-weekend: #{darken($hello-week-color-weekend, 20%)};
   --hello-week-bg-disabled: #{$hello-week-color-disabled};
   --hello-week-color-disabled: #{darken($hello-week-color-disabled, 20%)};
+  --hello-week-bg-highlight: #{$hello-week-color-highlight};
+  --hello-week-color-highlight: #fff;
 }

@@ -17,16 +17,17 @@ export class HelloWeek {
     public selectedDays: any = [];
 
     public static readonly CSS_CLASSES: any = {
-        MONTH       : 'hello-week__month',
-        DAY         : 'hello-week__day',
-        WEEK        : 'hello-week__week',
-        WEEK_DAY    : 'hello-week__week__day',
-        LABEL       : 'hello-week__label',
-        IS_ACTIVE   : 'is-active',
-        IS_SELECTED : 'is-selected',
-        IS_DISABLED : 'is-disabled',
-        IS_TODAY    : 'is-today',
-        IS_WEEKEND  : 'is-weekend',
+        MONTH        : 'hello-week__month',
+        DAY          : 'hello-week__day',
+        WEEK         : 'hello-week__week',
+        WEEK_DAY     : 'hello-week__week__day',
+        LABEL        : 'hello-week__label',
+        IS_ACTIVE    : 'is-active',
+        IS_HIGHLIGHT : 'is-highlight',
+        IS_SELECTED  : 'is-selected',
+        IS_DISABLED  : 'is-disabled',
+        IS_TODAY     : 'is-today',
+        IS_WEEKEND   : 'is-weekend',
     };
 
     public static readonly DAYS_WEEK: any = {
@@ -53,6 +54,7 @@ export class HelloWeek {
         if (this.options.defaultDate) {
             this.defaultDate = new Date(this.options.defaultDate);
             this.date = this.defaultDate;
+            console.log(this.date);
         }
 
         this.currentDay = new Date();
@@ -72,6 +74,7 @@ export class HelloWeek {
      */
     public init(callback: CallbackFunction) {
         if (this.defaultDate) {
+            console.log(this.defaultDate);
             this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate);
         }
         this.date.setDate(1);
@@ -254,44 +257,20 @@ export class HelloWeek {
             }
         }
 
-        if ((this.options.disablePastDays && this.date.getTime() <= this.defaultDate.getTime() - 1) || (this.options.minDate && timestamp <= this.options.minDate) || (this.options.maxDate && timestamp >= this.options.maxDate)) {
+        if ((this.options.disablePastDays && this.date.getTime() <= this.defaultDate.getTime() - 1) ||
+                (this.options.minDate && timestamp <= this.options.minDate) ||
+                (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
         } else {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
         }
 
         if (this.options.disableDates) {
-            if (this.options.disableDates[0] instanceof Array) {
-                this.options.disableDates.map((date: any) => {
-                    if (this.options.format) {
-                        if (unixTimestamp >= new Date(date[0]).getTime() && unixTimestamp <= new Date(date[1] + ' 23:59:59').getTime()) {
-                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
-                        }
-                    } else {
-                        if (unixTimestamp >= date[0] && unixTimestamp <= date[1]) {
-                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
-                        }
-                    }
-                });
-            } else {
-                if (this.options.format) {
-                    if (this.options.disableDates.includes(this.formatDate(unixTimestamp, this.options.format))) {
-                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
-                    }
-                } else {
-                    this.options.disableDates.map((date: any) => {
-                        if (this.formatDate(new Date(unixTimestamp).getTime(), 'YYYY-MM-DD') === this.formatDate(new Date(+date).getTime(), 'YYYY-MM-DD')) {
-                            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
-                        }
-                    });
-                    if (this.options.disableDates.includes(unixTimestamp.toString())) {
-                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
-                    }
-                }
-            }
+            this.setDaysDisable(unixTimestamp, newDay);
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) &&
+                this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
         }
 
@@ -310,77 +289,63 @@ export class HelloWeek {
         }
 
         if (this.options.daysHighlight) {
-            for (const key in this.options.daysHighlight) {
-                if (this.options.daysHighlight[key].days[0] instanceof Array) {
-                    this.options.daysHighlight[key].days.map((date: any, index: number) => {
-                        if (this.options.format) {
-                            if (unixTimestamp >= new Date(date[0]).getTime() && unixTimestamp <= new Date(date[1] + ' 23:59:59').getTime()) {
-                                if (this.options.daysHighlight[key].title) {
-                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
-                                }
-                                if (this.options.daysHighlight[key].color) {
-                                    newDay.style.color = this.options.daysHighlight[key].color;
-                                }
-                                if (this.options.daysHighlight[key].backgroundColor) {
-                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
-                                } else {
-                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
-                                }
-                            }
-                        } else {
-                            if (unixTimestamp >= date[0] && unixTimestamp <= date[1]) {
-                                if (this.options.daysHighlight[key].title) {
-                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
-                                }
-                                if (this.options.daysHighlight[key].color) {
-                                    newDay.style.color = this.options.daysHighlight[key].color;
-                                }
-                                if (this.options.daysHighlight[key].backgroundColor) {
-                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
-                                } else {
-                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    if (this.options.format) {
-                        if (this.options.daysHighlight[key].days.includes(this.formatDate(unixTimestamp, this.options.format))) {
-                            if (this.options.daysHighlight[key].title) {
-                                newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
-                            }
-                            if (this.options.daysHighlight[key].color) {
-                                newDay.style.color = this.options.daysHighlight[key].color;
-                            }
-                            if (this.options.daysHighlight[key].backgroundColor) {
-                                newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
-                            } else {
-                                newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                            }
-                        }
-                    } else {
-                        this.options.daysHighlight[key].days.map((date: any) => {
-                            if (this.formatDate(new Date(unixTimestamp).getTime(), 'YYYY-MM-DD') === this.formatDate(new Date(+date).getTime(), 'YYYY-MM-DD')) {
-                                if (this.options.daysHighlight[key].title) {
-                                    newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
-                                }
-                                if (this.options.daysHighlight[key].color) {
-                                    newDay.style.color = this.options.daysHighlight[key].color;
-                                }
-                                if (this.options.daysHighlight[key].backgroundColor) {
-                                    newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
-                                } else {
-                                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                                }
-                            }
-                        });
-                    }
-                }
-            }
+            this.setDaysHighlight(unixTimestamp, newDay);
         }
 
         if (this.month) {
             this.month.appendChild(newDay);
+        }
+    }
+
+    private setDaysDisable(unixTimestamp: number, newDay: HTMLElement): void {
+        if (this.options.disableDates[0] instanceof Array) {
+            this.options.disableDates.map((date: any) => {
+                if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                }
+            });
+        } else {
+            this.options.disableDates.map((date: any) => {
+                if (new Date(new Date(unixTimestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
+                    newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+                }
+            });
+        }
+    }
+
+    private setDaysHighlight(unixTimestamp: number, newDay: HTMLElement): void {
+        for (const key in this.options.daysHighlight) {
+            if (this.options.daysHighlight[key].days[0] instanceof Array) {
+                this.options.daysHighlight[key].days.map((date: any, index: number) => {
+                    if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_HIGHLIGHT);
+                        if (this.options.daysHighlight[key].title) {
+                            newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                        }
+                        if (this.options.daysHighlight[key].color) {
+                            newDay.style.color = this.options.daysHighlight[key].color;
+                        }
+                        if (this.options.daysHighlight[key].backgroundColor) {
+                            newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                        }
+                    }
+                });
+            } else {
+                this.options.daysHighlight[key].days.map((date: any) => {
+                    if (new Date(new Date(unixTimestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
+                        newDay.classList.add(HelloWeek.CSS_CLASSES.IS_HIGHLIGHT);
+                        if (this.options.daysHighlight[key].title) {
+                            newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
+                        }
+                        if (this.options.daysHighlight[key].color) {
+                            newDay.style.color = this.options.daysHighlight[key].color;
+                        }
+                        if (this.options.daysHighlight[key].backgroundColor) {
+                            newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                        }
+                    }
+                });
+            }
         }
     }
 

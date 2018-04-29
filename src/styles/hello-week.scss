@@ -62,11 +62,6 @@
       cursor: pointer;
     }
 
-    &.is-today {
-      background-color: var(--hello-week-bg-tody);
-      color: var(--hello-week-color-tody);
-    }
-
     &.is-weekend {
       background-color: var(--hello-week-bg-weekend);
       color: var(--hello-week-color-weekend);
@@ -82,6 +77,16 @@
       background-color: var(--hello-week-bg-disabled);
       color: var(--hello-week-color-disabled);
       cursor: not-allowed;
+    }
+
+    &.is-highlight {
+      background-color: var(--hello-week-bg-highlight) ;
+      color: var(--hello-week-color-highlight) ;
+    }
+
+    &.is-today {
+      background-color: var(--hello-week-bg-tody);
+      color: var(--hello-week-color-tody);
     }
   }
 }
