@@ -52,9 +52,8 @@ export class HelloWeek {
         this.date = new Date();
 
         if (this.options.defaultDate) {
-            this.defaultDate = new Date(this.options.defaultDate);
+            this.defaultDate = new Date(this.options.defaultDate).setHours(0,0,0,0);
             this.date = this.defaultDate;
-            console.log(this.date);
         }
 
         this.currentDay = new Date();
@@ -74,9 +73,11 @@ export class HelloWeek {
      */
     public init(callback: CallbackFunction) {
         if (this.defaultDate) {
-            console.log(this.defaultDate);
-            this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate);
+            this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate / 1000);
+            this.date = new Date(this.defaultDate);
+            console.log("this.date", this.date);
         }
+
         this.date.setDate(1);
         this.updted();
         this.options.onLoad.call(this);
@@ -168,13 +169,9 @@ export class HelloWeek {
                     return;
                 }
 
-                if (this.options.format) {
-                    // date formated
-                    this.lastSelectedDay = this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format);
-                } else {
-                    // date in timestamp
-                    this.lastSelectedDay = selectDay.dataset.timestamp;
-                }
+                this.lastSelectedDay = this.options.format ?
+                    this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format) :
+                    selectDay.dataset.timestamp;
 
                 if (this.options.multiplePick) {
                     this.selectedDays.push(this.lastSelectedDay);
@@ -227,7 +224,7 @@ export class HelloWeek {
      * @param {number} day
      */
     public createDay (num: number, day: number): void {
-        const unixTimestamp = Date.parse(this.date);
+        const unixTimestamp = new Date(this.date).setHours(0,0,0,0);
         const timestamp = unixTimestamp / 1000;
         const newDay = <any>document.createElement('div');
 
@@ -281,8 +278,8 @@ export class HelloWeek {
                 }
             });
         } else {
-            this.selectedDays.find( (day: string) => {
-                if (day === timestamp.toString()) {
+            this.selectedDays.find( (day: number) => {
+                if (day === timestamp) {
                     newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
             });
