@@ -88,7 +88,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * Method to change the month to the previous, also you can send a callback function like a parameter.
+     * Method change the month to the previous, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
     public prev(callback: CallbackFunction): void {
@@ -105,7 +105,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * Method to change the month to the next, also you can send a callback function like a parameter.
+     * Method change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      */
     public next(callback: CallbackFunction): void {
@@ -122,7 +122,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * This function returns the current day with the format if specified, timestamp in another case.
+     * Method returns the current day with the format if specified, timestamp in another case.
      */
     public getToday(): string {
         const unixTimestamp = new Date(this.currentDay).setHours(0,0,0,0);
@@ -131,7 +131,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * This function move the calendar to current day.
+     * Method move the calendar to current day.
      */
     public today(): void {
         this.clearCalendar();
@@ -142,7 +142,7 @@ export class HelloWeek {
 
     /**
      * Public method
-     * Clean yours selected days in calendar.
+     * Method clean selected days in calendar.
      */
     public clear(callback: CallbackFunction): void {
         this.clearCalendar();

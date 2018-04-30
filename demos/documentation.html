@@ -147,6 +147,37 @@
                             <label>Disable date selections after this date.</label>
                         </div>
                     </div>
+                    <h2 class="sub-title">Methods</h2>
+                    <blockquote>
+                        <p>Hello Week has some methods that allow gives you the ability to manipulate.</p>
+                    </blockquote>
+                    <div class="options">
+                        <div class="options__item">
+                            <h4>prev()</h4>
+                            <p>Type: <code class="code">triggerable</code></p>
+                            <label>Method to change the month to the previous, also you can send a callback function like a parameter.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>next()</h4>
+                            <p>Type: <code class="code">triggerable</code></p>
+                            <label>Method to change the month to the next, also you can send a callback function like a parameter.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>today()</h4>
+                            <p>Type: <code class="code">triggerable</code></p>
+                            <label>Method move the calendar to current day.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>clear()</h4>
+                            <p>Type: <code class="code">triggerable</code></p>
+                            <label>Method clean selected days in calendar.</label>
+                        </div>
+                        <div class="options__item">
+                            <h4>getToday<()</h4>
+                            <p>Type: <code class="code">triggerable</code></p>
+                            <label>Method returns the current day with the format if specified, timestamp in another case.</label>
+                        </div>
+                    </div>
                     <h2 class="sub-title">Callbacks</h2>
                     <blockquote>
                         <p>This gives you the ability to listen for any changes and perform your own actions.</p>
@@ -163,7 +194,7 @@
                             <label>Runs after month change.</label>
                         </div>
                         <div class="options__item">
-                            <h4>onLoad</h4>
+                            <h4>onSelect</h4>
                             <p>Type: <code class="code">attachable</code></p>
                             <label>Runs on select the day.</label>
                         </div>
