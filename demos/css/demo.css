@@ -125,6 +125,21 @@ blockquote {
   outline: none;
 }
 
+.btn-range {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: .5rem 1rem;
+  border: 1px solid #6495ed;
+  color: #6495ed;
+  cursor: pointer;
+}
+
+.btn-range:hover {
+  background: #6495ed;
+  color: #fff;
+}
+
 .btn-today {
   display: inline-flex;
   width: auto;

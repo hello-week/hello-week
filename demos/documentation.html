@@ -24,6 +24,7 @@
             <div class="container">
                 <div class="hello-week">
                     <div class="flex-line justify-end">
+                        <button class="btn btn-range">Range</button>
                         <button class="btn btn-today">Today</button>
                         <button class="btn btn-clear">Clear</button>
                     </div>
@@ -221,6 +222,7 @@
             const prev = document.querySelector('.btn-prev');
             const next = document.querySelector('.btn-next');
             const today = document.querySelector('.btn-today');
+            const range = document.querySelector('.btn-range');
             const clear = document.querySelector('.btn-clear');
             const currentDay = document.querySelector('.demo-today');
             const picked = document.querySelector('.demo-picked');
@@ -234,13 +236,15 @@
                     currentDay.appendChild(li);
                 }
 
-                if (this.selectedDays) {
+                if (this.selectedDays.length > 0) {
                     picked.innerHTML = '';
                     for (days of this.selectedDays) {
                         var li = document.createElement('li');
                         li.innerHTML = days;
                         picked.appendChild(li);
                     }
+                } else {
+                    picked.innerHTML = '<li>n/a</li>';
                 }
 
                 if (this.lastSelectedDay) {
@@ -259,7 +263,7 @@
                 langFolder: '../dist/langs/',
                 lang: 'en',
                 format: 'DD-MM-YYYY',
-                defaultDate: '2018-06-01', // Only format YYYY-MM-DD
+                // defaultDate: '2018-06-01', // Only format YYYY-MM-DD
                 multiplePick: true,
                 daysHighlight: [
                     {
@@ -282,6 +286,7 @@
                 disablePastDays: false,
                 disabledDaysOfWeek: [0],
                 weekStart: 0,
+                range: true,
                 onLoad: updateInfo,
                 onChange: updateInfo,
                 onSelect: updateInfo,
@@ -292,7 +297,7 @@
             next.addEventListener('click', () => myCalendar.next());
             today.addEventListener('click', () => myCalendar.today());
             clear.addEventListener('click', () => myCalendar.clear());
-
+            range.addEventListener('click', () => myCalendar.range());
         </script>
     </body>
 </html>

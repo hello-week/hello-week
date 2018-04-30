@@ -11,7 +11,7 @@ export class HelloWeek {
     private activeDates: any = null;
     private date: any;
     private langs: any;
-    private defaultDate: any;
+    private interval: any = [];
     public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
@@ -50,14 +50,8 @@ export class HelloWeek {
         }
 
         this.date = new Date();
-        this.defaultDate = new Date();
-
-        if (this.options.defaultDate) {
-            this.defaultDate = new Date(this.options.defaultDate).setHours(0,0,0,0);
-            this.date = this.defaultDate;
-        }
-
         this.currentDay = new Date();
+
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
         this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
@@ -73,9 +67,9 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public init(callback: CallbackFunction) {
+
         if (this.options.defaultDate) {
-            this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate / 1000);
-            this.date = new Date(this.defaultDate);
+            this.date = new Date(this.options.defaultDate);
         }
 
         this.date.setDate(1);
@@ -156,6 +150,10 @@ export class HelloWeek {
         }
     }
 
+    public range(): void {
+        this.options.range = !this.options.range;
+    }
+
     /**
      * Select day
      * @param {CallbackFunction} callback
@@ -174,21 +172,38 @@ export class HelloWeek {
                     this.formatDate(parseInt(selectDay.dataset.timestamp) * 1000, this.options.format) :
                     selectDay.dataset.timestamp;
 
-                if (this.options.multiplePick) {
-                    this.selectedDays.push(this.lastSelectedDay);
-                    if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
-                        this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
+                if (!this.options.range) {
+                    if (this.options.multiplePick) {
+                        this.selectedDays.push(this.lastSelectedDay);
+                        if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
+                            this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
+                        }
+                    } else {
+                        if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                            this.removeActiveClass();
+                        }
+                        this.selectedDays = [];
+                        this.selectedDays.push(this.lastSelectedDay);
                     }
-                } else {
-                    if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
-                        this.removeActiveClass();
-                    }
-                    this.selectedDays = [];
-                    this.selectedDays.push(this.lastSelectedDay);
                 }
 
                 if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                     selectDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                }
+
+                if (this.options.range) {
+                    if (this.interval.length === 2) {
+                        this.interval = [];
+                        this.selectedDays = [];
+                        this.interval.push(selectDay);
+                        this.removeActiveClass();
+                        selectDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                    } else {
+                        this.interval.push(selectDay);
+                        if (this.interval.length > 1) {
+                            this.interval[1].classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                        }
+                    }
                 }
 
                 this.options.onSelect.call(this);
@@ -196,6 +211,30 @@ export class HelloWeek {
                     callback.call(this);
                 }
             });
+
+            if (this.options.range) {
+                this.activeDates[i].addEventListener('mouseover', (event: any) => {
+                    if (this.interval.length > 0 && this.interval.length < 2) {
+                        this.selectedDays = [];
+                        let element = this.interval[0];
+                        for (const elm of this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_SELECTED)) {
+                            if(!this.interval.includes(elm)) {
+                                (<HTMLElement>elm).classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                            }
+                        };
+                        this.selectedDays.push(this.options.format ?
+                            this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                            element.dataset.timestamp);
+                        while(element.nextElementSibling && element !== event.target) {
+                            element = element.nextElementSibling;
+                            this.selectedDays.push(this.options.format ?
+                                    this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                                    element.dataset.timestamp);
+                            element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -256,7 +295,7 @@ export class HelloWeek {
         }
 
         if ((this.options.disablePastDays &&
-                this.date.getTime() <= this.defaultDate.getTime() - 1) ||
+                this.date.getTime() <= this.currentDay.getTime() - 1) ||
                 (this.options.minDate && timestamp <= this.options.minDate) ||
                 (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
@@ -434,6 +473,7 @@ export class HelloWeek {
             disableDates: false,
             weekStart: 0,
             daysHighlight: false,
+            range: false,
             minDate: false,
             maxDate: false,
             onLoad: () => { /** callback function */ },

@@ -88,5 +88,9 @@
       background-color: var(--hello-week-bg-tody);
       color: var(--hello-week-color-tody);
     }
+
+    &.is-hover {
+      background-color: #dee;
+    }
   }
 }
