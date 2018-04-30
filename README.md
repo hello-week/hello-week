@@ -46,153 +46,25 @@ Default values are presented below.
 new HelloWeek({
     selector: '.hello-week',
     lang: 'en',
-    format: 'YYYY-MM-DD',
-    monthShort: true,
+    langFolder: './dist/langs/',
+    format: false,
     weekShort: true,
+    monthShort: false,
     multiplePick: false,
     defaultDate: false,
     todayHighlight: true,
-    disablePastDays: true,
-    disabledDaysOfWeek: [0, 6],
-    disableDates: [
-        ['2018-04-16', '2018-04-24'],
-        ['2018-05-16', '2018-05-22']
-    ],
+    disablePastDays: false,
+    disabledDaysOfWeek: false,
+    disableDates: false,
+    weekStart: 0,
+    daysHighlight: false,
+    minDate: false,
+    maxDate: false,
     onLoad: () => { /** callback function */ },
     onChange: () => { /** callback function */ },
     onSelect: () => { /** callback function */ },
+    onClear: () => { /** callback function */ }
 });
-```
-
-`selector`
-Define selector to use as a datepicker.
-
-```
-Default: false
-Accepts: string
-```
-
-`lang`
-Determines which translation file will be read.
-```
-Default: false
-Accepts: string
-```
-
-`langFolder`
-Determines path of your langs
-```
-Accepts: string
-```
-
-`format`
-See the table of available formats. The format also determines which components are displayed.
-```
-Default: false
-Accepts: string
-```
-
-`weekShort`
-Sets the format of the week.
-```
-Default: true
-```
-
-`monthShort`
-Sets the format of the month.
-```
-Default: false
-```
-
-`multiplePick`
-Alows multiple days selection.
-```
-Default: false
-```
-
-`defaultDate`
-Define the start date in calendar.
-```
-Default: false
-```
-
-`todayHighlight`
-If true, highlights the current date.
-```
-Default: true
-```
-
-`disablePastDays`
-Disable date before the current day.
-```
-Default: false
-```
-
-`disabledDaysOfWeek`
-Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated.
-```
-Default: false
-```
-
-`disableDates`
-Array of date strings or a single date string to make days disabled.
-```
-Default: false
-```
-
-`daysHighlight`
-Array of date strings or a single date string to make days with highlight.
-```
-Default: false
-```
-
-`weekStart`
-Day of the week start. 0 (Sunday) to 6 (Saturday)
-```
-Default: 0
-Accepts: Integer
-```
-
-`minDate`
-Disable date selections before this date.
-```
-Default: false
-Accepts: timestamp
-```
-
-`maxDate`
-Disable date selections after this date.
-```
-Default: false
-Accepts: timestamp
-```
-
-`onLoad`
-Runs immediately after initialization.
-```
-Default: false
-Accepts: function
-```
-
-`onChange`
-Runs after month change.
-```
-Default: false
-Accepts: function
-```
-
-`onSelect`
-Runs on select the day.
-```
-Default: false
-Accepts: function
-```
-
-`onClear`
-Runs on clear calendar
-```
-Default: false
-Accepts: function
 ```
 
 ### Date Format
