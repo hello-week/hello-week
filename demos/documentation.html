@@ -23,6 +23,10 @@
         <section class="section">
             <div class="container">
                 <div class="hello-week">
+                    <div class="flex-line justify-end">
+                        <button class="btn btn-today">Today</button>
+                        <button class="btn btn-clear">Clear</button>
+                    </div>
                     <div class="hello-week__header">
                         <button class="btn btn-prev">◀</button>
                         <div class="hello-week__label"></div>
@@ -31,9 +35,15 @@
                     <div class="hello-week__week"></div>
                     <div class="hello-week__month"></div>
                 </div>
-                <div class="flex-line">
-                    <button class="btn btn-today">Today</button>
-                    <button class="btn btn-clear">Clear</button>
+                <div class="days-highlight">
+                    <ul class="days">
+                        <li class="days__item">
+                            <span style="--color-item: #6495ed;"></span>Holidays
+                        </li>
+                        <li class="days__item">
+                            <span style="--color-item: #f08080;"></span>Vacations
+                        </li>
+                    </ul>
                 </div>
                 <div class="demo-exemplo">
                     <p><strong>Today:</strong> </p>
@@ -213,29 +223,28 @@
                 langFolder: '../dist/langs/',
                 lang: 'en',
                 format: 'DD-MM-YYYY',
+                defaultDate: '2018-06-01', // Only format YYYY-MM-DD
                 multiplePick: true,
-                defaultDate: '2018-06-01',
                 daysHighlight: [
                     {
                         days: [
-                            ['2018-04-16', '2018-04-24'],
-                            ['2018-05-08', '2018-05-14']
+                            ['2018-05-16', '2018-05-24'],
+                            ['2018-06-08', '2018-06-14']
                         ],
                         backgroundColor: '#6495ed',
                         color: '#fff',
                         title: 'Holidays'
                     },
                     {
-                        days: ['2018-07-16', '2018-07-17', '2018-07-18', '2018-07-24'],
+                        days: ['2018-07-14', '2018-07-17', '2018-07-18', '2018-07-24'],
+                        backgroundColor: '#f08080',
                         title: 'Vacations'
                     }
                 ],
                 todayHighlight: true,
-                disableDates: [
-                    ['2018-02-16', '2018-02-24'],
-                    ['2018-03-16', '2018-03-22']
-                ],
-                disabledDaysOfWeek: [0, 1],
+                disableDates: false,
+                disablePastDays: false,
+                disabledDaysOfWeek: [0],
                 weekStart: 0,
                 onLoad: updateInfo,
                 onChange: updateInfo,

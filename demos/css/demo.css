@@ -92,7 +92,15 @@ blockquote {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
+  width: 100%;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .btn {
@@ -121,7 +129,7 @@ blockquote {
   display: inline-flex;
   width: auto;
   height: auto;
-  padding: 1rem 2rem;
+  padding: .5rem 1rem;
   border: 1px solid #7fcbc3;
   color: #7fcbc3;
   cursor: pointer;
@@ -136,7 +144,7 @@ blockquote {
   display: inline-flex;
   width: auto;
   height: auto;
-  padding: 1rem 2rem;
+  padding: .5rem 1rem;
   border: 1px solid #ed143d;
   color: #ed143d;
   cursor: pointer;
@@ -372,4 +380,31 @@ blockquote {
 .half {
   display: flex;
   padding: 0 1rem;
+}
+
+.days-highlight {
+  display: flex;
+  margin: 2rem;
+}
+
+.days {
+  display: flex;
+  flex-direction: row;
+}
+
+.days__item {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.days__item span {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-item);
+  margin-right: 1rem;
 }

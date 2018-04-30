@@ -135,7 +135,13 @@ Default: false
 ```
 
 `disableDates`
-Array of date strings or a single date string formatted in the given date format
+Array of date strings or a single date string to make days disabled.
+```
+Default: false
+```
+
+`daysHighlight`
+Array of date strings or a single date string to make days with highlight.
 ```
 Default: false
 ```

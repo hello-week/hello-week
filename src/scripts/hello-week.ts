@@ -50,6 +50,7 @@ export class HelloWeek {
         }
 
         this.date = new Date();
+        this.defaultDate = new Date();
 
         if (this.options.defaultDate) {
             this.defaultDate = new Date(this.options.defaultDate).setHours(0,0,0,0);
@@ -72,7 +73,7 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public init(callback: CallbackFunction) {
-        if (this.defaultDate) {
+        if (this.options.defaultDate) {
             this.selectedDays.push(this.options.format ? this.formatDate(this.defaultDate, this.options.format) : this.defaultDate / 1000);
             this.date = new Date(this.defaultDate);
         }
@@ -254,7 +255,8 @@ export class HelloWeek {
             }
         }
 
-        if ((this.options.disablePastDays && this.date.getTime() <= this.defaultDate.getTime() - 1) ||
+        if ((this.options.disablePastDays &&
+                this.date.getTime() <= this.defaultDate.getTime() - 1) ||
                 (this.options.minDate && timestamp <= this.options.minDate) ||
                 (this.options.maxDate && timestamp >= this.options.maxDate)) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
@@ -266,8 +268,7 @@ export class HelloWeek {
             this.setDaysDisable(unixTimestamp, newDay);
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) &&
-                this.options.todayHighlight) {
+        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
         }
 
@@ -297,7 +298,8 @@ export class HelloWeek {
     private setDaysDisable(unixTimestamp: number, newDay: HTMLElement): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
-                if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() &&
+                        unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
                     newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
                 }
             });
@@ -314,7 +316,8 @@ export class HelloWeek {
         for (const key in this.options.daysHighlight) {
             if (this.options.daysHighlight[key].days[0] instanceof Array) {
                 this.options.daysHighlight[key].days.map((date: any, index: number) => {
-                    if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                    if (unixTimestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() &&
+                        unixTimestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
                         newDay.classList.add(HelloWeek.CSS_CLASSES.IS_HIGHLIGHT);
                         if (this.options.daysHighlight[key].title) {
                             newDay.setAttribute('data-title', this.options.daysHighlight[key].title);
