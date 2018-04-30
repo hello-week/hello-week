@@ -410,10 +410,11 @@ blockquote {
 }
 
 .label {
-  position: absolute;
+  position: relative;
   display: inline-flex;
-  margin-left: .5rem;
+  margin-left: .3rem;
   padding: 0 .6rem;
+  transform: translateY(-50%);
   border-radius: 2px;
   font-size: .7rem;
   font-weight: 600;
@@ -421,5 +422,10 @@ blockquote {
 
 .label--new {
   background-color: #3cb371;
+  color: #fff;
+}
+
+.label--version {
+  background-color: #ff6347;
   color: #fff;
 }
