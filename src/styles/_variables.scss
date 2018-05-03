@@ -5,6 +5,8 @@ $hello-week-color-days :#3e3e3e;
 $hello-week-color-weekend: #f3f3f3;
 $hello-week-color-disabled: #f7f8fb;
 
+$hello-week-transition: .2s cubic-bezier(.25, .1, .49, .9);
+
 :root {
   --hello-week-bg-color: #fff;
   --hello-week-bg-day: #fff;

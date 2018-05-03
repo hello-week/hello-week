@@ -56,7 +56,7 @@
     justify-content: center;
     width: 14.28%;
     padding: 1rem;
-    transition: background-color .3s ease;
+    transition: background-color $hello-week-transition;
     border-radius: var(--hello-week-border-radius);
 
     &.is-active {
