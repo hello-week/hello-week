@@ -23,10 +23,15 @@
         <section class="section">
             <div class="container">
                 <div class="hello-week">
-                    <div class="flex-line justify-end">
-                        <button class="btn btn-range">Range</button>
-                        <button class="btn btn-today">Today</button>
-                        <button class="btn btn-clear">Clear</button>
+                    <div class="flex-line space-between">
+                        <div>
+                            <button class="btn btn-default btn-today">Today</button>
+                            <button class="btn btn-default btn-clear">Clear</button>
+                        </div>
+                        <div class="form__field">
+                            <input id="switch-1" type="checkbox" value="1" name="switch[]" class="form__switch btn-range">
+                            <label for="switch-1" class="form__label">Range</label>
+                        </div>
                     </div>
                     <div class="hello-week__header">
                         <button class="btn btn-prev">◀</button>
