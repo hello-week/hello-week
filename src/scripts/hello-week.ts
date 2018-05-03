@@ -163,7 +163,6 @@ export class HelloWeek {
         for (const i of Object.keys(this.activeDates)) {
             this.activeDates[i].addEventListener('click', (event: any) => {
                 const selectDay = event.target;
-
                 if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                     return;
                 }
@@ -200,6 +199,7 @@ export class HelloWeek {
                         selectDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
                     } else {
                         this.interval.push(selectDay);
+
                         if (this.interval.length > 1) {
                             this.interval[1].classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
                         }
@@ -212,29 +212,30 @@ export class HelloWeek {
                 }
             });
 
-            if (this.options.range) {
-                this.activeDates[i].addEventListener('mouseover', (event: any) => {
-                    if (this.interval.length > 0 && this.interval.length < 2) {
-                        this.selectedDays = [];
-                        let element = this.interval[0];
-                        for (const elm of this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_SELECTED)) {
-                            if(!this.interval.includes(elm)) {
-                                (<HTMLElement>elm).classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
-                            }
-                        };
-                        this.selectedDays.push(this.options.format ?
-                            this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
-                            element.dataset.timestamp);
-                        while(element.nextElementSibling && element !== event.target) {
-                            element = element.nextElementSibling;
-                            this.selectedDays.push(this.options.format ?
-                                    this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
-                                    element.dataset.timestamp);
-                            element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+            this.activeDates[i].addEventListener('mouseover', (event: any) => {
+                if (!this.options.range || this.interval.length > 1) {
+                    return;
+                }
+                if (this.interval.length > 0 && this.interval.length < 2) {
+                    this.selectedDays = [];
+                    let element = this.interval[0];
+                    for (const elm of this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_SELECTED)) {
+                        if(!this.interval.includes(elm)) {
+                            (<HTMLElement>elm).classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
                         }
                     }
-                });
-            }
+                    this.selectedDays.push(this.options.format ?
+                        this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                        element.dataset.timestamp);
+                    while(element.nextElementSibling && element !== event.target) {
+                        element = element.nextElementSibling;
+                        this.selectedDays.push(this.options.format ?
+                                this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                                element.dataset.timestamp);
+                        element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                    }
+                }
+            });
         }
     }
 

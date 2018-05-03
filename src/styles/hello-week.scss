@@ -50,13 +50,14 @@
   }
 
   &__day {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 14.28%;
     padding: 1rem;
+    transition: background-color .3s ease;
     border-radius: var(--hello-week-border-radius);
-    background-color: #fff;
 
     &.is-active {
       cursor: pointer;
@@ -80,8 +81,8 @@
     }
 
     &.is-highlight {
-      background-color: var(--hello-week-bg-highlight) ;
-      color: var(--hello-week-color-highlight) ;
+      background-color: var(--hello-week-bg-highlight);
+      color: var(--hello-week-color-highlight);
     }
 
     &.is-today {
