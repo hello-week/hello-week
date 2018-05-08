@@ -229,10 +229,12 @@ export class HelloWeek {
                         element.dataset.timestamp);
                     while(element.nextElementSibling && element !== event.target) {
                         element = element.nextElementSibling;
-                        this.selectedDays.push(this.options.format ?
-                                this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
-                                element.dataset.timestamp);
-                        element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                        if (!element.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+                            this.selectedDays.push(this.options.format ?
+                                    this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                                    element.dataset.timestamp);
+                            element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                        }
                     }
                 }
             });
