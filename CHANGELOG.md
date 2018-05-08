@@ -4,14 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2018-05-30
+## [1.3.0] - 2018-05-08
 ### Added
-- Option `daysHighlight()` accepted object or array of objects to make days with highlight.
+- Option `range` allows you to select array range of days.
+- Method `setRange()` toggle status of range.
+
+## [1.2.0] - 2018-04-30
+### Added
+- Option `daysHighlight` accepted object or array of objects to make days with highlight.
 
 ### Changed
 - Fix `defaultDate` option when don't have `format` defined.
 
-## [1.1.0] - 2018-05-25
+## [1.1.0] - 2018-04-25
 ### Added
 - Method `today()` move the calendar to current day.
 - Method `getToday()` get current day with the format if specified, timestamp in another case.
@@ -24,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.0] - 2018-04-12
 ### Added
-- Option `weekStart` define day of the week start. 0 (Sunday) to 6 (Saturday)
+- Option `weekStart` define day of the week start. 0 (Sunday) to 6 (Saturday).
 
 ## [0.1.0] - 2018-04-12
 ### Added
