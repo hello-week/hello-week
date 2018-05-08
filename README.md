@@ -58,6 +58,7 @@ new HelloWeek({
     disableDates: false,
     weekStart: 0,
     daysHighlight: false,
+    range: false,
     minDate: false,
     maxDate: false,
     onLoad: () => { /** callback function */ },

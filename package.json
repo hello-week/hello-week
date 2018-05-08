@@ -10,7 +10,8 @@
     "typescript",
     "javascript",
     "scss",
-    "datepicker"
+    "datepicker",
+    "calendar"
   ],
   "author": "Mauro Reis Vieira <mauroreisvieira@gmail.com>",
   "bugs": {
