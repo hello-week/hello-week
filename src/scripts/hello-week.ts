@@ -355,6 +355,9 @@ export class HelloWeek {
     }
 
     private setDaysHighlight(unixTimestamp: number, newDay: HTMLElement): void {
+        if (newDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
+            return;
+        }
         for (const key in this.options.daysHighlight) {
             if (this.options.daysHighlight[key].days[0] instanceof Array) {
                 this.options.daysHighlight[key].days.map((date: any, index: number) => {
