@@ -150,7 +150,7 @@ export class HelloWeek {
         }
     }
 
-    public range(): void {
+    public setRange(): void {
         this.options.range = !this.options.range;
     }
 
