@@ -198,8 +198,11 @@ export class HelloWeek {
                         this.removeActiveClass();
                         selectDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
                     } else {
+                        if (this.interval[0] && selectDay.dataset.timestamp < this.interval[0].dataset.timestamp) {
+                            selectDay.classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                            return;
+                        }
                         this.interval.push(selectDay);
-
                         if (this.interval.length > 1) {
                             this.interval[1].classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
                         }
@@ -214,7 +217,7 @@ export class HelloWeek {
 
             this.activeDates[i].addEventListener('mouseover', (event: any) => {
                 if ((!this.options.range || this.interval.length > 1) ||
-                    this.interval[0] && event.target.dataset.timestamp < <HTMLElement>this.interval[0].dataset.timestamp) {
+                    this.interval[0] && event.target.dataset.timestamp < this.interval[0].dataset.timestamp) {
                     return;
                 }
 
