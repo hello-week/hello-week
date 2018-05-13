@@ -213,9 +213,11 @@ export class HelloWeek {
             });
 
             this.activeDates[i].addEventListener('mouseover', (event: any) => {
-                if (!this.options.range || this.interval.length > 1) {
+                if ((!this.options.range || this.interval.length > 1) ||
+                    this.interval[0] && event.target.dataset.timestamp < <HTMLElement>this.interval[0].dataset.timestamp) {
                     return;
                 }
+
                 if (this.interval.length > 0 && this.interval.length < 2) {
                     this.selectedDays = [];
                     let element = this.interval[0];
