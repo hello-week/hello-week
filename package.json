@@ -25,7 +25,8 @@
     "start": "node_modules/.bin/webpack-dev-server --config webpack.config.js --open --mode development",
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode production",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
-    "lint:scss": "stylelint src/**/*.scss"
+    "lint:scss": "stylelint src/**/*.scss",
+    "test:version": "node test/version"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.0.0",
