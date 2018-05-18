@@ -15,6 +15,7 @@ export class HelloWeek {
     public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
+    public selectedTemporary: any = [];
 
     public static readonly CSS_CLASSES: any = {
         MONTH        : 'hello-week__month',
@@ -142,6 +143,7 @@ export class HelloWeek {
         this.clearCalendar();
         this.date.setDate(1);
         this.selectedDays = [];
+        this.selectedTemporary = [];
         this.updted();
 
         this.options.onClear.call(this);
@@ -176,13 +178,16 @@ export class HelloWeek {
                         this.selectedDays.push(this.lastSelectedDay);
                         if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                             this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
+                            this.selectedTemporary = this.selectedTemporary.filter((day: string) => day !== this.lastSelectedDay);
                         }
                     } else {
                         if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                             this.removeActiveClass();
                         }
                         this.selectedDays = [];
+                        this.selectedTemporary = [];
                         this.selectedDays.push(this.lastSelectedDay);
+                        this.selectedTemporary.push(this.lastSelectedDay);
                     }
                 }
 
@@ -194,6 +199,7 @@ export class HelloWeek {
                     if (this.interval.length === 2) {
                         this.interval = [];
                         this.selectedDays = [];
+                        this.selectedTemporary = [];
                         this.interval.push(selectDay);
                         this.removeActiveClass();
                         selectDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
@@ -230,8 +236,7 @@ export class HelloWeek {
                         }
                     }
                     this.selectedDays.push(this.options.format ?
-                        this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
-                        element.dataset.timestamp);
+                        this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) : element.dataset.timestamp);
                     while(element.nextElementSibling && element !== event.target) {
                         element = element.nextElementSibling;
                         if (!element.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
@@ -239,6 +244,10 @@ export class HelloWeek {
                                     this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
                                     element.dataset.timestamp);
                             element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                            // temporary array with selected days
+                            this.selectedTemporary.push(this.options.format ?
+                                    this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                                    element.dataset.timestamp);
                         }
                     }
                 }
@@ -339,6 +348,10 @@ export class HelloWeek {
 
         if (this.month) {
             this.month.appendChild(newDay);
+        }
+
+        if (this.selectedTemporary.length > 0 && num === 1) {
+            this.interval[0] = newDay;
         }
     }
 
