@@ -19,8 +19,9 @@ export class HelloWeek {
 
     public static readonly CSS_CLASSES: any = {
         MONTH        : 'hello-week__month',
-        DAY          : 'hello-week__day',
+        HEADER       : 'hello-week__header',
         WEEK         : 'hello-week__week',
+        DAY          : 'hello-week__day',
         WEEK_DAY     : 'hello-week__week__day',
         LABEL        : 'hello-week__label',
         IS_ACTIVE    : 'is-active',
@@ -45,6 +46,15 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
+        const week = document.createElement('div');
+        week.classList.add(HelloWeek.CSS_CLASSES.WEEK);
+        (<HTMLElement>this.selector).appendChild(week);
+
+        const month = document.createElement('div');
+        month.classList.add(HelloWeek.CSS_CLASSES.MONTH);
+        (<HTMLElement>this.selector).appendChild(month);
+
+
         // Early throw if selector doesn't exists
         if (this.selector === null) {
             throw new Error('You need to specify a selector!');
@@ -54,7 +64,7 @@ export class HelloWeek {
         this.currentDay = new Date();
 
         this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
-        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
+        this.week = week;
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
