@@ -46,13 +46,21 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
-        const week = document.createElement('div');
-        week.classList.add(HelloWeek.CSS_CLASSES.WEEK);
-        (<HTMLElement>this.selector).appendChild(week);
+        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
+        if (!this.week) {
+            const week = document.createElement('div');
+            week.classList.add(HelloWeek.CSS_CLASSES.WEEK);
+            (<HTMLElement>this.selector).appendChild(week);
+            this.week = week;
+        }
 
-        const month = document.createElement('div');
-        month.classList.add(HelloWeek.CSS_CLASSES.MONTH);
-        (<HTMLElement>this.selector).appendChild(month);
+        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
+        if (!this.month) {
+            const month = document.createElement('div');
+            month.classList.add(HelloWeek.CSS_CLASSES.MONTH);
+            (<HTMLElement>this.selector).appendChild(month);
+            this.month = month;
+        }
 
 
         // Early throw if selector doesn't exists
@@ -63,8 +71,6 @@ export class HelloWeek {
         this.date = new Date();
         this.currentDay = new Date();
 
-        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
-        this.week = week;
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
