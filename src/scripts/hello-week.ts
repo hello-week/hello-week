@@ -15,11 +15,13 @@ export class HelloWeek {
     public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
+    public selectedTemporary: any = [];
 
     public static readonly CSS_CLASSES: any = {
         MONTH        : 'hello-week__month',
-        DAY          : 'hello-week__day',
+        HEADER       : 'hello-week__header',
         WEEK         : 'hello-week__week',
+        DAY          : 'hello-week__day',
         WEEK_DAY     : 'hello-week__week__day',
         LABEL        : 'hello-week__label',
         IS_ACTIVE    : 'is-active',
@@ -44,6 +46,23 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
+        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
+        if (!this.week) {
+            const week = document.createElement('div');
+            week.classList.add(HelloWeek.CSS_CLASSES.WEEK);
+            (<HTMLElement>this.selector).appendChild(week);
+            this.week = week;
+        }
+
+        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
+        if (!this.month) {
+            const month = document.createElement('div');
+            month.classList.add(HelloWeek.CSS_CLASSES.MONTH);
+            (<HTMLElement>this.selector).appendChild(month);
+            this.month = month;
+        }
+
+
         // Early throw if selector doesn't exists
         if (this.selector === null) {
             throw new Error('You need to specify a selector!');
@@ -52,8 +71,6 @@ export class HelloWeek {
         this.date = new Date();
         this.currentDay = new Date();
 
-        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
-        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
         this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -142,6 +159,7 @@ export class HelloWeek {
         this.clearCalendar();
         this.date.setDate(1);
         this.selectedDays = [];
+        this.selectedTemporary = [];
         this.updted();
 
         this.options.onClear.call(this);
@@ -176,13 +194,16 @@ export class HelloWeek {
                         this.selectedDays.push(this.lastSelectedDay);
                         if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                             this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
+                            this.selectedTemporary = this.selectedTemporary.filter((day: string) => day !== this.lastSelectedDay);
                         }
                     } else {
                         if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                             this.removeActiveClass();
                         }
                         this.selectedDays = [];
+                        this.selectedTemporary = [];
                         this.selectedDays.push(this.lastSelectedDay);
+                        this.selectedTemporary.push(this.lastSelectedDay);
                     }
                 }
 
@@ -194,6 +215,7 @@ export class HelloWeek {
                     if (this.interval.length === 2) {
                         this.interval = [];
                         this.selectedDays = [];
+                        this.selectedTemporary = [];
                         this.interval.push(selectDay);
                         this.removeActiveClass();
                         selectDay.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
@@ -230,8 +252,7 @@ export class HelloWeek {
                         }
                     }
                     this.selectedDays.push(this.options.format ?
-                        this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
-                        element.dataset.timestamp);
+                        this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) : element.dataset.timestamp);
                     while(element.nextElementSibling && element !== event.target) {
                         element = element.nextElementSibling;
                         if (!element.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
@@ -239,6 +260,10 @@ export class HelloWeek {
                                     this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
                                     element.dataset.timestamp);
                             element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
+                            // temporary array with selected days
+                            this.selectedTemporary.push(this.options.format ?
+                                    this.formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
+                                    element.dataset.timestamp);
                         }
                     }
                 }
@@ -339,6 +364,10 @@ export class HelloWeek {
 
         if (this.month) {
             this.month.appendChild(newDay);
+        }
+
+        if (this.selectedTemporary.length > 0 && num === 1) {
+            this.interval[0] = newDay;
         }
     }
 
