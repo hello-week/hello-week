@@ -1,4 +1,5 @@
 import '../styles/hello-week.scss';
+import {CSS_CLASSES, DAYS_WEEK} from './constants';
 
 type CallbackFunction = (...args: any[]) => void;
 
@@ -15,32 +16,16 @@ export class HelloWeek {
     public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
-    public selectedTemporary: any = [];
 
-    public static readonly CSS_CLASSES: any = {
-        MONTH        : 'hello-week__month',
-        HEADER       : 'hello-week__header',
-        WEEK         : 'hello-week__week',
-        DAY          : 'hello-week__day',
-        WEEK_DAY     : 'hello-week__week__day',
-        LABEL        : 'hello-week__label',
-        IS_ACTIVE    : 'is-active',
-        IS_HIGHLIGHT : 'is-highlight',
-        IS_SELECTED  : 'is-selected',
-        IS_DISABLED  : 'is-disabled',
-        IS_TODAY     : 'is-today',
-        IS_WEEKEND   : 'is-weekend',
-    };
+    /* @return enum {CSS_CLASSES} */
+    static get CSS_CLASSES() {
+        return CSS_CLASSES;
+    }
 
-    public static readonly DAYS_WEEK: any = {
-        SUNDAY    : 0,
-        MONDAY    : 1,
-        TUESDAY   : 2,
-        WEDNESDAY : 3,
-        THURSDAY  : 4,
-        FRIDAY    : 5,
-        SATURDAY  : 6,
-    };
+    /* @return enum {DAYS_WEEK} */
+    static get DAYS_WEEK() {
+        return DAYS_WEEK;
+    }
 
     constructor (options: any = {}) {
         this.options = HelloWeek.extend(options);
