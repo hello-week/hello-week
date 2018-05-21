@@ -19,13 +19,8 @@
 						<a class="btn-docs" title="Documentation" href="demos/documentation.html">Documentation</a>
 					</div>
 					<!-- Calendar -->
-					<div class="hello-week">
-						<div class="hello-week__header">
-							<button class="btn demo-prev">◀</button>
-							<div class="hello-week__label"></div>
-							<button class="btn demo-next">▶</button>
-						</div>
-					</div>
+					<div class="hello-week"></div>
+					<!-- End Calendar -->
 
 					<h2 class="sub-title">Installation</h2>
 					<code class="code">npm install hello-week --save</code>
@@ -44,12 +39,7 @@
 
 		<script src="dist/helloweek.min.js" type="text/javascript"></script>
 		<script>
-			const prev = document.querySelector('.demo-prev');
-            const next = document.querySelector('.demo-next');
-			const myCalendar = new HelloWeek();
-
-			prev.addEventListener('click', () => myCalendar.prev());
-            next.addEventListener('click', () => myCalendar.next());
+			new HelloWeek();
 		</script>
 	</body>
 </html>

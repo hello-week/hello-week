@@ -4,6 +4,7 @@ export const CSS_CLASSES = {
     DAY          : 'hello-week__day',
     WEEK         : 'hello-week__week',
     WEEK_DAY     : 'hello-week__week__day',
+    HEADER        : 'hello-week__header',
     LABEL        : 'hello-week__label',
     IS_ACTIVE    : 'is-active',
     IS_HIGHLIGHT : 'is-highlight',

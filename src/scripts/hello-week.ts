@@ -7,6 +7,7 @@ export class HelloWeek {
     private options: any;
     private selector: any;
     private month: HTMLElement;
+    private header: HTMLElement;
     private week: HTMLElement;
     private label: HTMLElement;
     private activeDates: any = null;
@@ -16,6 +17,7 @@ export class HelloWeek {
     public currentDay: any;
     public lastSelectedDay: string;
     public selectedDays: any = [];
+    public selectedTemporary: any = [];
 
     /* @return enum {CSS_CLASSES} */
     static get CSS_CLASSES() {
@@ -31,22 +33,10 @@ export class HelloWeek {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
-        this.week = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.WEEK);
-        if (!this.week) {
-            const week = document.createElement('div');
-            week.classList.add(HelloWeek.CSS_CLASSES.WEEK);
-            (<HTMLElement>this.selector).appendChild(week);
-            this.week = week;
-        }
-
-        this.month = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.MONTH);
-        if (!this.month) {
-            const month = document.createElement('div');
-            month.classList.add(HelloWeek.CSS_CLASSES.MONTH);
-            (<HTMLElement>this.selector).appendChild(month);
-            this.month = month;
-        }
-
+        this.header = this.creatHTMLElement(HelloWeek.CSS_CLASSES.HEADER, this.selector);
+        this.label = this.creatHTMLElement(HelloWeek.CSS_CLASSES.LABEL, this.header);
+        this.week = this.creatHTMLElement(HelloWeek.CSS_CLASSES.WEEK, this.selector);
+        this.month = this.creatHTMLElement(HelloWeek.CSS_CLASSES.MONTH, this.selector);
 
         // Early throw if selector doesn't exists
         if (this.selector === null) {
@@ -55,8 +45,6 @@ export class HelloWeek {
 
         this.date = new Date();
         this.currentDay = new Date();
-
-        this.label = this.selector.querySelector('.' + HelloWeek.CSS_CLASSES.LABEL);
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -468,18 +456,28 @@ export class HelloWeek {
     }
 
     public formatDate(timestamp: number, format: string): string {
-         const dt = new Date(timestamp);
-         format = format.replace('dd', dt.getDate().toString());
-         format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-         format = format.replace('mm', (dt.getMonth() + 1).toString());
-         format = format.replace('MMM', this.langs.months[dt.getMonth()]);
-         format = format.replace('MM', ((dt.getMonth() + 1) > 9 ? (dt.getMonth() + 1) : '0' + (dt.getMonth() + 1)).toString());
-         format = format.replace('mmm', this.langs.monthsShort[dt.getMonth()]);
-         format = format.replace('yyyy', dt.getFullYear().toString());
-         format = format.replace('YYYY', dt.getFullYear().toString());
-         format = format.replace('YY', (dt.getFullYear().toString()).substring(2));
-         format = format.replace('yy', (dt.getFullYear().toString()).substring(2));
-         return format;
+        const dt = new Date(timestamp);
+        format = format.replace('dd', dt.getDate().toString());
+        format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+        format = format.replace('mm', (dt.getMonth() + 1).toString());
+        format = format.replace('MMM', this.langs.months[dt.getMonth()]);
+        format = format.replace('MM', ((dt.getMonth() + 1) > 9 ? (dt.getMonth() + 1) : '0' + (dt.getMonth() + 1)).toString());
+        format = format.replace('mmm', this.langs.monthsShort[dt.getMonth()]);
+        format = format.replace('yyyy', dt.getFullYear().toString());
+        format = format.replace('YYYY', dt.getFullYear().toString());
+        format = format.replace('YY', (dt.getFullYear().toString()).substring(2));
+        format = format.replace('yy', (dt.getFullYear().toString()).substring(2));
+        return format;
+    }
+
+    private creatHTMLElement(className: string, parentElement: HTMLElement) {
+        let elem = this.selector.querySelector('.' + className);
+        if (!elem) {
+            elem = document.createElement('div');
+            elem.classList.add(className);
+            (<HTMLElement>parentElement).appendChild(elem);
+        }
+        return elem;
     }
 
     private static extend(options: CallbackFunction): object {
