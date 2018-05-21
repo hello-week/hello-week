@@ -6,6 +6,8 @@ export const CSS_CLASSES = {
     WEEK_DAY     : 'hello-week__week__day',
     HEADER        : 'hello-week__header',
     LABEL        : 'hello-week__label',
+    PREV        : 'hello-week__prev',
+    NEXT        : 'hello-week__next',
     IS_ACTIVE    : 'is-active',
     IS_HIGHLIGHT : 'is-highlight',
     IS_SELECTED  : 'is-selected',

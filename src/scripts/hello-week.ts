@@ -10,6 +10,8 @@ export class HelloWeek {
     private header: HTMLElement;
     private week: HTMLElement;
     private label: HTMLElement;
+    private buttonPrev: HTMLElement;
+    private buttonNext: HTMLElement;
     private activeDates: any = null;
     private date: any;
     private langs: any;
@@ -32,9 +34,18 @@ export class HelloWeek {
     constructor (options: any = {}) {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
-
         this.header = this.creatHTMLElement(HelloWeek.CSS_CLASSES.HEADER, this.selector);
-        this.label = this.creatHTMLElement(HelloWeek.CSS_CLASSES.LABEL, this.header);
+
+        if (this.options.nav) {
+            this.buttonPrev = this.creatHTMLElement(HelloWeek.CSS_CLASSES.PREV, this.header, this.options.nav[0]);
+            this.label = this.creatHTMLElement(HelloWeek.CSS_CLASSES.LABEL, this.header);
+            this.buttonNext = this.creatHTMLElement(HelloWeek.CSS_CLASSES.NEXT, this.header, this.options.nav[1]);
+            this.buttonPrev.addEventListener('click', () => { this.prev( () => { /** callback function */ } ); });
+            this.buttonNext.addEventListener('click', () => { this.next( () => { /** callback function */ } ); });
+        } else {
+            this.label = this.creatHTMLElement(HelloWeek.CSS_CLASSES.LABEL, this.header);
+        }
+
         this.week = this.creatHTMLElement(HelloWeek.CSS_CLASSES.WEEK, this.selector);
         this.month = this.creatHTMLElement(HelloWeek.CSS_CLASSES.MONTH, this.selector);
 
@@ -411,7 +422,9 @@ export class HelloWeek {
 
     public updted(): void {
         const listDays: number[] = [];
-        this.label.textContent = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+        if (this.label) {
+            this.label.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+        }
         /** Define week format */
         this.week.textContent = '';
         for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
@@ -470,11 +483,20 @@ export class HelloWeek {
         return format;
     }
 
-    private creatHTMLElement(className: string, parentElement: HTMLElement) {
+    /**
+     * Create HTML elements for Hello Week.
+     * @param {string}      className
+     * @param {HTMLElement} parentElement
+     */
+    private creatHTMLElement(className: string, parentElement: HTMLElement, textNode: string = null) {
         let elem = this.selector.querySelector('.' + className);
         if (!elem) {
             elem = document.createElement('div');
             elem.classList.add(className);
+            if (textNode !== null) {
+                const text = document.createTextNode(textNode);
+                (<HTMLElement>elem).appendChild(text);
+            }
             (<HTMLElement>parentElement).appendChild(elem);
         }
         return elem;
@@ -499,6 +521,7 @@ export class HelloWeek {
             range: false,
             minDate: false,
             maxDate: false,
+            nav: ['◀', '▶'],
             onLoad: () => { /** callback function */ },
             onChange: () => { /** callback function */ },
             onSelect: () => { /** callback function */ },
