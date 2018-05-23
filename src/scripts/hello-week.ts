@@ -34,6 +34,12 @@ export class HelloWeek {
     constructor (options: any = {}) {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
+
+        // Early throw if selector doesn't exists
+        if (this.selector === null) {
+            throw new Error('You need to specify a selector!');
+        }
+
         this.header = this.creatHTMLElement(HelloWeek.CSS_CLASSES.HEADER, this.selector);
 
         if (this.options.nav) {
@@ -48,11 +54,6 @@ export class HelloWeek {
 
         this.week = this.creatHTMLElement(HelloWeek.CSS_CLASSES.WEEK, this.selector);
         this.month = this.creatHTMLElement(HelloWeek.CSS_CLASSES.MONTH, this.selector);
-
-        // Early throw if selector doesn't exists
-        if (this.selector === null) {
-            throw new Error('You need to specify a selector!');
-        }
 
         this.date = new Date();
         this.currentDay = new Date();
