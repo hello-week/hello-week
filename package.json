@@ -26,7 +26,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode production",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
     "lint:scss": "stylelint src/**/*.scss",
-    "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register test/*.spec.ts"
+    "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register __tests__/*.test.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
