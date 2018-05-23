@@ -1,7 +1,7 @@
 {
   "name": "hello-week",
   "version": "1.4.0",
-  "description": "",
+  "description": "Lightweight and simple calendar with no dependencies in pure JavaScript",
   "license": "MIT",
   "repository": "https://github.com/maurovieirareis/hello-week",
   "keywords": [
