@@ -1,6 +1,6 @@
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/maurovieirareis/hello-week/blob/master/LICENSE)
-
 <p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/maurovieirareis/hello-week/blob/master/LICENSE)
 
 See the demo: [Hello Week](https://maurovieirareis.github.io/hello-week/).
 
