@@ -19,9 +19,9 @@ yarn add hello-week
 ```html
 <div class="hello-week">
     <div class="hello-week__header">
-        <button class="demo-prev">Prev</button>
+        <button class="hello-week__prev">Prev</button>
         <div class="hello-week__label"></div>
-        <button class="demo-next">Next</button>
+        <button class="hello-week__next">Next</button>
     </div>
     <div class="hello-week__week"></div>
     <div class="hello-week__month"></div>
