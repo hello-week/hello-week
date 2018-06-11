@@ -63,6 +63,7 @@ new HelloWeek({
     range: false,
     minDate: false,
     maxDate: false,
+    nav: ['◀', '▶'],
     onLoad: () => { /** callback function */ },
     onChange: () => { /** callback function */ },
     onSelect: () => { /** callback function */ },
