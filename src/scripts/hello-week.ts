@@ -14,6 +14,9 @@ export class HelloWeek {
     private buttonNext: HTMLElement;
     private activeDates: any = null;
     private date: any;
+    private minDate: any;
+    private maxDate: any;
+    private defaultDate: any;
     private langs: any;
     private interval: any = [];
     public currentDay: any;
@@ -71,7 +74,18 @@ export class HelloWeek {
     public init(callback: CallbackFunction) {
 
         if (this.options.defaultDate) {
-            this.date = new Date(this.options.defaultDate);
+            this.defaultDate = new Date(this.options.defaultDate);
+            this.defaultDate.setDate(this.defaultDate.getDate() + 1);
+        }
+
+        if (this.options.minDate) {
+            this.minDate = new Date(this.options.minDate);
+            this.minDate.setHours(0,0,0,0);
+        }
+
+        if (this.options.maxDate) {
+            this.maxDate = new Date(this.options.maxDate);
+            this.maxDate.setDate(this.maxDate.getDate() + 1);
         }
 
         this.date.setDate(1);
@@ -321,11 +335,28 @@ export class HelloWeek {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
         }
 
+        if (this.options.minDate && (this.minDate.getTime() >= unixTimestamp)) {
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+        } else {
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
+        }
+
+        if (this.options.maxDate && (this.maxDate.getTime() <= unixTimestamp)) {
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_DISABLED);
+        } else {
+            newDay.classList.add(HelloWeek.CSS_CLASSES.IS_ACTIVE);
+        }
+
         if (this.options.disableDates) {
             this.setDaysDisable(unixTimestamp, newDay);
         }
 
-        if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
+        // Check if defaultDate exists so we set that defaultDate marked with the same style as Today
+        if (this.defaultDate) {
+            if (this.defaultDate.setHours(0,0,0,0) === new Date(unixTimestamp).setHours(0,0,0,0)) {
+              newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
+            }
+        } else if (new Date(this.date).setHours(0,0,0,0) === new Date(this.currentDay).setHours(0,0,0,0) && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.CSS_CLASSES.IS_TODAY);
         }
 
