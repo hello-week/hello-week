@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2018-06-18
+### Added
+- Spanish translation. Thanks [@8geonirt](https://github.com/8geonirt).
+
+### Changed
+- Fix `defaultDate` option also minDate and maxDate. Thanks [@8geonirt](https://github.com/8geonirt).
+- Updated demos.
+
 ## [1.4.0] - 2018-05-23
 ### Added
 - Option `nav` show next/prev buttons.
@@ -52,7 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.0.6] - 2018-04-10
 ### Added
-- Portugese/Brazilian translation from [@fontebasso](https://github.com/fontebasso).
+- Portuguese/Brazilian translation. Thanks [@fontebasso](https://github.com/fontebasso).
 
 ## [0.0.5] - 2018-04-10
 ### Added
