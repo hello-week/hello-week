@@ -408,7 +408,7 @@ blockquote {
   text-decoration: none;
 }
 
-.nav a.is-active {
+.nav .is-active {
   opacity: .4;
   cursor: default;
 }
@@ -417,8 +417,13 @@ blockquote {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
   padding: 2rem 0;
   background-color: #f7f7f7;
+}
+
+.footer--nomargin {
+  margin-top: 0;
 }
 
 .footer a {
@@ -497,20 +502,26 @@ blockquote {
 .demos_links {
   display: flex;
   width: 100%;
-  margin-right: -.4rem;
-  margin-left: -.4rem;
+  margin-right: -.5rem;
+  margin-left: -.5rem;
   padding: 4rem 0;
 }
 
 .demos_links__item {
-  background: #eaeaea;
-  height: 6rem;
-  margin: 0 .4rem;
-  width: 25%;
-  align-items: center;
   display: inline-flex;
+  align-items: center;
   justify-content: center;
+  width: 25%;
+  height: 6rem;
+  margin: 0 .5rem;
+  background: #eaeaea;
+  color: #3e3e3e;
+  transition: all .3s;
   text-decoration: none;
   text-transform: uppercase;
-  color: #3e3e3e;
+}
+
+.demos_links__item:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: -10px 10px 50px 0 rgba(24,30,36,0.1);
 }

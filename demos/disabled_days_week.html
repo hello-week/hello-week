@@ -23,7 +23,7 @@
     <main>
         <section class="heading">
             <div class="container">
-                <h2 class="heading__title">Min and Max Dates</h2>
+                <h2 class="heading__title">Disabled Days Week</h2>
             </div>
         </section>
         <section class="section">
@@ -102,19 +102,16 @@
             langFolder: '../dist/langs/',
             lang: 'en',
             format: 'DD-MM-YYYY',
-                defaultDate: '2018-06-27', // Only format YYYY-MM-DD
-                minDate: '2018-06-19',
-                maxDate: '2018-07-07',
-                todayHighlight: true,
-                disablePastDays: true,
-                disabledDaysOfWeek: [0, 6], // Disabling weekends
-                weekStart: 0,
-                nav: false,
-                onLoad: updateInfo,
-                onChange: updateInfo,
-                onSelect: selected,
-                onClear: updateView,
-            });
+            todayHighlight: true,
+            disablePastDays: true,
+            disabledDaysOfWeek: [0, 1, 6], // Disabling weekends
+            weekStart: 0,
+            nav: false,
+            onLoad: updateInfo,
+            onChange: updateInfo,
+            onSelect: selected,
+            onClear: updateView,
+        });
 
         prev.addEventListener('click', () => myCalendar.prev());
         next.addEventListener('click', () => myCalendar.next());
