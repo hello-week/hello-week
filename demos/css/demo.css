@@ -6,17 +6,17 @@ html {
 body {
   margin: 0;
   padding: 0;
+  color: #3e3e3e;
   line-height: 1.4;
   box-sizing: border-box;
-  color: #3e3e3e;
 }
 
 .title {
+  position: relative;
   color: #3e3e3e;
   font-size: 3.3rem;
   font-weight: 700;
   text-align: center;
-  position: relative;
 }
 
 .sub-title {
@@ -255,6 +255,21 @@ blockquote {
   margin-top: 2rem;
 }
 
+.heading {
+  display: block;
+  margin-bottom: 1rem;
+  padding: .1rem 0;
+  background: #f7f7f7;
+}
+
+.heading__title {
+  display: flex;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
 .section {
   display: block;
   padding: 2rem 0;
@@ -307,7 +322,7 @@ blockquote {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin: 0;
+  margin: 2rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -358,7 +373,6 @@ blockquote {
 
 .header {
   background-color: #ffa07a;
-  margin-bottom: 3rem;
 }
 
 .nav {
@@ -433,6 +447,7 @@ blockquote {
 .days-highlight {
   display: flex;
   margin: 1rem;
+  margin-bottom: 0;
 }
 
 .days {
@@ -477,4 +492,25 @@ blockquote {
 .label--version {
   background-color: #ff6347;
   color: #fff;
+}
+
+.demos_links {
+  display: flex;
+  width: 100%;
+  margin-right: -.4rem;
+  margin-left: -.4rem;
+  padding: 4rem 0;
+}
+
+.demos_links__item {
+  background: #eaeaea;
+  height: 6rem;
+  margin: 0 .4rem;
+  width: 25%;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #3e3e3e;
 }
