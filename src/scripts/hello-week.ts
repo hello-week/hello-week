@@ -55,8 +55,15 @@ export class HelloWeek {
         this.week = this.creatHTMLElement(HelloWeek.CSS_CLASSES.WEEK, this.selector);
         this.month = this.creatHTMLElement(HelloWeek.CSS_CLASSES.MONTH, this.selector);
 
-        this.date = new Date();
-        this.currentDay = new Date();
+
+        // Check if defaultDate is present so we change the calendar view to that specific date
+        if (this.options.defaultDate) {
+            this.date = new Date(this.options.defaultDate);
+            this.currentDay = new Date(this.options.defaultDate);
+        } else {
+            this.date = new Date();
+            this.currentDay = new Date();
+        }
 
         this.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
