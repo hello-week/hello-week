@@ -1,0 +1,8 @@
+@function calculateRem($size, $fontDefault: $fontSizeDefault) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
+@function leading($size, $context: $lineHeight) {
+  @return  $context / $size + em;
+}

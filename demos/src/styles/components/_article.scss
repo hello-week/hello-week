@@ -1,0 +1,15 @@
+.article {
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--backgroundSecondary);
+
+    @include small() {
+        position: absolute;
+        left: 0;
+        transition: transform .3s $animationEasing;
+
+        &.is-open {
+            transform: translateX(320px);
+        }
+    }
+}

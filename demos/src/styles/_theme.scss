@@ -1,0 +1,23 @@
+.theme {
+  &--light {
+    --colorPrimary: #{$colorAqua};
+    --colorSecondary: #{$colorGrayDark};
+    --borderPrimary: #{$colorAquaDark};
+    --colorText: #{$colorGrayDark};
+    --backgroundPrimary: #{$colorWhiteSomke};
+    --backgroundSecondary: #{$colorWhite};
+    --backgroundHeader: #{$colorAqua};
+    --colorHeader: #{$colorWhite};
+  }
+
+  &--dark {
+    --colorPrimary: #{$colorAqua};
+    --colorSecondary: #{$colorWhite};
+    --borderPrimary: #{$colorAquaDark};
+    --colorText: #{$colorWhite};
+    --backgroundPrimary: #{$colorDarkSomke};
+    --backgroundSecondary: #{$colorDark};
+    --backgroundHeader: #{$colorAqua};
+    --colorHeader: #{$colorWhite};
+  }
+}

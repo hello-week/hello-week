@@ -1,0 +1,55 @@
+
+h1 {
+  margin: 0;
+  font-weight: $fontSemiBold;
+  font-size: $fontXLarge;
+  color: $colorWhite;
+
+  @include small() {
+    font-size: $fontLarge;
+  }
+}
+
+h2 {
+  font-size: $fontXLarge;
+  line-height: 1.4;
+  font-weight: $fontBold;
+  margin: $baseline * 2 0;
+
+  @include small() {
+    font-size: $fontMedium;
+  }
+}
+
+h2::before {
+  display: inline-flex;
+  margin-right: $baseline / 2;
+  font-size: $fontLarge;
+  content: '#';
+  color: var(--borderPrimary);
+
+  @include small() {
+    display: none;
+  }
+}
+
+h3 {
+  font-size: $fontLarge;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+p,
+li {
+  margin-bottom: .5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+strong {
+  font-weight: 700;
+}

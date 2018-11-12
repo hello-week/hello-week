@@ -1,0 +1,52 @@
+// Defining baseline
+$baseline: 1rem;
+
+// Defining font family
+$fontDefault: 'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$fontHighlight: "Roboto Condensed", Helvetica, sans-serif;
+
+// Defining font size default
+$fontSizeDefault: 16px;
+
+// Defining baseline line height
+$lineHeight: 26px;
+
+// Defining border radius
+$borderRadius: 4px;
+
+// Header
+$topBarHeight: $baseline * 12;
+
+// Rooms
+$roomsWidth: 66px;
+
+// Defining breakpoints
+$xSmall: 280px;
+$small: 480px;
+$medium: 768px;
+$wide: 1024px;
+$huge: 1600px;
+$smallContainer: 576px;
+$mediumContainer: 688px;
+$wideContainer: 864px;
+$hugeContainer: 100%;
+
+// Defining font sizes
+$fontXSmall: calculateRem(12px);
+$fontSmall: calculateRem(14px);
+$fontBase: calculateRem(16px);
+$fontMedium: calculateRem(22px);
+$fontLarge: calculateRem(28px);
+$fontXLarge: calculateRem(44px);
+$fontXXLarge: calculateRem(72px);
+$fontHuge: calculateRem(86px);
+
+// Defining font weight
+$fontLight: 300;
+$fontRegular: 400;
+$fontSemiBold: 600;
+$fontBold: 700;
+
+// Defining animation easings
+$animationEasing: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+

@@ -1,0 +1,46 @@
+* {
+  @include prefixr(box-sizing, border-box);
+}
+
+html,
+body {
+  background: var(--backgroundPrimary);
+  font-size: $fontSizeDefault;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--colorText);
+  font-family: $fontDefault;
+  font-weight: $fontLight;
+}
+
+.main {
+  min-height: calc(100vh - calc(57px));
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: $wide;
+  margin: $baseline * 2 0;
+  padding: 0 $baseline;
+
+  &--full {
+    max-width: 100%;
+  }
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}

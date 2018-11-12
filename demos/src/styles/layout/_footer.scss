@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $baseline * 2 0;
+  color: var(--colorPrimary);
+  font-size: $fontSmall;
+
+
+  a {
+    text-decoration: none;
+    color: var(--colorPrimary);
+    font-weight: $fontSemiBold;
+  }
+
+  span {
+    color: $colorPink;
+  }
+}

@@ -1,0 +1,28 @@
+.btn {
+  display: inline-flex;
+  padding: $baseline;
+  text-transform: uppercase;
+  color: var(--colorPrimary);
+  font-size: $fontXSmall;
+  font-weight: $fontSemiBold;
+  border: 2px solid currentColor;
+  cursor: pointer;
+
+
+  &:focus,
+  &:hover {
+    background-color: var(--colorPrimary);
+    border: 2px solid var(--colorPrimary);
+    color: white;
+    outline: none;
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    background: inherit;
+    border: 2px solid;
+    color: inherit;
+    cursor: default;
+    opacity: .2;
+  }
+}
