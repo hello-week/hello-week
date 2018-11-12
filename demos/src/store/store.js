@@ -10,19 +10,19 @@ export const store = new Vuex.Store({
                 name: 'API',
                 isActive: true,
                 data: [
-                    { url: '/options', title: 'Options' },
-                    { url: '/methods', title: 'Methods' },
-                    { url: '/callbacks', title: 'Callbacks' }
+                    { url: '/documentation/options', title: 'Options' },
+                    { url: '/documentation/methods', title: 'Methods' },
+                    { url: '/documentation/callbacks', title: 'Callbacks' }
                 ]
             },
             {
                 name: 'Demos',
                 isActive: true,
                 data: [
-                    { url: '/range-dates', title: 'Range Dates'},
-                    { url: '/highlight-dates', title: 'Highlight Dates'},
-                    { url: '/disabled-days-week', title: 'Disabled Days Week'},
-                    { url: '/min-and-max-dates', title: 'Min & Max Dates'}
+                    { url: '/demos/range-dates', title: 'Range Dates'},
+                    { url: '/demos/highlight-dates', title: 'Highlight Dates'},
+                    { url: '/demos/disabled-days-week', title: 'Disabled Days Week'},
+                    { url: '/demos/min-and-max-dates', title: 'Min & Max Dates'}
                 ]
             }
         ]
