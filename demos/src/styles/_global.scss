@@ -12,6 +12,7 @@ body {
 }
 
 body {
+  min-width: $xSmall;
   margin: 0;
   padding: 0;
   color: var(--colorText);
@@ -28,7 +29,6 @@ body {
   flex-direction: column;
   width: 100%;
   max-width: $wide;
-  margin: $baseline * 2 0;
   padding: 0 $baseline;
 
   &--full {
@@ -43,4 +43,12 @@ body {
 .app {
   display: flex;
   flex-direction: column;
+}
+
+.demo {
+  margin: $baseline * 2 0;
+}
+
+.tag {
+  font-size: $fontBase;
 }

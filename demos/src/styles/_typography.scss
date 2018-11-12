@@ -1,22 +1,21 @@
-
 h1 {
+  display: inline-flex;
   margin: 0;
+  font-size: $fontXXLarge;
   font-weight: $fontSemiBold;
-  font-size: $fontXLarge;
-  color: $colorWhite;
 
-  @include small() {
+  @include small {
     font-size: $fontLarge;
   }
 }
 
 h2 {
-  font-size: $fontXLarge;
-  line-height: 1.4;
-  font-weight: $fontBold;
   margin: $baseline * 2 0;
+  font-size: $fontXLarge;
+  font-weight: $fontBold;
+  line-height: 1.4;
 
-  @include small() {
+  @include small {
     font-size: $fontMedium;
   }
 }
@@ -24,11 +23,11 @@ h2 {
 h2::before {
   display: inline-flex;
   margin-right: $baseline / 2;
-  font-size: $fontLarge;
-  content: '#';
   color: var(--borderPrimary);
+  font-size: $fontLarge;
+  content: "#";
 
-  @include small() {
+  @include small {
     display: none;
   }
 }

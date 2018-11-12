@@ -2,7 +2,13 @@
     <div class="article">
         <div class="container">
             <div class="card">
-                <div class="hello-week"></div>
+                <div class="content">
+                    <h1>Hello Week <span class="tag">@version</span></h1>
+                    <p>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</p>
+                    <div class="demo">
+                        <div class="hello-week"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="footer">

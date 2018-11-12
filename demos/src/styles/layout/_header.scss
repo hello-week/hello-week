@@ -20,21 +20,21 @@
     cursor: pointer;
 
     .line-menu {
-      background-color: $colorViolet;
       width: 100%;
       height: 2px;
+      background-color: $colorWhite;
 
       &:first-child {
         width: 50%;
-        transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
         transform-origin: right;
+        transition: transform 330ms cubic-bezier(.54, -.81, .57, .57);
       }
 
       &:last-child {
-        width: 50%;
         align-self: flex-end;
-        transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+        width: 50%;
         transform-origin: left;
+        transition: transform 330ms cubic-bezier(.54, -.81, .57, .57);
       }
     }
 
@@ -53,7 +53,7 @@
     }
   }
 
-  @include small() {
+  @include small {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -76,18 +76,18 @@
     font-weight: $fontSemiBold;
     cursor: default;
 
-    @include small() {
+    @include small {
       display: flex;
       flex-direction: column;
-      font-size: $fontLarge;
       margin: $baseline 0;
+      font-size: $fontLarge;
     }
 
     > img {
       width: 22px;
       margin-right: $baseline;
 
-      @include small() {
+      @include small {
         display: flex;
         width: 28px;
         margin-right: 0;

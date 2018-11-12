@@ -25,7 +25,7 @@
         methods: {
             toggleMenu(evt) {
                 document.querySelector('.toggle-sidebar').classList.toggle('open');
-                document.querySelector('article').classList.toggle('is-open');
+                document.querySelector('.article').classList.toggle('is-open');
             }
         },
         mounted() {

@@ -2,7 +2,7 @@
 $baseline: 1rem;
 
 // Defining font family
-$fontDefault: 'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$fontDefault: "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $fontHighlight: "Roboto Condensed", Helvetica, sans-serif;
 
 // Defining font size default
@@ -32,14 +32,14 @@ $wideContainer: 864px;
 $hugeContainer: 100%;
 
 // Defining font sizes
-$fontXSmall: calculateRem(12px);
-$fontSmall: calculateRem(14px);
-$fontBase: calculateRem(16px);
-$fontMedium: calculateRem(22px);
-$fontLarge: calculateRem(28px);
-$fontXLarge: calculateRem(44px);
-$fontXXLarge: calculateRem(72px);
-$fontHuge: calculateRem(86px);
+$fontXSmall: calculate-rem(12px);
+$fontSmall: calculate-rem(14px);
+$fontBase: calculate-rem(16px);
+$fontMedium: calculate-rem(22px);
+$fontLarge: calculate-rem(28px);
+$fontXLarge: calculate-rem(44px);
+$fontXXLarge: calculate-rem(72px);
+$fontHuge: calculate-rem(86px);
 
 // Defining font weight
 $fontLight: 300;
@@ -48,5 +48,5 @@ $fontSemiBold: 600;
 $fontBold: 700;
 
 // Defining animation easings
-$animationEasing: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+$animationEasing: cubic-bezier(.455, .3, .515, .955);
 
