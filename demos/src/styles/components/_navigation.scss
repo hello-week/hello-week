@@ -30,7 +30,7 @@
   &__link {
     text-decoration: none;
     color: var(--colorText);
-    font-weight: $fontSemiBold;
+    font-weight: $fontRegular;
     transition: color .2s $animationEasing;
 
     &.router-link-active,

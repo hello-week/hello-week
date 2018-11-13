@@ -279,7 +279,7 @@ export class HelloWeek {
 
     public creatWeek(dayShort: number): void {
         const weekDay = <any>document.createElement('span');
-        weekDay.classList.add(HelloWeek.CSS_CLASSES.WEEK_DAY);
+        weekDay.classList.add(HelloWeek.CSS_CLASSES.DAY);
         weekDay.textContent = dayShort;
         this.week.appendChild(weekDay);
     }

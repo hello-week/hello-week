@@ -46,9 +46,13 @@ body {
 }
 
 .demo {
-  margin: $baseline * 2 0 $baseline * 4;
+  margin: $baseline 0 $baseline * 4;
+  font-weight: $fontRegular;
 }
 
 .version {
-  font-size: $fontBase;
+  margin-left: $baseline / 2;
+  color: var(--colorPrimary);
+  font-size: $fontMedium;
+  font-weight: $fontBold;
 }

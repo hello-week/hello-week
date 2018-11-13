@@ -22,7 +22,7 @@
     .line-menu {
       width: 100%;
       height: 2px;
-      background-color: $colorWhite;
+      background-color: var(--colorHeader);
 
       &:first-child {
         width: 50%;
@@ -71,9 +71,9 @@
     display: inline-flex;
     align-items: center;
     color: var(--colorHeader);
-    text-transform: uppercase;
     font-size: $fontMedium;
-    font-weight: $fontSemiBold;
+    font-weight: $fontRegular;
+    text-transform: uppercase;
     cursor: default;
 
     @include small {

@@ -12,9 +12,10 @@
     position: relative;
     text-decoration: none;
     color: var(--colorHeader);
-    font-weight: $fontLight;
+    font-size: $fontSmall;
+    font-weight: $fontRegular;
     padding: $baseline / 2;
-    text-transform: lowercase;
+    text-transform: uppercase;
 
     &::after {
       content: '';
@@ -25,7 +26,7 @@
       height: 2px;
       background: currentColor;
       transform: scale3d(0, 1, 1);
-      transition: transform 0.3s $animationEasing;
+      transition: transform .3s $animationEasing;
       transform-origin: top right;
     }
 

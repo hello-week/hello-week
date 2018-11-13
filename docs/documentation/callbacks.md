@@ -2,21 +2,21 @@
 
 This gives you the ability to listen for any changes and perform your own actions.
 
-### onLoad
+#### onLoad
 - type: `attachable`
 - _Runs immediately after initialization._
 ---
 
-### onChange
+#### onChange
 - type: `attachable`
 - _Runs after month change._
 ---
 
-### onSelect
+#### onSelect
 - type: `attachable`
 - _Runs on select the day._
 ---
 
-### onClear
+#### onClear
 - type: `attachable`
 - _Runs on clear calendar._

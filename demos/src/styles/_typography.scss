@@ -1,15 +1,16 @@
 h1 {
   display: inline-flex;
-  margin: 0;
+  margin: $baseline * 2 0;
   font-size: $fontXXLarge;
   font-weight: $fontSemiBold;
 
   @include small {
-    font-size: $fontLarge;
+    font-size: $fontXLarge;
   }
 }
 
 h2 {
+  display: inline-flex;
   margin: $baseline * 2 0;
   font-size: $fontXLarge;
   font-weight: $fontBold;
@@ -22,6 +23,7 @@ h2 {
 
 h2::before {
   display: inline-flex;
+  align-items: center;
   margin-right: $baseline / 2;
   color: var(--borderPrimary);
   font-size: $fontLarge;
@@ -34,6 +36,7 @@ h2::before {
 
 h3 {
   font-size: $fontLarge;
+  font-weight: $fontLight;
 }
 
 h4 {

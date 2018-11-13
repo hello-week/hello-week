@@ -6,8 +6,8 @@
     --colorText: #{$colorGrayDark};
     --backgroundPrimary: #{$colorWhiteSomke};
     --backgroundSecondary: #{$colorWhite};
-    --backgroundHeader: #{$colorAqua};
-    --colorHeader: #{$colorWhite};
+    --backgroundHeader: #{$colorWhite};
+    --colorHeader: #{$colorAqua};
   }
 
   &--dark {
@@ -15,9 +15,9 @@
     --colorSecondary: #{$colorWhite};
     --borderPrimary: #{$colorAquaDark};
     --colorText: #{$colorWhite};
-    --backgroundPrimary: #{$colorDarkSomke};
-    --backgroundSecondary: #{$colorDark};
-    --backgroundHeader: #{$colorAqua};
+    --backgroundPrimary: #{$colorDarkPrimary};
+    --backgroundSecondary: #{$colorDarkSecondary};
+    --backgroundHeader: #{$colorDarkSecondary};
     --colorHeader: #{$colorWhite};
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <top-header logo="./assets/images/hello-week.png" />
+        <top logo="./assets/images/hello-week.png" />
         <main class="main">
             <sidebar :menus="menus" />
             <router-view :key="$route.fullPath"/>
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import topHeader from './layout/top-header.vue'
+import top from './layout/top.vue'
 import sidebar from './layout/sidebar.vue'
 /** Pages Module */
 import pages from './pages/pages'
 
 export default {
     name: 'app',
-    components: { topHeader, sidebar },
+    components: { top, sidebar },
     data() {
         return {
             menus: this.$store.state.menus

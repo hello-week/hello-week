@@ -1,25 +1,13 @@
+$hw-color-white: #fff;
 $hw-color-primary :#7fcbc3;
-$hw-color-secondary :#ffa07a;
+$hw-color-secondary :#42a298;
 $hw-color-highlight :#8fbc8f;
-$hw-color-days :#3e3e3e;
+$hw-color-today: $hw-color-secondary;
 $hw-color-weekend: #f3f3f3;
 $hw-color-disabled: #f7f8fb;
 $hw-transition: .2s cubic-bezier(.25, .1, .49, .9);
 
-:root {
-  --hw-bg-color: #fff;
-  --hw-bg-day: #fff;
-  --hw-color-day: #{$hw-color-secondary};
-  --hw-bg-week: #fff;
-  --hw-color-week: #{$hw-color-secondary};
-  --hw-bg-tody: #{$hw-color-days};
-  --hw-color-tody: #fff;
-  --hw-bg-selected: #{$hw-color-primary};
-  --hw-color-selected: #fff;
-  --hw-bg-weekend: #{$hw-color-weekend};
-  --hw-color-weekend: #{darken($hw-color-weekend, 20%)};
-  --hw-bg-disabled: #{$hw-color-disabled};
-  --hw-color-disabled: #{darken($hw-color-disabled, 20%)};
-  --hw-bg-highlight: #{$hw-color-highlight};
-  --hw-color-highlight: #fff;
-}
+$hw-font-size: 16px;
+$hw-font-weight: 400;
+$hw-baseline: 1em;
+$hw-day-width: 100% / 7;

@@ -1,27 +1,27 @@
 code[class*="language-"],
 pre[class*="language-"] {
-    background: var(--backgroundPrimary) !important;
-    color: var(--colorText) !important;
-    text-shadow: none !important;
+  background: var(--backgroundPrimary) !important;
+  color: var(--colorText) !important;
+  text-shadow: none !important;
 
-    .token.operator {
-        background-color: transparent !important;
-    }
+  .token.operator {
+    background-color: transparent !important;
+  }
 }
 
 pre[class*="language-"] {
-    margin: $baseline * 2 0 !important;
-    padding: $baseline * 2 0 !important;
-    font-size: $fontSmall;
-    border-top: 6px solid var(--colorPrimary);
+  margin: $baseline * 2 0 !important;
+  padding: $baseline * 2 0 !important;
+  font-size: $fontSmall;
+  border-top: 6px solid var(--colorPrimary);
 }
 
 code {
-    background: var(--backgroundPrimary);
-    color: var(--colorPrimary);
-    border-radius: 2px;
-    font-family: Consolas, monospace;
-    display: inline-block;
-    padding: 0 $baseline / 4;
+  background: var(--backgroundPrimary);
+  color: var(--borderPrimary);
+  border-radius: 2px;
+  font-family: Consolas, monospace;
+  display: inline-block;
+  padding: 0 $baseline / 4;
 }
 

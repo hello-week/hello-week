@@ -6,14 +6,14 @@
           <div class="line-menu"></div>
       </div>
       <div class="logo">Hello Week</div>
-    <menu-nav />
+    <navigation />
 </header>
 </template>
 
 <script>
-    import menuNav from './menu-nav.vue'
+    import navigation from './navigation.vue'
     export default {
-        components: { menuNav },
+        components: { navigation },
         props: {
             logo: {
                 type: String

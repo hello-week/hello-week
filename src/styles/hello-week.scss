@@ -1,17 +1,11 @@
 @import "variables";
 
-* {
-  box-sizing: border-box;
-}
-
 .hw {
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
-  border-radius: var(--hw-border-radius);
-  background-color: var(--hw-bg-color);
-  box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
+  padding: $hw-baseline;
   user-select: none;
+  font-size: $hw-font-size;
 
   &__header {
     display: flex;
@@ -20,33 +14,21 @@
 
   &__prev,
   &__next {
-    padding: 1rem;
+    padding: $hw-baseline;
     cursor: pointer;
   }
 
   &__label {
     width: 100%;
-    font-size: 1.6rem;
-    font-weight: 100;
+    font-size: 1.6em;
+    font-weight: $hw-font-weight;
     text-align: center;
   }
 
   &__week {
     display: flex;
-    background-color: var(--hw-bg-week);
-    color: var(--hw-color-week);
-
-    &__day {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 14.28%;
-      padding: 1rem;
-      font-size: 1rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
+    color: $hw-color-secondary;
+    font-size: 1.2em;
   }
 
   &__month {
@@ -59,44 +41,38 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 14.28%;
-    padding: 1rem;
+    width: $hw-day-width;
+    padding: $hw-baseline;
     transition: background-color $hw-transition;
-    border-radius: var(--hw-border-radius);
 
     &.is-active {
       cursor: pointer;
     }
 
     &.is-weekend {
-      background-color: var(--hw-bg-weekend);
-      color: var(--hw-color-weekend);
+      background-color: $hw-color-weekend;
+      color: darken($hw-color-weekend, 20%);
     }
 
     &.is-selected {
-      background-color: var(--hw-bg-selected) !important;
-      color: var(--hw-color-selected) !important;
+      background-color: $hw-color-primary !important;
+      color: $hw-color-white !important;
     }
 
     &.is-disabled {
-      border-radius: 0;
-      background-color: var(--hw-bg-disabled);
-      color: var(--hw-color-disabled);
+      background-color: $hw-color-disabled;
+      color: darken($hw-color-disabled, 20%);
       cursor: not-allowed;
     }
 
     &.is-highlight {
-      background-color: var(--hw-bg-highlight);
-      color: var(--hw-color-highlight);
+      background-color: $hw-color-highlight;
+      color: $hw-color-white;
     }
 
     &.is-today {
-      background-color: var(--hw-bg-tody);
-      color: var(--hw-color-tody);
-    }
-
-    &.is-hover {
-      background-color: #dee;
+      background-color: $hw-color-today;
+      color: $hw-color-white;
     }
   }
 }
