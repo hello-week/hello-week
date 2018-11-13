@@ -58,8 +58,7 @@ export class HelloWeek {
         this.week = this.creatHTMLElement(HelloWeek.CSS_CLASSES.WEEK, this.selector);
         this.month = this.creatHTMLElement(HelloWeek.CSS_CLASSES.MONTH, this.selector);
 
-
-        // Check if defaultDate is present so we change the calendar view to that specific date
+        // check if defaultDate is present so we change the calendar view to that specific date
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
             this.currentDay = new Date(this.options.defaultDate);
@@ -79,7 +78,6 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      */
     public init(callback: CallbackFunction) {
-
         if (this.options.defaultDate) {
             this.defaultDate = new Date(this.options.defaultDate);
             this.defaultDate.setDate(this.defaultDate.getDate() + 1);
@@ -288,11 +286,9 @@ export class HelloWeek {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
             this.createDay(this.date.getDate(), this.date.getDay());
-            // jump while
             this.date.setDate(this.date.getDate() + 1);
         }
 
-        // put correct month
         this.date.setMonth(this.date.getMonth() - 1);
         this.selectDay(() => { /** callback function */ });
     }
@@ -507,6 +503,12 @@ export class HelloWeek {
          xobj.send(null);
     }
 
+    /**
+     * Format Date
+     * @param      {number}  timestamp
+     * @param      {string}  format
+     * @return     {string}
+     */
     public formatDate(timestamp: number, format: string): string {
         const dt = new Date(timestamp);
         format = format.replace('dd', dt.getDate().toString());

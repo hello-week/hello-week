@@ -8,14 +8,57 @@
                     <div class="demo">
                         <div class="hello-week"></div>
                     </div>
-
                     <h4>Installation</h4>
-                    <pre class="language-bash">
-            npm install hello-week --save
-                    </pre>
-                    <pre class="language-bash">
-            yarn add hello-week
-                    </pre>
+<pre>
+    <code class="hljs language-bash">
+npm install hello-week --save
+    </code>
+</pre>
+<pre>
+    <code class="hljs language-bash">
+yarn add hello-week
+    </code>
+</pre>
+
+                    <h4>Options</h4>
+                    <p>Hello Week comes with a few (optional) settings that you can change by passing an object as an argument. Default values are presented below.</p>
+<pre>
+    <code class="hljs language-js">
+new HelloWeek({
+    selector: '.hello-week',
+    lang: 'en',
+    langFolder: './dist/langs/',
+    format: false,
+    weekShort: true,
+    monthShort: false,
+    multiplePick: false,
+    defaultDate: false,
+    todayHighlight: true,
+    disablePastDays: false,
+    disabledDaysOfWeek: false,
+    disableDates: false,
+    weekStart: 0,
+    daysHighlight: false,
+    range: false,
+    minDate: false,
+    maxDate: false,
+    nav: ['◀', '▶'],
+    onLoad: () => { /** callback function */ },
+    onChange: () => { /** callback function */ },
+    onSelect: () => { /** callback function */ },
+    onClear: () => { /** callback function */ }
+});
+    </code>
+</pre>
+
+                    <h4>Supported Browsers:</h4>
+                    <ul class="list list--dot">
+                        <li>Edge 17</li>
+                        <li>Chrome 49</li>
+                        <li>Firefox 31</li>
+                        <li>Opera 36</li>
+                        <li>Safari 9.3</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -54,3 +97,6 @@
         }
     }
 </script>
+<style lang="css">
+    @import "./../../assets/prism/prism.css";
+</style>
