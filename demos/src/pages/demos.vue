@@ -19,7 +19,8 @@
             return {
                 title: this.$route.name,
                 file: undefined,
-                markdown: undefined
+                markdown: undefined,
+                calendar: undefined
           }
         },
         mounted() {
@@ -35,8 +36,12 @@
                 this.$nextTick(function () {
                     Prism.highlightAll();
                     this.createDemo();
-                    const options = this.initHelloWeek();
-                    new HelloWeek(options);
+                     const options = Object.assign(this.initHelloWeek(), {
+                        onLoad: this.updateInfo,
+                        onChange: this.updateInfo,
+                        onSelect: this.updateInfo
+                     })
+                    this.calendar = new HelloWeek(options);
                 });
             }
             rawFile.send(null);
@@ -54,6 +59,10 @@
                 demo.classList.add('demo');
                 demo.classList.add('hello-week');
                 parentDiv.insertBefore(demo, hedingDemo);
+            },
+            updateInfo() {
+                console.log('updateInfo');
+                console.log(this.calendar.selectedDays);
             }
         }
     }
