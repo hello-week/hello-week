@@ -1,26 +1,25 @@
-$hello-week-color-primary :#7fcbc3;
-$hello-week-color-secondary :#ffa07a;
-$hello-week-color-highlight :#8fbc8f;
-$hello-week-color-days :#3e3e3e;
-$hello-week-color-weekend: #f3f3f3;
-$hello-week-color-disabled: #f7f8fb;
-
-$hello-week-transition: .2s cubic-bezier(.25, .1, .49, .9);
+$hw-color-primary :#7fcbc3;
+$hw-color-secondary :#ffa07a;
+$hw-color-highlight :#8fbc8f;
+$hw-color-days :#3e3e3e;
+$hw-color-weekend: #f3f3f3;
+$hw-color-disabled: #f7f8fb;
+$hw-transition: .2s cubic-bezier(.25, .1, .49, .9);
 
 :root {
-  --hello-week-bg-color: #fff;
-  --hello-week-bg-day: #fff;
-  --hello-week-color-day: #{$hello-week-color-secondary};
-  --hello-week-bg-week: #fff;
-  --hello-week-color-week: #{$hello-week-color-secondary};
-  --hello-week-bg-tody: #{$hello-week-color-days};
-  --hello-week-color-tody: #fff;
-  --hello-week-bg-selected: #{$hello-week-color-primary};
-  --hello-week-color-selected: #fff;
-  --hello-week-bg-weekend: #{$hello-week-color-weekend};
-  --hello-week-color-weekend: #{darken($hello-week-color-weekend, 20%)};
-  --hello-week-bg-disabled: #{$hello-week-color-disabled};
-  --hello-week-color-disabled: #{darken($hello-week-color-disabled, 20%)};
-  --hello-week-bg-highlight: #{$hello-week-color-highlight};
-  --hello-week-color-highlight: #fff;
+  --hw-bg-color: #fff;
+  --hw-bg-day: #fff;
+  --hw-color-day: #{$hw-color-secondary};
+  --hw-bg-week: #fff;
+  --hw-color-week: #{$hw-color-secondary};
+  --hw-bg-tody: #{$hw-color-days};
+  --hw-color-tody: #fff;
+  --hw-bg-selected: #{$hw-color-primary};
+  --hw-color-selected: #fff;
+  --hw-bg-weekend: #{$hw-color-weekend};
+  --hw-color-weekend: #{darken($hw-color-weekend, 20%)};
+  --hw-bg-disabled: #{$hw-color-disabled};
+  --hw-color-disabled: #{darken($hw-color-disabled, 20%)};
+  --hw-bg-highlight: #{$hw-color-highlight};
+  --hw-color-highlight: #fff;
 }

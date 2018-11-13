@@ -1,18 +1,22 @@
 ## Range Date
 
+```json
+   {
+        "range": true
+    }
+```
 
+#### Overview
+_TODO_
+
+#### HTML Structure
+```html
+    <div class="hello-week"></div>
+```
+
+#### Javascript Initialization
 ```js
-    const myCalendar = new HelloWeek({
-        langFolder: '../dist/langs/',
-        lang: 'en',
-        format: 'DD-MM-YYYY',
-        multiplePick: true,
-        todayHighlight: true,
-        disableDates: false,
-        disablePastDays: false,
-        disabledDaysOfWeek: [0],
-        weekStart: 0,
-        range: true,
-        nav: false
+    new HelloWeek({
+        range: true
     });
-
+```

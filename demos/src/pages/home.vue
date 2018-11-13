@@ -3,7 +3,7 @@
         <div class="container">
             <div class="card">
                 <div class="content">
-                    <h1>Hello Week <span class="tag">@version</span></h1>
+                    <h1>Hello Week <span class="version">@version</span></h1>
                     <p>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</p>
                     <div class="demo">
                         <div class="hello-week"></div>
@@ -23,7 +23,6 @@
         components: { pages },
         mounted() {
             let helloWeek = new HelloWeek();
-            console.log(helloWeek);
         }
     }
 </script>

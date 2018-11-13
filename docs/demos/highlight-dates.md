@@ -1,16 +1,44 @@
 ## Highlight Dates
 
+```json
+   {
+        "multiplePick": true,
+        "daysHighlight": [
+            {
+                "days": [
+                    ["2018-10-16", "2018-10-24"],
+                    ["2018-11-08", "2018-11-14"]
+                ],
+                "backgroundColor": "#6495ed",
+                "color": "#fff",
+                "title": "Summer Holidays"
+            },
+            {
+                "days": ["2018-07-24"],
+                "backgroundColor": "#f08080",
+                "title": "John Doe Birthday"
+            }
+        ]
+    }
+```
+
+#### Overview
+_TODO_
+
+#### HTML Structure
+```html
+    <div class="hello-week"></div>
+```
+
+#### Javascript Initialization
 ```js
-    const myCalendar = new HelloWeek({
-        langFolder: '../dist/langs/',
-        lang: 'en',
-        format: 'DD-MM-YYYY',
+    new HelloWeek({
         multiplePick: true,
         daysHighlight: [
             {
                 days: [
-                ['2018-05-16', '2018-05-24'],
-                ['2018-06-08', '2018-06-14']
+                    ['2018-10-16', '2018-10-24'],
+                    ['2018-11-08', '2018-11-14']
                 ],
                 backgroundColor: '#6495ed',
                 color: '#fff',
@@ -21,13 +49,7 @@
                 backgroundColor: '#f08080',
                 title: 'John Doe Birthday'
             }
-        ],
-        todayHighlight: true,
-        disableDates: false,
-        disablePastDays: false,
-        disabledDaysOfWeek: [0],
-        weekStart: 0,
-        nav: false
-});
+        ]
+    });
 ```
 

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700');
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700);
+// Global
 @import "normalize";
 @import "mixins";
 @import "colors";
@@ -8,17 +9,16 @@
 @import "helper";
 @import "theme";
 @import "global";
-
+// Layout
+@import "layout/header";
+@import "layout/menu";
+@import "layout/footer";
+@import "layout/sidebar";
+// Components
 @import "components/hero";
-@import "components/tag";
 @import "components/card";
 @import "components/button";
 @import "components/navigation";
 @import "components/code";
 @import "components/article";
 @import "components/switch";
-
-@import "layout/header";
-@import "layout/menu";
-@import "layout/footer";
-@import "layout/sidebar";

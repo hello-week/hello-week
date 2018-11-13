@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '../pages/home'
 import pages from '../pages/pages'
+import demos from '../pages/demos'
 import { store } from '../store/store';
 
 Vue.use(Router)
@@ -18,7 +19,7 @@ store.state.menus.map(menu => {
         routes.push({
             path: link.url,
             name: link.title,
-            component: pages
+            component: link.demo ? demos : pages
         })
     })
 });

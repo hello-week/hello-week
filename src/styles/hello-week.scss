@@ -4,19 +4,24 @@
   box-sizing: border-box;
 }
 
-.hello-week {
+.hw {
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
-  border-radius: var(--hello-week-border-radius);
-  background-color: var(--hello-week-bg-color);
+  border-radius: var(--hw-border-radius);
+  background-color: var(--hw-bg-color);
   box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
   user-select: none;
 
   &__header {
     display: flex;
     align-items: center;
-    padding: 2rem 1rem;
+  }
+
+  &__prev,
+  &__next {
+    padding: 1rem;
+    cursor: pointer;
   }
 
   &__label {
@@ -28,8 +33,8 @@
 
   &__week {
     display: flex;
-    background-color: var(--hello-week-bg-week);
-    color: var(--hello-week-color-week);
+    background-color: var(--hw-bg-week);
+    color: var(--hw-color-week);
 
     &__day {
       display: inline-flex;
@@ -56,38 +61,38 @@
     justify-content: center;
     width: 14.28%;
     padding: 1rem;
-    transition: background-color $hello-week-transition;
-    border-radius: var(--hello-week-border-radius);
+    transition: background-color $hw-transition;
+    border-radius: var(--hw-border-radius);
 
     &.is-active {
       cursor: pointer;
     }
 
     &.is-weekend {
-      background-color: var(--hello-week-bg-weekend);
-      color: var(--hello-week-color-weekend);
+      background-color: var(--hw-bg-weekend);
+      color: var(--hw-color-weekend);
     }
 
     &.is-selected {
-      background-color: var(--hello-week-bg-selected) !important;
-      color: var(--hello-week-color-selected) !important;
+      background-color: var(--hw-bg-selected) !important;
+      color: var(--hw-color-selected) !important;
     }
 
     &.is-disabled {
       border-radius: 0;
-      background-color: var(--hello-week-bg-disabled);
-      color: var(--hello-week-color-disabled);
+      background-color: var(--hw-bg-disabled);
+      color: var(--hw-color-disabled);
       cursor: not-allowed;
     }
 
     &.is-highlight {
-      background-color: var(--hello-week-bg-highlight);
-      color: var(--hello-week-color-highlight);
+      background-color: var(--hw-bg-highlight);
+      color: var(--hw-color-highlight);
     }
 
     &.is-today {
-      background-color: var(--hello-week-bg-tody);
-      color: var(--hello-week-color-tody);
+      background-color: var(--hw-bg-tody);
+      color: var(--hw-color-tody);
     }
 
     &.is-hover {

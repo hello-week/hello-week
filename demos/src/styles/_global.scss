@@ -46,9 +46,9 @@ body {
 }
 
 .demo {
-  margin: $baseline * 2 0;
+  margin: $baseline * 2 0 $baseline * 4;
 }
 
-.tag {
+.version {
   font-size: $fontBase;
 }
