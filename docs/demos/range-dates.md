@@ -2,6 +2,7 @@
 
 ```json
    {
+        "format": "dd/MM/YYYY",
         "range": true
     }
 ```
@@ -17,6 +18,7 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
+        defaultDate: "2018-12-25",
         range: true
     });
 ```

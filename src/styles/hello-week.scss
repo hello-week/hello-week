@@ -1,42 +1,42 @@
 @import "variables";
 
-.hw {
+.hello-week {
   width: 100%;
   margin: 0 auto;
   padding: $hw-baseline;
   user-select: none;
   font-size: $hw-font-size;
 
-  &__header {
+  .navigation {
     display: flex;
     align-items: center;
   }
 
-  &__prev,
-  &__next {
+  .prev,
+  .next {
     padding: $hw-baseline;
     cursor: pointer;
   }
 
-  &__label {
+  .label {
     width: 100%;
     font-size: 1.6em;
     font-weight: $hw-font-weight;
     text-align: center;
   }
 
-  &__week {
+  .week {
     display: flex;
     color: $hw-color-secondary;
     font-size: 1.2em;
   }
 
-  &__month {
+  .month {
     display: flex;
     flex-wrap: wrap;
   }
 
-  &__day {
+  .day {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -60,9 +60,8 @@
     }
 
     &.is-disabled {
-      background-color: $hw-color-disabled;
-      color: darken($hw-color-disabled, 20%);
       cursor: not-allowed;
+      opacity: .33;
     }
 
     &.is-highlight {
