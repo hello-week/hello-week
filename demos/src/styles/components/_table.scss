@@ -3,63 +3,63 @@ table {
   margin: 0;
   padding: 0;
   border: 0;
+  font-size: $fontBase;
+  font-weight: $fontRegular;
   border-collapse: collapse;
 
   tr {
-    padding: .35em;
+    padding: $baseline / 3;
     border-bottom: 1px solid var(--borderPrimary);
   }
 
   th {
-    padding: 1.2em;
+    padding: $baseline;
     text-align: center;
   }
 
   td {
-    padding: .625em;
+    padding: $baseline / 2;
     text-align: center;
   }
 
   th {
-    font-size: .85em;
     letter-spacing: .1em;
     text-transform: uppercase;
   }
 
   @include small {
-
     thead {
-      border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
       position: absolute;
       width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: none;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
     }
 
     tr {
       display: block;
+      margin-bottom: $baseline / 2;
       border-bottom: 2px solid var(--borderPrimary);
-      margin-bottom: .625em;
     }
 
     td {
-      border-bottom: 1px solid var(--borderPrimary);
       display: block;
+      border-bottom: 1px solid var(--borderPrimary);
       text-align: left;
-    }
 
-    td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+      &::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
 
-    td:last-child {
-      border-bottom: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
     }
   }
 }

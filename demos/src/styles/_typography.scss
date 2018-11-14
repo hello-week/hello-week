@@ -50,9 +50,9 @@ ul {
 
 p,
 li {
-  margin-bottom: .5rem;
-  font-size: 1rem;
-  font-weight: 400;
+  margin-bottom: $baseline / 2;
+  font-size: $fontBase;
+  font-weight: $fontRegular;
   line-height: 1.6;
 }
 

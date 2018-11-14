@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <top logo="./assets/images/hello-week.png" />
+        <top logo="./assets/images/logo.png" />
         <main class="main">
             <sidebar :menus="menus" />
             <router-view :key="$route.fullPath"/>
