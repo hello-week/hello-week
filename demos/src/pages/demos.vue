@@ -63,7 +63,7 @@
             updateInfo() {
                 console.log('updateInfo');
                 console.log(this.calendar);
-                console.log(this.calendar.getDates());
+                console.log(this.calendar.getSelectedDates());
             }
         }
     }

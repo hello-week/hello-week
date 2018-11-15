@@ -21,7 +21,7 @@ export class HelloWeek {
     private langs: any;
     private interval: any = [];
     private lastSelectedDay: string;
-    private selectedDays: any = [];
+    private selectedDates: any = [];
     private selectedTemporary: any = [];
 
     /* @return enum {CSS_CLASSES} */
@@ -37,7 +37,6 @@ export class HelloWeek {
     constructor (options: any = {}) {
         this.options = HelloWeek.extend(options);
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
-        console.log(this.selector);
 
         // early throw if selector doesn't exists
         if (this.selector === null) {
@@ -144,8 +143,8 @@ export class HelloWeek {
      * @return {string}
      * @public
      */
-    public getDates(): string {
-        return this.selectedDays;
+    public getSelectedDates(): string {
+        return this.selectedDates;
     }
 
     /**
@@ -166,7 +165,7 @@ export class HelloWeek {
     public clear(callback: CallbackFunction): void {
         this.__clearCalendar();
         this.date.setDate(1);
-        this.selectedDays = [];
+        this.selectedDates = [];
         this.selectedTemporary = [];
         this.__updted();
 
@@ -200,18 +199,18 @@ export class HelloWeek {
 
                 if (!this.options.range) {
                     if (this.options.multiplePick) {
-                        this.selectedDays.push(this.lastSelectedDay);
+                        this.selectedDates.push(this.lastSelectedDay);
                         if (selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_SELECTED)) {
-                            this.selectedDays = this.selectedDays.filter((day: string) => day !== this.lastSelectedDay);
+                            this.selectedDates = this.selectedDates.filter((day: string) => day !== this.lastSelectedDay);
                             this.selectedTemporary = this.selectedTemporary.filter((day: string) => day !== this.lastSelectedDay);
                         }
                     } else {
                         if (!selectDay.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
                             this.__removeActiveClass();
                         }
-                        this.selectedDays = [];
+                        this.selectedDates = [];
                         this.selectedTemporary = [];
-                        this.selectedDays.push(this.lastSelectedDay);
+                        this.selectedDates.push(this.lastSelectedDay);
                         this.selectedTemporary.push(this.lastSelectedDay);
                     }
                 }
@@ -223,7 +222,7 @@ export class HelloWeek {
                 if (this.options.range) {
                     if (this.interval.length === 2) {
                         this.interval = [];
-                        this.selectedDays = [];
+                        this.selectedDates = [];
                         this.selectedTemporary = [];
                         this.interval.push(selectDay);
                         this.__removeActiveClass();
@@ -253,19 +252,19 @@ export class HelloWeek {
                 }
 
                 if (this.interval.length > 0 && this.interval.length < 2) {
-                    this.selectedDays = [];
+                    this.selectedDates = [];
                     let element = this.interval[0];
                     for (const elm of this.selector.querySelectorAll('.' + HelloWeek.CSS_CLASSES.IS_SELECTED)) {
                         if(!this.interval.includes(elm)) {
                             (<HTMLElement>elm).classList.remove(HelloWeek.CSS_CLASSES.IS_SELECTED);
                         }
                     }
-                    this.selectedDays.push(this.options.format ?
+                    this.selectedDates.push(this.options.format ?
                         this.__formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) : element.dataset.timestamp);
                     while(element.nextElementSibling && element !== event.target) {
                         element = element.nextElementSibling;
                         if (!element.classList.contains(HelloWeek.CSS_CLASSES.IS_DISABLED)) {
-                            this.selectedDays.push(this.options.format ?
+                            this.selectedDates.push(this.options.format ?
                                     this.__formatDate(parseInt(element.dataset.timestamp) * 1000, this.options.format) :
                                     element.dataset.timestamp);
                             element.classList.add(HelloWeek.CSS_CLASSES.IS_SELECTED);
@@ -364,13 +363,13 @@ export class HelloWeek {
         }
 
         if (this.options.format) {
-            this.selectedDays.find( (day: string) => {
+            this.selectedDates.find( (day: string) => {
                 if (day === this.__formatDate(unixTimestamp, this.options.format)) {
                     newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
             });
         } else {
-            this.selectedDays.find( (day: number) => {
+            this.selectedDates.find( (day: number) => {
                 if (day === timestamp) {
                     newDay.classList.toggle(HelloWeek.CSS_CLASSES.IS_SELECTED);
                 }
@@ -466,7 +465,6 @@ export class HelloWeek {
      * @private
      */
     private __monthsAsString(monthIndex: number): any {
-        console.log(typeof this.langs.monthsShort);
         return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
     }
 
