@@ -34,6 +34,7 @@
   .month {
     display: flex;
     flex-wrap: wrap;
+    cursor: pointer;
   }
 
   .day {
@@ -44,10 +45,6 @@
     width: $hw-day-width;
     padding: $hw-baseline;
     transition: background-color $hw-transition;
-
-    &.is-active {
-      cursor: pointer;
-    }
 
     &.is-weekend {
       background-color: $hw-color-weekend;
