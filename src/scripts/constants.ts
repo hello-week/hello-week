@@ -7,6 +7,10 @@ export const CSS_CLASSES = {
     LABEL: 'label',
     PREV: 'prev',
     NEXT: 'next',
+};
+
+/* @enum {string} */
+export const CSS_STATES = {
     IS_HIGHLIGHT: 'is-highlight',
     IS_SELECTED: 'is-selected',
     IS_DISABLED: 'is-disabled',
