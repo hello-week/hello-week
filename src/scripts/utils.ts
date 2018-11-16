@@ -23,7 +23,6 @@ export class Utils {
         return format;
     }
 
-
     /**
      * Create HTML elements for Hello Week.
      * @param {string}      className
@@ -64,7 +63,7 @@ export class Utils {
          xobj.send(null);
     }
 
-    public static getIndexForEventTarget(daysOfMonth: [], target: HTMLElement): number {
+    public static getIndexForEventTarget(daysOfMonth: any, target: HTMLElement): number {
         return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
     }
 
