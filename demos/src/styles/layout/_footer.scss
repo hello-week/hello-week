@@ -6,11 +6,10 @@
   color: var(--colorPrimary);
   font-size: $fontSmall;
 
-
   a {
-    text-decoration: none;
     color: var(--colorPrimary);
     font-weight: $fontSemiBold;
+    text-decoration: none;
   }
 
   span {

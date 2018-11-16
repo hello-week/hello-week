@@ -57,5 +57,6 @@ li {
 }
 
 strong {
-  font-weight: 700;
+  font-weight: $fontBold;
+  color: $colorPink;
 }
