@@ -18,7 +18,7 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        minDate: '2018-11-19',
-        maxDate: '2018-12-07'
+        minDate: "2018-11-19",
+        maxDate: "2018-11-27"
     });
 ```

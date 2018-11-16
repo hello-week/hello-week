@@ -2,7 +2,6 @@
 
 ```json
    {
-        "multiplePick": true,
         "daysHighlight": [
             {
                 "days": [
@@ -38,7 +37,6 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        multiplePick: true,
         daysHighlight: [
             {
                 days: [

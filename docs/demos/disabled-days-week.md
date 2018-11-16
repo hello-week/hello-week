@@ -2,9 +2,8 @@
 
 ```json
    {
-        "multiplePick": true,
-        "disablePastDays": true,
-        "disabledDaysOfWeek": [0, 1, 6]
+        "disabledDaysOfWeek": [0, 6],
+        "disablePastDays": true
     }
 ```
 
@@ -19,9 +18,8 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        multiplePick: true,
-        disablePastDays: true,
-        disabledDaysOfWeek: [0, 1, 6] // disabling weekends
+        disabledDaysOfWeek: [0, 1] // disabling weekends
+        disablePastDays: true
     });
 ```
 

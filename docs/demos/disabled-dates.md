@@ -2,7 +2,8 @@
 
 ```json
    {
-        "disableDates": ["2018-11-01", "2018-11-08", "2018-11-16", "2018-11-21", "2018-11-23", "2018-11-28"]
+        "disablePastDays": true,
+        "disableDates": ["2018-12-01", "2018-12-08", "2018-12-16", "2018-12-21", "2018-12-23", "2018-12-28"]
     }
 ```
 
@@ -17,7 +18,9 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        "disableDates": ["2018-11-02", "2018-11-09", "2018-11-16", "2018-11-23"]
+        disablePastDays: true,
+        disabledDaysOfWeek: true,
+        disableDates: ["2018-11-02", "2018-11-09", "2018-11-16", "2018-11-23"]
     });
 ```
 
