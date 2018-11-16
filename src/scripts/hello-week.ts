@@ -45,7 +45,7 @@ export class HelloWeek {
             throw new Error('You need to specify a selector!');
         }
 
-        this.calendar.header = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.HEADER, this.selector);
+        this.calendar.header = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION, this.selector);
         if (this.options.nav) {
             this.calendar.prevMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.calendar.header, this.options.nav[0]);
             this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.calendar.header);

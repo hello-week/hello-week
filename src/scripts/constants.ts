@@ -3,7 +3,7 @@ export const CSS_CLASSES = {
     MONTH: 'month',
     DAY: 'day',
     WEEK: 'week',
-    HEADER: 'header',
+    NAVIGATION: 'navigation',
     LABEL: 'label',
     PREV: 'prev',
     NEXT: 'next',
