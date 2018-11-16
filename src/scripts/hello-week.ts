@@ -7,7 +7,7 @@ type CallbackFunction = (...args: any[]) => void;
 export class HelloWeek {
     private options: any;
     private selector: any;
-    private datepicker: any = {};
+    private calendar: any = {};
     private date: any;
     private today: any;
     private minDate: Date;
@@ -45,19 +45,19 @@ export class HelloWeek {
             throw new Error('You need to specify a selector!');
         }
 
-        this.datepicker.header = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.HEADER, this.selector);
+        this.calendar.header = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.HEADER, this.selector);
         if (this.options.nav) {
-            this.datepicker.prevMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.datepicker.header, this.options.nav[0]);
-            this.datepicker.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.datepicker.header);
-            this.datepicker.nextMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT, this.datepicker.header, this.options.nav[1]);
-            this.datepicker.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback function */ } ); });
-            this.datepicker.nextMonth.addEventListener('click', () => { this.next( () => { /** callback function */ } ); });
+            this.calendar.prevMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.calendar.header, this.options.nav[0]);
+            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.calendar.header);
+            this.calendar.nextMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT, this.calendar.header, this.options.nav[1]);
+            this.calendar.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback function */ } ); });
+            this.calendar.nextMonth.addEventListener('click', () => { this.next( () => { /** callback function */ } ); });
         } else {
-            this.datepicker.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.datepicker.header);
+            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.calendar.header);
         }
 
-        this.datepicker.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
-        this.datepicker.month = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
+        this.calendar.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
+        this.calendar.month = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -145,7 +145,6 @@ export class HelloWeek {
      * @public
      */
     public getSelectedDates(): string {
-        console.log(this.days);
         return this.selectedDates;
     }
 
@@ -317,7 +316,7 @@ export class HelloWeek {
         const weekDay = <any>document.createElement('span');
         weekDay.classList.add(HelloWeek.cssClasses.DAY);
         weekDay.textContent = dayShort;
-        this.datepicker.week.appendChild(weekDay);
+        this.calendar.week.appendChild(weekDay);
     }
 
     /**
@@ -326,7 +325,8 @@ export class HelloWeek {
     private __createMonth(): void {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
-            this.__createDay(this.date.getDate(), this.date.getDay());
+
+            this.__createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);
         }
         this.date.setMonth(this.date.getMonth() - 1);
@@ -335,11 +335,12 @@ export class HelloWeek {
 
     /**
      * Create days inside hello-week
-     * @param {number} num
-     * @param {number} day
+     * @param {Date} date
      * @private
      */
-    private __createDay (num: number, day: number): void {
+    private __createDay (date: Date): void {
+        const num = date.getDate();
+        const day = date.getDay();
         const newDay = <any>document.createElement('div');
         const dayOptions = {
             day: num,
@@ -352,10 +353,10 @@ export class HelloWeek {
         };
 
         this.days = this.days || {};
-        newDay.textContent = num;
+        newDay.textContent = dayOptions.day;
         newDay.classList.add(HelloWeek.cssClasses.DAY);
 
-        if (num === 1) {
+        if (dayOptions.day === 1) {
             if (this.options.weekStart === HelloWeek.daysWeek.SUNDAY) {
                 newDay.style.marginLeft = ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%';
             } else {
@@ -388,35 +389,28 @@ export class HelloWeek {
             dayOptions.isToday = true;
         }
 
-        if (this.options.format) {
-            this.selectedDates.find( (day: string) => {
-                if (day === Utils.formatDate(dayOptions.timestamp, this.options.format, this.langs)) {
-                    newDay.classList.add(HelloWeek.cssStates.IS_SELECTED);
-                    dayOptions.isSelected = true;
-                }
-            });
-        } else {
-            this.selectedDates.find( (day: number) => {
-                if (day === dayOptions.timestamp) {
-                    newDay.classList.add(HelloWeek.cssStates.IS_SELECTED);
-                    dayOptions.isSelected = true;
-                }
-            });
-        }
+        // @todo: fix selected days on change month.
+        this.selectedDates.find( (day: number) => {
+            if (day === dayOptions.timestamp) {
+                newDay.classList.add(HelloWeek.cssStates.IS_SELECTED);
+                dayOptions.isSelected = true;
+            }
+        });
+
 
         if (this.options.daysHighlight) {
             this.__setDaysHighlight(newDay, dayOptions);
         }
 
-        if (this.datepicker.month) {
-            this.datepicker.month.appendChild(newDay);
+        if (this.calendar.month) {
+            this.calendar.month.appendChild(newDay);
         }
 
-        if (this.selectedTemporary.length > 0 && num === 1) {
+        if (this.selectedTemporary.length > 0 && dayOptions.day === 1) {
             this.interval[0] = newDay;
         }
 
-        this.days[num] = dayOptions;
+        this.days[dayOptions.day] = dayOptions;
     }
 
     /**
@@ -513,11 +507,11 @@ export class HelloWeek {
      */
     private __updted(): void {
         const listDays: number[] = [];
-        if (this.datepicker.period) {
-            this.datepicker.period.innerHTML = this.__monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+        if (this.calendar.period) {
+            this.calendar.period.innerHTML = this.__monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
         }
         /** define week format */
-        this.datepicker.week.textContent = '';
+        this.calendar.week.textContent = '';
         for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
             listDays.push(i);
         }
@@ -538,7 +532,7 @@ export class HelloWeek {
      * @private
      */
     private __clearCalendar(): void {
-        this.datepicker.month.textContent = '';
+        this.calendar.month.textContent = '';
     }
 
     /**

@@ -3,6 +3,7 @@
 ```json
    {
         "disablePastDays": true,
+        "multiplePick": true,
         "disableDates": ["2018-12-01", "2018-12-08", "2018-12-16", "2018-12-21", "2018-12-23", "2018-12-28"]
     }
 ```
