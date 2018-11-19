@@ -9,7 +9,9 @@ export class HelloWeek {
     private selector: any;
     private calendar: any = {};
     private date: any;
-    private today: any;
+    private isRange: boolean;
+    private todayDate: any;
+    private daysHighlight: any;
     private minDate: Date;
     private maxDate: Date;
     private defaultDate: any;
@@ -58,6 +60,8 @@ export class HelloWeek {
 
         this.calendar.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
         this.calendar.month = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
+        this.isRange = this.options.range;
+        this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -74,8 +78,8 @@ export class HelloWeek {
      * @public
      */
     public init(callback: CallbackFunction) {
-        this.today = new Date();
-        this.today = this.today.setHours(0,0,0,0);
+        this.todayDate = new Date();
+        this.todayDate = this.todayDate.setHours(0,0,0,0);
         this.date = new Date();
         this.defaultDate = new Date();
         if (this.options.defaultDate) {
@@ -105,7 +109,7 @@ export class HelloWeek {
     }
 
     /**
-     * Method change the month to the previous, also you can send a callback function like a parameter.
+     * Change the month to the previous, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      * @public
      */
@@ -122,7 +126,7 @@ export class HelloWeek {
     }
 
     /**
-     * Method change the month to the next, also you can send a callback function like a parameter.
+     * Change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
      * @public
      */
@@ -138,29 +142,92 @@ export class HelloWeek {
         }
     }
 
+
+    /**
+     * Change the year to the previous, also you can send a callback function like a parameter.
+     * @param {CallbackFunction} callback
+     * @public
+     */
+    public prevYear(callback: CallbackFunction): void {
+        const prevYear = this.date.getYear() - 1;
+        this.__clearCalendar();
+        this.date.setYear(prevYear);
+        this.__updted();
+
+        this.options.onChange.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
+
+    /**
+     * Change the year to the next, also you can send a callback function like a parameter.
+     * @param {CallbackFunction} callback
+     * @public
+     */
+    public nextYear(callback: CallbackFunction): void {
+        this.__clearCalendar();
+        const nextYear = this.date.getYear() + 1;
+        this.date.setYear(nextYear);
+        this.__updted();
+
+        this.options.onChange.call(this);
+        if (callback) {
+            callback.call(this);
+        }
+    }
+
     /**
      * Returns the current day with the format specified.
-     * @param  {boolean} formated
      * @return {string}
      * @public
      */
-    public getSelectedDates(formated: boolean = true): string {
+    public getDates(): string {
         return this.selectedDates;
     }
 
     /**
-     * Method move the calendar to current day.
+     * Returns the highlight dates,
+     * @return {object}
+     * @public
+     */
+    public getDaysHighlight(): string {
+        return this.daysHighlight;
+    }
+
+    /**
+     * Set highlight dates,
+     * @public
+     */
+    public setDaysHighlight(daysHighlight: any): void {
+        this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
+    }
+
+    /**
+     * Move the calendar to current day.
      * @public
      */
     public goToday(): void {
         this.__clearCalendar();
-        this.date = this.today;
+        this.date = this.todayDate;
         this.date.setDate(1);
         this.__updted();
     }
 
     /**
-     * Method clean selected days in calendar.
+     * Move the calendar to arbitrary day.
+     * @param {any} date
+     * @public
+     */
+    public goToDate(date: any): void {
+        this.__clearCalendar();
+        this.date = date;
+        this.date.setDate(1);
+        this.__updted();
+    }
+
+    /**
+     * Clean selected days in calendar.
      * @public
      */
     public clear(callback: CallbackFunction): void {
@@ -178,10 +245,11 @@ export class HelloWeek {
 
     /**
      * Sets the range.
+     * @param {boolean} state
      * @public
      */
-    public setRange(): void {
-        this.options.range = !this.options.range;
+    public setRange(state: boolean): void {
+        this.isRange = state;
     }
 
     /**
@@ -193,7 +261,7 @@ export class HelloWeek {
         this.daysOfMonth = this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
             this.__handleClickInteraction(this.daysOfMonth[i], callback);
-            if (this.options.range) {
+            if (this.isRange) {
                 this.__handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
@@ -241,7 +309,7 @@ export class HelloWeek {
             }
 
             this.lastSelectedDay = this.days[index].timestamp;
-            if (!this.options.range) {
+            if (!this.isRange) {
                 if (this.options.multiplePick) {
                     if (this.days[index].timestamp) {
                         this.selectedDates = this.selectedDates.filter((day: string) => day !== this.lastSelectedDay);
@@ -249,7 +317,6 @@ export class HelloWeek {
                     if (!this.days[index].isSelected) {
                         this.selectedDates.push(this.lastSelectedDay);
                     }
-
                 } else {
                     if (!this.days[index].isDisabled) {
                         this.__removeSelectedClass();
@@ -262,7 +329,7 @@ export class HelloWeek {
             this.days[index].isSelected = !this.days[index].isSelected;
 
 
-            if (this.options.range) {
+            if (this.isRange) {
                 this.__setRangeDays(selectDay);
             }
 
@@ -342,7 +409,7 @@ export class HelloWeek {
         const newDay = <any>document.createElement('div');
         const dayOptions = {
             day: num,
-            timestamp: +new Date(this.date),
+            timestamp: new Date(this.date).setHours(0,0,0,0),
             formated: Utils.formatDate(+new Date(this.date), this.options.format, this.langs),
             isWeekend: false,
             isDisabled: false,
@@ -383,7 +450,7 @@ export class HelloWeek {
             this.__setDaysDisable(newDay, dayOptions);
         }
 
-        if (this.today === dayOptions.timestamp) {
+        if (this.todayDate === dayOptions.timestamp && this.options.todayDateHighlight) {
             newDay.classList.add(HelloWeek.cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
@@ -396,7 +463,7 @@ export class HelloWeek {
         });
 
 
-        if (this.options.daysHighlight) {
+        if (this.daysHighlight) {
             this.__setDaysHighlight(newDay, dayOptions);
         }
 
@@ -445,36 +512,36 @@ export class HelloWeek {
         if (newDay.classList.contains(HelloWeek.cssStates.IS_DISABLED)) {
             return;
         }
-        for (const key in this.options.daysHighlight) {
-            if (this.options.daysHighlight[key].days[0] instanceof Array) {
-                this.options.daysHighlight[key].days.map((date: any, index: number) => {
+        for (const key in this.daysHighlight) {
+            if (this.daysHighlight[key].days[0] instanceof Array) {
+                this.daysHighlight[key].days.map((date: any, index: number) => {
                     if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
                         newDay.classList.add(HelloWeek.cssStates.IS_HIGHLIGHT);
                         dayOptions.isHighlight = true;
-                        if (this.options.daysHighlight[key].title) {
-                            dayOptions.tile = this.options.daysHighlight[key].title;
+                        if (this.daysHighlight[key].title) {
+                            dayOptions.tile = this.daysHighlight[key].title;
                         }
-                        if (this.options.daysHighlight[key].color) {
-                            newDay.style.color = this.options.daysHighlight[key].color;
+                        if (this.daysHighlight[key].color) {
+                            newDay.style.color = this.daysHighlight[key].color;
                         }
-                        if (this.options.daysHighlight[key].backgroundColor) {
-                            newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                        if (this.daysHighlight[key].backgroundColor) {
+                            newDay.style.backgroundColor = this.daysHighlight[key].backgroundColor;
                         }
                     }
                 });
             } else {
-                this.options.daysHighlight[key].days.map((date: any) => {
+                this.daysHighlight[key].days.map((date: any) => {
                     if (new Date(new Date(dayOptions.timestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
                         newDay.classList.add(HelloWeek.cssStates.IS_HIGHLIGHT);
                         dayOptions.isHighlight = true;
-                        if (this.options.daysHighlight[key].title) {
-                            dayOptions.tile = this.options.daysHighlight[key].title;
+                        if (this.daysHighlight[key].title) {
+                            dayOptions.tile = this.daysHighlight[key].title;
                         }
-                        if (this.options.daysHighlight[key].color) {
-                            newDay.style.color = this.options.daysHighlight[key].color;
+                        if (this.daysHighlight[key].color) {
+                            newDay.style.color = this.daysHighlight[key].color;
                         }
-                        if (this.options.daysHighlight[key].backgroundColor) {
-                            newDay.style.backgroundColor = this.options.daysHighlight[key].backgroundColor;
+                        if (this.daysHighlight[key].backgroundColor) {
+                            newDay.style.backgroundColor = this.daysHighlight[key].backgroundColor;
                         }
                     }
                 });

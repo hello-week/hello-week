@@ -62,7 +62,8 @@
             },
             updateInfo() {
                 console.log('updateInfo');
-                console.log(this.calendar.getSelectedDates());
+                console.log(this.calendar.getDates());
+                this.calendar.getDaysHighlight();
             }
         }
     }
