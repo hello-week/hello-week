@@ -78,9 +78,10 @@
                 parentDiv.insertBefore(demo, hedingDemo);
             },
             updateInfo() {
-                console.log('updateInfo');
-                console.log(this.calendar.getDates());
-                this.calendar.getDaysHighlight();
+                const daysSelected = this.calendar.getDays();
+                const daysHighlight = this.calendar.getDaysHighlight();
+                console.log('daysSelected', daysSelected);
+                console.log('daysHighlight', daysHighlight);
             }
         }
     }
