@@ -36,7 +36,7 @@
                 this.$nextTick(function () {
                     Prism.highlightAll();
                     this.createDemo();
-                     const options = Object.assign(this.initHelloWeek(), {
+                    const options = Object.assign(this.initHelloWeek(), {
                         onLoad: this.updateInfo,
                         onChange: this.updateInfo,
                         onSelect: this.updateInfo

@@ -142,48 +142,13 @@ export class HelloWeek {
         }
     }
 
-
-    /**
-     * Change the year to the previous, also you can send a callback function like a parameter.
-     * @param {CallbackFunction} callback
-     * @public
-     */
-    public prevYear(callback: CallbackFunction): void {
-        const prevYear = this.date.getYear() - 1;
-        this.__clearCalendar();
-        this.date.setYear(prevYear);
-        this.__updted();
-
-        this.options.onChange.call(this);
-        if (callback) {
-            callback.call(this);
-        }
-    }
-
-    /**
-     * Change the year to the next, also you can send a callback function like a parameter.
-     * @param {CallbackFunction} callback
-     * @public
-     */
-    public nextYear(callback: CallbackFunction): void {
-        this.__clearCalendar();
-        const nextYear = this.date.getYear() + 1;
-        this.date.setYear(nextYear);
-        this.__updted();
-
-        this.options.onChange.call(this);
-        if (callback) {
-            callback.call(this);
-        }
-    }
-
     /**
      * Returns the current day with the format specified.
-     * @return {string}
+     * @return {any}
      * @public
      */
-    public getDates(): string {
-        return this.selectedDates;
+    public getDates(): any {
+        return this.selectedDates.map((day: number) => Utils.formatDate(day, this.options.format, this.langs));
     }
 
     /**
@@ -225,6 +190,19 @@ export class HelloWeek {
         this.date.setDate(1);
         this.__updted();
     }
+
+
+    /**
+     * Change calendar to arbitrary year.
+     * @param {number} year
+     * @public
+     */
+    public goToYear(year: number): void {
+        this.__clearCalendar();
+        this.date.setYear(year);
+        this.__updted();
+    }
+
 
     /**
      * Clean selected days in calendar.
@@ -410,7 +388,6 @@ export class HelloWeek {
         const dayOptions = {
             day: num,
             timestamp: new Date(this.date).setHours(0,0,0,0),
-            formated: Utils.formatDate(+new Date(this.date), this.options.format, this.langs),
             isWeekend: false,
             isDisabled: false,
             isToday: false,
