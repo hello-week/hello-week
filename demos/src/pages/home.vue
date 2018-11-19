@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="content">
                     <h1>Hello Week <span class="version">v{{ version }}</span></h1>
-                    <h3>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</h3><br><br><br>
+                    <h3>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</h3>
                     <div class="demo">
                         <div class="hello-week"></div>
                     </div>

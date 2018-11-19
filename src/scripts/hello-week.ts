@@ -10,6 +10,7 @@ export class HelloWeek {
     private calendar: any = {};
     private date: any;
     private isRange: boolean;
+    private isDisabled: boolean;
     private todayDate: any;
     private daysHighlight: any;
     private minDate: Date;
@@ -61,6 +62,7 @@ export class HelloWeek {
         this.calendar.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
         this.calendar.month = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
         this.isRange = this.options.range;
+        this.isDisabled = this.options.disabled;
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -214,12 +216,22 @@ export class HelloWeek {
     }
 
     /**
-     * Sets the range.
+     * Sets calendar range.
      * @param {boolean} state
      * @public
      */
     public setRange(state: boolean): void {
         this.isRange = state;
+    }
+
+    /**
+     * Sets calendar disabled.
+     * @param {boolean} state
+     * @public
+     */
+    public setDisabled(state: boolean): void {
+        this.isDisabled = state;
+        console.log(this.isDisabled);
     }
 
     public reload(): void {
@@ -416,7 +428,8 @@ export class HelloWeek {
             newDay.classList.add(HelloWeek.cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
+        if (this.isDisabled
+            || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
             || this.options.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
             || this.options.minDate && (+this.minDate >= dayOptions.timestamp)
             || this.options.maxDate && (+this.maxDate <= dayOptions.timestamp)) {

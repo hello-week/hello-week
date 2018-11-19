@@ -8,7 +8,7 @@
 ```
 
 #### Overview
-_TODO_
+Restrict the range of selectable dates with the minDate and maxDate options. Set the beginning and end dates
 
 #### HTML Structure
 ```html

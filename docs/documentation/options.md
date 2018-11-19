@@ -20,8 +20,8 @@
 ---
 
 #### format
-- type: `Boolean` `String`
-- default: `false`
+- type:  `String`
+- default: `dd/mm/yyyy`
 - _The format also determines which components are displayed._
 ---
 
@@ -44,8 +44,8 @@
 ---
 
 #### defaultDate
-- type: `Boolean` `String`
-- default: `false`
+- type: `String`
+- default: `null`
 - _Define the start date in calendar._
 ---
 
@@ -62,49 +62,49 @@
 ---
 
 #### disabledDaysOfWeek
-- type: `Boolean` `Array`
-- default: `false`
+- type: `Array`
+- default: `null`
 - _Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated._
 ---
 
 #### disableDates
-- type: `Boolean` `Array`
-- default: `false`
+- type: `Array`
+- default: `null`
 - _Array of date strings or a single date string to make days disabled._
 ---
 
 #### daysHighlight
-- type: `Boolean` `Array`
-- default: `false`
+- type: `Array`
+- default: `null`
 - _Array of date strings or a single date string to make days with highlight._
 ---
 
 #### range
-- type: `Boolean` `Array`
+- type: `Boolean`
 - default: `false`
 - _Allows you to select array range of days._
 ---
 
 #### weekStart
 - type: `Integer`
-- default: `false`
+- default: 0
 - _Day of the week start. 0 (Sunday) to 6 (Saturday)._
 ---
 
 #### minDate
-- type: `Boolean` `Sring`
-- default: `false`
-- _Disable date selections before this date._
+- type: `Number` or `String`
+- default: `null`
+- _Disable date selections before this date. When set to null, there is no minimum._
 ---
 
 #### maxDate
-- type: `Boolean` `Sring`
-- default: `false`
-- _Disable date selections after this date._
+- type: `Number` or `String`
+- default: `null`
+- _Disable date selections after this date. When set to null, there is no maximum._
 ---
 
 #### nav
-- type: `Boolean` `Array`
+- type: `Array`
 - default: `['◀', '▶']`
 - _Show next/prev buttons._
 
