@@ -42,7 +42,6 @@
                         onSelect: this.updateInfo
                      })
                     this.calendar = new HelloWeek(options);
-                    this.setDaysHighlight();
                 });
             }
             rawFile.send(null);
@@ -52,22 +51,6 @@
                 const init = this.$el.querySelector('.language-json').textContent;
                 this.$el.querySelector('.language-json').remove();
                 return JSON.parse(init);
-            },
-            setDaysHighlight() {
-                const daysHighlight = [
-                    {
-                        days: ["2018-11-23"],
-                        backgroundColor: "#a2a",
-                        title: "Friend Mike Birthday!"
-                    },
-                    {
-                        days: ["2018-12-18"],
-                        backgroundColor: "#07a",
-                        title: "Mom Birthday!"
-                    }
-                ];
-                this.calendar.setDaysHighlight(daysHighlight);
-
             },
             createDemo() {
                 const hedingDemo = this.$el.querySelector('h4');

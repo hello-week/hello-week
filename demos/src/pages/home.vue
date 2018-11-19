@@ -75,6 +75,7 @@ new HelloWeek({
         data: function () {
             return {
                 version: undefined,
+                calendar: undefined,
                 file: undefined
           }
         },
@@ -90,10 +91,28 @@ new HelloWeek({
                 this.version = version;
                 this.$nextTick(function () {
                     Prism.highlightAll();
-                    new HelloWeek();
+                    this.calendar = new HelloWeek();
+                    this.setDaysHighlight();
                 });
             }
             rawFile.send(null);
+        },
+        methods: {
+            setDaysHighlight() {
+                const daysHighlight = [
+                    {
+                        days: ["2019-01-24"],
+                        backgroundColor: "#a2a",
+                        title: "Baby Birthday!"
+                    },
+                    {
+                        days: ["2018-12-18"],
+                        backgroundColor: "#07a",
+                        title: "Mom Birthday!"
+                    }
+                ];
+                this.calendar.setDaysHighlight(daysHighlight);
+            },
         }
     }
 </script>

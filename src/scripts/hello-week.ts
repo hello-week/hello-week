@@ -115,9 +115,8 @@ export class HelloWeek {
      */
     public prev(callback: CallbackFunction): void {
         const prevMonth = this.date.getMonth() - 1;
-        this.__clearCalendar();
         this.date.setMonth(prevMonth);
-        this.__updted();
+        this.reload();
 
         this.options.onChange.call(this);
         if (callback) {
@@ -131,10 +130,9 @@ export class HelloWeek {
      * @public
      */
     public next(callback: CallbackFunction): void {
-        this.__clearCalendar();
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
-        this.__updted();
+        this.reload();
 
         this.options.onChange.call(this);
         if (callback) {
@@ -173,10 +171,9 @@ export class HelloWeek {
      * @public
      */
     public goToday(): void {
-        this.__clearCalendar();
         this.date = this.todayDate;
         this.date.setDate(1);
-        this.__updted();
+        this.reload();
     }
 
     /**
@@ -185,10 +182,9 @@ export class HelloWeek {
      * @public
      */
     public goToDate(date: any): void {
-        this.__clearCalendar();
         this.date = date;
         this.date.setDate(1);
-        this.__updted();
+        this.reload();
     }
 
     /**
@@ -197,9 +193,8 @@ export class HelloWeek {
      * @public
      */
     public goToYear(year: number): void {
-        this.__clearCalendar();
         this.date.setYear(year);
-        this.__updted();
+        this.reload();
     }
 
     /**
@@ -207,11 +202,10 @@ export class HelloWeek {
      * @public
      */
     public clear(callback: CallbackFunction): void {
-        this.__clearCalendar();
         this.date.setDate(1);
         this.daysSelected = [];
         this.selectedTemporary = [];
-        this.__updted();
+        this.reload();
 
         this.options.onClear.call(this);
         if (callback) {
