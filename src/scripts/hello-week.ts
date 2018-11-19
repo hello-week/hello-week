@@ -144,7 +144,7 @@ export class HelloWeek {
      * @return {string}
      * @public
      */
-    public getSelectedDates(): string {
+    public getSelectedDates(formated: boolean = true): string {
         return this.selectedDates;
     }
 
@@ -243,26 +243,24 @@ export class HelloWeek {
             this.lastSelectedDay = this.days[index].timestamp;
             if (!this.options.range) {
                 if (this.options.multiplePick) {
-                    this.selectedDates.push(this.lastSelectedDay);
                     if (this.days[index].timestamp) {
                         this.selectedDates = this.selectedDates.filter((day: string) => day !== this.lastSelectedDay);
-                        this.selectedTemporary = this.selectedTemporary.filter((day: string) => day !== this.lastSelectedDay);
                     }
+                    if (!this.days[index].isSelected) {
+                        this.selectedDates.push(this.lastSelectedDay);
+                    }
+
                 } else {
                     if (!this.days[index].isDisabled) {
                         this.__removeSelectedClass();
                     }
                     this.selectedDates = [];
-                    this.selectedTemporary = [];
                     this.selectedDates.push(this.lastSelectedDay);
-                    this.selectedTemporary.push(this.lastSelectedDay);
                 }
             }
+            selectDay.classList.toggle(HelloWeek.cssStates.IS_SELECTED);
+            this.days[index].isSelected = !this.days[index].isSelected;
 
-            if (!this.days[index].isDisabled) {
-                selectDay.classList.add(HelloWeek.cssStates.IS_SELECTED);
-                this.days[index].isSelected = true;
-            }
 
             if (this.options.range) {
                 this.__setRangeDays(selectDay);
@@ -344,7 +342,8 @@ export class HelloWeek {
         const newDay = <any>document.createElement('div');
         const dayOptions = {
             day: num,
-            timestamp: new Date(this.date).setHours(0,0,0,0),
+            timestamp: +new Date(this.date),
+            formated: Utils.formatDate(+new Date(this.date), this.options.format, this.langs),
             isWeekend: false,
             isDisabled: false,
             isToday: false,
@@ -389,7 +388,6 @@ export class HelloWeek {
             dayOptions.isToday = true;
         }
 
-        // @todo: fix selected days on change month.
         this.selectedDates.find( (day: number) => {
             if (day === dayOptions.timestamp) {
                 newDay.classList.add(HelloWeek.cssStates.IS_SELECTED);
