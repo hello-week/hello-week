@@ -191,7 +191,6 @@ export class HelloWeek {
         this.__updted();
     }
 
-
     /**
      * Change calendar to arbitrary year.
      * @param {number} year
@@ -202,7 +201,6 @@ export class HelloWeek {
         this.date.setYear(year);
         this.__updted();
     }
-
 
     /**
      * Clean selected days in calendar.
@@ -228,6 +226,11 @@ export class HelloWeek {
      */
     public setRange(state: boolean): void {
         this.isRange = state;
+    }
+
+    public reload(): void {
+        this.__clearCalendar();
+        this.__updted();
     }
 
     /**
@@ -318,6 +321,10 @@ export class HelloWeek {
         });
     }
 
+    /**
+     * @param {HTMLElement} target
+     * @private
+     */
     private __handleMouseInteraction(target: HTMLElement): void {
         target.addEventListener('mouseover', (event: any) => {
             const selectDay = event.target;
@@ -427,7 +434,7 @@ export class HelloWeek {
             this.__setDaysDisable(newDay, dayOptions);
         }
 
-        if (this.todayDate === dayOptions.timestamp && this.options.todayDateHighlight) {
+        if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
             newDay.classList.add(HelloWeek.cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
