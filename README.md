@@ -20,20 +20,19 @@ yarn add hello-week
 
 ```html
 <div class="hello-week">
-    <div class="hello-week__header">
-        <button class="hello-week__prev">Prev</button>
-        <div class="hello-week__label"></div>
-        <button class="hello-week__next">Next</button>
+    <div class="navigation">
+        <button class="prev">Prev</button>
+        <div class="period"></div>
+        <button class="next">Next</button>
     </div>
-    <div class="hello-week__week"></div>
-    <div class="hello-week__month"></div>
+    <div class="week"></div>
+    <div class="month"></div>
 </div>
 ```
 
 #### Init Plugin
 
 ```html
-<script src="hello-week.min.js"></script>
 <script>
   new HelloWeek();
 </script>
@@ -49,20 +48,22 @@ new HelloWeek({
     selector: '.hello-week',
     lang: 'en',
     langFolder: './dist/langs/',
-    format: false,
+    format: 'dd/mm/yyyy',
     weekShort: true,
     monthShort: false,
     multiplePick: false,
-    defaultDate: false,
+    defaultDate: null,
     todayHighlight: true,
     disablePastDays: false,
-    disabledDaysOfWeek: false,
-    disableDates: false,
+    disabledDaysOfWeek: null,
+    disableDates: null,
     weekStart: 0,
-    daysHighlight: false,
+    daysHighlight: null,
     range: false,
-    minDate: false,
-    maxDate: false,
+    rtl: false,
+    disabled: false,
+    minDate: null,
+    maxDate: null,
     nav: ['◀', '▶'],
     onLoad: () => { /** callback function */ },
     onChange: () => { /** callback function */ },

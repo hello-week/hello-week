@@ -51,12 +51,12 @@ export class HelloWeek {
         this.calendar.navigation = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION, this.selector);
         if (this.options.nav) {
             this.calendar.prevMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.calendar.navigation, this.options.nav[0]);
-            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.calendar.navigation);
+            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD, this.calendar.navigation);
             this.calendar.nextMonth = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT, this.calendar.navigation, this.options.nav[1]);
             this.calendar.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback function */ } ); });
             this.calendar.nextMonth.addEventListener('click', () => { this.next( () => { /** callback function */ } ); });
         } else {
-            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.LABEL, this.calendar.navigation);
+            this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD, this.calendar.navigation);
         }
 
         this.calendar.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);

@@ -4,7 +4,7 @@ export const CSS_CLASSES = {
     DAY: 'day',
     WEEK: 'week',
     NAVIGATION: 'navigation',
-    LABEL: 'label',
+    PERIOD: 'period',
     PREV: 'prev',
     NEXT: 'next',
     RTL: 'rtl',
