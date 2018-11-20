@@ -7,7 +7,7 @@
 ```
 
 #### Overview
-_TODO_
+Displays the calendar in right-to-left mode.
 
 #### HTML Structure
 ```html

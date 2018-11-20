@@ -91,6 +91,12 @@
 - _Allows layout for languages written from right to left (like Hebrew or Arabic)._
 ---
 
+#### disabled
+- type: `Boolean`
+- default: `false`
+- _Sets all days of the week that should be disabled._
+---
+
 #### weekStart
 - type: `Integer`
 - default: 0

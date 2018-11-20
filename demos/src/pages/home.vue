@@ -40,6 +40,8 @@ new HelloWeek({
     weekStart: 0,
     daysHighlight: false,
     range: false,
+    rtl: false,
+    disabled: false,
     minDate: false,
     maxDate: false,
     nav: ['◀', '▶'],

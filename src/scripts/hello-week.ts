@@ -458,7 +458,7 @@ export class HelloWeek {
         });
 
         if (this.daysHighlight) {
-            this.__setDaysHighlight(newDay, dayOptions);
+            this.__setDayHighlight(newDay, dayOptions);
         }
 
         if (this.calendar.month) {
@@ -497,47 +497,48 @@ export class HelloWeek {
     }
 
     /**
-     * Sets the days highlight.
+     * Set day highlight.
      * @param      {HTMLElement}  newDay
      * @param      {any}  dayOptions
      * @private
      */
-    private __setDaysHighlight(newDay: HTMLElement, dayOptions: any): void {
+    private __setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
         for (const key in this.daysHighlight) {
             if (this.daysHighlight[key].days[0] instanceof Array) {
                 this.daysHighlight[key].days.map((date: any, index: number) => {
                     if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
-                        Utils.addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
-                        dayOptions.isHighlight = true;
-                        if (this.daysHighlight[key].title) {
-                            dayOptions.tile = this.daysHighlight[key].title;
-                        }
-                        if (this.daysHighlight[key].color) {
-                            newDay.style.color = this.daysHighlight[key].color;
-                        }
-                        if (this.daysHighlight[key].backgroundColor) {
-                            newDay.style.backgroundColor = this.daysHighlight[key].backgroundColor;
-                        }
+                        this.__setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             } else {
                 this.daysHighlight[key].days.map((date: any) => {
                     if (new Date(new Date(dayOptions.timestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
-                        Utils.addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
-                        dayOptions.isHighlight = true;
-                        if (this.daysHighlight[key].title) {
-                            dayOptions.tile = this.daysHighlight[key].title;
-                        }
-                        if (this.daysHighlight[key].color) {
-                            newDay.style.color = this.daysHighlight[key].color;
-                        }
-                        if (this.daysHighlight[key].backgroundColor) {
-                            newDay.style.backgroundColor = this.daysHighlight[key].backgroundColor;
-                        }
+                        this.__setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             }
         }
+    }
+
+    /**
+     * Sets styles for days highlight.
+     * @param      {HTMLElement}  newDay
+     * @param      {any}  key
+     * @param      {any}  dayOptions
+     * @private
+     */
+    private __setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
+        Utils.addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
+        if (this.daysHighlight[key].title) {
+            dayOptions.tile = this.daysHighlight[key].title;
+        }
+        if (this.daysHighlight[key].color) {
+            Utils.setStyle(newDay, 'color', this.daysHighlight[key].color);
+        }
+        if (this.daysHighlight[key].backgroundColor) {
+            Utils.setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
+        }
+        dayOptions.isHighlight = true;
     }
 
     /**
