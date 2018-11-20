@@ -148,7 +148,7 @@ export class HelloWeek {
     }
 
     /**
-     * Returns the current day with the format specified.
+     * Returns the selected days with the format specified.
      * @return {any}
      * @public
      */

@@ -11,9 +11,34 @@
 - _Method to change the month to the next, also you can send a callback function like a parameter._
 ---
 
-#### today()
+#### getDays()
 - type: `triggerable`
-- _Method move the calendar to current day._
+- _Method returns the selected days with the format specified._
+---
+
+#### getDaysHighlight()
+- type: `triggerable`
+- _TODO._
+---
+
+#### setDaysHighlight()
+- type: `triggerable`
+- _TODO._
+---
+
+#### goToday()
+- type: `triggerable`
+- _TODO._
+---
+
+#### goToDate()
+- type: `triggerable`
+- _TODO._
+---
+
+#### goToYear()
+- type: `triggerable`
+- _TODO._
 ---
 
 #### clear()
@@ -21,11 +46,16 @@
 - _Method clean selected days in calendar._
 ---
 
-#### getToday()
-- type: `triggerable`
-- _Method returns the current day with the format if specified, timestamp in another case._
----
-
 #### setRange()
 - type: `triggerable`
 - _Method toggle status of range._
+
+#### setDisabled()
+- type: `triggerable`
+- _TODO._
+---
+
+#### reload()
+- type: `triggerable`
+- _TODO._
+---
