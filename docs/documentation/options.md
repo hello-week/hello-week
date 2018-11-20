@@ -85,6 +85,12 @@
 - _Allows you to select array range of days._
 ---
 
+#### rtl
+- type: `Boolean`
+- default: `false`
+- _Allows layout for languages written from right to left (like Hebrew or Arabic)._
+---
+
 #### weekStart
 - type: `Integer`
 - default: 0

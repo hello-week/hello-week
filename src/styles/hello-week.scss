@@ -30,12 +30,20 @@
     display: flex;
     color: $hw-color-secondary;
     font-size: 1.2em;
+
+    &.rtl {
+      flex-direction: row-reverse;
+    }
   }
 
   .month {
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
+
+    &.rtl {
+      flex-direction: row-reverse;
+    }
   }
 
   .day {

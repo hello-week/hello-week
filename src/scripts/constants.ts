@@ -7,6 +7,7 @@ export const CSS_CLASSES = {
     LABEL: 'label',
     PREV: 'prev',
     NEXT: 'next',
+    RTL: 'rtl',
 };
 
 /* @enum {string} */

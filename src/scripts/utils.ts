@@ -44,6 +44,21 @@ export class Utils {
         return elem;
     }
 
+    public static setStyle(el: HTMLElement, prop: string, value: string) {
+        return el.style.setProperty(prop, value);
+    }
+
+    public static addClass(el: HTMLElement, className: string) {
+        return el.classList.add(className);
+    }
+
+    public static removeClass(el: HTMLElement, className: string) {
+        return el.classList.remove(className);
+    }
+
+    public static toggleClass(el: HTMLElement, className: string) {
+        return el.classList.toggle(className);
+    }
 
     /**
      * Reads a file.
@@ -84,6 +99,7 @@ export class Utils {
             weekStart: 0,
             daysHighlight: null,
             range: false,
+            rtl: false,
             disabled: false,
             minDate: null,
             maxDate: null,
