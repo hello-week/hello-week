@@ -7,7 +7,7 @@ This gives you the ability to listen for any changes and perform your own action
 - _Runs immediately after initialization._
 ---
 
-#### onChange
+#### onNavigation
 - type: `attachable`
 - _Runs after month change._
 ---

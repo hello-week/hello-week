@@ -10,7 +10,7 @@ export class HelloWeek {
     private calendar: any = {};
     private date: any;
     private isRange: boolean;
-    private isDisabled: boolean;
+    private isLocked: boolean;
     private todayDate: any;
     private daysHighlight: any;
     private minDate: Date;
@@ -67,7 +67,7 @@ export class HelloWeek {
         }
 
         this.isRange = this.options.range;
-        this.isDisabled = this.options.disabled;
+        this.isLocked = this.options.locked;
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -125,7 +125,7 @@ export class HelloWeek {
         this.date.setMonth(prevMonth);
         this.reload();
 
-        this.options.onChange.call(this);
+        this.options.onNavigation.call(this);
         if (callback) {
             callback.call(this);
         }
@@ -141,7 +141,7 @@ export class HelloWeek {
         this.date.setMonth(nextMonth);
         this.reload();
 
-        this.options.onChange.call(this);
+        this.options.onNavigation.call(this);
         if (callback) {
             callback.call(this);
         }
@@ -235,8 +235,8 @@ export class HelloWeek {
      * @public
      */
     public setDisabled(state: boolean): void {
-        this.isDisabled = state;
-        console.log(this.isDisabled);
+        this.isLocked = state;
+        console.log(this.isLocked);
     }
 
     public reload(): void {
@@ -296,7 +296,7 @@ export class HelloWeek {
         target.addEventListener('click', (event: any) => {
             const selectDay = event.target;
             const index = Utils.getIndexForEventTarget(this.daysOfMonth, selectDay);
-            if (this.days[index].isDisabled) {
+            if (this.days[index].isLocked) {
                 return;
             }
 
@@ -310,7 +310,7 @@ export class HelloWeek {
                         this.daysSelected.push(this.lastSelectedDay);
                     }
                 } else {
-                    if (!this.days[index].isDisabled) {
+                    if (!this.days[index].isLocked) {
                         this.__removeSelectedClass();
                     }
                     this.daysSelected = [];
@@ -356,7 +356,7 @@ export class HelloWeek {
                 while(element.nextElementSibling && element !== selectDay) {
                     element = element.nextElementSibling;
                     const indexOfElement = Utils.getIndexForEventTarget(this.daysOfMonth, element);
-                    if (!this.days[indexOfElement].isDisabled) {
+                    if (!this.days[indexOfElement].isLocked) {
                         this.daysSelected.push(this.days[indexOfElement].timestamp);
                         Utils.addClass(element, HelloWeek.cssStates.IS_SELECTED);
                         this.days[indexOfElement].isSelected = true;
@@ -406,7 +406,7 @@ export class HelloWeek {
             day: num,
             timestamp: new Date(this.date).setHours(0,0,0,0),
             isWeekend: false,
-            isDisabled: false,
+            isLocked: false,
             isToday: false,
             isSelected: false,
             isHighlight: false,
@@ -432,13 +432,13 @@ export class HelloWeek {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.isDisabled
+        if (this.isLocked
             || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
             || this.options.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
             || this.options.minDate && (+this.minDate >= dayOptions.timestamp)
             || this.options.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-            dayOptions.isDisabled = true;
+            dayOptions.isLocked = true;
         }
 
         if (this.options.disableDates) {
@@ -483,14 +483,14 @@ export class HelloWeek {
             this.options.disableDates.map((date: any) => {
                 if (dayOptions.timestamp >= +new Date(date[0]) && dayOptions.timestamp <= +new Date(date[1])) {
                     Utils.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-                    dayOptions.isDisabled = true;
+                    dayOptions.isLocked = true;
                 }
             });
         } else {
             this.options.disableDates.map((date: any) => {
                 if (dayOptions.timestamp === +new Date(date)) {
                     Utils.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-                    dayOptions.isDisabled = true;
+                    dayOptions.isLocked = true;
                 }
             });
         }

@@ -46,7 +46,7 @@ new HelloWeek({
     maxDate: false,
     nav: ['◀', '▶'],
     onLoad: () => { /** callback function */ },
-    onChange: () => { /** callback function */ },
+    onNavigation: () => { /** callback function */ },
     onSelect: () => { /** callback function */ },
     onClear: () => { /** callback function */ }
 });

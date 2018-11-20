@@ -38,7 +38,7 @@
                     this.createDemo();
                      const options = Object.assign(this.initHelloWeek(), {
                         onLoad: this.updateInfo,
-                        onChange: this.updateInfo,
+                        onNavigation: this.updateInfo,
                         onSelect: this.updateInfo
                      })
                     this.calendar = new HelloWeek(options);
