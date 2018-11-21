@@ -1,12 +1,13 @@
 <p align="center"><img src="assets/images/logo.png" width="360"/></p>
 
+[![Build Status](https://travis-ci.org/maurovieirareis/hello-week.svg?branch=master&style=flat-square)](https://travis-ci.org/maurovieirareis/hello-week)
+[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
+[![npm](https://img.shields.io/npm/v/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/maurovieirareis/hello-week/blob/master/LICENSE)
-
-See the demo: [Hello Week](https://maurovieirareis.github.io/hello-week/).
 
 ## Quick start
 
-### Installation
+#### Installation
 
 ```bash
 npm install hello-week --save
@@ -61,7 +62,7 @@ new HelloWeek({
     daysHighlight: null,
     range: false,
     rtl: false,
-    disabled: false,
+    locked: false,
     minDate: null,
     maxDate: null,
     nav: ['◀', '▶'],
@@ -84,6 +85,11 @@ Input | Example | Description |
 `MMM` | `January..December` | A full textual representation of a month.
 `yyyy` or `YYYY` | `2018` | A full numeric representation of a year, 4 digits.
 `yy` or `YY` | `18` |   A two digit representation of a year.
+
+### Useful links
+
+- [Demos](https://maurovieirareis.github.io/hello-week/)
+- [Changelog](CHANGELOG.md)
 
 ### Supported Browsers:
 

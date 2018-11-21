@@ -225,20 +225,41 @@ export class HelloWeek {
      * @param {boolean} state
      * @public
      */
-    public setRange(state: boolean): void {
+    set range(state: boolean) {
         this.isRange = state;
     }
 
     /**
-     * Sets calendar disabled.
+     * Sets calendar range.
+     * @return {boolean} state
+     * @public
+     */
+    get range(): boolean {
+        return this.isRange;
+    }
+
+    /**
+     * Sets calendar locked.
      * @param {boolean} state
      * @public
      */
-    public setDisabled(state: boolean): void {
+    set locked(state: boolean) {
         this.isLocked = state;
-        console.log(this.isLocked);
     }
 
+    /**
+     * Gets if calendar locked.
+     * @return {boolean} state
+     * @public
+     */
+    get locked(): boolean {
+        return this.isLocked;
+    }
+
+    /**
+     * Reload and redraws the events for the current month.
+     * @public
+     */
     public reload(): void {
         this.__clearCalendar();
         this.__updted();

@@ -25,6 +25,7 @@ export const store = new Vuex.Store({
                     { url: '/demos/disabled-days-week', title: 'Disabled Days Week', demo: true },
                     { url: '/demos/min-and-max-dates', title: 'Min & Max Dates', demo: true },
                     { url: '/demos/disabled-dates', title: 'Disabled Dates', demo: true },
+                    { url: '/demos/locked', title: 'Locked', demo: true },
                     { url: '/demos/rtl', title: 'RTL', demo: true }
                 ]
             }

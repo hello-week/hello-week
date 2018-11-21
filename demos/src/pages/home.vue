@@ -9,50 +9,38 @@
                         <div class="hello-week"></div>
                     </div>
                     <h4>Installation</h4>
-<pre>
-    <code class="hljs language-bash">
-npm install hello-week --save
-    </code>
-</pre>
-<pre>
-    <code class="hljs language-bash">
-yarn add hello-week
-    </code>
-</pre>
-
+                    <demo-code lang="bash">npm install hello-week --save</demo-code>
+                    <demo-code lang="bash">yarn add hello-week</demo-code>
                     <h4>Options</h4>
                     <p>Hello Week comes with a few (optional) settings that you can change by passing an object as an argument. Default values are presented below.</p>
-<pre>
-    <code class="hljs language-js">
-new HelloWeek({
-    selector: '.hello-week',
-    lang: 'en',
-    langFolder: './dist/langs/',
-    format: false,
-    weekShort: true,
-    monthShort: false,
-    multiplePick: false,
-    defaultDate: false,
-    todayHighlight: true,
-    disablePastDays: false,
-    disabledDaysOfWeek: false,
-    disableDates: false,
-    weekStart: 0,
-    daysHighlight: false,
-    range: false,
-    rtl: false,
-    disabled: false,
-    minDate: false,
-    maxDate: false,
-    nav: ['◀', '▶'],
-    onLoad: () => { /** callback function */ },
-    onNavigation: () => { /** callback function */ },
-    onSelect: () => { /** callback function */ },
-    onClear: () => { /** callback function */ }
-});
-    </code>
-</pre>
-
+                    <demo-code lang="js">
+                    new HelloWeek({
+                        selector: '.hello-week',
+                        lang: 'en',
+                        langFolder: './dist/langs/',
+                        format: 'dd/mm/yyyy',
+                        weekShort: true,
+                        monthShort: false,
+                        multiplePick: false,
+                        defaultDate: null,
+                        todayHighlight: true,
+                        disablePastDays: false,
+                        disabledDaysOfWeek: null,
+                        disableDates: null,
+                        weekStart: 0, // week start on Sunday
+                        daysHighlight: null,
+                        range: false,
+                        rtl: false,
+                        locked: false,
+                        minDate: null,
+                        maxDate: null,
+                        nav: ['◀', '▶'],
+                        onLoad: () => { /** callback function */ },
+                        onChange: () => { /** callback function */ },
+                        onSelect: () => { /** callback function */ },
+                        onClear: () => { /** callback function */ }
+                    });
+                    </demo-code>
                     <h4>Supported Browsers:</h4>
                     <ul class="list list--dot">
                         <li>Edge 17</li>
@@ -73,7 +61,9 @@ new HelloWeek({
 <script>
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
+    import demoCode from '../components/code.vue'
     export default {
+        components: { demoCode },
         data: function () {
             return {
                 version: undefined,

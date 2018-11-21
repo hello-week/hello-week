@@ -50,7 +50,7 @@
 - type: `triggerable`
 - _Method toggle status of range._
 
-#### setDisabled()
+#### setLocked()
 - type: `triggerable`
 - _TODO._
 ---
