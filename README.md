@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/images/logo.png" width="360"/></p>
+<p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
 
 [![Build Status](https://travis-ci.org/maurovieirareis/hello-week.svg?branch=master&style=flat-square)](https://travis-ci.org/maurovieirareis/hello-week)
 [![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
