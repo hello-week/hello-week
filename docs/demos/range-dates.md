@@ -8,7 +8,9 @@
 ```
 
 #### Overview
-_TODO_
+Set predefined date ranges the user can select from.
+
+Each key is the label for the range, and its value an array with all dates between two dates representing the bounds of the range.
 
 #### HTML Structure
 ```html
@@ -21,4 +23,14 @@ _TODO_
         defaultDate: "2018-12-25",
         range: true
     });
+```
+
+#### Set State
+```js
+    const calendar = new HelloWeek({
+        range: true
+    });
+    console.log(calendar.range); // true
+    calendar.range = false;
+    console.log(calendar.range); // false
 ```
