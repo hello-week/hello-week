@@ -20,3 +20,13 @@ Locks all days in calendar.
         locked: true
     });
 ```
+
+#### Set State
+```js
+    const calendar = new HelloWeek({
+        locked: true
+    });
+    console.log(calendar.locked); // true
+    calendar.locked = false;
+    console.log(calendar.locked); // false
+```
