@@ -21,7 +21,7 @@ Locks all days in calendar.
     });
 ```
 
-#### Set State
+#### Properties and Methods
 ```js
     const calendar = new HelloWeek({
         locked: true
