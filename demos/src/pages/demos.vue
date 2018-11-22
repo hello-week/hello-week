@@ -14,6 +14,7 @@
 <script>
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
+    import { Utils } from '../helpers/utils.js'
     export default {
         data: function () {
             return {
@@ -24,27 +25,23 @@
           }
         },
         mounted() {
-            this.file = window.location.origin + window.location.pathname + 'docs' + this.$route.path + '.md';
+            const fiile = this.$route.path + '.md';
             const md = new Remarkable({
                 langPrefix: 'hljs language-'
             });
-            const rawFile = new XMLHttpRequest();
-            rawFile.open("GET", this.file, false);
-            rawFile.onreadystatechange = () => {
-                var allText = rawFile.responseText;
-                this.markdown = md.render(allText);
+            Utils.readFile(fiile, (responseText) => {
+                this.markdown = md.render(responseText);
                 this.$nextTick(function () {
                     Prism.highlightAll();
                     this.createDemo();
-                     const options = Object.assign(this.initHelloWeek(), {
+                    const options = Object.assign(this.initHelloWeek(), {
                         onLoad: this.updateInfo,
                         onNavigation: this.updateInfo,
                         onSelect: this.updateInfo
-                     })
+                    })
                     this.calendar = new HelloWeek(options);
                 });
-            }
-            rawFile.send(null);
+            });
         },
         methods: {
             initHelloWeek() {

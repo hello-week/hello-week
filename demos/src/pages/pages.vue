@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import { Utils } from '../helpers/utils.js'
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
     export default {
@@ -23,20 +24,17 @@
           }
         },
         mounted() {
-            this.file = window.location.origin + window.location.pathname + 'docs' + this.$route.path + '.md';
+            const file = this.$route.path + '.md';
+            console.log(file);
             const md = new Remarkable({
                 langPrefix: 'hljs language-'
             });
-            const rawFile = new XMLHttpRequest();
-            rawFile.open("GET", this.file, false);
-            rawFile.onreadystatechange = () => {
-                var allText = rawFile.responseText;
-                this.markdown = md.render(allText);
+            Utils.readFile(file, (responseText) => {
+                this.markdown = md.render(responseText);
                 this.$nextTick(function () {
                     Prism.highlightAll();
                 });
-            }
-            rawFile.send(null);
+            });
         }
     }
 </script>

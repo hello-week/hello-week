@@ -57,6 +57,10 @@ li {
 }
 
 strong {
+  color: var(--borderPrimary);
   font-weight: $fontBold;
+}
+
+a {
   color: $colorPink;
 }

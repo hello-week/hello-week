@@ -61,6 +61,7 @@
 <script>
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
+    import { Utils } from '../helpers/utils.js'
     import demoCode from '../components/code.vue'
     export default {
         components: { demoCode },
@@ -76,18 +77,15 @@
             const md = new Remarkable({
                 langPrefix: 'hljs language-'
             });
-            const rawFile = new XMLHttpRequest();
-            rawFile.open("GET", this.file, false);
-            rawFile.onreadystatechange = () => {
-                const { version } = JSON.parse(rawFile.responseText);
+            Utils.readFile('package.json', (responseText) => {
+                const { version } = JSON.parse(responseText);
                 this.version = version;
                 this.$nextTick(function () {
                     Prism.highlightAll();
                     this.calendar = new HelloWeek();
                     this.setDaysHighlight();
                 });
-            }
-            rawFile.send(null);
+            });
         },
         methods: {
             setDaysHighlight() {
