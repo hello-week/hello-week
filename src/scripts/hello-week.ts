@@ -11,6 +11,7 @@ export class HelloWeek {
     private date: any;
     private isRange: boolean;
     private isLocked: boolean;
+    private isMultiplePick: boolean;
     private todayDate: any;
     private daysHighlight: any;
     private minDate: Date;
@@ -68,6 +69,7 @@ export class HelloWeek {
 
         this.isRange = this.options.range;
         this.isLocked = this.options.locked;
+        this.isMultiplePick = this.options.multiplePick;
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -257,6 +259,24 @@ export class HelloWeek {
     }
 
     /**
+     * Sets calendar multiplePick.
+     * @param {boolean} state
+     * @public
+     */
+    set multiplePick(state: boolean) {
+        this.isMultiplePick = state;
+    }
+
+    /**
+     * Gets if calendar multiplePick.
+     * @return {boolean} state
+     * @public
+     */
+    get multiplePick(): boolean {
+        return this.isMultiplePick;
+    }
+
+    /**
      * Reload and redraws the events for the current month.
      * @public
      */
@@ -323,7 +343,7 @@ export class HelloWeek {
 
             this.lastSelectedDay = this.days[index].timestamp;
             if (!this.isRange) {
-                if (this.options.multiplePick) {
+                if (this.isMultiplePick) {
                     if (this.days[index].timestamp) {
                         this.daysSelected = this.daysSelected.filter((day: string) => day !== this.lastSelectedDay);
                     }

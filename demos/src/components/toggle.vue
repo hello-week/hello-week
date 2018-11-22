@@ -1,5 +1,5 @@
 <template>
-    <div class="switch" @click="toggleTheme">
+    <div class="switch" @click="toggleSwith">
         <input type="checkbox" :id="id" :name="name" class="switch__input" :checked="isChecked">
         <label :for="id" class="switch__label">
             <span class="switch__text">{{ label }}</span>
@@ -31,32 +31,12 @@
                 isChecked: this.checked,
           }
         },
-        mounted() {
-            let state = localStorage.getItem('dark-mode');
-            this.isChecked = state == 'true' ? true : false;
-            this.switchTheme();
-        },
         methods: {
-            toggleTheme(evt) {
+            toggleSwith(evt) {
                 evt.preventDefault();
                 this.isChecked = !this.isChecked;
-                localStorage.setItem('dark-mode', this.isChecked);
-                this.switchTheme();
-            },
-            switchTheme() {
-                if (this.isChecked == true) {
-                    document.body.classList.remove('theme--light');
-                    document.body.classList.add('theme--dark');
-                } else {
-                    document.body.classList.remove('theme--dark');
-                    document.body.classList.add('theme--light');
-                }
+                this.$emit('toggleSwith', this.isChecked);
             }
-        },
-        watch: {
-            checked: function (val) {
-                console.log(val);
-            },
         }
     }
 </script>

@@ -50,6 +50,11 @@ body {
   font-weight: $fontRegular;
 }
 
+.demo-options {
+  margin-bottom: $baseline * 3;
+  font-weight: $fontRegular;
+}
+
 .version {
   margin-left: $baseline / 2;
   color: var(--colorPrimary);

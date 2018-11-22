@@ -4,9 +4,19 @@
             <div class="card">
                 <div class="content">
                     <h1>Hello Week <span class="version">v{{ version }}</span></h1>
-                    <h3>Lightweight and simple datepicker in <strong>Javascript</strong> with no dependencies</h3>
+                    <h3>Lightweight and simple calendar in <strong>Javascript</strong> with no dependencies</h3>
                     <div class="demo">
                         <div class="hello-week"></div>
+                    </div>
+                    <div class="demo-options">
+                        <h4>Options</h4>
+                        TODO
+                        <h4>Toggles</h4>
+                        <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
+                        <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
+                        <p><toggle id="multiplePick" name="multiplePick" label="Multiple Pick" :checked="isMultiplePick" @toggleSwith="toggleMultiplePick" /></p>
+                        <h4>Methods</h4>
+                        TODO
                     </div>
                     <h4>Installation</h4>
                     <demo-code lang="bash">npm install hello-week --save</demo-code>
@@ -63,19 +73,23 @@
     import Remarkable from 'remarkable'
     import { Utils } from '../helpers/utils.js'
     import demoCode from '../components/code.vue'
+    import toggle from '../components/toggle.vue'
     export default {
-        components: { demoCode },
+        components: { demoCode, toggle },
         data: function () {
             return {
                 version: undefined,
                 calendar: undefined,
-                file: undefined
+                file: undefined,
+                isLocked: false,
+                isRange: false,
+                isMultiplePick: false
           }
         },
         mounted() {
             this.file = window.location.origin + window.location.pathname + 'package.json';
             const md = new Remarkable({
-                langPrefix: 'language-'
+                langPrefix: 'hljs language-'
             });
             Utils.readFile('package.json', (responseText) => {
                 const { version } = JSON.parse(responseText);
@@ -103,6 +117,21 @@
                 ];
                 this.calendar.setDaysHighlight(daysHighlight);
             },
+            toggleLocked() {
+                this.isLocked = !this.isLocked;
+                this.calendar.locked = this.isLocked;
+                this.calendar.reload();
+            },
+            toggleRange() {
+                this.isRange = !this.isRange;
+                this.calendar.range = this.isRange;
+                this.calendar.reload();
+            },
+            toggleMultiplePick() {
+                this.isMultiplePick = !this.isMultiplePick;
+                this.calendar.multiplePick = this.isMultiplePick;
+                this.calendar.reload();
+            }
         }
     }
 </script>
