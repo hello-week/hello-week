@@ -5,7 +5,10 @@
           <div class="line-menu"></div>
           <div class="line-menu"></div>
       </div>
-      <div class="logo">Hello Week</div>
+          <div class="logo">
+            <img src="assets/images/logo.png" alt="">
+            Hello Week
+        </div>
     <navigation />
 </header>
 </template>

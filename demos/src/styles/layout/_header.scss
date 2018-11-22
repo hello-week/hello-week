@@ -85,8 +85,8 @@
     }
 
     > img {
-      width: 22px;
-      margin-right: $baseline;
+      width: 28px;
+      margin-right: $baseline / 2;
 
       @include small {
         display: flex;
