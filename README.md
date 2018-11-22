@@ -90,6 +90,7 @@ Input | Example | Description |
 
 - [Demos](https://maurovieirareis.github.io/hello-week/)
 - [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
 
 ### Supported Browsers:
 
