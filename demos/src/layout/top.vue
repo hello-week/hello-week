@@ -6,7 +6,7 @@
           <div class="line-menu"></div>
       </div>
           <div class="logo">
-            <img src="assets/images/logo.png" alt="">
+            <img src="assets/images/logo.png" alt="Hello Week" title="Hello Week">
             Hello Week
         </div>
     <navigation />
