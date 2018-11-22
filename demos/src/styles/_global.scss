@@ -50,9 +50,20 @@ body {
   font-weight: $fontRegular;
 }
 
-.demo-options {
+
+.demo-interactive {
+  display: flex;
   margin-bottom: $baseline * 3;
   font-weight: $fontRegular;
+}
+
+.demo-options {
+  flex: 1;
+}
+
+.demo-toggle {
+  flex: 1;
+  padding: 0 $baseline * 2;
 }
 
 .version {

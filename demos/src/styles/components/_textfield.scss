@@ -1,3 +1,22 @@
 .textfield {
   display: flex;
+  flex-direction: column;
+
+  &__label {
+    display: block;
+    padding: $baseline 0;
+    font-weight: $fontSemiBold;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: $baseline / 2 $baseline;
+    border: 1px solid $colorWhiteSomke;
+    border-radius: 2px;
+
+    &:focus {
+      outline: 1px solid $colorDarkSomke;
+    }
+  }
 }

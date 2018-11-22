@@ -8,16 +8,22 @@
                     <div class="demo">
                         <div class="hello-week"></div>
                     </div>
-                    <div class="demo-options">
-                        <h4>Options</h4>
-                        <textfield id="defaultDate" value="">Default Date</textfield>
-                        <textfield id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
-                        <h4>Toggles</h4>
-                        <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
-                        <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
-                        <p><toggle id="multiplePick" name="multiplePick" label="Multiple Pick" :checked="isMultiplePick" @toggleSwith="toggleMultiplePick" /></p>
-                        <h4>Methods</h4>
-                        TODO
+                    <div class="demo-interactive">
+                        <div class="demo-options">
+                            <h4>Options</h4>
+                            <textfield id="defaultDate" value="">Default Date</textfield>
+                            <textfield id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
+                            <textfield id="minDate" value="">Min Date</textfield>
+                            <textfield id="maxDate" value="">Max Date</textfield>
+                            <h4>Methods</h4>
+                            TODO
+                        </div>
+                        <div class="demo-toggle">
+                            <h4>Toggles</h4>
+                            <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
+                            <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
+                            <p><toggle id="multiplePick" name="multiplePick" label="Multiple Pick" :checked="isMultiplePick" @toggleSwith="toggleMultiplePick" /></p>
+                        </div>
                     </div>
                     <h4>Installation</h4>
                     <demo-code lang="bash">npm install hello-week --save</demo-code>
