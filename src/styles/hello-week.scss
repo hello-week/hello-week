@@ -56,8 +56,7 @@
     transition: background-color $hw-transition;
 
     &.is-weekend {
-      background-color: $hw-color-weekend;
-      color: darken($hw-color-weekend, 20%);
+      color: $hw-color-weekend;
     }
 
     &.is-selected {
