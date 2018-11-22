@@ -12,16 +12,16 @@ pre[class*="language-"] {
 pre[class*="language-"] {
   margin: $baseline * 2 0 !important;
   padding: $baseline * 2 0 !important;
+  border-top: 6px solid $colorPink;
   font-size: $fontSmall;
-  border-top: 6px solid var(--colorPrimary);
 }
 
 code {
-  background: var(--backgroundPrimary);
-  color: var(--borderPrimary);
-  border-radius: 2px;
-  font-family: Consolas, monospace;
   display: inline-block;
   padding: 0 $baseline / 4;
+  background: var(--backgroundPrimary);
+  color: var(--borderPrimary);
+  font-family: Consolas, monospace;
+  border-radius: 2px;
 }
 

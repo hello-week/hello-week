@@ -13,34 +13,34 @@
                     <demo-code lang="bash">yarn add hello-week</demo-code>
                     <h4>Options</h4>
                     <p>Hello Week comes with a few (optional) settings that you can change by passing an object as an argument. Default values are presented below.</p>
-                    <demo-code lang="js">
-                    new HelloWeek({
-                        selector: '.hello-week',
-                        lang: 'en',
-                        langFolder: './dist/langs/',
-                        format: 'dd/mm/yyyy',
-                        weekShort: true,
-                        monthShort: false,
-                        multiplePick: false,
-                        defaultDate: null,
-                        todayHighlight: true,
-                        disablePastDays: false,
-                        disabledDaysOfWeek: null,
-                        disableDates: null,
-                        weekStart: 0, // week start on Sunday
-                        daysHighlight: null,
-                        range: false,
-                        rtl: false,
-                        locked: false,
-                        minDate: null,
-                        maxDate: null,
-                        nav: ['◀', '▶'],
-                        onLoad: () => { /** callback function */ },
-                        onChange: () => { /** callback function */ },
-                        onSelect: () => { /** callback function */ },
-                        onClear: () => { /** callback function */ }
-                    });
-                    </demo-code>
+        <demo-code lang="js">
+            new HelloWeek({
+                selector: '.hello-week',
+                lang: 'en',
+                langFolder: './dist/langs/',
+                format: 'dd/mm/yyyy',
+                weekShort: true,
+                monthShort: false,
+                multiplePick: false,
+                defaultDate: null,
+                todayHighlight: true,
+                disablePastDays: false,
+                disabledDaysOfWeek: null,
+                disableDates: null,
+                weekStart: 0, // week start on Sunday
+                daysHighlight: null,
+                range: false,
+                rtl: false,
+                locked: false,
+                minDate: null,
+                maxDate: null,
+                nav: ['◀', '▶'],
+                onLoad: () => { /** callback function */ },
+                onChange: () => { /** callback function */ },
+                onSelect: () => { /** callback function */ },
+                onClear: () => { /** callback function */ }
+            });
+        </demo-code>
                     <h4>Supported Browsers:</h4>
                     <ul class="list list--dot">
                         <li>Edge 17</li>

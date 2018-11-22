@@ -1,4 +1,4 @@
-## RTL
+## Locked
 
 ```json
    {
@@ -26,6 +26,7 @@ Locks all days in calendar.
     const calendar = new HelloWeek({
         locked: true
     });
+
     console.log(calendar.locked); // true
     calendar.locked = false;
     console.log(calendar.locked); // false
