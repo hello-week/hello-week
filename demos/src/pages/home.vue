@@ -75,7 +75,7 @@
         mounted() {
             this.file = window.location.origin + window.location.pathname + 'package.json';
             const md = new Remarkable({
-                langPrefix: 'hljs language-'
+                langPrefix: 'language-'
             });
             Utils.readFile('package.json', (responseText) => {
                 const { version } = JSON.parse(responseText);

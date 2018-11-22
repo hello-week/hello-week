@@ -27,7 +27,7 @@
             const file = this.$route.path + '.md';
             console.log(file);
             const md = new Remarkable({
-                langPrefix: 'hljs language-'
+                langPrefix: 'language-'
             });
             Utils.readFile(file, (responseText) => {
                 this.markdown = md.render(responseText);

@@ -13,8 +13,37 @@ You'll need a recent version of [Node](https://nodejs.org/en/) to work this proj
 Once node is installed, simply clone our repository (or your fork of it) and run `yarn install` or `npm install`
 
 ```bash
-  git clone git@github.com:maurovieirareis/hello-week.git
-  cd hello-week && yarn install
+  $ git clone git@github.com:maurovieirareis/hello-week.git
+  $ cd hello-week && yarn install
+```
+
+#### Running development server
+
+```bash
+  $ yarn run watch # Listen changes and Hello Week.
+  $ yarn run demos:start # Run the files in demos folder.
+  $ yarn run demos:watch # Listen changes inside demos folder.
+  $ open http://localhost:8082/# # Open the browser to see the demos.
+```
+
+`yarn run demos:start` runs a webpack-dev-server instance that uses demos/ as its content base.
+
+This should aid you in initial development of a component. It's served on port 8080.
+
+#### Building
+
+```bash
+  $ yarn run build # Cleans out build/ and builds.
+  $ yarn run demos:build # Cleans out build/ and builds demo CSS/JS.
+```
+
+#### Linting / Testing
+
+```bash
+  $ yarn run lint:ts # Lints typescript using tslint
+  $ yarn run:lint:scss # Lints (S)CSS using stylelint
+
+  $ yarn run test #  Only runs the mocha tests
 ```
 
 #### Feature requests
@@ -24,7 +53,7 @@ It's up to you to make a strong case to convince the project's developers of the
 
 To get approval for your feature request, please create an issue on the issue tracker with as much detail and context as possible.
 
-#### Bug reports
+#### Reporting Bugs
 
 A bug is a demonstrable, reproducible problem that is caused by the code in the repository. Good bug reports are extremely helpful, so thanks!
 
@@ -38,7 +67,7 @@ This [CodePen](https://codepen.io/anon/pen/prvbMp), [JSFiddle](https://jsfiddle.
 
 #### Submitting Pull requests
 
-Good pull requests are a fantastic help.
+Good pull requests are a amazing help.
 
 They should remain focused in scope and avoid containing unrelated commits.
 
@@ -47,28 +76,22 @@ Adhering to the following process is the best way to get your work included in t
 [Fork](https://help.github.com/fork-a-repo/) the project, clone your fork, and configure the remotes:
 
 ```bash
-  git clone https://github.com/<your-username>/hello-week.git
-  cd hello-week
-  git remote add upstream https://github.com/mauroreisvieira/hello-week.git
+  $ git clone https://github.com/<your-username>/hello-week.git
+  $ cd hello-week
+  $ git remote add upstream https://github.com/mauroreisvieira/hello-week.git
 ```
 
 If you cloned a while ago, get the latest changes from upstream:
 
 ```bash
-  git checkout develop
-  git pull [--rebase] upstream develop
+  $ git checkout develop
+  $ git pull [--rebase] upstream develop
 ```
 
 Create a new topic branch (off the main project **develop** branch) to contain your feature, change, or fix:
 
 ```bash
   git checkout -b <topic-branch-name>
-```
-
-Build the distribution before committing to ensure your changes follow the coding standards and all build files are up to date.
-
-```bash
-  grunt dist
 ```
 
 Commit your changes in logical chunks. Please adhere to these [guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
@@ -78,13 +101,13 @@ Use Git's [interactive rebase](https://help.github.com/articles/interactive-reba
 Locally merge (or rebase) the upstream development branch into your topic branch:
 
 ```bash
-  git pull [--rebase] upstream develop
+  $ git pull [--rebase] upstream develop
 ```
 
 Push your topic branch up to your fork:
 
 ```bash
-  git push origin <topic-branch-name>
+  $ git push origin <topic-branch-name>
 ```
 
 [Open a Pull Request](https://help.github.com/articles/using-pull-requests/) with a clear title and description against the **develop** branch.
