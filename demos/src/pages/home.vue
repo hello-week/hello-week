@@ -10,7 +10,8 @@
                     </div>
                     <div class="demo-options">
                         <h4>Options</h4>
-                        TODO
+                        <textfield id="defaultDate" value="">Default Date</textfield>
+                        <textfield id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
                         <h4>Toggles</h4>
                         <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
                         <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
@@ -74,8 +75,9 @@
     import { Utils } from '../helpers/utils.js'
     import demoCode from '../components/code.vue'
     import toggle from '../components/toggle.vue'
+    import textfield from '../components/textfield.vue'
     export default {
-        components: { demoCode, toggle },
+        components: { demoCode, toggle, textfield },
         data: function () {
             return {
                 version: undefined,
