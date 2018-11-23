@@ -3,22 +3,13 @@ $baseline: 1rem;
 
 // Defining font family
 $fontDefault: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$fontHighlight: "Roboto Condensed", Helvetica, sans-serif;
+$fontCode: monospace;
 
 // Defining font size default
 $fontSizeDefault: 16px;
 
-// Defining baseline line height
-$lineHeight: 26px;
-
 // Defining border radius
-$borderRadius: 4px;
-
-// Header
-$topBarHeight: $baseline * 12;
-
-// Rooms
-$roomsWidth: 66px;
+$borderRadius: 2px;
 
 // Defining breakpoints
 $xSmall: 280px;
@@ -32,14 +23,14 @@ $wideContainer: 864px;
 $hugeContainer: 100%;
 
 // Defining font sizes
-$fontXSmall: calculate-rem(12px);
-$fontSmall: calculate-rem(14px);
-$fontBase: calculate-rem(16px);
-$fontMedium: calculate-rem(22px);
-$fontLarge: calculate-rem(28px);
-$fontXLarge: calculate-rem(44px);
-$fontXXLarge: calculate-rem(72px);
-$fontHuge: calculate-rem(86px);
+$fontXSmall: calculate-rem(12px, $fontSizeDefault);
+$fontSmall: calculate-rem(14px, $fontSizeDefault);
+$fontBase: calculate-rem(16px, $fontSizeDefault);
+$fontMedium: calculate-rem(22px, $fontSizeDefault);
+$fontLarge: calculate-rem(28px, $fontSizeDefault);
+$fontXLarge: calculate-rem(44px, $fontSizeDefault);
+$fontXXLarge: calculate-rem(72px, $fontSizeDefault);
+$fontHuge: calculate-rem(86px, $fontSizeDefault);
 
 // Defining font weight
 $fontLight: 300;
@@ -51,4 +42,31 @@ $fontBold: 700;
 $animationEasing: cubic-bezier(.455, .3, .515, .955);
 
 $sidebarWidth: 260px;
+
+$mdoc-theme: (
+  typography-font: $fontDefault,
+  typography-code: $fontCode,
+  typography-size: $fontBase,
+  typography-weight: $fontRegular
+);
+
+$mdoc-theme-light: (
+  primary: #{get-color(aqua)},
+  secondary: #{get-color(pink)},
+  background: #{get-color(gray, light)},
+  hint: #{get-color(aqua, dark)},
+  surface: #{get-color(white)},
+  navigation: #{get-color(aqua)},
+  text: #{get-color(batman)}
+);
+
+$mdoc-theme-dark: (
+  primary: #{get-color(aqua)},
+  secondary: #{get-color(pink)},
+  background: #{get-color(batman, dark)},
+  hint: #{get-color(aqua, dark)},
+  surface: #{get-color(batman)},
+  navigation: #{get-color(white)},
+  text: #{get-color(white)}
+);
 

@@ -1,26 +1,25 @@
 .btn {
   display: inline-flex;
   padding: $baseline;
-  text-transform: uppercase;
-  color: var(--colorPrimary);
+  border: 2px solid currentColor;
+  color: var(--mdoc-theme-primary);
   font-size: $fontXSmall;
   font-weight: $fontSemiBold;
-  border: 2px solid currentColor;
+  text-transform: uppercase;
   cursor: pointer;
-
 
   &:focus,
   &:hover {
-    background-color: var(--colorPrimary);
-    border: 2px solid var(--colorPrimary);
-    color: white;
+    border: 2px solid var(--mdoc-theme-primary);
     outline: none;
+    background-color: var(--mdoc-theme-primary);
+    color: white;
   }
 
   &[disabled],
   &[disabled]:hover {
-    background: inherit;
     border: 2px solid;
+    background: inherit;
     color: inherit;
     cursor: default;
     opacity: .2;

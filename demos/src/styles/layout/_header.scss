@@ -1,29 +1,29 @@
+// stylelint-disable selector-no-qualifying-type, selector-max-specificity
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   padding: 0 $baseline * 2;
-  border-bottom: 1px solid var(--backgroundPrimary);
-  background-color: var(--backgroundHeader);
+  border-bottom: 1px solid var(--mdoc-theme-background);
+  background-color: var(--mdoc-theme-surface);
 
   .toggle-sidebar {
     position: absolute;
-    left: $baseline;
     top: $baseline;
-    width: 25px;
-    height: 25px;
+    left: $baseline;
     display: none;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
+    width: 25px;
+    height: 25px;
     transition: transform .3s $animationEasing;
     cursor: pointer;
 
     .line-menu {
       width: 100%;
       height: 2px;
-      background-color: var(--colorHeader);
+      background-color: var(--mdoc-theme-primary);
 
       &:first-child {
         width: 50%;
@@ -71,7 +71,7 @@
   .logo {
     display: inline-flex;
     align-items: center;
-    color: var(--colorHeader);
+    color: var(--mdoc-theme-navigation);
     font-size: $fontMedium;
     font-weight: $fontRegular;
     text-transform: uppercase;

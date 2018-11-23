@@ -10,24 +10,24 @@
 
   &__link {
     position: relative;
-    text-decoration: none;
-    color: var(--colorHeader);
+    padding: $baseline / 2;
+    color: var(--mdoc-theme-navigation);
     font-size: $fontSmall;
     font-weight: $fontRegular;
-    padding: $baseline / 2;
+    text-decoration: none;
     text-transform: uppercase;
 
     &::after {
       position: absolute;
-      left: 0;
       top: 50%;
+      left: 0;
       width: 100%;
       height: 2px;
-      background: currentColor;
       transform: scale3d(0, 1, 1);
-      transition: transform .3s $animationEasing;
       transform-origin: top right;
-      content: '';
+      transition: transform .3s $animationEasing;
+      background: currentColor;
+      content: "";
     }
 
     &:hover::after {

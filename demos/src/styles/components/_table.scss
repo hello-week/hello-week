@@ -1,3 +1,4 @@
+// stylelint-disable selector-no-qualifying-type, selector-max-type
 table {
   width: 100%;
   margin: 0;
@@ -9,22 +10,19 @@ table {
 
   tr {
     padding: $baseline / 3;
-    border-bottom: 1px solid var(--borderPrimary);
+    border-bottom: 1px solid var(--mdoc-theme-hint);
   }
 
   th {
     padding: $baseline;
+    letter-spacing: .1em;
     text-align: center;
+    text-transform: uppercase;
   }
 
   td {
     padding: $baseline / 2;
     text-align: center;
-  }
-
-  th {
-    letter-spacing: .1em;
-    text-transform: uppercase;
   }
 
   @include small {
@@ -42,19 +40,19 @@ table {
     tr {
       display: block;
       margin-bottom: $baseline / 2;
-      border-bottom: 2px solid var(--borderPrimary);
+      border-bottom: 2px solid var(--mdoc-theme-hint);
     }
 
     td {
       display: block;
-      border-bottom: 1px solid var(--borderPrimary);
+      border-bottom: 1px solid var(--mdoc-theme-hint);
       text-align: left;
 
       &::before {
-        content: attr(data-label);
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+        content: attr(data-label);
       }
 
       &:last-child {

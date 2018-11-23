@@ -4,7 +4,7 @@
   width: 100%;
   margin: 0 auto;
   user-select: none;
-  font-size: $hw-font-size;
+  font-size: map-get($hw-typography-font-size, base);
 
   .navigation {
     display: flex;
@@ -21,15 +21,15 @@
 
   .period {
     width: 100%;
-    font-size: 1.6em;
-    font-weight: $hw-font-weight;
+    font-size: map-get($hw-typography-font-size, period);
+    font-weight: map-get($hw-typography-font-weight, regular);
     text-align: center;
   }
 
   .week {
     display: flex;
-    color: $hw-color-secondary;
-    font-size: 1.2em;
+    color: $hw-color-week;
+    font-size: map-get($hw-typography-font-size, week);
 
     &.rtl {
       flex-direction: row-reverse;
@@ -60,7 +60,7 @@
     }
 
     &.is-selected {
-      background-color: $hw-color-primary !important;
+      background-color: $hw-color-selected !important;
       color: $hw-color-white !important;
     }
 

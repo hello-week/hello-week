@@ -2,7 +2,7 @@
 // Global
 @import "normalize";
 @import "mixins";
-@import "colors";
+@import "color-palette";
 @import "functions";
 @import "variables";
 @import "typography";
@@ -15,7 +15,6 @@
 @import "layout/footer";
 @import "layout/sidebar";
 // Components
-@import "components/hero";
 @import "components/card";
 @import "components/button";
 @import "components/navigation";

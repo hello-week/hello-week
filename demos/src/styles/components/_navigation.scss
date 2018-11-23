@@ -3,39 +3,38 @@
   flex-direction: column;
   list-style-type: none;
   margin: 0;
-  padding: 2rem;
+  padding: $baseline * 2;
 
   &__item {
     position: relative;
-    margin-bottom: $baseline / 4;
-    text-transform: uppercase;
+    margin-bottom: $baseline * 2;
+    color: var(--mdoc-theme-hint);
     font-weight: $fontBold;
-    margin-bottom: 2rem;
-    color: var(--borderPrimary);
+    text-transform: uppercase;
   }
 
   &__submenu {
     margin-top: $baseline / 2;
-    border-left: 4px solid var(--borderPrimary);
-    padding-left: $baseline / 2;
     margin-left: $baseline / 2;
+    padding-left: $baseline / 2;
+    border-left: 4px solid var(--mdoc-theme-hint);
 
     .navigation__item {
-      text-transform: none;
-      font-weight: $fontRegular;
       margin-bottom: $baseline / 3;
+      font-weight: $fontRegular;
+      text-transform: none;
     }
   }
 
   &__link {
-    text-decoration: none;
-    color: var(--colorText);
-    font-weight: $fontRegular;
     transition: color .2s $animationEasing;
+    color: var(--mdoc-theme-text);
+    font-weight: $fontRegular;
+    text-decoration: none;
 
     &.router-link-active,
     &:hover {
-      color: var(--colorPrimary);
+      color: var(--mdoc-theme-primary);
     }
   }
 }

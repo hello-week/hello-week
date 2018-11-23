@@ -1,15 +1,15 @@
 .article {
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--backgroundSecondary);
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--mdoc-theme-surface);
 
-    @include small() {
-        position: absolute;
-        left: 0;
-        transition: transform .3s $animationEasing;
+  @include small {
+    position: absolute;
+    left: 0;
+    transition: transform .3s $animationEasing;
 
-        &.is-open {
-            transform: translateX(320px);
-        }
+    &.is-open {
+      transform: translateX(320px);
     }
+  }
 }

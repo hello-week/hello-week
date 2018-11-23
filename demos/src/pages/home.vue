@@ -11,10 +11,10 @@
                     <div class="demo-interactive">
                         <div class="demo-options">
                             <h4>Options</h4>
-                            <textfield id="defaultDate" value="">Default Date</textfield>
-                            <textfield id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
-                            <textfield id="minDate" value="">Min Date</textfield>
-                            <textfield id="maxDate" value="">Max Date</textfield>
+                            <textfield name="defaultDate" id="defaultDate" value="">Default Date</textfield>
+                            <textfield name="format" id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
+                            <textfield name="minDate" id="minDate" value="">Min Date</textfield>
+                            <textfield name="maxDate" id="maxDate" value="">Max Date</textfield>
                             <h4>Methods</h4>
                             TODO
                         </div>
@@ -70,7 +70,7 @@
             </div>
         </div>
         <footer class="footer">
-            <p>Created with <span>♥</span> by <a href="http://twitter.com/@mauroreisvieira">@mauroreisvieira</a> in Portugal</p>
+            <p>Created with <span class="heart">♥</span> by <a href="http://twitter.com/@mauroreisvieira">@mauroreisvieira</a> in Portugal</p>
         </footer>
     </div>
 </template>

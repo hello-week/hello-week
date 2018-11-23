@@ -1,12 +1,22 @@
 $hw-color-white: #fff;
-$hw-color-primary :#7fcbc3;
-$hw-color-secondary :#42a298;
+$hw-color-selected :#7fcbc3;
+$hw-color-week :#42a298;
 $hw-color-highlight :#8fbc8f;
 $hw-color-today: #ff3860;
 $hw-color-weekend: #ff3860;
-$hw-transition: .2s cubic-bezier(.25, .1, .49, .9);
 
-$hw-font-size: 16px;
-$hw-font-weight: 400;
+$hw-transition: .2s cubic-bezier(.25, .1, .49, .9);
 $hw-baseline: 1em;
 $hw-day-width: 100% / 7;
+
+$hw-typography-font-weight: (
+  light: 300,
+  regular: 400,
+  bold: 700
+) !default;
+
+$hw-typography-font-size: (
+  base: 1em,
+  period: 1.6em,
+  week: 1.2em
+) !default;

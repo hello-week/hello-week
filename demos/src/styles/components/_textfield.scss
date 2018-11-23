@@ -12,11 +12,12 @@
     box-sizing: border-box;
     width: 100%;
     padding: $baseline / 2 $baseline;
-    border: 1px solid $colorWhiteSomke;
+    border: 1px solid var(--mdoc-theme-background);
     border-radius: 2px;
+    background-color: transparent;
 
     &:focus {
-      outline: 1px solid $colorDarkSomke;
+      outline: 1px solid var(--mdoc-theme-background);
     }
   }
 }

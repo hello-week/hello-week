@@ -1,9 +1,40 @@
-@function calculate-rem($size, $fontDefault: $fontSizeDefault) {
-  $remSize: $size / 16px;
+@function calculate-rem($size, $fontDefault) {
+  $remSize: $size / $fontDefault;
 
   @return #{$remSize}rem;
 }
 
-@function leading($size, $context: $lineHeight) {
-  @return $context / $size + em;
+/* Slightly lighten a color
+ * @param {Color} $color - color to tint
+ * @param {Number} $percentage - percentage of `$color` in returned color
+ * @return {Color}
+ */
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
 }
+
+/* Slightly darken a color
+ * @param {Color} $color - color to shade
+ * @param {Number} $percentage - percentage of `$color` in returned color
+ * @return {Color}
+ */
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+@function get-color($color, $tone: base) {
+  $color-value: map-get($mdoc-palette-colors, $color);
+
+  @if ($tone == dark) {
+    @return shade($color-value, 22%);
+  }
+
+  @else if ($tone == light) {
+    @return tint($color-value, 92%);
+  }
+
+  @else {
+    @return $color-value;
+  }
+}
+

@@ -1,11 +1,16 @@
+// stylelint-disable selector-max-type
+
 * {
   @include prefixr(box-sizing, border-box);
 }
 
 html,
 body {
-  background: var(--backgroundPrimary);
-  font-size: $fontSizeDefault;
+  background: var(--mdoc-theme-background);
+  font-family: var(--mdoc-theme-typography-font);
+  font-size: var(--mdoc-theme-typography-size);
+  font-weight: var(--mdoc-theme-typography-weight);
+  -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   overflow-y: scroll;
@@ -15,9 +20,7 @@ body {
   min-width: $xSmall;
   margin: 0;
   padding: 0;
-  color: var(--colorText);
-  font-family: $fontDefault;
-  font-weight: $fontLight;
+  color: var(--mdoc-theme-text);
 }
 
 .main {
@@ -50,7 +53,6 @@ body {
   font-weight: $fontRegular;
 }
 
-
 .demo-interactive {
   display: flex;
   margin-bottom: $baseline * 3;
@@ -68,13 +70,13 @@ body {
 
 .version {
   margin-left: $baseline / 2;
-  color: var(--colorPrimary);
+  color: var(--mdoc-theme-primary);
   font-size: $fontMedium;
   font-weight: $fontBold;
 }
 
 hr {
-  border: 0;
   height: 1px;
-  background-color: var(--backgroundPrimary);
+  border: 0;
+  background-color: var(--mdoc-theme-background);
 }

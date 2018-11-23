@@ -142,6 +142,8 @@ rules:
     - font-variant
     - font-weight
 
+    -webkit-font-smoothing
+
     - letter-spacing
     - line-height
     - list-style

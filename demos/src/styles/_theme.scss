@@ -1,23 +1,17 @@
 .theme {
+  @each $key in map-keys($mdoc-theme) {
+    --mdoc-theme-#{$key}: #{map-get($mdoc-theme, $key)};
+  }
+
   &--light {
-    --colorPrimary: #{$colorAqua};
-    --colorSecondary: #{$colorGrayDark};
-    --borderPrimary: #{$colorAquaDark};
-    --colorText: #{$colorGrayDark};
-    --backgroundPrimary: #{$colorWhiteSomke};
-    --backgroundSecondary: #{$colorWhite};
-    --backgroundHeader: #{$colorWhite};
-    --colorHeader: #{$colorAqua};
+    @each $key in map-keys($mdoc-theme-light) {
+      --mdoc-theme-#{$key}: #{map-get($mdoc-theme-light, $key)};
+    }
   }
 
   &--dark {
-    --colorPrimary: #{$colorAqua};
-    --colorSecondary: #{$colorWhite};
-    --borderPrimary: #{$colorAquaDark};
-    --colorText: #{$colorWhite};
-    --backgroundPrimary: #{$colorDarkPrimary};
-    --backgroundSecondary: #{$colorDarkSecondary};
-    --backgroundHeader: #{$colorDarkSecondary};
-    --colorHeader: #{$colorWhite};
+    @each $key in map-keys($mdoc-theme-dark) {
+      --mdoc-theme-#{$key}: #{map-get($mdoc-theme-dark, $key)};
+    }
   }
 }

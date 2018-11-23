@@ -3,16 +3,16 @@
   align-items: center;
   justify-content: center;
   padding: $baseline * 2 0;
-  color: var(--colorPrimary);
+  color: var(--mdoc-theme-primary);
   font-size: $fontSmall;
 
   a {
-    color: var(--colorPrimary);
+    color: var(--mdoc-theme-primary);
     font-weight: $fontSemiBold;
     text-decoration: none;
   }
 
-  span {
-    color: $colorPink;
+  .heart {
+    color: get-color(pink);
   }
 }

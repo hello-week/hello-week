@@ -1,7 +1,8 @@
+// stylelint-disable selector-no-qualifying-type, selector-max-type
 code[class*="language-"],
 pre[class*="language-"] {
-  background: var(--backgroundPrimary) !important;
-  color: var(--colorText) !important;
+  background: var(--mdoc-theme-background) !important;
+  color: var(--mdoc-theme-text) !important;
   text-shadow: none !important;
 
   .token.operator {
@@ -12,16 +13,20 @@ pre[class*="language-"] {
 pre[class*="language-"] {
   margin: $baseline * 2 0 !important;
   padding: $baseline * 2 0 !important;
-  border-top: 6px solid $colorPink;
+  border-top: 6px solid get-color(pink);
   font-size: $fontSmall;
 }
 
 code {
   display: inline-block;
-  padding: 0 $baseline / 4;
-  background: var(--backgroundPrimary);
-  color: var(--borderPrimary);
-  font-family: Consolas, monospace;
-  border-radius: 2px;
-}
+  padding: $baseline / 5 $baseline / 3;
+  border-radius: $borderRadius;
+  background: var(--mdoc-theme-background);
+  color: var(--mdoc-theme-hint);
+  font-family: var(--mdoc-theme-typography-code);
+  font-size: 1.125rem;
 
+  &.hljs {
+    font-size: $fontSmall;
+  }
+}
