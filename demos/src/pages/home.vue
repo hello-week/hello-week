@@ -20,9 +20,11 @@
                         </div>
                         <div class="demo-toggle">
                             <h4>Toggles</h4>
-                            <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
-                            <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
                             <p><toggle id="multiplePick" name="multiplePick" label="Multiple Pick" :checked="isMultiplePick" @toggleSwith="toggleMultiplePick" /></p>
+                            <p><toggle id="disablePastDays" name="disablePastDays" label="Disabled Past Days" :checked="isDisablePastDays" @toggleSwith="toggleDisablePastDays" /></p>
+                            <p><toggle id="todayHighlight" name="todayHighlight" label="Today Highlight" :checked="isTodayHighlight" @toggleSwith="toggleTodayHighlight" /></p>
+                            <p><toggle id="range" name="range" label="Range" :checked="isRange" @toggleSwith="toggleRange" /></p>
+                            <p><toggle id="locked" name="locked" label="Locked" :checked="isLocked" @toggleSwith="toggleLocked" /></p>
                         </div>
                     </div>
                     <h4>Installation</h4>
@@ -91,7 +93,10 @@
                 file: undefined,
                 isLocked: false,
                 isRange: false,
-                isMultiplePick: false
+                isMultiplePick: false,
+                isDisablePastDays: false,
+                isTodayHighlight: true
+
           }
         },
         mounted() {
@@ -125,6 +130,11 @@
                 ];
                 this.calendar.setDaysHighlight(daysHighlight);
             },
+            toggleTodayHighlight() {
+                this.isTodayHighlight = !this.isTodayHighlight;
+                this.calendar.todayHighlight = this.isTodayHighlight;
+                this.calendar.reload();
+            },
             toggleLocked() {
                 this.isLocked = !this.isLocked;
                 this.calendar.locked = this.isLocked;
@@ -138,6 +148,11 @@
             toggleMultiplePick() {
                 this.isMultiplePick = !this.isMultiplePick;
                 this.calendar.multiplePick = this.isMultiplePick;
+                this.calendar.reload();
+            },
+            toggleDisablePastDays() {
+                this.isDisablePastDays = !this.isDisablePastDays;
+                this.calendar.disablePastDays = this.isDisablePastDays;
                 this.calendar.reload();
             }
         }

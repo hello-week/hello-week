@@ -8,10 +8,8 @@ export class HelloWeek {
     private options: any;
     private selector: any;
     private calendar: any = {};
+    private states: any = {};
     private date: any;
-    private isRange: boolean;
-    private isLocked: boolean;
-    private isMultiplePick: boolean;
     private todayDate: any;
     private daysHighlight: any;
     private minDate: Date;
@@ -59,17 +57,21 @@ export class HelloWeek {
         } else {
             this.calendar.period = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD, this.calendar.navigation);
         }
-
         this.calendar.week = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
         this.calendar.month = Utils.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
-        if (this.options.rtl) {
+
+        this.states.isMultiplePick = this.options.multiplePick;
+        this.states.isDisablePastDays = this.options.disablePastDays;
+        this.states.isTodayHighlight = this.options.todayHighlight;
+        this.states.isRange = this.options.range;
+        this.states.isLocked = this.options.locked;
+        this.states.isRtl = this.options.rtl;
+
+        if (this.rtl) {
             Utils.addClass(this.calendar.week, HelloWeek.cssClasses.RTL);
             Utils.addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
 
-        this.isRange = this.options.range;
-        this.isLocked = this.options.locked;
-        this.isMultiplePick = this.options.multiplePick;
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
 
         Utils.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -223,48 +225,12 @@ export class HelloWeek {
     }
 
     /**
-     * Sets calendar range.
-     * @param {boolean} state
-     * @public
-     */
-    set range(state: boolean) {
-        this.isRange = state;
-    }
-
-    /**
-     * Sets calendar range.
-     * @return {boolean} state
-     * @public
-     */
-    get range(): boolean {
-        return this.isRange;
-    }
-
-    /**
-     * Sets calendar locked.
-     * @param {boolean} state
-     * @public
-     */
-    set locked(state: boolean) {
-        this.isLocked = state;
-    }
-
-    /**
-     * Gets if calendar locked.
-     * @return {boolean} state
-     * @public
-     */
-    get locked(): boolean {
-        return this.isLocked;
-    }
-
-    /**
      * Sets calendar multiplePick.
      * @param {boolean} state
      * @public
      */
     set multiplePick(state: boolean) {
-        this.isMultiplePick = state;
+        this.states.isMultiplePick = state;
     }
 
     /**
@@ -273,7 +239,79 @@ export class HelloWeek {
      * @public
      */
     get multiplePick(): boolean {
-        return this.isMultiplePick;
+        return this.states.isMultiplePick;
+    }
+
+    /**
+     * Sets calendar disablePastDays.
+     * @param {boolean} state
+     * @public
+     */
+    set disablePastDays(state: boolean) {
+        this.states.isDisablePastDays = state;
+    }
+
+    /**
+     * Gets calendar disablePastDays.
+     * @return {boolean} state
+     * @public
+     */
+    get disablePastDays(): boolean {
+        return this.states.isDisablePastDays;
+    }
+
+    /**
+     * Sets calendar todayHighlight.
+     * @param {boolean} state
+     * @public
+     */
+    set todayHighlight(state: boolean) {
+        this.states.isTodayHighlight = state;
+    }
+
+    /**
+     * Gets calendar todayHighlight.
+     * @return {boolean} state
+     * @public
+     */
+    get todayHighlight(): boolean {
+        return this.states.isTodayHighlight;
+    }
+
+    /**
+     * Sets calendar range.
+     * @param {boolean} state
+     * @public
+     */
+    set range(state: boolean) {
+        this.states.isRange = state;
+    }
+
+    /**
+     * Gets calendar range.
+     * @return {boolean} state
+     * @public
+     */
+    get range(): boolean {
+        return this.states.isRange;
+    }
+
+    /**
+     * Sets calendar locked.
+     * @param {boolean} state
+     * @public
+     */
+     set locked(state: boolean) {
+         this.states.isLocked = state;
+     }
+
+    /**
+     * Gets if calendar locked.
+     * @return {boolean} state
+     * @public
+     */
+    get locked(): boolean {
+        return this.states.isLocked;
     }
 
     /**
@@ -294,7 +332,7 @@ export class HelloWeek {
         this.daysOfMonth = this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
             this.__handleClickInteraction(this.daysOfMonth[i], callback);
-            if (this.isRange) {
+            if (this.range) {
                 this.__handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
@@ -342,8 +380,8 @@ export class HelloWeek {
             }
 
             this.lastSelectedDay = this.days[index].timestamp;
-            if (!this.isRange) {
-                if (this.isMultiplePick) {
+            if (!this.range) {
+                if (this.multiplePick) {
                     if (this.days[index].timestamp) {
                         this.daysSelected = this.daysSelected.filter((day: string) => day !== this.lastSelectedDay);
                     }
@@ -361,7 +399,7 @@ export class HelloWeek {
             Utils.toggleClass(selectDay, HelloWeek.cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
 
-            if (this.isRange) {
+            if (this.range) {
                 this.__setRangeDays(selectDay);
             }
 
@@ -459,12 +497,12 @@ export class HelloWeek {
 
         if (dayOptions.day === 1) {
             if (this.options.weekStart === HelloWeek.daysWeek.SUNDAY) {
-                Utils.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
             } else {
                 if (day === HelloWeek.daysWeek.SUNDAY) {
-                    Utils.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 } else {
-                    Utils.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 }
             }
         }
@@ -473,9 +511,9 @@ export class HelloWeek {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.isLocked
+        if (this.locked
             || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
-            || this.options.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
+            || this.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
             || this.options.minDate && (+this.minDate >= dayOptions.timestamp)
             || this.options.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
@@ -486,7 +524,7 @@ export class HelloWeek {
             this.__setDaysDisable(newDay, dayOptions);
         }
 
-        if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
+        if (this.todayDate === dayOptions.timestamp && this.todayHighlight) {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
