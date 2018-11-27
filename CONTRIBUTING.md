@@ -13,7 +13,7 @@ You'll need a recent version of [Node](https://nodejs.org/en/) to work this proj
 Once node is installed, simply clone our repository (or your fork of it) and run `yarn install` or `npm install`
 
 ```bash
-  $ git clone git@github.com:maurovieirareis/hello-week.git
+  $ git clone git@github.com:mauroreisvieira/hello-week.git
   $ cd hello-week && yarn install
 ```
 
