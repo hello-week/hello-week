@@ -11,22 +11,22 @@ pre[class*="language-"] {
 }
 
 pre[class*="language-"] {
-  margin: $baseline * 2 0 !important;
-  padding: $baseline * 2 0 !important;
+  margin: $mdoc-baseline * 2 0 !important;
+  padding: $mdoc-baseline * 2 0 !important;
   border-top: 6px solid get-color(pink);
-  font-size: $fontSmall;
+  font-size: $mdoc-font-small;
 }
 
 code {
   display: inline-block;
-  padding: $baseline / 5 $baseline / 3;
-  border-radius: $borderRadius;
+  padding: $mdoc-baseline / 5 $mdoc-baseline / 3;
+  border-radius: $mdoc-border-radius;
   background: var(--mdoc-theme-background);
   color: var(--mdoc-theme-hint);
   font-family: var(--mdoc-theme-typography-code);
   font-size: 1.125rem;
 
   &.hljs {
-    font-size: $fontSmall;
+    font-size: $mdoc-font-small;
   }
 }

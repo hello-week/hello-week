@@ -1,46 +1,46 @@
 h1 {
   display: inline-flex;
-  margin: $baseline * 2 0;
-  font-size: $fontXXLarge;
-  font-weight: $fontSemiBold;
+  margin: $mdoc-baseline * 2 0;
+  font-size: $mdoc-font-xx-large;
+  font-weight: $mdoc-font-semi-bold;
 
-  @include small {
-    font-size: $fontXLarge;
+  @include mdoc-small {
+    font-size: $mdoc-font-x-large;
   }
 }
 
 h2 {
   display: inline-flex;
-  margin: $baseline * 2 0;
-  font-size: $fontXLarge;
-  font-weight: $fontBold;
+  margin: $mdoc-baseline * 2 0;
+  font-size: $mdoc-font-x-large;
+  font-weight: $mdoc-font-bold;
   line-height: 1.4;
 
-  @include small {
-    font-size: $fontMedium;
+  @include mdoc-small {
+    font-size: $mdoc-font-medium;
   }
 }
 
 h2::before {
   display: inline-flex;
   align-items: center;
-  margin-right: $baseline / 2;
+  margin-right: $mdoc-baseline;
   color: var(--mdoc-theme-hint);
-  font-size: $fontLarge;
+  font-size: $mdoc-font-large;
   content: "#";
 
-  @include small {
+  @include mdoc-small {
     display: none;
   }
 }
 
 h3 {
-  font-size: $fontLarge;
-  font-weight: $fontLight;
+  font-size: $mdoc-font-large;
+  font-weight: $mdoc-font-light;
 }
 
 h4 {
-  font-size: $fontMedium;
+  font-size: $mdoc-font-medium;
 }
 
 ul {
@@ -51,15 +51,15 @@ ul {
 p,
 li {
   margin: 0;
-  margin-bottom: $baseline / 2;
-  font-size: $fontBase;
-  font-weight: $fontRegular;
+  margin-bottom: $mdoc-baseline;
+  font-size: $mdoc-font-base;
+  font-weight: $mdoc-font-regular;
   line-height: 1.6;
 }
 
 strong {
   color: var(--mdoc-theme-hint);
-  font-weight: $fontBold;
+  font-weight: $mdoc-font-bold;
 }
 
 a {

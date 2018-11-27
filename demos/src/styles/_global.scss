@@ -1,7 +1,6 @@
 // stylelint-disable selector-max-type
-
 * {
-  @include prefixr(box-sizing, border-box);
+  box-sizing: border-box;
 }
 
 html,
@@ -17,7 +16,7 @@ body {
 }
 
 body {
-  min-width: $xSmall;
+  min-width: $mdoc-breakpoints-x-small;
   margin: 0;
   padding: 0;
   color: var(--mdoc-theme-text);
@@ -31,8 +30,12 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: $wide;
-  padding: 0 $baseline;
+  max-width: $mdoc-breakpoints-wide;
+  padding: 0 map-get($mdoc-layout-grid-gutter, desktop);
+
+  @include mdoc-small {
+    padding: 0 map-get($mdoc-layout-grid-gutter, mobile);
+  }
 
   &--full {
     max-width: 100%;
@@ -49,14 +52,14 @@ body {
 }
 
 .demo {
-  margin: $baseline 0 $baseline * 4;
-  font-weight: $fontRegular;
+  margin: $mdoc-baseline 0 $mdoc-baseline * 4;
+  font-weight: $mdoc-font-regular;
 }
 
 .demo-interactive {
   display: flex;
-  margin-bottom: $baseline * 3;
-  font-weight: $fontRegular;
+  margin-bottom: $mdoc-baseline * 3;
+  font-weight: $mdoc-font-regular;
 }
 
 .demo-options {
@@ -65,14 +68,14 @@ body {
 
 .demo-toggle {
   flex: 1;
-  padding: 0 $baseline * 2;
+  padding: 0 $mdoc-baseline * 2;
 }
 
 .version {
-  margin-left: $baseline / 2;
+  margin-left: $mdoc-baseline;
   color: var(--mdoc-theme-primary);
-  font-size: $fontMedium;
-  font-weight: $fontBold;
+  font-size: $mdoc-font-medium;
+  font-weight: $mdoc-font-bold;
 }
 
 hr {

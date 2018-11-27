@@ -1,55 +1,63 @@
 // Defining baseline
-$baseline: 1rem;
+$mdoc-baseline: 1rem / 2  !default;
 
 // Defining font family
-$fontDefault: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$fontCode: monospace;
+$mdoc-font-default: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$mdoc-font-code: monospace;
 
 // Defining font size default
-$fontSizeDefault: 16px;
+$mdoc-font-size-default: 16px !default;
 
 // Defining border radius
-$borderRadius: 2px;
+$mdoc-border-radius: 2px !default;
 
 // Defining breakpoints
-$xSmall: 280px;
-$small: 480px;
-$medium: 768px;
-$wide: 1024px;
-$huge: 1600px;
-$smallContainer: 576px;
-$mediumContainer: 688px;
-$wideContainer: 864px;
-$hugeContainer: 100%;
+$mdoc-breakpoints-x-small: 260px !default;
+$mdoc-breakpoints-small: 480px !default;
+$mdoc-breakpoints-medium: 840px !default;
+$mdoc-breakpoints-wide: 1024px !default;
+$mdoc-breakpoints-huge: 1600px !default;
 
 // Defining font sizes
-$fontXSmall: calculate-rem(12px, $fontSizeDefault);
-$fontSmall: calculate-rem(14px, $fontSizeDefault);
-$fontBase: calculate-rem(16px, $fontSizeDefault);
-$fontMedium: calculate-rem(22px, $fontSizeDefault);
-$fontLarge: calculate-rem(28px, $fontSizeDefault);
-$fontXLarge: calculate-rem(44px, $fontSizeDefault);
-$fontXXLarge: calculate-rem(72px, $fontSizeDefault);
-$fontHuge: calculate-rem(86px, $fontSizeDefault);
+$mdoc-font-x-small: calculate-rem(12px, $mdoc-font-size-default) !default;
+$mdoc-font-small: calculate-rem(14px, $mdoc-font-size-default) !default;
+$mdoc-font-base: calculate-rem(16px, $mdoc-font-size-default) !default;
+$mdoc-font-medium: calculate-rem(22px, $mdoc-font-size-default) !default;
+$mdoc-font-large: calculate-rem(28px, $mdoc-font-size-default) !default;
+$mdoc-font-x-large: calculate-rem(44px, $mdoc-font-size-default) !default;
+$mdoc-font-xx-large: calculate-rem(72px, $mdoc-font-size-default) !default;
+$mdoc-font-huge: calculate-rem(86px, $mdoc-font-size-default) !default;
 
 // Defining font weight
-$fontLight: 300;
-$fontRegular: 400;
-$fontSemiBold: 600;
-$fontBold: 700;
+$mdoc-font-light: 300 !default;
+$mdoc-font-regular: 400 !default;
+$mdoc-font-semi-bold: 600 !default;
+$mdoc-font-bold: 700 !default;
 
 // Defining animation easings
-$animationEasing: cubic-bezier(.455, .3, .515, .955);
+$mdoc-animation-easing: cubic-bezier(.455, .3, .515, .955) !default;
 
-$sidebarWidth: 260px;
+$mdoc-layout-grid: (
+  desktop: $mdoc-breakpoints-medium,
+  tablet: $mdoc-breakpoints-small,
+  mobile: 0
+) !default;
 
+$mdoc-layout-grid-gutter: (
+  desktop: $mdoc-baseline * 3,
+  tablet: $mdoc-baseline,
+  mobile: $mdoc-baseline
+) !default;
+
+// Theme Global
 $mdoc-theme: (
-  typography-font: $fontDefault,
-  typography-code: $fontCode,
-  typography-size: $fontBase,
-  typography-weight: $fontRegular
-);
+  typography-font: $mdoc-font-default,
+  typography-code: $mdoc-font-code,
+  typography-size: $mdoc-font-base,
+  typography-weight: $mdoc-font-regular
+) !default;
 
+// Theme Light
 $mdoc-theme-light: (
   primary: #{get-color(aqua)},
   secondary: #{get-color(pink)},
@@ -60,6 +68,7 @@ $mdoc-theme-light: (
   text: #{get-color(batman)}
 );
 
+// Theme Dark
 $mdoc-theme-dark: (
   primary: #{get-color(aqua)},
   secondary: #{get-color(pink)},

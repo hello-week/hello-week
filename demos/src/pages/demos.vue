@@ -1,9 +1,7 @@
 <template>
     <div class="article">
         <div class="container">
-            <div class="card">
-                <div class="content" v-html="markdown"></div>
-            </div>
+            <div class="content" v-html="markdown"></div>
         </div>
         <foot />
     </div>

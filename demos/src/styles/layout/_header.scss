@@ -4,20 +4,20 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 $baseline * 2;
+  padding: 0 $mdoc-baseline * 2;
   border-bottom: 1px solid var(--mdoc-theme-background);
   background-color: var(--mdoc-theme-surface);
 
   .toggle-sidebar {
     position: absolute;
-    top: $baseline;
-    left: $baseline;
+    top: $mdoc-baseline * 2;
+    left: $mdoc-baseline * 2;
     display: none;
     flex-direction: column;
     justify-content: space-between;
-    width: 25px;
-    height: 25px;
-    transition: transform .3s $animationEasing;
+    width: $mdoc-baseline * 3;
+    height: $mdoc-baseline * 3;
+    transition: transform .3s $mdoc-animation-easing;
     cursor: pointer;
 
     .line-menu {
@@ -54,7 +54,7 @@
     }
   }
 
-  @include small {
+  @include mdoc-small {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -72,27 +72,27 @@
     display: inline-flex;
     align-items: center;
     color: var(--mdoc-theme-navigation);
-    font-size: $fontMedium;
-    font-weight: $fontRegular;
+    font-size: $mdoc-font-medium;
+    font-weight: $mdoc-font-regular;
     text-transform: uppercase;
     cursor: default;
 
-    @include small {
+    @include mdoc-small {
       display: flex;
       flex-direction: column;
-      margin: $baseline 0;
-      font-size: $fontLarge;
+      margin: $mdoc-baseline 0;
+      font-size: $mdoc-font-large;
     }
 
     > img {
-      width: 28px;
-      margin-right: $baseline / 2;
+      width: $mdoc-baseline * 3;
+      margin-right: $mdoc-baseline;
 
-      @include small {
+      @include mdoc-small {
         display: flex;
-        width: 28px;
+        width: $mdoc-baseline * 4;
         margin-right: 0;
-        margin-bottom: $baseline;
+        margin-bottom: $mdoc-baseline;
       }
     }
   }

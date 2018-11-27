@@ -3,10 +3,10 @@
   width: 100%;
   background-color: var(--mdoc-theme-surface);
 
-  @include small {
+  @include mdoc-small {
     position: absolute;
     left: 0;
-    transition: transform .3s $animationEasing;
+    transition: transform .3s $mdoc-animation-easing;
 
     &.is-open {
       transform: translateX(320px);

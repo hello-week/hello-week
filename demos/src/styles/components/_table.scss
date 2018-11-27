@@ -4,28 +4,28 @@ table {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: $fontBase;
-  font-weight: $fontRegular;
+  font-size: $mdoc-font-base;
+  font-weight: $mdoc-font-regular;
   border-collapse: collapse;
 
   tr {
-    padding: $baseline / 3;
+    padding: $mdoc-baseline / 3;
     border-bottom: 1px solid var(--mdoc-theme-hint);
   }
 
   th {
-    padding: $baseline;
+    padding: $mdoc-baseline;
     letter-spacing: .1em;
     text-align: center;
     text-transform: uppercase;
   }
 
   td {
-    padding: $baseline / 2;
+    padding: $mdoc-baseline;
     text-align: center;
   }
 
-  @include small {
+  @include mdoc-small {
     thead {
       position: absolute;
       width: 1px;
@@ -39,7 +39,7 @@ table {
 
     tr {
       display: block;
-      margin-bottom: $baseline / 2;
+      margin-bottom: $mdoc-baseline;
       border-bottom: 2px solid var(--mdoc-theme-hint);
     }
 

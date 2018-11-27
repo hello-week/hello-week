@@ -1,19 +1,19 @@
 .menu {
   display: flex;
   list-style-type: none;
-  margin-right: $baseline / 2;
+  margin-right: $mdoc-baseline;
 
   &__item {
-    margin: 0 $baseline / 2;
+    margin: 0 $mdoc-baseline;
     overflow: hidden;
   }
 
   &__link {
     position: relative;
-    padding: $baseline / 2;
+    padding: $mdoc-baseline;
     color: var(--mdoc-theme-navigation);
-    font-size: $fontSmall;
-    font-weight: $fontRegular;
+    font-size: $mdoc-font-small;
+    font-weight: $mdoc-font-regular;
     text-decoration: none;
     text-transform: uppercase;
 
@@ -25,7 +25,7 @@
       height: 2px;
       transform: scale3d(0, 1, 1);
       transform-origin: top right;
-      transition: transform .3s $animationEasing;
+      transition: transform .3s $mdoc-animation-easing;
       background: currentColor;
       content: "";
     }
@@ -36,13 +36,3 @@
     }
   }
 }
-
-.list {
-  list-style-type: none;
-
-  &--dot {
-    list-style-type: disc;
-    padding: 0 40px;
-  }
-}
-

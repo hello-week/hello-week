@@ -3,33 +3,33 @@
   flex-direction: column;
   list-style-type: none;
   margin: 0;
-  padding: $baseline * 2;
+  padding: $mdoc-baseline * 2;
 
   &__item {
     position: relative;
-    margin-bottom: $baseline * 2;
+    margin-bottom: $mdoc-baseline * 2;
     color: var(--mdoc-theme-hint);
-    font-weight: $fontBold;
+    font-weight: $mdoc-font-bold;
     text-transform: uppercase;
   }
 
   &__submenu {
-    margin-top: $baseline / 2;
-    margin-left: $baseline / 2;
-    padding-left: $baseline / 2;
+    margin-top: $mdoc-baseline;
+    margin-left: $mdoc-baseline;
+    padding-left: $mdoc-baseline;
     border-left: 4px solid var(--mdoc-theme-hint);
 
     .navigation__item {
-      margin-bottom: $baseline / 3;
-      font-weight: $fontRegular;
+      margin-bottom: $mdoc-baseline;
+      font-weight: $mdoc-font-regular;
       text-transform: none;
     }
   }
 
   &__link {
-    transition: color .2s $animationEasing;
+    transition: color .2s $mdoc-animation-easing;
     color: var(--mdoc-theme-text);
-    font-weight: $fontRegular;
+    font-weight: $mdoc-font-regular;
     text-decoration: none;
 
     &.router-link-active,

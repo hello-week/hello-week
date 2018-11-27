@@ -1,5 +1,5 @@
-@function calculate-rem($size, $fontDefault) {
-  $remSize: $size / $fontDefault;
+@function calculate-rem($size, $mdoc-font-default) {
+  $remSize: $size / $mdoc-font-default;
 
   @return #{$remSize}rem;
 }

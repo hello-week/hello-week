@@ -1,49 +1,19 @@
-@mixin prefixr($property, $value...) {
-  -webkit-#{$property}: $value;
-  -moz-#{$property}: $value;
-  -ms-#{$property}: $value;
-  #{$property}: $value;
-}
-
-@mixin media-query($media-query) {
-  @if $media-query == small {
-    @media only screen and (max-width:$medium - 1) { @content; }
-  }
-
-  @if $media-query == small-only {
-    @media only screen and (min-width: $xSmall) and (max-width: $wide - 1) { @content; }
-  }
-
-  @if $media-query == medium {
-    @media only screen and (min-width:$medium) { @content; }
-  }
-
-  @if $media-query == medium-only {
-    @media only screen and (min-width:$medium) and (max-width: $wide - 1) { @content; }
-  }
-
-  @if $media-query == wide {
-    @media only screen and (min-width:$wide) { @content; }
-  }
-
-  @if $media-query == huge {
-    @media only screen and (min-width:$huge) { @content; }
+@mixin mdoc-small {
+  @media only screen and (max-width:$mdoc-breakpoints-medium - 1) {
+    @content;
   }
 }
 
-@mixin small {
-  @include media-query(small) {
-    @content
+@mixin mdoc-medium {
+  @media only screen and (min-width:$mdoc-breakpoints-medium) {
+    @content;
   }
 }
 
-@mixin small-only { @include media-query(small-only) { @content; }; }
+@mixin mdoc-huge {
+  @media only screen and (min-width:$mdoc-breakpoints-huge) {
+    @content;
+  }
+}
 
-@mixin medium { @include media-query(medium) { @content; }; }
-
-@mixin medium-only { @include media-query(medium-only) { @content; }; }
-
-@mixin wide { @include media-query(wide) { @content; }; }
-
-@mixin huge { @include media-query(huge) { @content; }; }
 

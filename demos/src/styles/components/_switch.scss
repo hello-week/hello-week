@@ -14,7 +14,7 @@
 
       .switch__text {
         color: var(--mdoc-theme-text);
-        font-weight: $fontRegular;
+        font-weight: $mdoc-font-regular;
       }
 
       &::before,
@@ -23,7 +23,7 @@
         top: 50%;
         margin: 0;
         transform: translate(0, -50%);
-        transition: all .3s $animationEasing;
+        transition: all .3s $mdoc-animation-easing;
         outline: 0;
         content: "";
       }

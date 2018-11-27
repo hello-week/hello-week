@@ -1,10 +1,10 @@
 .btn {
   display: inline-flex;
-  padding: $baseline;
+  padding: $mdoc-baseline;
   border: 2px solid currentColor;
   color: var(--mdoc-theme-primary);
-  font-size: $fontXSmall;
-  font-weight: $fontSemiBold;
+  font-size: $mdoc-font-x-small;
+  font-weight: $mdoc-font-semi-bold;
   text-transform: uppercase;
   cursor: pointer;
 

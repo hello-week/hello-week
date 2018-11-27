@@ -2,13 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $baseline * 2 0;
+  padding: $mdoc-baseline * 2 0;
   color: var(--mdoc-theme-primary);
-  font-size: $fontSmall;
+  font-size: $mdoc-font-small;
 
   a {
     color: var(--mdoc-theme-primary);
-    font-weight: $fontSemiBold;
+    font-weight: $mdoc-font-semi-bold;
     text-decoration: none;
   }
 

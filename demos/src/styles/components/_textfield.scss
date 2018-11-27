@@ -4,14 +4,14 @@
 
   &__label {
     display: block;
-    padding: $baseline 0;
-    font-weight: $fontSemiBold;
+    padding: $mdoc-baseline 0;
+    font-weight: $mdoc-font-semi-bold;
   }
 
   &__input {
     box-sizing: border-box;
     width: 100%;
-    padding: $baseline / 2 $baseline;
+    padding: $mdoc-baseline $mdoc-baseline;
     border: 1px solid var(--mdoc-theme-text);
     border-radius: 2px;
     background-color: transparent;
