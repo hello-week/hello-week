@@ -3,7 +3,7 @@
   width: 100%;
   background-color: var(--mdoc-theme-surface);
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     position: absolute;
     left: 0;
     transition: transform .3s $mdoc-animation-easing;

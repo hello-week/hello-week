@@ -33,7 +33,7 @@ body {
   max-width: $mdoc-breakpoints-wide;
   padding: 0 map-get($mdoc-layout-grid-gutter, desktop);
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     padding: 0 map-get($mdoc-layout-grid-gutter, mobile);
   }
 

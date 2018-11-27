@@ -25,7 +25,7 @@ table {
     text-align: center;
   }
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     thead {
       position: absolute;
       width: 1px;

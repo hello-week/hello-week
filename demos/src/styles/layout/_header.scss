@@ -54,7 +54,7 @@
     }
   }
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -77,7 +77,7 @@
     text-transform: uppercase;
     cursor: default;
 
-    @include mdoc-small {
+    @include mdoc-mobile {
       display: flex;
       flex-direction: column;
       margin: $mdoc-baseline 0;
@@ -88,7 +88,7 @@
       width: $mdoc-baseline * 3;
       margin-right: $mdoc-baseline;
 
-      @include mdoc-small {
+      @include mdoc-mobile {
         display: flex;
         width: $mdoc-baseline * 4;
         margin-right: 0;

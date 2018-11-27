@@ -1,17 +1,17 @@
-@mixin mdoc-small {
-  @media only screen and (max-width:$mdoc-breakpoints-medium - 1) {
+@mixin mdoc-mobile {
+  @media (max-width: map-get($mdoc-layout-grid, tablet)) {
     @content;
   }
 }
 
-@mixin mdoc-medium {
-  @media only screen and (min-width:$mdoc-breakpoints-medium) {
+@mixin mdoc-tablet {
+  @media (max-width: map-get($mdoc-layout-grid, desktop)) {
     @content;
   }
 }
 
-@mixin mdoc-huge {
-  @media only screen and (min-width:$mdoc-breakpoints-huge) {
+@mixin mdoc-desktop {
+  @media (min-width: map-get($mdoc-layout-grid, desktop)) {
     @content;
   }
 }

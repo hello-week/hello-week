@@ -67,7 +67,7 @@ export class HelloWeek {
         this.states.isLocked = this.options.locked;
         this.states.isRtl = this.options.rtl;
 
-        if (this.rtl) {
+        if (this.states.isRtl) {
             Utils.addClass(this.calendar.week, HelloWeek.cssClasses.RTL);
             Utils.addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
@@ -301,9 +301,9 @@ export class HelloWeek {
      * @param {boolean} state
      * @public
      */
-     set locked(state: boolean) {
+    set locked(state: boolean) {
          this.states.isLocked = state;
-     }
+    }
 
     /**
      * Gets if calendar locked.
@@ -332,7 +332,7 @@ export class HelloWeek {
         this.daysOfMonth = this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
             this.__handleClickInteraction(this.daysOfMonth[i], callback);
-            if (this.range) {
+            if (this.states.isRange) {
                 this.__handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
@@ -362,6 +362,8 @@ export class HelloWeek {
             this.interval.push(selectDay);
             if (this.interval.length > 1) {
                 Utils.addClass(this.interval[1], HelloWeek.cssStates.IS_SELECTED);
+                this.daysSelected = [];
+                this.daysSelected = this.selectedTemporary;
             }
         }
     }
@@ -380,8 +382,8 @@ export class HelloWeek {
             }
 
             this.lastSelectedDay = this.days[index].timestamp;
-            if (!this.range) {
-                if (this.multiplePick) {
+            if (!this.states.isRange) {
+                if (this.states.isMultiplePick) {
                     if (this.days[index].timestamp) {
                         this.daysSelected = this.daysSelected.filter((day: string) => day !== this.lastSelectedDay);
                     }
@@ -399,7 +401,8 @@ export class HelloWeek {
             Utils.toggleClass(selectDay, HelloWeek.cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
 
-            if (this.range) {
+            if (this.states.isRange) {
+                console.warn(this.selectedTemporary);
                 this.__setRangeDays(selectDay);
             }
 
@@ -497,12 +500,12 @@ export class HelloWeek {
 
         if (dayOptions.day === 1) {
             if (this.options.weekStart === HelloWeek.daysWeek.SUNDAY) {
-                Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                Utils.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
             } else {
                 if (day === HelloWeek.daysWeek.SUNDAY) {
-                    Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utils.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 } else {
-                    Utils.setStyle(newDay, this.rtl ? 'margin-right' : 'margin-left', ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utils.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 }
             }
         }
@@ -511,9 +514,9 @@ export class HelloWeek {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.locked
+        if (this.states.isLocked
             || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
-            || this.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
+            || this.states.isDisablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
             || this.options.minDate && (+this.minDate >= dayOptions.timestamp)
             || this.options.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
@@ -524,7 +527,7 @@ export class HelloWeek {
             this.__setDaysDisable(newDay, dayOptions);
         }
 
-        if (this.todayDate === dayOptions.timestamp && this.todayHighlight) {
+        if (this.todayDate === dayOptions.timestamp && this.states.isTodayHighlight) {
             Utils.addClass(newDay, HelloWeek.cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }

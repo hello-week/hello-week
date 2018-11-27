@@ -1,3 +1,10 @@
+/**
+ * Calculates the rem.
+ * @param {Size}  $size
+ * @param {Size}  $mdoc-font-default
+ *
+ * @return     {<type>}  The rem.
+ */
 @function calculate-rem($size, $mdoc-font-default) {
   $remSize: $size / $mdoc-font-default;
 
@@ -22,6 +29,12 @@
   @return mix(black, $color, $percentage);
 }
 
+/**
+ * Gets the color.
+ * @param {Color}  $color
+ * @param {String}  $tone
+ * @return {Color}  $color
+ */
 @function get-color($color, $tone: base) {
   $color-value: map-get($mdoc-palette-colors, $color);
 

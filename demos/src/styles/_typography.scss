@@ -4,7 +4,7 @@ h1 {
   font-size: $mdoc-font-xx-large;
   font-weight: $mdoc-font-semi-bold;
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     font-size: $mdoc-font-x-large;
   }
 }
@@ -16,7 +16,7 @@ h2 {
   font-weight: $mdoc-font-bold;
   line-height: 1.4;
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     font-size: $mdoc-font-medium;
   }
 }
@@ -29,7 +29,7 @@ h2::before {
   font-size: $mdoc-font-large;
   content: "#";
 
-  @include mdoc-small {
+  @include mdoc-mobile {
     display: none;
   }
 }

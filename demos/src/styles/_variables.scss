@@ -14,8 +14,8 @@ $mdoc-border-radius: 2px !default;
 // Defining breakpoints
 $mdoc-breakpoints-x-small: 260px !default;
 $mdoc-breakpoints-small: 480px !default;
-$mdoc-breakpoints-medium: 840px !default;
-$mdoc-breakpoints-wide: 1024px !default;
+$mdoc-breakpoints-medium: 768px !default;
+$mdoc-breakpoints-wide: 980px !default;
 $mdoc-breakpoints-huge: 1600px !default;
 
 // Defining font sizes
@@ -38,9 +38,9 @@ $mdoc-font-bold: 700 !default;
 $mdoc-animation-easing: cubic-bezier(.455, .3, .515, .955) !default;
 
 $mdoc-layout-grid: (
-  desktop: $mdoc-breakpoints-medium,
-  tablet: $mdoc-breakpoints-small,
-  mobile: 0
+  desktop: $mdoc-breakpoints-wide,
+  tablet: $mdoc-breakpoints-medium,
+  mobile: $mdoc-breakpoints-medium - 1
 ) !default;
 
 $mdoc-layout-grid-gutter: (
