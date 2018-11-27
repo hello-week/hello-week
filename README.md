@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/maurovieirareis/hello-week/blob/master/LICENSE)
 
-See the demo: [Hello Week](https://maurovieirareis.github.io/hello-week/).
+See the demo: [Hello Week](https://mauroreisvieira.github.io/hello-week/).
 
 ## Quick start
 
