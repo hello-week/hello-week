@@ -5,9 +5,7 @@
                 <div class="content" v-html="markdown"></div>
             </div>
         </div>
-        <footer class="footer">
-            <p>Created with <span class="heart">♥</span> by <a href="http://twitter.com/@mauroreisvieira">@mauroreisvieira</a> in Portugal</p>
-        </footer>
+        <foot />
     </div>
 </template>
 
@@ -15,7 +13,10 @@
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
     import { Utils } from '../helpers/utils.js'
+    // Components
+    import Foot from '../layout/foot.vue'
     export default {
+        components: { Foot },
         data: function () {
             return {
                 title: this.$route.name,

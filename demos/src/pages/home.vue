@@ -15,8 +15,6 @@
                             <textfield name="format" id="format" value="dd/mm/yyyy" placeholder="dd/mm/yyyy">Format</textfield>
                             <textfield name="minDate" id="minDate" value="">Min Date</textfield>
                             <textfield name="maxDate" id="maxDate" value="">Max Date</textfield>
-                            <h4>Methods</h4>
-                            TODO
                         </div>
                         <div class="demo-toggle">
                             <h4>Toggles</h4>
@@ -69,9 +67,7 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <p>Created with <span class="heart">♥</span> by <a href="http://twitter.com/@mauroreisvieira">@mauroreisvieira</a> in Portugal</p>
-        </footer>
+        <foot />
     </div>
 </template>
 
@@ -79,11 +75,13 @@
     import Prism from 'prismjs'
     import Remarkable from 'remarkable'
     import { Utils } from '../helpers/utils.js'
-    import demoCode from '../components/code.vue'
-    import toggle from '../components/toggle.vue'
-    import textfield from '../components/textfield.vue'
+    // Components
+    import Foot from '../layout/foot.vue'
+    import DemoCode from '../components/code.vue'
+    import Toggle from '../components/toggle.vue'
+    import Textfield from '../components/textfield.vue'
     export default {
-        components: { demoCode, toggle, textfield },
+        components: { Foot, DemoCode, Toggle, Textfield },
         data: function () {
             return {
                 version: undefined,
