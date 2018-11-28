@@ -4,7 +4,10 @@
   justify-content: center;
   padding: $mdoc-baseline * 2 0;
   color: var(--mdoc-theme-primary);
-  font-size: $mdoc-font-small;
+
+  p {
+    font-size: $mdoc-font-small;
+  }
 
   a {
     color: var(--mdoc-theme-primary);

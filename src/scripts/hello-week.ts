@@ -364,6 +364,7 @@ export class HelloWeek {
                 Utils.addClass(this.interval[1], HelloWeek.cssStates.IS_SELECTED);
                 this.daysSelected = [];
                 this.daysSelected = this.selectedTemporary;
+                this.selectedTemporary = [];
             }
         }
     }
@@ -434,16 +435,14 @@ export class HelloWeek {
                         Utils.removeClass(elm, HelloWeek.cssStates.IS_SELECTED);
                     }
                 }
-                this.daysSelected.push(this.days[indexOfInterval].timestamp);
+                this.selectedTemporary.push(this.days[indexOfInterval].timestamp);
                 while(element.nextElementSibling && element !== selectDay) {
                     element = element.nextElementSibling;
                     const indexOfElement = Utils.getIndexForEventTarget(this.daysOfMonth, element);
                     if (!this.days[indexOfElement].isLocked) {
-                        this.daysSelected.push(this.days[indexOfElement].timestamp);
+                        this.selectedTemporary.push(this.days[indexOfElement].timestamp);
                         Utils.addClass(element, HelloWeek.cssStates.IS_SELECTED);
                         this.days[indexOfElement].isSelected = true;
-                        // temporary array with selected days
-                        this.selectedTemporary.push(this.days[indexOfElement].timestamp);
                     }
                 }
             }
