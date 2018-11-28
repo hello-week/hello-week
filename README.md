@@ -94,11 +94,12 @@ Input | Example | Description |
 
 ### Supported Browsers:
 
-- Edge 17
 - Chrome 49
 - Firefox 31
 - Opera 36
 - Safari 9.3
+- Edge 17
+- iOS Safari 6.0
 
 ## License
 
