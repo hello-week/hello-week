@@ -346,8 +346,7 @@ export class HelloWeek {
      */
     private __handleClickInteraction(target: HTMLElement, callback: CallbackFunction): void {
         target.addEventListener('click', (event: any) => {
-            const selectDay = event.target;
-            const index = Utils.getIndexForEventTarget(this.daysOfMonth, selectDay);
+            const index = Utils.getIndexForEventTarget(this.daysOfMonth, event.target);
             if (this.days[index].isLocked) {
                 return;
             }
@@ -369,7 +368,7 @@ export class HelloWeek {
                     this.daysSelected.push(this.lastSelectedDay);
                 }
             }
-            Utils.toggleClass(selectDay, HelloWeek.cssStates.IS_SELECTED);
+            Utils.toggleClass(event.target, HelloWeek.cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
 
             if (this.states.isRange) {
@@ -392,7 +391,7 @@ export class HelloWeek {
                     this.intervalRange.begin = this.days[index].timestamp;
                 }
 
-                Utils.addClass(selectDay, HelloWeek.cssStates.IS_SELECTED);
+                Utils.addClass(event.target, HelloWeek.cssStates.IS_SELECTED);
             }
 
             this.options.onSelect.call(this);
@@ -408,25 +407,21 @@ export class HelloWeek {
      */
     private __handleMouseInteraction(target: HTMLElement): void {
         target.addEventListener('mouseover', (event: any) => {
-            const selectDay = event.target;
-            const index = Utils.getIndexForEventTarget(this.daysOfMonth, selectDay);
-            const indexOfInterval = Utils.getIndexForEventTarget(this.daysOfMonth, this.interval[0]);
+            const index = Utils.getIndexForEventTarget(this.daysOfMonth, event.target);
 
             if (this.intervalRange.begin && this.intervalRange.end) {
                 return;
             }
 
-            console.log(this.intervalRange);
             if (this.interval.length > 0 && this.interval.length < 2) {
-                this.daysSelected = [];
-                let element = this.interval[0];
+                let element = this.intervalRange.begin;
                 for (const elm of this.selector.querySelectorAll('.' + HelloWeek.cssStates.IS_SELECTED)) {
                     if(!this.interval.includes(elm)) {
                         Utils.removeClass(elm, HelloWeek.cssStates.IS_SELECTED);
                     }
                 }
-                this.selectedTemporary.push(this.days[indexOfInterval].timestamp);
-                while(element.nextElementSibling && element !== selectDay) {
+
+                while(element.nextElementSibling && element !== event.target) {
                     element = element.nextElementSibling;
                     const indexOfElement = Utils.getIndexForEventTarget(this.daysOfMonth, element);
                     if (!this.days[indexOfElement].isLocked) {
@@ -534,10 +529,6 @@ export class HelloWeek {
 
         if (this.calendar.month) {
             this.calendar.month.appendChild(newDay);
-        }
-
-        if (this.selectedTemporary.length > 0 && dayOptions.day === 1) {
-            this.interval[0] = newDay;
         }
 
         this.days[dayOptions.day] = dayOptions;
