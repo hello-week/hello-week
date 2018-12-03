@@ -417,7 +417,7 @@ export class HelloWeek {
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
                 Utils.removeClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
-                this.selectedTemporary = this.selectedTemporary.filter(item => item !== this.days[i].timestamp);
+                this.selectedTemporary = this.selectedTemporary.filter((item: any) => item !== this.days[i].timestamp);
                 if (this.days[index].timestamp >= this.intervalRange.begin) {
                     if (this.days[i].isLocked) {
                         return;
