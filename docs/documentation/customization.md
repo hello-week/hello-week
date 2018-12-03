@@ -21,39 +21,18 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
 #### CSS Structure
 
 ```css
-    .hello-week .week {
-        color: #42a298;
-        font-size: 1.2em
-    }
+    .hello-week .navigation .prev {}
+    .hello-week .navigation .period {}
+    .hello-week .navigation .next {}
 
-    .hello-week .day.is-weekend {
-        color: #ff3860
-    }
+    .hello-week .week {}
 
-    .hello-week .day.is-highlight {
-        background-color: #8fbc8f;
-        color: #fff
-    }
-
-    .hello-week .day.is-today {
-        background-color: #ff3860;
-        color: #fff
-    }
-
-    .hello-week .day.is-selected {
-        background-color: #7fcbc3;
-        color: #fff
-    }
-
-    .hello-week .day.is-range {
-        background-color: rgba(127, 203, 195, .4);
-        color: #fff
-    }
-
-    .hello-week .day.is-disabled {
-        cursor: not-allowed;
-        opacity: .33
-    }
+    .hello-week .month .day.is-weekend {}
+    .hello-week .month .day.is-highlight { }
+    .hello-week .month .day.is-today {}
+    .hello-week .month .day.is-selected {}
+    .hello-week .month .day.is-range {}
+    .hello-week .month .day.is-disabled {}
 ```
 
 
