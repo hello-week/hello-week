@@ -82,7 +82,7 @@ export class HelloWeek {
     }
 
     public destroy(): void {
-        this.__removeSelectedClass();
+        this.removeSelectedClass();
     }
 
     /**
@@ -113,7 +113,7 @@ export class HelloWeek {
             this.maxDate.setDate(this.maxDate.getDate() + 1);
         }
 
-        this.__updted();
+        this.updted();
         this.options.onLoad.call(this);
         if (callback) {
             callback.call(this);
@@ -320,8 +320,8 @@ export class HelloWeek {
      * @public
      */
     public reload(): void {
-        this.__clearCalendar();
-        this.__updted();
+        this.clearCalendar();
+        this.updted();
     }
 
     /**
@@ -329,12 +329,12 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      * @private
      */
-    private __selectDay(callback: CallbackFunction): void {
+    private selectDay(callback: CallbackFunction): void {
         this.daysOfMonth = this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
-            this.__handleClickInteraction(this.daysOfMonth[i], callback);
+            this.handleClickInteraction(this.daysOfMonth[i], callback);
             if (this.states.isRange) {
-                this.__handleMouseInteraction(this.daysOfMonth[i]);
+                this.handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
     }
@@ -344,7 +344,7 @@ export class HelloWeek {
      * @param {CallbackFunction} callback
      * @private
      */
-    private __handleClickInteraction(target: HTMLElement, callback: CallbackFunction): void {
+    private handleClickInteraction(target: HTMLElement, callback: CallbackFunction): void {
         target.addEventListener('click', (event: any) => {
             const index = Utils.getIndexForEventTarget(this.daysOfMonth, event.target);
             if (this.days[index].isLocked) {
@@ -362,7 +362,7 @@ export class HelloWeek {
                     }
                 } else {
                     if (!this.days[index].isLocked) {
-                        this.__removeSelectedClass();
+                        this.removeSelectedClass();
                     }
                     this.daysSelected = [];
                     this.daysSelected.push(this.lastSelectedDay);
@@ -375,15 +375,16 @@ export class HelloWeek {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange.begin = undefined;
                     this.intervalRange.end = undefined;
-                    this.__removeSelectedClass();
+                    this.removeSelectedClass();
                 }
 
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
+                    this.daysSelected = this.selectedTemporary;
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
                         this.intervalRange.end = undefined;
-                        this.__removeSelectedClass();
+                        this.removeSelectedClass();
                     }
                 }
 
@@ -405,29 +406,27 @@ export class HelloWeek {
      * @param {HTMLElement} target
      * @private
      */
-    private __handleMouseInteraction(target: HTMLElement): void {
+    private handleMouseInteraction(target: HTMLElement): void {
         target.addEventListener('mouseover', (event: any) => {
             const index = Utils.getIndexForEventTarget(this.daysOfMonth, event.target);
-
-            if (this.intervalRange.begin && this.intervalRange.end) {
+            if (!this.intervalRange.begin || this.intervalRange.begin && this.intervalRange.end) {
                 return;
             }
-
-            if (this.interval.length > 0 && this.interval.length < 2) {
-                let element = this.intervalRange.begin;
-                for (const elm of this.selector.querySelectorAll('.' + HelloWeek.cssStates.IS_SELECTED)) {
-                    if(!this.interval.includes(elm)) {
-                        Utils.removeClass(elm, HelloWeek.cssStates.IS_SELECTED);
+            this.removeSelectedClass();
+            for (let i = 1; i <= Object.keys(this.days).length; i++) {
+                this.days[i].isSelected = false;
+                Utils.removeClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
+                this.selectedTemporary = this.selectedTemporary.filter(item => item !== this.days[i].timestamp);
+                if (this.days[index].timestamp >= this.intervalRange.begin) {
+                    if (this.days[i].isLocked) {
+                        return;
                     }
-                }
-
-                while(element.nextElementSibling && element !== event.target) {
-                    element = element.nextElementSibling;
-                    const indexOfElement = Utils.getIndexForEventTarget(this.daysOfMonth, element);
-                    if (!this.days[indexOfElement].isLocked) {
-                        this.selectedTemporary.push(this.days[indexOfElement].timestamp);
-                        Utils.addClass(element, HelloWeek.cssStates.IS_SELECTED);
-                        this.days[indexOfElement].isSelected = true;
+                    if (this.days[i].timestamp >= this.intervalRange.begin && this.days[i].timestamp <= this.days[index].timestamp) {
+                        Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
+                        this.days[i].isSelected = true;
+                    }
+                    if (this.days[i].isSelected) {
+                        this.selectedTemporary.push(this.days[i].timestamp);
                     }
                 }
             }
@@ -438,7 +437,7 @@ export class HelloWeek {
      * @param      {number}  dayShort
      * @private
      */
-    private __creatWeek(dayShort: number): void {
+    private creatWeek(dayShort: number): void {
         const weekDay = <any>document.createElement('span');
         Utils.addClass(weekDay, HelloWeek.cssClasses.DAY);
         weekDay.textContent = dayShort;
@@ -448,15 +447,15 @@ export class HelloWeek {
     /**
      * @private
      */
-    private __createMonth(): void {
+    private createMonth(): void {
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
 
-            this.__createDay(this.date);
+            this.createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);
         }
         this.date.setMonth(this.date.getMonth() - 1);
-        this.__selectDay(() => { /** callback function */ });
+        this.selectDay(() => { /** callback function */ });
     }
 
     /**
@@ -464,7 +463,7 @@ export class HelloWeek {
      * @param {Date} date
      * @private
      */
-    private __createDay (date: Date): void {
+    private createDay (date: Date): void {
         const num = date.getDate();
         const day = date.getDay();
         const newDay = <any>document.createElement('div');
@@ -476,6 +475,7 @@ export class HelloWeek {
             isToday: false,
             isSelected: false,
             isHighlight: false,
+            element: false,
         };
 
         this.days = this.days || {};
@@ -508,7 +508,7 @@ export class HelloWeek {
         }
 
         if (this.options.disableDates) {
-            this.__setDaysDisable(newDay, dayOptions);
+            this.setDaysDisable(newDay, dayOptions);
         }
 
         if (this.todayDate === dayOptions.timestamp && this.states.isTodayHighlight) {
@@ -524,13 +524,14 @@ export class HelloWeek {
         });
 
         if (this.daysHighlight) {
-            this.__setDayHighlight(newDay, dayOptions);
+            this.setDayHighlight(newDay, dayOptions);
         }
 
         if (this.calendar.month) {
             this.calendar.month.appendChild(newDay);
         }
 
+        dayOptions.element = newDay;
         this.days[dayOptions.day] = dayOptions;
     }
 
@@ -540,7 +541,7 @@ export class HelloWeek {
      * @param      {any}  dayOptions
      * @private
      */
-    private __setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
+    private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
                 if (dayOptions.timestamp >= +new Date(date[0]) && dayOptions.timestamp <= +new Date(date[1])) {
@@ -564,18 +565,18 @@ export class HelloWeek {
      * @param      {any}  dayOptions
      * @private
      */
-    private __setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
+    private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
         for (const key in this.daysHighlight) {
             if (this.daysHighlight[key].days[0] instanceof Array) {
                 this.daysHighlight[key].days.map((date: any, index: number) => {
                     if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
-                        this.__setStyleDayHighlight(newDay, key, dayOptions);
+                        this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             } else {
                 this.daysHighlight[key].days.map((date: any) => {
                     if (new Date(new Date(dayOptions.timestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
-                        this.__setStyleDayHighlight(newDay, key, dayOptions);
+                        this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             }
@@ -589,7 +590,7 @@ export class HelloWeek {
      * @param      {any}  dayOptions
      * @private
      */
-    private __setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
+    private setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
         Utils.addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
         if (this.daysHighlight[key].title) {
             dayOptions.tile = this.daysHighlight[key].title;
@@ -608,7 +609,7 @@ export class HelloWeek {
      * @return     {object}
      * @private
      */
-    private __monthsAsString(monthIndex: number): any {
+    private monthsAsString(monthIndex: number): any {
         return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
     }
 
@@ -617,17 +618,17 @@ export class HelloWeek {
      * @return     {object}
      * @private
      */
-    private __weekAsString(weekIndex: number): any {
+    private weekAsString(weekIndex: number): any {
         return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
     }
 
     /**
      * @private
      */
-    private __updted(): void {
+    private updted(): void {
         const listDays: number[] = [];
         if (this.calendar.period) {
-            this.calendar.period.innerHTML = this.__monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+            this.calendar.period.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
         }
         /** define week format */
         this.calendar.week.textContent = '';
@@ -640,17 +641,17 @@ export class HelloWeek {
         }
 
         for (const day of listDays) {
-            this.__creatWeek(this.__weekAsString(day));
+            this.creatWeek(this.weekAsString(day));
         }
 
-        this.__createMonth();
+        this.createMonth();
     }
 
     /**
      * Clean calendar.
      * @private
      */
-    private __clearCalendar(): void {
+    private clearCalendar(): void {
         this.calendar.month.textContent = '';
     }
 
@@ -658,7 +659,7 @@ export class HelloWeek {
      * Removes all selected classes.
      * @private
      */
-    private __removeSelectedClass(): void {
+    private removeSelectedClass(): void {
         for (const i of Object.keys(this.daysOfMonth)) {
             Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_SELECTED);
             this.days[+i + 1].isSelected = false;
