@@ -375,6 +375,7 @@ export class HelloWeek {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange.begin = undefined;
                     this.intervalRange.end = undefined;
+                    this.selectedTemporary = [];
                     this.removeSelectedClass();
                 }
 
