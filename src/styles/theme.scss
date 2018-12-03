@@ -28,7 +28,8 @@
       color: $hw-color-white !important;
     }
 
-     &.is-range {
+     &.is-start-range,
+     &.is-end-range {
       background-color: $hw-color-range !important;
       color: $hw-color-white !important;
     }

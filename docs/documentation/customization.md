@@ -31,7 +31,8 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
     .hello-week .month .day.is-highlight { }
     .hello-week .month .day.is-today {}
     .hello-week .month .day.is-selected {}
-    .hello-week .month .day.is-range {}
+    .hello-week .month .day.is-start-range {}
+    .hello-week .month .day.is-end-range {}
     .hello-week .month .day.is-disabled {}
 ```
 

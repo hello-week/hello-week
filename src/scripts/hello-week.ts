@@ -379,7 +379,7 @@ export class HelloWeek {
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
                     this.daysSelected = this.selectedTemporary;
-                    Utils.addClass(event.target, HelloWeek.cssStates.IS_RANGE);
+                    Utils.addClass(event.target, HelloWeek.cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
                         this.intervalRange.end = undefined;
@@ -423,7 +423,7 @@ export class HelloWeek {
                         this.days[i].isSelected = true;
                         Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
                         if (this.days[i].timestamp === this.intervalRange.begin) {
-                            Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_RANGE);
+                            Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_START_RANGE);
                         }
                     }
                     if (this.days[i].isSelected) {
@@ -524,8 +524,12 @@ export class HelloWeek {
             }
         });
 
-        if (dayOptions.timestamp === this.intervalRange.begin || dayOptions.timestamp === this.intervalRange.end) {
-            Utils.addClass(newDay, HelloWeek.cssStates.IS_RANGE);
+        if (dayOptions.timestamp === this.intervalRange.begin) {
+            Utils.addClass(newDay, HelloWeek.cssStates.IS_START_RANGE);
+        }
+
+        if (dayOptions.timestamp === this.intervalRange.end) {
+            Utils.addClass(newDay, HelloWeek.cssStates.IS_END_RANGE);
         }
 
         if (this.daysHighlight) {
@@ -667,7 +671,8 @@ export class HelloWeek {
     private removeStatesClass(): void {
         for (const i of Object.keys(this.daysOfMonth)) {
             Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_SELECTED);
-            Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_RANGE);
+            Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_START_RANGE);
+            Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_END_RANGE);
             this.days[+i + 1].isSelected = false;
         }
     }

@@ -20,7 +20,6 @@ Each key is the label for the range, and its value an array with all dates betwe
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        defaultDate: "2018-12-25",
         range: true
     });
 ```
