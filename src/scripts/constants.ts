@@ -14,6 +14,7 @@ export const CSS_CLASSES = {
 export const CSS_STATES = {
     IS_HIGHLIGHT: 'is-highlight',
     IS_SELECTED: 'is-selected',
+    IS_RANGE: 'is-range',
     IS_DISABLED: 'is-disabled',
     IS_TODAY: 'is-today',
     IS_WEEKEND: 'is-weekend',

@@ -16,7 +16,6 @@ export class HelloWeek {
     private defaultDate: any;
     private langs: any;
     private daysOfMonth: any;
-    private interval: any = [];
     private intervalRange: any = {};
     private daysSelected: any = [];
     private selectedTemporary: any = [];
@@ -369,7 +368,6 @@ export class HelloWeek {
             }
             Utils.toggleClass(event.target, HelloWeek.cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
-
             if (this.states.isRange) {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange.begin = undefined;
@@ -381,6 +379,7 @@ export class HelloWeek {
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
                     this.daysSelected = this.selectedTemporary;
+                    Utils.addClass(event.target, HelloWeek.cssStates.IS_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
                         this.intervalRange.end = undefined;
@@ -421,8 +420,11 @@ export class HelloWeek {
                         return;
                     }
                     if (this.days[i].timestamp >= this.intervalRange.begin && this.days[i].timestamp <= this.days[index].timestamp) {
-                        Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
                         this.days[i].isSelected = true;
+                        Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
+                        if (this.days[i].timestamp === this.intervalRange.begin) {
+                            Utils.addClass(this.days[i].element, HelloWeek.cssStates.IS_RANGE);
+                        }
                     }
                     if (this.days[i].isSelected) {
                         this.selectedTemporary.push(this.days[i].timestamp);
@@ -521,6 +523,10 @@ export class HelloWeek {
                 dayOptions.isSelected = true;
             }
         });
+
+        if (dayOptions.timestamp === this.intervalRange.begin || dayOptions.timestamp === this.intervalRange.end) {
+            Utils.addClass(newDay, HelloWeek.cssStates.IS_RANGE);
+        }
 
         if (this.daysHighlight) {
             this.setDayHighlight(newDay, dayOptions);
@@ -661,6 +667,7 @@ export class HelloWeek {
     private removeStatesClass(): void {
         for (const i of Object.keys(this.daysOfMonth)) {
             Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_SELECTED);
+            Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_RANGE);
             this.days[+i + 1].isSelected = false;
         }
     }

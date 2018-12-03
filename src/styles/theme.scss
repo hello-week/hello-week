@@ -28,6 +28,11 @@
       color: $hw-color-white !important;
     }
 
+     &.is-range {
+      background-color: $hw-color-range !important;
+      color: $hw-color-white !important;
+    }
+
     &.is-disabled {
       cursor: not-allowed;
       opacity: .33;
