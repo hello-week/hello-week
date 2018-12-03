@@ -1,13 +1,13 @@
-$hw-color-white: #fff;
-$hw-color-selected :#7fcbc3;
-$hw-color-week :#42a298;
-$hw-color-highlight :#8fbc8f;
-$hw-color-today: #ff3860;
-$hw-color-weekend: #ff3860;
+$hw-color-white: #fff !default;
+$hw-color-selected :#7fcbc3 !default;
+$hw-color-week :#42a298 !default;
+$hw-color-highlight :#8fbc8f !default;
+$hw-color-today: #ff3860 !default;
+$hw-color-weekend: #ff3860 !default;
 
-$hw-transition: .2s cubic-bezier(.25, .1, .49, .9);
-$hw-baseline: 1em;
-$hw-day-width: 100% / 7;
+$hw-transition: .2s cubic-bezier(.25, .1, .49, .9) !default;
+$hw-baseline: 1em !default;
+$hw-day-width: 100% / 7 !default;
 
 $hw-typography-font-weight: (
   light: 300,

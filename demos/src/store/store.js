@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
                     { url: '/docs/documentation/options', title: 'Options', demo: false },
                     { url: '/docs/documentation/methods', title: 'Methods', demo: false },
                     { url: '/docs/documentation/callbacks', title: 'Callbacks', demo: false },
-                    { url: '/docs/documentation/date-format', title: 'Date Format', demo: false }
+                    { url: '/docs/documentation/date-format', title: 'Date Format', demo: false },
+                    { url: '/docs/documentation/customization', title: 'Customization', demo: false }
                 ]
             },
             {

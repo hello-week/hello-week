@@ -1,4 +1,3 @@
-import '../styles/hello-week.scss';
 import { CSS_CLASSES, CSS_STATES, DAYS_WEEK } from './constants';
 import { Utils} from './utils';
 
@@ -82,7 +81,7 @@ export class HelloWeek {
     }
 
     public destroy(): void {
-        this.removeSelectedClass();
+        this.removeStatesClass();
     }
 
     /**
@@ -362,7 +361,7 @@ export class HelloWeek {
                     }
                 } else {
                     if (!this.days[index].isLocked) {
-                        this.removeSelectedClass();
+                        this.removeStatesClass();
                     }
                     this.daysSelected = [];
                     this.daysSelected.push(this.lastSelectedDay);
@@ -376,7 +375,7 @@ export class HelloWeek {
                     this.intervalRange.begin = undefined;
                     this.intervalRange.end = undefined;
                     this.selectedTemporary = [];
-                    this.removeSelectedClass();
+                    this.removeStatesClass();
                 }
 
                 if (this.intervalRange.begin && !this.intervalRange.end) {
@@ -385,7 +384,7 @@ export class HelloWeek {
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
                         this.intervalRange.end = undefined;
-                        this.removeSelectedClass();
+                        this.removeStatesClass();
                     }
                 }
 
@@ -413,10 +412,9 @@ export class HelloWeek {
             if (!this.intervalRange.begin || this.intervalRange.begin && this.intervalRange.end) {
                 return;
             }
-            this.removeSelectedClass();
+            this.removeStatesClass();
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
-                Utils.removeClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
                 this.selectedTemporary = this.selectedTemporary.filter((item: any) => item !== this.days[i].timestamp);
                 if (this.days[index].timestamp >= this.intervalRange.begin) {
                     if (this.days[i].isLocked) {
@@ -660,7 +658,7 @@ export class HelloWeek {
      * Removes all selected classes.
      * @private
      */
-    private removeSelectedClass(): void {
+    private removeStatesClass(): void {
         for (const i of Object.keys(this.daysOfMonth)) {
             Utils.removeClass(this.daysOfMonth[i], HelloWeek.cssStates.IS_SELECTED);
             this.days[+i + 1].isSelected = false;

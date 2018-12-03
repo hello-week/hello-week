@@ -5,3 +5,5 @@ package-lock.json
 
 *.sublime-project
 *.sublime-workspace
+
+dist/css/*.js

@@ -28,8 +28,6 @@
 
   .week {
     display: flex;
-    color: $hw-color-week;
-    font-size: map-get($hw-typography-font-size, week);
 
     &.rtl {
       flex-direction: row-reverse;
@@ -54,29 +52,5 @@
     width: $hw-day-width;
     padding: $hw-baseline;
     transition: background-color $hw-transition;
-
-    &.is-weekend {
-      color: $hw-color-weekend;
-    }
-
-    &.is-selected {
-      background-color: $hw-color-selected !important;
-      color: $hw-color-white !important;
-    }
-
-    &.is-disabled {
-      cursor: not-allowed;
-      opacity: .33;
-    }
-
-    &.is-highlight {
-      background-color: $hw-color-highlight;
-      color: $hw-color-white;
-    }
-
-    &.is-today {
-      background-color: $hw-color-today;
-      color: $hw-color-white;
-    }
   }
 }
