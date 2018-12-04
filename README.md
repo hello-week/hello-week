@@ -1,9 +1,11 @@
 <p align="center"><img src="assets/images/hello-week.png" width="360"/></p>
 
-[![Build Status](https://travis-ci.org/maurovieirareis/hello-week.svg?branch=master&style=flat-square)](https://travis-ci.org/maurovieirareis/hello-week)
-[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
 [![npm](https://img.shields.io/npm/v/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
+[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
+![David](https://img.shields.io/david/maurovieirareis/hello-week.svg?style=flat-square)
+[![Build Status](https://travis-ci.org/maurovieirareis/hello-week.svg?branch=master&style=flat-square)](https://travis-ci.org/maurovieirareis/hello-week)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/maurovieirareis/hello-week/blob/master/LICENSE)
+
 
 ## Quick start
 
