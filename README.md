@@ -94,7 +94,7 @@ Input | Example | Description |
 
 ### Useful links
 
-- [Demos](https://maurovieirareis.github.io/hello-week/)
+- [Demos](https://mauroreisvieira.github.io/hello-week/)
 - [Changelog](CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)
 
