@@ -19,6 +19,15 @@ npm install hello-week --save
 yarn add hello-week
 ```
 
+#### Including files:
+
+```html
+<link rel="stylesheet" type="text/css" href="hello.week.min.css" />
+<link rel="stylesheet" type="text/css" href="hello.week.theme.min.css" />
+
+<script type="text/javascript" src="hello.week.min.js"></script>
+```
+
 #### HTML Markup
 
 ```html
