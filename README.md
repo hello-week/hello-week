@@ -26,6 +26,9 @@ yarn add hello-week
 <link rel="stylesheet" type="text/css" href="hello.week.theme.min.css" />
 
 <script type="text/javascript" src="hello.week.min.js"></script>
+<script>
+  new HelloWeek();
+</script>
 ```
 
 #### HTML Markup
@@ -40,14 +43,6 @@ yarn add hello-week
     <div class="week"></div>
     <div class="month"></div>
 </div>
-```
-
-#### Init Plugin
-
-```html
-<script>
-  new HelloWeek();
-</script>
 ```
 
 ## Options
