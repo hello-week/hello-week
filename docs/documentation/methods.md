@@ -43,7 +43,8 @@ Method move the calendar to current day.
 
 ---
 
-#### goToDate(date: any)
+#### goToDate(date: Number)
+- **type**: `triggerable`
 - date (optional):
   - Type: `Number`
   - Default: the present date
@@ -67,42 +68,42 @@ Method returns the highlight dates.
 
 ---
 
-#### setDaysHighlight()
+#### setDaysHighlight(daysHighlight: any)
 - **type**: `triggerable`
 
 Method set highlight dates.
 
 ---
 
-#### setMultiplePick()
+#### setMultiplePick(state: Boolean)
 - **type**: `triggerable`
 
 Method set calendar with multiple pick.
 
 ---
 
-#### setDisablePastDays()
+#### setDisablePastDays(state: Boolean)
 - **type**: `triggerable`
 
 Method set calendar with disable past days.
 
 ---
 
-#### setTodayHighlight()
+#### setTodayHighlight(state: Boolean)
 - **type**: `triggerable`
 
 Method sets calendar with today highlight.
 
 ---
 
-#### setRange()
+#### setRange(state: Boolean)
 - **type**: `triggerable`
 
 Method toggle status of range.
 
 ---
 
-#### setLocked()
+#### setLocked(state: Boolean)
 - **type**: `triggerable`
 
 Method set calendar locked.
