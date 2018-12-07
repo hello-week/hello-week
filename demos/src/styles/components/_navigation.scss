@@ -16,8 +16,10 @@
   &__submenu {
     margin-top: $mdoc-baseline;
     margin-left: $mdoc-baseline;
+    padding: 0;
     padding-left: $mdoc-baseline;
     border-left: 4px solid var(--mdoc-theme-hint);
+    list-style: none;
 
     .navigation__item {
       margin-bottom: $mdoc-baseline;

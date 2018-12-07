@@ -78,8 +78,16 @@ body {
   font-weight: $mdoc-font-bold;
 }
 
+ul {
+  ul {
+    margin-top: $mdoc-baseline;
+  }
+}
+
 hr {
   height: 1px;
+  margin-top: $mdoc-baseline;
+  margin-bottom: $mdoc-baseline * 2;
   border: 0;
   background-color: var(--mdoc-theme-background);
 }

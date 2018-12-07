@@ -1,6 +1,6 @@
 type CallbackFunction = (...args: any[]) => void;
 
-export class Utils {
+export class Utilities {
     /**
      * Format Date
      * @param      {number}  timestamp

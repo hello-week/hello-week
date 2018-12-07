@@ -21,10 +21,10 @@ export const store = new Vuex.Store({
                 name: 'Demos',
                 isActive: true,
                 data: [
-                    { url: '/docs/demos/range-dates', title: 'Range Dates', demo: true },
+                    { url: '/docs/demos/range', title: 'Range', demo: true },
                     { url: '/docs/demos/highlight-dates', title: 'Highlight Dates', demo: true },
                     { url: '/docs/demos/disabled-days-week', title: 'Disabled Days Week', demo: true },
-                    { url: '/docs/demos/min-and-max-dates', title: 'Min & Max Dates', demo: true },
+                    { url: '/docs/demos/min-and-max', title: 'Min & Max', demo: true },
                     { url: '/docs/demos/disabled-dates', title: 'Disabled Dates', demo: true },
                     { url: '/docs/demos/locked', title: 'Locked', demo: true },
                     { url: '/docs/demos/rtl', title: 'RTL', demo: true }

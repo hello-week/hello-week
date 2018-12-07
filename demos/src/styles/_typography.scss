@@ -43,11 +43,6 @@ h4 {
   font-size: $mdoc-font-medium;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 p,
 li {
   margin: 0;
@@ -58,7 +53,6 @@ li {
 }
 
 strong {
-  color: var(--mdoc-theme-hint);
   font-weight: $mdoc-font-bold;
 }
 
