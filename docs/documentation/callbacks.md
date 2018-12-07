@@ -3,20 +3,28 @@
 This gives you the ability to listen for any changes and perform your own actions.
 
 #### onLoad
-- type: `attachable`
-- _Runs immediately after initialization._
+- **type**: `attachable`
+
+Runs immediately after initialization.
+
 ---
 
 #### onNavigation
-- type: `attachable`
-- _Runs after month change._
+- **type**: `attachable`
+
+Runs after month change.
+
 ---
 
 #### onSelect
-- type: `attachable`
-- _Runs on select the day._
+- **type**: `attachable`
+
+Runs on select the day.
+
 ---
 
 #### onClear
-- type: `attachable`
-- _Runs on clear calendar._
+- **type**: `attachable`
+
+Runs on clear calendar.
+

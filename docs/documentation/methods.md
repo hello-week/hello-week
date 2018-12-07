@@ -2,60 +2,109 @@
 **Hello Week** has some methods that allow gives you the ability to manipulate.
 
 #### prev()
-- type: `triggerable`
-- _Method to change the month to the previous, also you can send a callback function like a parameter._
+- **type**: `triggerable`
+
+Method to change the month to the previous, also you can send a callback function like a parameter.
+
 ---
 
 #### next()
-- type: `triggerable`
-- _Method to change the month to the next, also you can send a callback function like a parameter._
+- **type**: `triggerable`
+
+Method to change the month to the next, also you can send a callback function like a parameter.
+
 ---
 
-#### getDays()
-- type: `triggerable`
-- _Method returns the selected days with the format specified._
+#### update()
+- **type**: `triggerable`
+
+Update and redraws the events for the current month.
+
 ---
 
-#### getDaysHighlight()
-- type: `triggerable`
-- _TODO._
+#### reset()
+- **type**: `triggerable`
+
+Method reset calendar.
+
 ---
 
-#### setDaysHighlight()
-- type: `triggerable`
-- _TODO._
+#### destroy()
+- **type**: `triggerable`
+
+Method destroy the calendar and remove the instance from the target element.
+
 ---
 
 #### goToday()
-- type: `triggerable`
-- _TODO._
+- **type**: `triggerable`
+
+Method move the calendar to current day.
+
 ---
 
-#### goToDate()
-- type: `triggerable`
-- _TODO._
+#### goToDate(date: any)
+- date (optional):
+  - Type: `Number`
+  - Default: the present date
+
+Method move the calendar to arbitrary day.
+
 ---
 
-#### goToYear()
-- type: `triggerable`
-- _TODO._
+
+#### getDays()
+- **type**: `triggerable`
+
+Method returns the selected days with the format specified.
+
 ---
 
-#### clear()
-- type: `triggerable`
-- _Method clean selected days in calendar._
+#### getDaysHighlight()
+- **type**: `triggerable`
+
+Method returns the highlight dates.
+
+---
+
+#### setDaysHighlight()
+- **type**: `triggerable`
+
+Method set highlight dates.
+
+---
+
+#### setMultiplePick()
+- **type**: `triggerable`
+
+Method set calendar with multiple pick.
+
+---
+
+#### setDisablePastDays()
+- **type**: `triggerable`
+
+Method set calendar with disable past days.
+
+---
+
+#### setTodayHighlight()
+- **type**: `triggerable`
+
+Method sets calendar with today highlight.
+
 ---
 
 #### setRange()
-- type: `triggerable`
-- _Method toggle status of range._
+- **type**: `triggerable`
 
-#### setLocked()
-- type: `triggerable`
-- _TODO._
+Method toggle status of range.
+
 ---
 
-#### reload()
-- type: `triggerable`
-- _TODO._
+#### setLocked()
+- **type**: `triggerable`
+
+Method set calendar locked.
+
 ---

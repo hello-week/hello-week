@@ -2,121 +2,162 @@
 **Hello Week** comes with a few (optional) settings that you can change by passing an object as an argument
 
 #### selector
-- type: `String`
-- default: `.hello-week`
-- _Define selector to use as a datepicker._
+- **type**: `String`
+- **default**: `.hello-week`
+
+Define selector to use as a datepicker.
+
 ---
 
 #### lang
-- type: `String`
-- default: `en`
-- _Determines which translation file will be read._
+- **type**: `String`
+- **default**: `en`
+
+Determines which translation file will be read.
+
 ---
 
 #### langFolder
-- type: `String`
-- default: `./dist/langs/`
-- _Determines folder path of your langs._
+- **type**: `String`
+- **default**: `./dist/langs/`
+
+Determines folder path of your langs.
+
 ---
 
 #### format
-- type:  `String`
-- default: `dd/mm/yyyy`
-- _The format also determines which components are displayed._
+- **type**:  `String`
+- **default**: `dd/mm/yyyy`
+
+The format also determines which components are displayed.
+
 ---
 
 #### weekShort
-- type: `Boolean`
-- default: `true`
-- _Sets the format of the week._
+- **type**: `Boolean`
+- **default**: `true`
+
+Sets the format of the week.
+
 ---
 
 #### monthShort
-- type: `Boolean`
-- default: `false`
-- _Sets the format of the month._
+- **type**: `Boolean`
+- **default**: `false`
+
+Sets the format of the month.
+
 ---
 
 #### multiplePick
-- type: `Boolean`
-- default: `false`
-- _Allows multiple days selection._
+- **type**: `Boolean`
+- **default**: `false`
+
+Allows multiple days selection.
+
 ---
 
-#### defaultDate
-- type: `String`
-- default: `null`
-- _Define the start date in calendar._
+#### **default**Date
+- **type**: `String`
+- **default**: `null`
+
+Define the start date in calendar.
+
 ---
 
 #### todayHighlight
-- type: `Boolean`
-- default: `true`
-- _Highlights the current date._
+- **type**: `Boolean`
+- **default**: `true`
+
+Highlights the current date.
+
 ---
 
 #### disablePastDays
-- type: `Boolean`
-- default: `false`
-- _Disable date before the current day._
+- **type**: `Boolean`
+- **default**: `false`
+
+Disable date before the current day.
+
 ---
 
 #### disabledDaysOfWeek
-- type: `Array`
-- default: `null`
-- _Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated._
+- **type**: `Array`
+- **default**: `null`
+
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).\
+Multiple values should be comma-separated.
+
 ---
 
 #### disableDates
-- type: `Array`
-- default: `null`
-- _Array of date strings or a single date string to make days disabled._
+- **type**: `Array`
+- **default**: `null`
+
+Array of date strings or a single date string to make days disabled.
+
 ---
 
 #### daysHighlight
-- type: `Array`
-- default: `null`
-- _Array of date strings or a single date string to make days with highlight._
+- **type**: `Array`
+- **default**: `null`
+
+Array of date strings or a single date string to make days with highlight.
+
 ---
 
 #### range
-- type: `Boolean`
-- default: `false`
-- _Allows you to select array range of days._
+- **type**: `Boolean`
+- **default**: `false`
+
+Allows you to select array range of days.
+
 ---
 
 #### rtl
-- type: `Boolean`
-- default: `false`
-- _Allows layout for languages written from right to left (like Hebrew or Arabic)._
+- **type**: `Boolean`
+- **default**: `false`
+
+Allows layout for languages written from right to left (like Hebrew or Arabic).
+
 ---
 
 #### locked
-- type: `Boolean`
-- default: `false`
-- _Sets all days of the week locked._
+- **type**: `Boolean`
+- **default**: `false`
+
+Sets all days of the week locked.
+
 ---
 
 #### weekStart
-- type: `Integer`
-- default: 0
-- _Day of the week start. 0 (Sunday) to 6 (Saturday)._
+- **type**: `Integer`
+- **default**: 0
+
+Day of the week start. 0 (Sunday) to 6 (Saturday).
+
 ---
 
 #### minDate
-- type: `Number` or `String`
-- default: `null`
-- _Disable date selections before this date. When set to null, there is no minimum._
+- **type**: `Number` or `String`
+- **default**: `null`
+
+Disable date selections before this date. When set to null, there is no minimum.
+
 ---
 
 #### maxDate
-- type: `Number` or `String`
-- default: `null`
-- _Disable date selections after this date. When set to null, there is no maximum._
+- **type**: `Number` or `String`
+- **default**: `null`
+
+Disable date selections after this date. When set to null, there is no maximum.
+
 ---
 
 #### nav
-- type: `Array`
-- default: `['◀', '▶']`
-- _Show next/prev buttons._
+- **type**: `Array`
+- **default**: `['◀', '▶']`
+
+Show next/prev buttons.
+
 
