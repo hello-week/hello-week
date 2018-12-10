@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const VueLoaderPlugin = require('vue-loader');
 
 module.exports = {
     node: {
@@ -22,30 +23,12 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        'scss': [
-                            'vue-style-loader',
-                            'css-loader',
-                            'sass-loader'
-                        ],
-                        'sass': [
-                            'vue-style-loader',
-                            'css-loader',
-                            'sass-loader?indentedSyntax'
-                        ]
-                    }
-                }
-            },
-            {
-                test: /\.(ts|tsx)$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                loader: 'vue-loader'
             }
         ]
     },
-    resolve: {
-        extensions: [ '.tsx', '.ts', '.js', '.vue']
-    }
+    plugins: [
+        // make sure to include the plugin!
+        new VueLoaderPlugin()
+    ]
 }

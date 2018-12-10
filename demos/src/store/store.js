@@ -34,8 +34,8 @@ export const store = new Vuex.Store({
                 name: 'Support',
                 isActive: true,
                 data: [
-                    { url: '/changelog', title: 'Changelog', demo: false },
-                    { url: '/contributing', title: 'Contributing', demo: false }
+                    { url: '/CHANGELOG', title: 'Changelog', demo: false },
+                    { url: '/CONTRIBUTING', title: 'Contributing', demo: false }
                 ]
             }
         ]
