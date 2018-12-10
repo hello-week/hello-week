@@ -27,7 +27,8 @@
     "start": "node_modules/.bin/webpack-dev-server --port 3000 --hot --host 0.0.0.0 --config ./demos/webpack.config.js --open --mode development",
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode production",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
-    "lint:scss": "stylelint src/**/*.scss"
+    "lint:scss": "stylelint src/**/*.scss",
+    "test": "echo \"Warning: no test specified\" && exit 0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
