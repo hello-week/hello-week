@@ -18,7 +18,6 @@ export class HelloWeek {
     private daysOfMonth: any;
     private intervalRange: any = {};
     private daysSelected: any = [];
-    private selectedTemporary: any = [];
     private lastSelectedDay: string;
     private days: any;
 
@@ -135,7 +134,6 @@ export class HelloWeek {
      */
     public reset(callback: CallbackFunction): void {
         this.daysSelected = [];
-        this.selectedTemporary = [];
         this.init(callback);
     }
 
@@ -283,6 +281,27 @@ export class HelloWeek {
     }
 
     /**
+     * Gets the interval of dates.
+     * @param      {number}  startDate
+     * @param      {number}  endDate
+     * @private
+     */
+    private getIntervalOfDates(startDate: number, endDate: number) {
+        const dates = [];
+        let currentDate = startDate;
+        const addDays = function(days: any) {
+            const date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date.getTime();
+        };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+    }
+
+    /**
      * @param {HTMLElement} target
      * @param {CallbackFunction} callback
      * @private
@@ -317,13 +336,13 @@ export class HelloWeek {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange.begin = undefined;
                     this.intervalRange.end = undefined;
-                    this.selectedTemporary = [];
                     this.removeStatesClass();
                 }
 
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
-                    this.daysSelected = this.selectedTemporary;
+                    this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
+                    console.warn(this.daysSelected);
                     Utilities.addClass(event.target, HelloWeek.cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
@@ -359,7 +378,6 @@ export class HelloWeek {
             this.removeStatesClass();
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
-                this.selectedTemporary = this.selectedTemporary.filter((item: any) => item !== this.days[i].timestamp);
                 if (this.days[index].timestamp >= this.intervalRange.begin) {
                     if (this.days[i].isLocked) {
                         return;
@@ -370,9 +388,6 @@ export class HelloWeek {
                         if (this.days[i].timestamp === this.intervalRange.begin) {
                             Utilities.addClass(this.days[i].element, HelloWeek.cssStates.IS_BEGIN_RANGE);
                         }
-                    }
-                    if (this.days[i].isSelected) {
-                        this.selectedTemporary.push(this.days[i].timestamp);
                     }
                 }
             }
