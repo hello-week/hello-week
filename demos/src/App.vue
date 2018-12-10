@@ -12,7 +12,7 @@
 import top from './layout/top.vue'
 import sidebar from './layout/sidebar.vue'
 /** Pages Module */
-import pages from './pages/pages'
+import pages from './pages/pages.vue'
 
 export default {
     name: 'app',
