@@ -6,7 +6,6 @@ cache:
     - node_modules
 notifications:
   email: false
-install: npm
 node_js:
   - '9'
 before_install:
