@@ -342,7 +342,6 @@ export class HelloWeek {
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
                     this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
-                    console.warn(this.daysSelected);
                     Utilities.addClass(event.target, HelloWeek.cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;
