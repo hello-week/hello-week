@@ -5,7 +5,7 @@
   &__label {
     display: block;
     padding: $mdoc-baseline 0;
-    font-weight: $mdoc-font-semi-bold;
+    font-weight: map-get($mdoc-typography-font-weight, medium);
   }
 
   &__input {

@@ -9,7 +9,7 @@
     position: relative;
     margin-bottom: $mdoc-baseline * 2;
     color: var(--mdoc-theme-hint);
-    font-weight: $mdoc-font-bold;
+    font-weight: map-get($mdoc-typography-font-weight, bold);
     text-transform: uppercase;
   }
 
@@ -23,7 +23,7 @@
 
     .navigation__item {
       margin-bottom: $mdoc-baseline;
-      font-weight: $mdoc-font-regular;
+      font-weight: map-get($mdoc-typography-font-weight, regular);
       text-transform: none;
     }
   }
@@ -31,7 +31,7 @@
   &__link {
     transition: color .2s $mdoc-animation-easing;
     color: var(--mdoc-theme-text);
-    font-weight: $mdoc-font-regular;
+    font-weight:map-get($mdoc-typography-font-weight, regular);
     text-decoration: none;
 
     &.router-link-active,

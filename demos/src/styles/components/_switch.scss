@@ -14,7 +14,7 @@
 
       .switch__text {
         color: var(--mdoc-theme-text);
-        font-weight: $mdoc-font-regular;
+        font-weight: map-get($mdoc-typography-font-weight, regular);
       }
 
       &::before,

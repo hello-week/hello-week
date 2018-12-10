@@ -1,24 +1,99 @@
-h1 {
-  display: inline-flex;
-  margin: $mdoc-baseline * 2 0;
-  font-size: $mdoc-font-xx-large;
-  font-weight: $mdoc-font-semi-bold;
+$mdoc-typography-base: (
+  headline-1: (
+    margin: $mdoc-baseline * 2 0,
+    font-size: $mdoc-font-huge,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, medium),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  headline-2: (
+    margin: $mdoc-baseline * 2 0,
+    font-size: $mdoc-font-xx-large,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, bold),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  headline-3: (
+    font-size: $mdoc-font-x-large,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, light),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  headline-4: (
+    margin: $mdoc-baseline * 2 0,
+    font-size: $mdoc-font-large,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, medium),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  headline-5: (
+    font-size: $mdoc-font-medium,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, medium),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  headline-6: (
+    font-size: 1.25rem,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, medium),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  base: (
+    margin: 0,
+    margin-bottom: $mdoc-baseline,
+    font-size: $mdoc-font-base,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, regular),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  link: (
+    font-size: $mdoc-font-base,
+    line-height: 1.5,
+    font-weight: map-get($mdoc-typography-font-weight, regular),
+    color: get-color(pink),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: inherit,
+    text-transform: inherit
+  ),
+  button: (
+    font-size: $mdoc-font-small,
+    font-weight: map-get($mdoc-typography-font-weight, medium),
+    -moz-osx-font-smoothing: grayscale,
+    -webkit-font-smoothing: antialiased,
+    text-decoration: none,
+    text-transform: uppercase
+  )
+) !default;
 
-  @include mdoc-mobile {
-    font-size: $mdoc-font-x-large;
-  }
+
+h1 {
+  @include mdoc-typography(headline-1);
 }
 
 h2 {
-  display: inline-flex;
-  margin: $mdoc-baseline * 2 0;
-  font-size: $mdoc-font-x-large;
-  font-weight: $mdoc-font-bold;
-  line-height: 1.4;
-
-  @include mdoc-mobile {
-    font-size: $mdoc-font-medium;
-  }
+  @include mdoc-typography(headline-2);
 }
 
 h2::before {
@@ -35,27 +110,22 @@ h2::before {
 }
 
 h3 {
-  font-size: $mdoc-font-large;
-  font-weight: $mdoc-font-light;
+  @include mdoc-typography(headline-3);
 }
 
 h4 {
-  font-size: $mdoc-font-medium;
+  @include mdoc-typography(headline-4);
 }
 
 p,
 li {
-  margin: 0;
-  margin-bottom: $mdoc-baseline;
-  font-size: $mdoc-font-base;
-  font-weight: $mdoc-font-regular;
-  line-height: 1.6;
+  @include mdoc-typography(base);
 }
 
 strong {
-  font-weight: $mdoc-font-bold;
+  font-weight: map-get($mdoc-typography-font-weight, bold)
 }
 
 a {
-  color: get-color(pink);
+  @include mdoc-typography(link);
 }

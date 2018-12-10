@@ -24,15 +24,17 @@ $mdoc-font-small: calculate-rem(14px, $mdoc-font-size-default) !default;
 $mdoc-font-base: calculate-rem(16px, $mdoc-font-size-default) !default;
 $mdoc-font-medium: calculate-rem(22px, $mdoc-font-size-default) !default;
 $mdoc-font-large: calculate-rem(28px, $mdoc-font-size-default) !default;
-$mdoc-font-x-large: calculate-rem(44px, $mdoc-font-size-default) !default;
-$mdoc-font-xx-large: calculate-rem(72px, $mdoc-font-size-default) !default;
-$mdoc-font-huge: calculate-rem(86px, $mdoc-font-size-default) !default;
+$mdoc-font-x-large: calculate-rem(34px, $mdoc-font-size-default) !default;
+$mdoc-font-xx-large: calculate-rem(52px, $mdoc-font-size-default) !default;
+$mdoc-font-huge: calculate-rem(76px, $mdoc-font-size-default) !default;
 
 // Defining font weight
-$mdoc-font-light: 300 !default;
-$mdoc-font-regular: 400 !default;
-$mdoc-font-semi-bold: 600 !default;
-$mdoc-font-bold: 700 !default;
+$mdoc-typography-font-weight: (
+  light: 300,
+  regular: 400,
+  medium: 600,
+  bold: 700
+  ) !default;
 
 // Defining animation easings
 $mdoc-animation-easing: cubic-bezier(.455, .3, .515, .955) !default;
@@ -54,7 +56,7 @@ $mdoc-theme: (
   typography-font: $mdoc-font-default,
   typography-code: $mdoc-font-code,
   typography-size: $mdoc-font-base,
-  typography-weight: $mdoc-font-regular
+  typography-weight: map-get($mdoc-typography-font-weight, regular)
 ) !default;
 
 // Theme Light

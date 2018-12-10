@@ -13,7 +13,7 @@
     padding: $mdoc-baseline;
     color: var(--mdoc-theme-navigation);
     font-size: $mdoc-font-small;
-    font-weight: $mdoc-font-regular;
+    font-weight: map-get($mdoc-typography-font-weight, regular);
     text-decoration: none;
     text-transform: uppercase;
 

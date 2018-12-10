@@ -73,7 +73,7 @@
     align-items: center;
     color: var(--mdoc-theme-navigation);
     font-size: $mdoc-font-medium;
-    font-weight: $mdoc-font-regular;
+    font-weight: map-get($mdoc-typography-font-weight, regular);
     text-transform: uppercase;
     cursor: default;
 

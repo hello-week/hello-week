@@ -11,7 +11,7 @@
 
   a {
     color: var(--mdoc-theme-primary);
-    font-weight: $mdoc-font-semi-bold;
+    font-weight: map-get($mdoc-typography-font-weight, medium);
     text-decoration: none;
   }
 

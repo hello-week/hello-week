@@ -53,13 +53,13 @@ body {
 
 .demo {
   margin: $mdoc-baseline 0 $mdoc-baseline * 4;
-  font-weight: $mdoc-font-regular;
+  font-weight: map-get($mdoc-typography-font-weight, regular);
 }
 
 .demo-interactive {
   display: flex;
   margin-bottom: $mdoc-baseline * 3;
-  font-weight: $mdoc-font-regular;
+  font-weight: map-get($mdoc-typography-font-weight, regular);
 }
 
 .demo-options {
@@ -75,7 +75,7 @@ body {
   margin-left: $mdoc-baseline;
   color: var(--mdoc-theme-primary);
   font-size: $mdoc-font-medium;
-  font-weight: $mdoc-font-bold;
+  font-weight: map-get($mdoc-typography-font-weight, bold)
 }
 
 ul {

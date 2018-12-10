@@ -4,7 +4,7 @@
   border: 2px solid currentColor;
   color: var(--mdoc-theme-primary);
   font-size: $mdoc-font-x-small;
-  font-weight: $mdoc-font-semi-bold;
+  font-weight: map-get($mdoc-typography-font-weight, medium);
   text-transform: uppercase;
   cursor: pointer;
 

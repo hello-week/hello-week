@@ -5,7 +5,7 @@ table {
   padding: 0;
   border: 0;
   font-size: $mdoc-font-base;
-  font-weight: $mdoc-font-regular;
+  font-weight: map-get($mdoc-typography-font-weight, regular);
   border-collapse: collapse;
 
   tr {
