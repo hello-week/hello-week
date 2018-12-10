@@ -1,26 +1,23 @@
-$hello-week-color-primary :#7fcbc3;
-$hello-week-color-secondary :#ffa07a;
-$hello-week-color-highlight :#8fbc8f;
-$hello-week-color-days :#3e3e3e;
-$hello-week-color-weekend: #f3f3f3;
-$hello-week-color-disabled: #f7f8fb;
+$hw-color-white: #fff !default;
+$hw-color-selected :#7fcbc3 !default;
+$hw-color-range: #42a298 !default;
+$hw-color-week :#42a298 !default;
+$hw-color-highlight :#8fbc8f !default;
+$hw-color-today: #ff3860 !default;
+$hw-color-weekend: #ff3860 !default;
 
-$hello-week-transition: .2s cubic-bezier(.25, .1, .49, .9);
+$hw-transition: .2s cubic-bezier(.25, .1, .49, .9) !default;
+$hw-baseline: 1em !default;
+$hw-day-width: 100% / 7 !default;
 
-:root {
-  --hello-week-bg-color: #fff;
-  --hello-week-bg-day: #fff;
-  --hello-week-color-day: #{$hello-week-color-secondary};
-  --hello-week-bg-week: #fff;
-  --hello-week-color-week: #{$hello-week-color-secondary};
-  --hello-week-bg-tody: #{$hello-week-color-days};
-  --hello-week-color-tody: #fff;
-  --hello-week-bg-selected: #{$hello-week-color-primary};
-  --hello-week-color-selected: #fff;
-  --hello-week-bg-weekend: #{$hello-week-color-weekend};
-  --hello-week-color-weekend: #{darken($hello-week-color-weekend, 20%)};
-  --hello-week-bg-disabled: #{$hello-week-color-disabled};
-  --hello-week-color-disabled: #{darken($hello-week-color-disabled, 20%)};
-  --hello-week-bg-highlight: #{$hello-week-color-highlight};
-  --hello-week-color-highlight: #fff;
-}
+$hw-typography-font-weight: (
+  light: 300,
+  regular: 400,
+  bold: 700
+) !default;
+
+$hw-typography-font-size: (
+  base: 1em,
+  period: 1.6em,
+  week: 1.2em
+) !default;

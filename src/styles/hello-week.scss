@@ -1,97 +1,56 @@
 @import "variables";
 
-* {
-  box-sizing: border-box;
-}
-
 .hello-week {
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
-  border-radius: var(--hello-week-border-radius);
-  background-color: var(--hello-week-bg-color);
-  box-shadow: 0 2px 20px 8px rgba(0, 0, 0, .12);
   user-select: none;
+  font-size: map-get($hw-typography-font-size, base);
 
-  &__header {
+  .navigation {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 0;
   }
 
-  &__label {
+  .prev,
+  .next {
+    padding: $hw-baseline;
+    cursor: pointer;
+  }
+
+  .period {
     width: 100%;
-    font-size: 1.6rem;
-    font-weight: 100;
+    font-size: map-get($hw-typography-font-size, period);
+    font-weight: map-get($hw-typography-font-weight, regular);
     text-align: center;
   }
 
-  &__week {
+  .week {
     display: flex;
-    background-color: var(--hello-week-bg-week);
-    color: var(--hello-week-color-week);
 
-    &__day {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 14.28%;
-      padding: 1rem;
-      font-size: 1rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      cursor: pointer;
+    &.rtl {
+      flex-direction: row-reverse;
     }
   }
 
-  &__month {
+  .month {
     display: flex;
     flex-wrap: wrap;
+    cursor: pointer;
+
+    &.rtl {
+      flex-direction: row-reverse;
+    }
   }
 
-  &__day {
+  .day {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 14.28%;
-    padding: 1rem;
-    transition: background-color $hello-week-transition;
-    border-radius: var(--hello-week-border-radius);
-
-    &.is-active {
-      cursor: pointer;
-    }
-
-    &.is-weekend {
-      background-color: var(--hello-week-bg-weekend);
-      color: var(--hello-week-color-weekend);
-    }
-
-    &.is-selected {
-      background-color: var(--hello-week-bg-selected) !important;
-      color: var(--hello-week-color-selected) !important;
-    }
-
-    &.is-disabled {
-      border-radius: 0;
-      background-color: var(--hello-week-bg-disabled);
-      color: var(--hello-week-color-disabled);
-      cursor: not-allowed;
-    }
-
-    &.is-highlight {
-      background-color: var(--hello-week-bg-highlight);
-      color: var(--hello-week-color-highlight);
-    }
-
-    &.is-today {
-      background-color: var(--hello-week-bg-tody);
-      color: var(--hello-week-color-tody);
-    }
-
-    &.is-hover {
-      background-color: #dee;
-    }
+    width: $hw-day-width;
+    padding: $hw-baseline;
+    transition: background-color $hw-transition;
   }
 }

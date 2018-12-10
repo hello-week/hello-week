@@ -142,6 +142,8 @@ rules:
     - font-variant
     - font-weight
 
+    -webkit-font-smoothing
+
     - letter-spacing
     - line-height
     - list-style
@@ -177,7 +179,7 @@ rules:
     - z-index
   declaration-property-unit-whitelist:
     font-size:
-      - "rem"
+      - "em"
       - "px"
       - "%"
   # The following prefix rules are enabled since we use autoprefixer

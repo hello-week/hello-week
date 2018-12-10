@@ -1,0 +1,93 @@
+// stylelint-disable selector-max-type
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--mdoc-theme-background);
+  font-family: var(--mdoc-theme-typography-font);
+  font-size: var(--mdoc-theme-typography-size);
+  font-weight: var(--mdoc-theme-typography-weight);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  overflow-y: scroll;
+}
+
+body {
+  min-width: $mdoc-breakpoints-x-small;
+  margin: 0;
+  padding: 0;
+  color: var(--mdoc-theme-text);
+}
+
+.main {
+  min-height: calc(100vh - calc(57px));
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: $mdoc-breakpoints-wide;
+  padding: 0 map-get($mdoc-layout-grid-gutter, desktop);
+
+  @include mdoc-mobile {
+    padding: 0 map-get($mdoc-layout-grid-gutter, mobile);
+  }
+
+  &--full {
+    max-width: 100%;
+  }
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo {
+  margin: $mdoc-baseline 0 $mdoc-baseline * 4;
+  font-weight: map-get($mdoc-typography-font-weight, regular);
+}
+
+.demo-interactive {
+  display: flex;
+  margin-bottom: $mdoc-baseline * 3;
+  font-weight: map-get($mdoc-typography-font-weight, regular);
+}
+
+.demo-options {
+  flex: 1;
+}
+
+.demo-toggle {
+  flex: 1;
+  padding: 0 $mdoc-baseline * 2;
+}
+
+.version {
+  margin-left: $mdoc-baseline;
+  color: var(--mdoc-theme-primary);
+  font-size: $mdoc-font-medium;
+  font-weight: map-get($mdoc-typography-font-weight, bold)
+}
+
+ul {
+  ul {
+    margin-top: $mdoc-baseline;
+  }
+}
+
+hr {
+  height: 1px;
+  margin-top: $mdoc-baseline;
+  margin-bottom: $mdoc-baseline * 2;
+  border: 0;
+  background-color: var(--mdoc-theme-background);
+}

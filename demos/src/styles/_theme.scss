@@ -1,0 +1,17 @@
+.theme {
+  @each $key in map-keys($mdoc-theme) {
+    --mdoc-theme-#{$key}: #{map-get($mdoc-theme, $key)};
+  }
+
+  &--light {
+    @each $key in map-keys($mdoc-theme-light) {
+      --mdoc-theme-#{$key}: #{map-get($mdoc-theme-light, $key)};
+    }
+  }
+
+  &--dark {
+    @each $key in map-keys($mdoc-theme-dark) {
+      --mdoc-theme-#{$key}: #{map-get($mdoc-theme-dark, $key)};
+    }
+  }
+}

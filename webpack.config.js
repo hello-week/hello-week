@@ -8,7 +8,9 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
     entry : {
-        helloweek: './src/scripts/hello-week.ts'
+        'css/hello.week': './src/styles/hello-week.scss',
+        'css/hello.week.theme': './src/styles/theme.scss',
+        'hello.week': './src/scripts/hello-week.ts'
     },
     output: {
         path: path.resolve(__dirname, 'dist/'),

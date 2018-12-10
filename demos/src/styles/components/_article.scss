@@ -1,0 +1,15 @@
+.article {
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--mdoc-theme-surface);
+
+  @include mdoc-mobile {
+    position: absolute;
+    left: 0;
+    transition: transform .3s $mdoc-animation-easing;
+
+    &.is-open {
+      transform: translateX(320px);
+    }
+  }
+}

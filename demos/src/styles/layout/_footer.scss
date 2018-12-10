@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $mdoc-baseline * 2 0;
+  color: var(--mdoc-theme-primary);
+
+  p {
+    font-size: $mdoc-font-small;
+  }
+
+  a {
+    color: var(--mdoc-theme-primary);
+    font-weight: map-get($mdoc-typography-font-weight, medium);
+    text-decoration: none;
+  }
+
+  .heart {
+    color: get-color(pink);
+  }
+}

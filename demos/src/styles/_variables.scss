@@ -1,0 +1,83 @@
+// Defining baseline
+$mdoc-baseline: 1rem / 2  !default;
+
+// Defining font family
+$mdoc-font-default: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$mdoc-font-code: monospace;
+
+// Defining font size default
+$mdoc-font-size-default: 16px !default;
+
+// Defining border radius
+$mdoc-border-radius: 2px !default;
+
+// Defining breakpoints
+$mdoc-breakpoints-x-small: 260px !default;
+$mdoc-breakpoints-small: 480px !default;
+$mdoc-breakpoints-medium: 768px !default;
+$mdoc-breakpoints-wide: 980px !default;
+$mdoc-breakpoints-huge: 1600px !default;
+
+// Defining font sizes
+$mdoc-font-x-small: calculate-rem(12px, $mdoc-font-size-default) !default;
+$mdoc-font-small: calculate-rem(14px, $mdoc-font-size-default) !default;
+$mdoc-font-base: calculate-rem(16px, $mdoc-font-size-default) !default;
+$mdoc-font-medium: calculate-rem(22px, $mdoc-font-size-default) !default;
+$mdoc-font-large: calculate-rem(28px, $mdoc-font-size-default) !default;
+$mdoc-font-x-large: calculate-rem(34px, $mdoc-font-size-default) !default;
+$mdoc-font-xx-large: calculate-rem(52px, $mdoc-font-size-default) !default;
+$mdoc-font-huge: calculate-rem(76px, $mdoc-font-size-default) !default;
+
+// Defining font weight
+$mdoc-typography-font-weight: (
+  light: 300,
+  regular: 400,
+  medium: 600,
+  bold: 700
+  ) !default;
+
+// Defining animation easings
+$mdoc-animation-easing: cubic-bezier(.455, .3, .515, .955) !default;
+
+$mdoc-layout-grid: (
+  desktop: $mdoc-breakpoints-wide,
+  tablet: $mdoc-breakpoints-medium,
+  mobile: $mdoc-breakpoints-medium - 1
+) !default;
+
+$mdoc-layout-grid-gutter: (
+  desktop: $mdoc-baseline * 3,
+  tablet: $mdoc-baseline,
+  mobile: $mdoc-baseline
+) !default;
+
+// Theme Global
+$mdoc-theme: (
+  typography-font: $mdoc-font-default,
+  typography-code: $mdoc-font-code,
+  typography-size: $mdoc-font-base,
+  typography-weight: map-get($mdoc-typography-font-weight, regular)
+) !default;
+
+// Theme Light
+$mdoc-theme-light: (
+  primary: #{get-color(aqua)},
+  secondary: #{get-color(pink)},
+  background: #{get-color(gray, light)},
+  hint: #{get-color(aqua, dark)},
+  surface: #{get-color(white)},
+  navigation: #{get-color(aqua)},
+  text: #{get-color(batman)}
+);
+
+// Theme Dark
+$mdoc-theme-dark: (
+  primary: #{get-color(aqua)},
+  secondary: #{get-color(pink)},
+  background: #{get-color(batman, dark)},
+  hint: #{get-color(aqua, dark)},
+  surface: #{get-color(batman)},
+  navigation: #{get-color(white)},
+  text: #{get-color(white)}
+);
+
