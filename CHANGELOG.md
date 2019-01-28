@@ -4,8 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-#### [2.0.0] - 2018-xx-xx
-- TODO
+#### [2.0.0] - 2019-01-28
+**Added**
+- Method `setRange` toggle status of range..
+- Method `setLocked` set calendar locked.
+- Option `rtl` allows layout for languages written from right to left (like Hebrew or Arabic).
+- Option `locked` sets all days of the week locked.
+- Documentation for Customization your own theme.
+
+**Changed**
+- Fix issue [#10](https://github.com/mauroreisvieira/hello-week/issues/10) month date range.
+- Updated Documentation.
 ---
 
 #### [1.4.1] - 2018-06-18
