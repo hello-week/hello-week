@@ -45,9 +45,10 @@
             createDemo() {
                 const hedingDemo = this.$el.querySelector('h4');
                 const parentDiv = hedingDemo.parentNode;
+                const htmlDemo = this.$el.querySelector('.language-html').textContent;
                 const demo = document.createElement('div');
+                demo.innerHTML = htmlDemo;
                 demo.classList.add('demo');
-                demo.classList.add('hello-week');
                 parentDiv.insertBefore(demo, hedingDemo);
             }
         }
