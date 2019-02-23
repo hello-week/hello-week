@@ -49,12 +49,6 @@
                 demo.classList.add('demo');
                 demo.classList.add('hello-week');
                 parentDiv.insertBefore(demo, hedingDemo);
-            },
-            updateInfo() {
-                const daysSelected = this.calendar.getDays();
-                const daysHighlight = this.calendar.getDaysHighlight();
-                console.log('daysSelected', daysSelected);
-                console.log('daysHighlight', daysHighlight);
             }
         }
     }

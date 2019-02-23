@@ -24,7 +24,6 @@
         },
         mounted() {
             const file = this.$route.path + '.md';
-            console.log(file);
             const md = new Remarkable({
                 langPrefix: 'hljs language-'
             });
