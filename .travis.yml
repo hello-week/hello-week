@@ -9,6 +9,8 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
+  - yarn build
+  - yarn demos:build
 node_js:
   - '8'
 before_install:
