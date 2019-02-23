@@ -1,7 +1,7 @@
 ## Disabled Dates
 
 #### Overview
-_TODO_
+Set disabled specific day/days.
 
 #### HTML Structure
 ```html

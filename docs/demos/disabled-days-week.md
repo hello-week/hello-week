@@ -1,7 +1,7 @@
 ## Disabled Days Week
 
 #### Overview
-_TODO_
+Set disabled specific days of week.
 
 #### HTML Structure
 ```html

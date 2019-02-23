@@ -1,7 +1,7 @@
 ## Highlight Dates
 
 #### Overview
-_TODO_
+Set day/days highlight, with different customizes.
 
 #### HTML Structure
 ```html
