@@ -1,13 +1,5 @@
 ## Disabled Dates
 
-```json
-   {
-        "disablePastDays": true,
-        "multiplePick": true,
-        "disableDates": ["2018-12-01", "2018-12-08", "2018-12-16", "2018-12-21", "2018-12-23", "2018-12-28"]
-    }
-```
-
 #### Overview
 _TODO_
 
@@ -20,8 +12,8 @@ _TODO_
 ```js
     new HelloWeek({
         disablePastDays: true,
-        disabledDaysOfWeek: true,
-        disableDates: ["2018-11-02", "2018-11-09", "2018-11-16", "2018-11-23"]
+        disabledDaysOfWeek: [0, 1],
+        disableDates: ["2019-02-01", "2019-02-08", "2019-02-16"]
     });
 ```
 

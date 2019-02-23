@@ -33,20 +33,14 @@
                 this.$nextTick(function () {
                     Prism.highlightAll();
                     this.createDemo();
-                    const options = Object.assign(this.initHelloWeek(), {
-                        onLoad: this.updateInfo,
-                        onNavigation: this.updateInfo,
-                        onSelect: this.updateInfo
-                    })
-                    this.calendar = new HelloWeek(options);
+                    const f = new Function (this.initHelloWeek());
+                    f();
                 });
             });
         },
         methods: {
             initHelloWeek() {
-                const init = this.$el.querySelector('.language-json').textContent;
-                this.$el.querySelector('.language-json').remove();
-                return JSON.parse(init);
+                return this.$el.querySelector('.language-js').textContent;
             },
             createDemo() {
                 const hedingDemo = this.$el.querySelector('h4');

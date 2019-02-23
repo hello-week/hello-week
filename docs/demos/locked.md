@@ -1,11 +1,5 @@
 ## Locked
 
-```json
-   {
-        "locked": true
-    }
-```
-
 #### Overview
 Locks all days in calendar.
 

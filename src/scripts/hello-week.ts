@@ -153,7 +153,7 @@ export class HelloWeek {
      * @public
      */
     public goToDate(date: any = this.todayDate): void {
-        this.date = date;
+        this.date = new Date(date);
         this.date.setDate(1);
         this.update();
     }

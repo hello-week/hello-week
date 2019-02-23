@@ -1,12 +1,5 @@
 ## Disabled Days Week
 
-```json
-   {
-        "disabledDaysOfWeek": [0, 6],
-        "disablePastDays": true
-    }
-```
-
 #### Overview
 _TODO_
 
@@ -18,7 +11,7 @@ _TODO_
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        disabledDaysOfWeek: [0, 1] // disabling weekends
+        disabledDaysOfWeek: [0, 1], // disabling weekends
         disablePastDays: true
     });
 ```

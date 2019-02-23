@@ -1,12 +1,5 @@
 ## Range
 
-```json
-   {
-        "format": "dd/MM/YYYY",
-        "range": true
-    }
-```
-
 #### Overview
 Set predefined date ranges the user can select from.
 
@@ -29,5 +22,4 @@ Each key is the label for the range, and its value an array with all dates betwe
     const calendar = new HelloWeek({
         range: true
     });
-    calendar.setRange(false);
 ```
