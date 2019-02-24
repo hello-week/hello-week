@@ -96,6 +96,7 @@ export class Utilities {
             disabledDaysOfWeek: null,
             disableDates: null,
             weekStart: 0,
+            daysSelected: null,
             daysHighlight: null,
             multiplePick: false,
             disablePastDays: false,

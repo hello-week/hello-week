@@ -106,6 +106,14 @@ Array of date strings or a single date string to make days with highlight.
 
 ---
 
+#### daysSelected
+- **type**: `Array`
+- **default**: `null`
+
+Array of strings with day/days to make selected.
+
+---
+
 #### range
 - **type**: `Boolean`
 - **default**: `false`

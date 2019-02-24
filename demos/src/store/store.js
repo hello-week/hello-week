@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
                     { url: '/docs/demos/locked', title: 'Locked', demo: true },
                     { url: '/docs/demos/rtl', title: 'RTL', demo: true },
                     { url: '/docs/demos/retrieve-clicked-date', title: 'Retrieve clicked date', demo: true },
-                    { url: '/docs/demos/go-to-date', title: 'Go to date', demo: true }
+                    { url: '/docs/demos/go-to-date', title: 'Go to Date', demo: true },
+                    { url: '/docs/demos/selected-days', title: 'Selected Days', demo: true }
                 ]
             },
             {

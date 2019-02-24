@@ -71,6 +71,12 @@ export class HelloWeek {
         }
 
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
+        this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
+
+        if (this.daysSelected.length > 1 && !this.states.isMultiplePick) {
+            throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is ${this.states.isMultiplePick}!`);
+            this.daysSelected = [];
+        }
 
         Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
             this.langs = JSON.parse(text);
@@ -477,7 +483,7 @@ export class HelloWeek {
         }
 
         this.daysSelected.find( (day: number) => {
-            if (day === dayOptions.timestamp) {
+            if (day === dayOptions.timestamp || new Date(new Date(day).setHours(0,0,0,0)).getTime() === dayOptions.timestamp) {
                 Utilities.addClass(newDay, HelloWeek.cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
