@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+#### [2.1.0] - 2019-02-24
+**Added**
+- Option `daysSelected` set day/days selected [#13](https://github.com/mauroreisvieira/hello-week/issues/13).
+
+---
+
 #### [2.0.1] - 2019-02-24
 **Added**
 - Italian translation. Thanks [@roland-d](https://github.com/roland-d).
