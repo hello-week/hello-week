@@ -64,8 +64,9 @@ new HelloWeek({
     disablePastDays: false,
     disabledDaysOfWeek: null,
     disableDates: null,
-    weekStart: 0,
+    weekStart: 0, // week start on Sunday
     daysHighlight: null,
+    daysSelected: null,
     range: false,
     rtl: false,
     locked: false,
