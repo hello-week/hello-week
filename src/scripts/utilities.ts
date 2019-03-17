@@ -23,6 +23,18 @@ export class Utilities {
         return format;
     }
 
+
+    public static setToTimestamp(date?: string): number {
+        if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
+            throw new Error(`The date ${date} is not valid!`);
+        }
+
+        if (date || typeof date === 'string') {
+            return new Date(date + ' 00:00:00').getTime();
+        }
+        return new Date().setHours(0, 0, 0, 0);
+    }
+
     /**
      * Create HTML elements for Hello Week.
      * @param {string}      className

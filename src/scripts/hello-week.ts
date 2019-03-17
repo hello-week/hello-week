@@ -240,8 +240,7 @@ export class HelloWeek {
      * @public
      */
     private init(callback: CallbackFunction) {
-        this.todayDate = new Date();
-        this.todayDate = this.todayDate.setHours(0,0,0,0);
+        this.todayDate = Utilities.setToTimestamp();
         this.date = new Date();
         this.defaultDate = new Date();
         if (this.options.defaultDate) {
@@ -483,7 +482,7 @@ export class HelloWeek {
         }
 
         this.daysSelected.find( (day: number) => {
-            if (day === dayOptions.timestamp || new Date(new Date(day).setHours(0,0,0,0)).getTime() === dayOptions.timestamp) {
+            if (day === dayOptions.timestamp || Utilities.setToTimestamp(day.toString()) === dayOptions.timestamp) {
                 Utilities.addClass(newDay, HelloWeek.cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
@@ -518,14 +517,14 @@ export class HelloWeek {
     private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
-                if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) && dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
                     dayOptions.isLocked = true;
                 }
             });
         } else {
             this.options.disableDates.map((date: any) => {
-                if (dayOptions.timestamp === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
+                if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
                     dayOptions.isLocked = true;
                 }
@@ -543,13 +542,13 @@ export class HelloWeek {
         for (const key in this.daysHighlight) {
             if (this.daysHighlight[key].days[0] instanceof Array) {
                 this.daysHighlight[key].days.map((date: any, index: number) => {
-                    if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
+                    if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) && dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
                         this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             } else {
                 this.daysHighlight[key].days.map((date: any) => {
-                    if (new Date(new Date(dayOptions.timestamp).setHours(0,0,0,0)).getTime() === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
+                    if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
                         this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
