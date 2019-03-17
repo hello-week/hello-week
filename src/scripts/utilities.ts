@@ -23,7 +23,12 @@ export class Utilities {
         return format;
     }
 
-
+    /**
+     * Sets date to timestamp.
+     * @param      {string}
+     * @return     {number}
+     * @public
+     */
     public static setToTimestamp(date?: string): number {
         if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
             throw new Error(`The date ${date} is not valid!`);
