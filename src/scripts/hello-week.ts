@@ -518,14 +518,14 @@ export class HelloWeek {
     private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
-                if (dayOptions.timestamp >= +new Date(date[0]) && dayOptions.timestamp <= +new Date(date[1])) {
+                if (dayOptions.timestamp >= new Date(new Date(date[0]).setHours(0,0,0,0)).getTime() && dayOptions.timestamp <= new Date(new Date(date[1]).setHours(0,0,0,0)).getTime()) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
                     dayOptions.isLocked = true;
                 }
             });
         } else {
             this.options.disableDates.map((date: any) => {
-                if (dayOptions.timestamp === +new Date(date)) {
+                if (dayOptions.timestamp === new Date(new Date(date).setHours(0,0,0,0)).getTime()) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
                     dayOptions.isLocked = true;
                 }
