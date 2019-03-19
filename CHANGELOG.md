@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 #### [2.3.0] - 2019-03-19
 **Changed**
+- Fix issue [#20](https://github.com/mauroreisvieira/hello-week/issues/20) `setDaysHighlight()` method.
+---
+
+#### [2.2.0] - 2019-03-17
+**Changed**
 - Fix issue [#19](https://github.com/mauroreisvieira/hello-week/issues/19) `setDaysHighlight()` method.
 ---
 
