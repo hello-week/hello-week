@@ -61,6 +61,10 @@ export class Utilities {
         return elem;
     }
 
+    public static setDataAttr(el: HTMLElement, name: string, value: string) {
+        return el.setAttribute(name, value);
+    }
+
     public static setStyle(el: HTMLElement, prop: string, value: string) {
         return el.style.setProperty(prop, value);
     }

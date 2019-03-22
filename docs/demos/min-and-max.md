@@ -11,7 +11,7 @@ Restrict the range of selectable dates with the minDate and maxDate options. Set
 #### Javascript Initialization
 ```js
     new HelloWeek({
-        minDate: "2018-11-19",
-        maxDate: "2018-11-27"
+        minDate: "2010-01-01",
+        maxDate: "2019-12-12"
     });
 ```

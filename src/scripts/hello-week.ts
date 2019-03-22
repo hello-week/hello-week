@@ -174,7 +174,7 @@ export class HelloWeek {
     }
 
     /**
-     * Returns the highlight dates,´.
+     * Returns the highlight dates.
      * @return {object}
      * @public
      */
@@ -300,7 +300,7 @@ export class HelloWeek {
             return date.getTime();
         };
         while (currentDate <= endDate) {
-            dates.push(currentDate);
+            dates.push(Utilities.formatDate(currentDate, FORMAT_DATE.DEFAULT, this.langs));
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -343,7 +343,6 @@ export class HelloWeek {
                     this.intervalRange.end = undefined;
                     this.removeStatesClass();
                 }
-
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
                     this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
@@ -567,7 +566,9 @@ export class HelloWeek {
         Utilities.addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
         if (this.daysHighlight[key].title) {
             dayOptions.tile = this.daysHighlight[key].title;
+            Utilities.setDataAttr(newDay, 'data-title', this.daysHighlight[key].title);
         }
+
         if (this.daysHighlight[key].color) {
             Utilities.setStyle(newDay, 'color', this.daysHighlight[key].color);
         }
