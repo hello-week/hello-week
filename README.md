@@ -110,6 +110,6 @@ Input | Example | Description |
 
 ## License
 
-**Hello Week** is open-sourced software licensed under the \[MIT license\](http://opensource.org/licenses/MIT)
+**Hello Week** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
 Created with ♥️ by [@mauroreisvieira](https://twitter.com/mauroreisvieira) in **Portugal**
