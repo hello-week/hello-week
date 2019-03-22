@@ -1,4 +1,4 @@
-import { CSS_CLASSES, CSS_STATES, DAYS_WEEK } from './constants';
+import { CSS_CLASSES, CSS_STATES, DAYS_WEEK, FORMAT_DATE } from './constants';
 import { Utilities } from './utilities';
 
 type CallbackFunction = (...args: any[]) => void;
@@ -18,7 +18,7 @@ export class HelloWeek {
     private daysOfMonth: any;
     private intervalRange: any = {};
     private daysSelected: any = [];
-    private lastSelectedDay: string;
+    private lastSelectedDay: number;
     private days: any;
 
     /* @return enum {CSS_CLASSES} */
@@ -322,17 +322,17 @@ export class HelloWeek {
             if (!this.states.isRange) {
                 if (this.states.isMultiplePick) {
                     if (this.days[index].timestamp) {
-                        this.daysSelected = this.daysSelected.filter((day: string) => day !== this.lastSelectedDay);
+                        this.daysSelected = this.daysSelected.filter((day: string) => Utilities.setToTimestamp(day) !== this.lastSelectedDay);
                     }
                     if (!this.days[index].isSelected) {
-                        this.daysSelected.push(this.lastSelectedDay);
+                        this.daysSelected.push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
                     }
                 } else {
                     if (!this.days[index].isLocked) {
                         this.removeStatesClass();
                     }
                     this.daysSelected = [];
-                    this.daysSelected.push(this.lastSelectedDay);
+                    this.daysSelected.push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
                 }
             }
             Utilities.toggleClass(event.target, HelloWeek.cssStates.IS_SELECTED);

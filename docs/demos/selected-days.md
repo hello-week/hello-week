@@ -13,9 +13,12 @@ because you have multiple days selected, also need to have the option `multipleP
 
 #### Javascript Initialization
 ```js
-    new HelloWeek({
-        daysSelected: ['2019-02-26', '2019-03-01', '2019-03-02', '2019-03-03'],
-        multiplePick: true
+    const calendar = new HelloWeek({
+        daysSelected: ['2019-04-25', '2019-05-01', '2019-05-02', '2019-05-03'],
+        multiplePick: true,
+        onSelect: () => {
+            console.log(calendar.getDays());
+        }
     });
 ```
 

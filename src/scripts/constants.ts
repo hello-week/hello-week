@@ -11,6 +11,11 @@ export const CSS_CLASSES = {
 };
 
 /* @enum {string} */
+export const FORMAT_DATE = {
+    DEFAULT: 'YYYY-MM-DD',
+};
+
+/* @enum {string} */
 export const CSS_STATES = {
     IS_HIGHLIGHT: 'is-highlight',
     IS_SELECTED: 'is-selected',
