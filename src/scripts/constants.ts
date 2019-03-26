@@ -1,5 +1,6 @@
 /* @enum {string} */
 export const CSS_CLASSES = {
+    CALENDAR: 'hello-week',
     MONTH: 'month',
     DAY: 'day',
     WEEK: 'week',

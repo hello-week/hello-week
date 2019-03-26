@@ -5,7 +5,6 @@ coverage
 # Folder's
 demos/
 assets/
-src/
 
 # Build Tools
 .travis.yml

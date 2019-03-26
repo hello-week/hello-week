@@ -5,12 +5,13 @@ Locks all days in calendar.
 
 #### HTML Structure
 ```html
-    <div class="hello-week"></div>
+    <div class="calendar"></div>
 ```
 
 #### Javascript Initialization
 ```js
     new HelloWeek({
+        selector: '.calendar',
         locked: true
     });
 ```

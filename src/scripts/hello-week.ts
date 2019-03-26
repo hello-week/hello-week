@@ -45,6 +45,9 @@ export class HelloWeek {
             throw new Error('You need to specify a selector!');
         }
 
+        if (this.options.selector !== HelloWeek.cssClasses.CALENDAR) {
+            Utilities.addClass(this.selector, HelloWeek.cssClasses.CALENDAR);
+        }
         this.calendar.navigation = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION, this.selector);
         if (this.options.nav) {
             this.calendar.prevMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.calendar.navigation, this.options.nav[0]);
@@ -75,7 +78,6 @@ export class HelloWeek {
 
         if (this.daysSelected.length > 1 && !this.states.isMultiplePick) {
             throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is ${this.states.isMultiplePick}!`);
-            this.daysSelected = [];
         }
 
         Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
