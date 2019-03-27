@@ -109,3 +109,19 @@ Method toggle status of range.
 Method set calendar locked.
 
 ---
+
+
+#### setMinDate(date: String | Number)
+- **type**: `triggerable`
+
+Method set min date.
+
+---
+
+
+#### setMaxDate(date: String | Number)
+- **type**: `triggerable`
+
+Method set max date.
+
+---
