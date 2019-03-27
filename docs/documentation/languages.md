@@ -13,15 +13,6 @@ and if you changed the directory you only need to indicate the `langFolder` in H
 ```json
     {
         "days": [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday"
-        ],
-        "daysShort": [
             "Sun",
             "Mon",
             "Tue",
@@ -30,7 +21,7 @@ and if you changed the directory you only need to indicate the `langFolder` in H
             "Fri",
             "Sat"
         ],
-        "daysMin": [
+        "daysShort": [
             "Su",
             "Mo",
             "Tu",

@@ -21,11 +21,11 @@
     "node_modules"
   ],
   "scripts": {
-    "demos:build": "webpack --config ./demos/webpack.config.js --mode production",
-    "demos:watch": "webpack --config ./demos/webpack.config.js --watch --progress --mode development",
-    "watch": " webpack --watch --progress --mode development",
-    "start": "webpack-dev-server --mode development",
+    "build:demos": "webpack --config ./demos/webpack.config.js --mode production",
+    "dev:demos": "webpack --config ./demos/webpack.config.js --watch --progress --mode development",
     "build": "webpack",
+    "dev": "webpack --watch --progress --mode development",
+    "start": "webpack-dev-server --mode development",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
     "lint:scss": "stylelint src/**/*.scss",
     "test": "echo \"Warning: no test specified\" && exit 0"

@@ -238,6 +238,28 @@ export class HelloWeek {
     }
 
     /**
+     * Set min date.
+     * @param {string} date
+     * @public
+     */
+    public setMinDate(date: number | string) {
+        this.minDate = new Date(date);
+        this.minDate.setHours(0,0,0,0);
+        this.minDate.setDate(this.minDate.getDate() - 1);
+    }
+
+    /**
+     * Set max date.
+     * @param {string} date
+     * @public
+     */
+    public setMaxDate(date: number | string) {
+        this.maxDate = new Date(date);
+        this.maxDate.setHours(0,0,0,0);
+        this.maxDate.setDate(this.maxDate.getDate() + 1);
+    }
+
+    /**
      * @param {CallbackFunction} callback
      * @public
      */
@@ -253,15 +275,11 @@ export class HelloWeek {
         this.date.setDate(1);
 
         if (this.options.minDate) {
-            this.minDate = new Date(this.options.minDate);
-            this.minDate.setHours(0,0,0,0);
-            this.minDate.setDate(this.minDate.getDate() - 1);
+            this.setMinDate(this.options.minDate);
         }
 
         if (this.options.maxDate) {
-            this.maxDate = new Date(this.options.maxDate);
-            this.maxDate.setHours(0,0,0,0);
-            this.maxDate.setDate(this.maxDate.getDate() + 1);
+            this.setMaxDate(this.options.maxDate);
         }
 
         this.mounted();
@@ -270,7 +288,6 @@ export class HelloWeek {
             callback.call(this);
         }
     }
-
 
     /**
      * Select day
@@ -467,8 +484,8 @@ export class HelloWeek {
         if (this.states.isLocked
             || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
             || this.states.isDisablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
-            || this.options.minDate && (+this.minDate >= dayOptions.timestamp)
-            || this.options.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
+            || this.minDate && (+this.minDate >= dayOptions.timestamp)
+            || this.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
             Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
             dayOptions.isLocked = true;
         }

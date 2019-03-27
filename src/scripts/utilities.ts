@@ -108,7 +108,7 @@ export class Utilities {
             selector: '.hello-week',
             lang: 'en',
             langFolder: './dist/langs/',
-            format: 'DD/MM/YYYY', // 01/06/1990
+            format: 'DD/MM/YYYY',
             monthShort: false,
             weekShort: true,
             defaultDate: null,

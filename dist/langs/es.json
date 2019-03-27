@@ -1,14 +1,5 @@
 {
     "days": [
-        "Domingo",
-        "Lunes",
-        "Martes",
-        "Miércoles",
-        "Jueves",
-        "Viernes",
-        "Sábado"
-    ],
-    "daysShort": [
         "Dom",
         "Lun",
         "Mar",
@@ -17,7 +8,7 @@
         "Vie",
         "Sab"
     ],
-    "daysMin": [
+    "daysShort": [
         "Do",
         "Lu",
         "Ma",

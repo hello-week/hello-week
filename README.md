@@ -55,7 +55,7 @@ new HelloWeek({
     selector: '.hello-week',
     lang: 'en',
     langFolder: './dist/langs/',
-    format: 'dd/mm/yyyy',
+    format: 'DD/MM/YYYY',
     weekShort: true,
     monthShort: false,
     multiplePick: false,

@@ -16,10 +16,3 @@ Each key is the label for the range, and its value an array with all dates betwe
         range: true
     });
 ```
-
-#### Properties and Methods
-```js
-    const calendar = new HelloWeek({
-        range: true
-    });
-```
