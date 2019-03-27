@@ -12,14 +12,9 @@ Locks all days in calendar.
 ```js
     new HelloWeek({
         selector: '.calendar',
-        locked: true
+        locked: true,
+        onChange: () => {
+            calendar.setLocked(false);
+        }
     });
-```
-
-#### Properties and Methods
-```js
-    const calendar = new HelloWeek({
-        locked: true
-    });
-    calendar.setLocked(false);
 ```
