@@ -10,11 +10,12 @@ Locks all days in calendar.
 
 #### Javascript Initialization
 ```js
-    new HelloWeek({
+    const calendar = new HelloWeek({
         selector: '.calendar',
         locked: true,
-        onChange: () => {
+        onNavigation: () => {
             calendar.setLocked(false);
+            calendar.update();
         }
     });
 ```
