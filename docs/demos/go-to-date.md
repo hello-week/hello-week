@@ -5,13 +5,12 @@ Displays the calendar in right-to-left mode.
 
 #### HTML Structure
 ```html
+    <div class="hello-week"></div>
     <div class="textfield">
         <label class="textfield__label" for="">Choose date</label>
         <input type="text" class="textfield__input" value="2030-06-01" />
     </div>
     <button class="btn">Go to Date</button>
-    <br>
-    <div class="hello-week"></div>
 ```
 
 #### Javascript Initialization

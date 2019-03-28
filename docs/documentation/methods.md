@@ -22,7 +22,7 @@ Update and redraws the events for the current month.
 
 ---
 
-#### reset()
+#### reset(options: any = {}, callback?: Function)
 - **type**: `triggerable`
 
 Method reset calendar.
@@ -43,16 +43,17 @@ Method move the calendar to current day.
 
 ---
 
-#### goToDate(date: Number)
+#### goToDate(date: Number | String)
 - **type**: `triggerable`
 - date (optional):
   - Type: `Number`
-  - Default: the present date
+  - Default: the present date in **timestamps**
+  - Type: `String`
+  - Default: the present date in format **YYYY-MM-DD**
 
 Method move the calendar to arbitrary day.
 
 ---
-
 
 #### getDays()
 - **type**: `triggerable`

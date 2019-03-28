@@ -7,12 +7,9 @@ export class HelloWeek {
     private options: any;
     private selector: any;
     private calendar: any = {};
-    private states: any = {};
     private date: any;
     private todayDate: any;
     private daysHighlight: any;
-    private minDate: Date;
-    private maxDate: Date;
     private defaultDate: any;
     private langs: any;
     private daysOfMonth: any;
@@ -38,7 +35,9 @@ export class HelloWeek {
 
     constructor (options: any = {}) {
         this.options = Utilities.extend(options);
-        this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
+        this.selector = typeof this.options.selector === 'string' ?
+            document.querySelector(this.options.selector) :
+            this.options.selector;
 
         // early throw if selector doesn't exists
         if (this.selector === null) {
@@ -48,36 +47,27 @@ export class HelloWeek {
         if (this.options.selector !== HelloWeek.cssClasses.CALENDAR) {
             Utilities.addClass(this.selector, HelloWeek.cssClasses.CALENDAR);
         }
-        this.calendar.navigation = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION, this.selector);
+        this.calendar.navigation = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION,
+                this.selector);
         if (this.options.nav) {
-            this.calendar.prevMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV, this.calendar.navigation, this.options.nav[0]);
-            this.calendar.period = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD, this.calendar.navigation);
-            this.calendar.nextMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT, this.calendar.navigation, this.options.nav[1]);
-            this.calendar.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback function */ } ); });
-            this.calendar.nextMonth.addEventListener('click', () => { this.next( () => { /** callback function */ } ); });
+            this.calendar.prevMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV,
+                this.calendar.navigation, this.options.nav[0]);
+            this.calendar.period = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD,
+                this.calendar.navigation);
+            this.calendar.nextMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT,
+                this.calendar.navigation, this.options.nav[1]);
+            this.calendar.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback */ } ); });
+            this.calendar.nextMonth.addEventListener('click', () => { this.next( () => { /** callback */ } ); });
         } else {
-            this.calendar.period = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD, this.calendar.navigation);
+            this.calendar.period = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD,
+                this.calendar.navigation);
         }
         this.calendar.week = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
         this.calendar.month = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
 
-        this.states.isMultiplePick = this.options.multiplePick;
-        this.states.isDisablePastDays = this.options.disablePastDays;
-        this.states.isTodayHighlight = this.options.todayHighlight;
-        this.states.isRange = this.options.range;
-        this.states.isLocked = this.options.locked;
-        this.states.isRtl = this.options.rtl;
-
-        if (this.states.isRtl) {
+        if (this.options.rtl) {
             Utilities.addClass(this.calendar.week, HelloWeek.cssClasses.RTL);
             Utilities.addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
-        }
-
-        this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
-        this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
-
-        if (this.daysSelected.length > 1 && !this.states.isMultiplePick) {
-            throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is ${this.states.isMultiplePick}!`);
         }
 
         Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
@@ -140,8 +130,9 @@ export class HelloWeek {
      * Reset calendar
      * @public
      */
-    public reset(callback: CallbackFunction): void {
-        this.daysSelected = [];
+    public reset(options: any = {}, callback?: CallbackFunction): void {
+        this.clearCalendar();
+        this.options = Utilities.extend(options);
         this.init(callback);
     }
 
@@ -198,7 +189,7 @@ export class HelloWeek {
      * @public
      */
     public setMultiplePick(state: boolean) {
-        this.states.isMultiplePick = state;
+        this.options.multiplePick = state;
     }
 
     /**
@@ -207,7 +198,7 @@ export class HelloWeek {
      * @public
      */
     public setDisablePastDays(state: boolean) {
-        this.states.isDisablePastDays = state;
+        this.options.disablePastDays = state;
     }
 
     /**
@@ -216,7 +207,7 @@ export class HelloWeek {
      * @public
      */
     public setTodayHighlight(state: boolean) {
-        this.states.isTodayHighlight = state;
+        this.options.todayHighlight = state;
     }
 
     /**
@@ -225,7 +216,7 @@ export class HelloWeek {
      * @public
      */
     public setRange(state: boolean) {
-        this.states.isRange = state;
+        this.options.range = state;
     }
 
     /**
@@ -234,7 +225,7 @@ export class HelloWeek {
      * @public
      */
     public setLocked(state: boolean) {
-        this.states.isLocked = state;
+        this.options.locked = state;
     }
 
     /**
@@ -243,9 +234,9 @@ export class HelloWeek {
      * @public
      */
     public setMinDate(date: number | string) {
-        this.minDate = new Date(date);
-        this.minDate.setHours(0,0,0,0);
-        this.minDate.setDate(this.minDate.getDate() - 1);
+        this.options.minDate = new Date(date);
+        this.options.minDate.setHours(0,0,0,0);
+        this.options.minDate.setDate(this.options.minDate.getDate() - 1);
     }
 
     /**
@@ -254,9 +245,9 @@ export class HelloWeek {
      * @public
      */
     public setMaxDate(date: number | string) {
-        this.maxDate = new Date(date);
-        this.maxDate.setHours(0,0,0,0);
-        this.maxDate.setDate(this.maxDate.getDate() + 1);
+        this.options.maxDate = new Date(date);
+        this.options.maxDate.setHours(0,0,0,0);
+        this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     }
 
     /**
@@ -264,9 +255,18 @@ export class HelloWeek {
      * @public
      */
     private init(callback: CallbackFunction) {
+        this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
+        this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
+
+        if (this.daysSelected.length > 1 && !this.options.multiplePick) {
+            throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option
+                is ${this.options.multiplePick}!`);
+        }
+
         this.todayDate = Utilities.setToTimestamp();
         this.date = new Date();
         this.defaultDate = new Date();
+
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
             this.defaultDate = new Date(this.options.defaultDate);
@@ -295,10 +295,11 @@ export class HelloWeek {
      * @private
      */
     private selectDay(callback: CallbackFunction): void {
-        this.daysOfMonth = this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
+        this.daysOfMonth =
+            this.selector.querySelectorAll('.' + HelloWeek.cssClasses.MONTH + ' .' + HelloWeek.cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
             this.handleClickInteraction(this.daysOfMonth[i], callback);
-            if (this.states.isRange) {
+            if (this.options.range) {
                 this.handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
@@ -333,21 +334,23 @@ export class HelloWeek {
     private handleClickInteraction(target: HTMLElement, callback: CallbackFunction): void {
         target.addEventListener('click', (event: any) => {
             const index = Utilities.getIndexForEventTarget(this.daysOfMonth, event.target);
-            if (this.days[index].isLocked) {
+            if (this.days[index].locked) {
                 return;
             }
 
             this.lastSelectedDay = this.days[index].timestamp;
-            if (!this.states.isRange) {
-                if (this.states.isMultiplePick) {
+            if (!this.options.range) {
+                if (this.options.multiplePick) {
                     if (this.days[index].timestamp) {
-                        this.daysSelected = this.daysSelected.filter((day: string) => Utilities.setToTimestamp(day) !== this.lastSelectedDay);
+                        this.daysSelected = this.daysSelected
+                            .filter((day: string) => Utilities.setToTimestamp(day) !== this.lastSelectedDay);
                     }
                     if (!this.days[index].isSelected) {
-                        this.daysSelected.push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
+                        this.daysSelected
+                            .push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
                     }
                 } else {
-                    if (!this.days[index].isLocked) {
+                    if (!this.days[index].locked) {
                         this.removeStatesClass();
                     }
                     this.daysSelected = [];
@@ -356,7 +359,7 @@ export class HelloWeek {
             }
             Utilities.toggleClass(event.target, HelloWeek.cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
-            if (this.states.isRange) {
+            if (this.options.range) {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange.begin = undefined;
                     this.intervalRange.end = undefined;
@@ -401,10 +404,11 @@ export class HelloWeek {
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
                 if (this.days[index].timestamp >= this.intervalRange.begin) {
-                    if (this.days[i].isLocked) {
+                    if (this.days[i].locked) {
                         return;
                     }
-                    if (this.days[i].timestamp >= this.intervalRange.begin && this.days[i].timestamp <= this.days[index].timestamp) {
+                    if (this.days[i].timestamp >= this.intervalRange.begin &&
+                            this.days[i].timestamp <= this.days[index].timestamp) {
                         this.days[i].isSelected = true;
                         Utilities.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
                         if (this.days[i].timestamp === this.intervalRange.begin) {
@@ -454,7 +458,7 @@ export class HelloWeek {
             day: num,
             timestamp: new Date(this.date).setHours(0,0,0,0),
             isWeekend: false,
-            isLocked: false,
+            locked: false,
             isToday: false,
             isSelected: false,
             isHighlight: false,
@@ -467,12 +471,16 @@ export class HelloWeek {
 
         if (dayOptions.day === 1) {
             if (this.options.weekStart === HelloWeek.daysWeek.SUNDAY) {
-                Utilities.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                Utilities.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left',
+                    ((day) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
             } else {
                 if (day === HelloWeek.daysWeek.SUNDAY) {
-                    Utilities.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utilities.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left',
+                        ((Object.keys(HelloWeek.daysWeek).length - this.options.weekStart) *
+                            (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 } else {
-                    Utilities.setStyle(newDay, this.states.isRtl ? 'margin-right' : 'margin-left', ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
+                    Utilities.setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left',
+                        ((day - 1) * (100 / Object.keys(HelloWeek.daysWeek).length)) + '%');
                 }
             }
         }
@@ -481,20 +489,20 @@ export class HelloWeek {
             Utilities.addClass(newDay, HelloWeek.cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.states.isLocked
+        if (this.options.locked
             || this.options.disabledDaysOfWeek && this.options.disabledDaysOfWeek.includes(day)
-            || this.states.isDisablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
-            || this.minDate && (+this.minDate >= dayOptions.timestamp)
-            || this.maxDate && (+this.maxDate <= dayOptions.timestamp)) {
+            || this.options.disablePastDays && +this.date.setHours(0,0,0,0) <= +this.defaultDate.setHours(0,0,0,0) - 1
+            || this.options.minDate && (+this.options.minDate >= dayOptions.timestamp)
+            || this.options.maxDate && (+this.options.maxDate <= dayOptions.timestamp)) {
             Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-            dayOptions.isLocked = true;
+            dayOptions.locked = true;
         }
 
         if (this.options.disableDates) {
             this.setDaysDisable(newDay, dayOptions);
         }
 
-        if (this.todayDate === dayOptions.timestamp && this.states.isTodayHighlight) {
+        if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
             Utilities.addClass(newDay, HelloWeek.cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
@@ -535,16 +543,17 @@ export class HelloWeek {
     private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
-                if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) && dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
+                if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) &&
+                    dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-                    dayOptions.isLocked = true;
+                    dayOptions.locked = true;
                 }
             });
         } else {
             this.options.disableDates.map((date: any) => {
                 if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
                     Utilities.addClass(newDay, HelloWeek.cssStates.IS_DISABLED);
-                    dayOptions.isLocked = true;
+                    dayOptions.locked = true;
                 }
             });
         }
@@ -560,7 +569,8 @@ export class HelloWeek {
         for (const key in this.daysHighlight) {
             if (this.daysHighlight[key].days[0] instanceof Array) {
                 this.daysHighlight[key].days.map((date: any, index: number) => {
-                    if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) && dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
+                    if (dayOptions.timestamp >=Utilities.setToTimestamp(date[0]) &&
+                        dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
                         this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
