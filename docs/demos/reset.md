@@ -12,15 +12,16 @@ Method reset calendar to initial value.
 #### Javascript Initialization
 ```js
     const calendar = new HelloWeek({
-        onLoad: () => {
-            calendar.setMinDate('2019-03-10');
-            calendar.setMaxDate('2019-03-28');
-            calendar.update();
+        minDate: '2019-03-10',
+        maxDate: '2019-03-28',
+        onNavigation: () => {
+            console.log('You change the month!');
         }
     });
     document.querySelector('.btn').addEventListener('click', () => {
         calendar.reset({
-            minDate: '2019-03-10'
+            minDate: false,
+            maxDate: false
         });
     });
 ```

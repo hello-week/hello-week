@@ -4,6 +4,7 @@ import { Utilities } from './utilities';
 type CallbackFunction = (...args: any[]) => void;
 
 export class HelloWeek {
+    private static initOptions: any;
     private options: any;
     private selector: any;
     private calendar: any = {};
@@ -35,6 +36,7 @@ export class HelloWeek {
 
     constructor (options: any = {}) {
         this.options = Utilities.extend(options);
+        HelloWeek.initOptions = (<any>Object).assign({}, Utilities.extend(options));
         this.selector = typeof this.options.selector === 'string' ?
             document.querySelector(this.options.selector) :
             this.options.selector;
@@ -132,7 +134,7 @@ export class HelloWeek {
      */
     public reset(options: any = {}, callback?: CallbackFunction): void {
         this.clearCalendar();
-        this.options = Utilities.extend(options);
+        this.options = Utilities.extend(options, HelloWeek.initOptions);
         this.init(callback);
     }
 
@@ -164,6 +166,15 @@ export class HelloWeek {
      */
     public getDays(): any {
         return this.daysSelected.map((day: number) => Utilities.formatDate(day, this.options.format, this.langs));
+    }
+
+    /**
+     * Gets the day selected.
+     * @return {number}
+     * @public
+     */
+    public getDaySelected(): number {
+        return this.lastSelectedDay;
     }
 
     /**

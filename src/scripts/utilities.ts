@@ -103,8 +103,8 @@ export class Utilities {
         return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
     }
 
-    public static extend(options: CallbackFunction): object {
-        const settings: any = {
+    public static extend(options: CallbackFunction, configurations?: any): object {
+        const settings = configurations ? configurations : {
             selector: '.hello-week',
             lang: 'en',
             langFolder: './dist/langs/',
@@ -132,11 +132,6 @@ export class Utilities {
             onClear: () => { /** callback function */ },
         };
 
-        const defaultSettings = <any>options;
-        for (const i of Object.keys(defaultSettings)) {
-            settings[i] = defaultSettings[i];
-        }
-
-        return settings;
+        return (<any>Object).assign(settings, options);
     }
 }
