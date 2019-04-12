@@ -2,127 +2,127 @@
 **Hello Week** has some methods that allow gives you the ability to manipulate.
 
 #### prev()
-- **type**: `triggerable`
-
 Method to change the month to the previous, also you can send a callback function like a parameter.
+
+> **type**: `triggerable`
 
 ---
 
 #### next()
-- **type**: `triggerable`
-
 Method to change the month to the next, also you can send a callback function like a parameter.
+
+> **type**: `triggerable`
 
 ---
 
 #### update()
-- **type**: `triggerable`
-
 Update and redraws the events for the current month.
+
+> **type**: `triggerable`
 
 ---
 
 #### reset(options: any = {}, callback?: Function)
-- **type**: `triggerable`
-
 Method reset calendar.
+
+> **type**: `triggerable`
 
 ---
 
 #### destroy()
-- **type**: `triggerable`
-
 Method destroy the calendar and remove the instance from the target element.
+
+> **type**: `triggerable`
 
 ---
 
 #### goToday()
-- **type**: `triggerable`
-
 Method move the calendar to current day.
+
+> **type**: `triggerable`
 
 ---
 
 #### goToDate(date: Number | String)
-- **type**: `triggerable`
-- date (optional):
-  - Type: `Number`
-  - Default: the present date in **timestamps**
-  - Type: `String`
-  - Default: the present date in format **YYYY-MM-DD**
-
 Method move the calendar to arbitrary day.
+
+> **type**: `triggerable`
+> date (optional):
+>  - **type**: `Number`
+>  - **default**: the present date in **timestamps**
+>  - **type**: `String`
+>  - **default**: the present date in format **YYYY-MM-DD**
 
 ---
 
 #### getDays()
-- **type**: `triggerable`
-
 Method returns the selected days with the format specified.
+
+> **type**: `triggerable`
 
 ---
 
 #### getDaysHighlight()
-- **type**: `triggerable`
-
 Method returns the highlight dates.
+
+> **type**: `triggerable`
 
 ---
 
 #### setDaysHighlight(daysHighlight: any)
-- **type**: `triggerable`
-
 Method set highlight dates.
+
+> **type**: `triggerable`
 
 ---
 
 #### setMultiplePick(state: Boolean)
-- **type**: `triggerable`
-
 Method set calendar with multiple pick.
+
+> **type**: `triggerable`
 
 ---
 
 #### setDisablePastDays(state: Boolean)
-- **type**: `triggerable`
-
 Method set calendar with disable past days.
+
+> **type**: `triggerable`
 
 ---
 
 #### setTodayHighlight(state: Boolean)
-- **type**: `triggerable`
-
 Method sets calendar with today highlight.
+
+> **type**: `triggerable`
 
 ---
 
 #### setRange(state: Boolean)
-- **type**: `triggerable`
-
 Method toggle status of range.
+
+> **type**: `triggerable`
 
 ---
 
 #### setLocked(state: Boolean)
-- **type**: `triggerable`
-
 Method set calendar locked.
+
+> **type**: `triggerable`
 
 ---
 
 
 #### setMinDate(date: String | Number)
-- **type**: `triggerable`
-
 Method set min date.
+
+> **type**: `triggerable`
 
 ---
 
 
 #### setMaxDate(date: String | Number)
-- **type**: `triggerable`
-
 Method set max date.
+
+> **type**: `triggerable`
 
 ---

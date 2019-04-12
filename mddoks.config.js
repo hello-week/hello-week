@@ -17,7 +17,7 @@ const config = {
     */
     theme: {
         appName: "Hello Week",
-        appLogo: "assets/images/logo.png",
+        appLogo: false,
         version: true,
         search: false
     },
@@ -56,7 +56,7 @@ const config = {
     */
     router: [
 {
-            name: "Get Started",
+            name: "API",
             isVisible: true,
             menus: [
                 {
@@ -92,6 +92,60 @@ const config = {
                 {
                     url: "/docs/demos/disabled-dates",
                     title: "Disabled Dates"
+                },
+                {
+                    url: "/docs/demos/disabled-days-week",
+                    title: "Disabled Days Week"
+                },
+                {
+                    url: "/docs/demos/go-to-date",
+                    title: "Go to Date"
+                },
+                {
+                    url: "/docs/demos/highlight-dates",
+                    title: "Dates Highlight"
+                },
+                {
+                    url: "/docs/demos/locked",
+                    title: "Locked"
+                },
+                {
+                    url: "/docs/demos/min-and-max",
+                    title: "Min and Max"
+                },
+                {
+                    url: "/docs/demos/range",
+                    title: "Range"
+                },
+                {
+                    url: "/docs/demos/reset",
+                    title: "Reset"
+                },
+                {
+                    url: "/docs/demos/retrieve-clicked-date",
+                    title: "Retrieve Clicked Date"
+                },
+                {
+                    url: "/docs/demos/rtl",
+                    title: "RTL"
+                },
+                {
+                    url: "/docs/demos/selected-days",
+                    title: "Selected Days"
+                }
+            ]
+        },
+        {
+            name: "Support",
+            isVisible: true,
+            menus: [
+                {
+                    url: "/CONTRIBUTING",
+                    title: "Contributing"
+                },
+                {
+                    url: "/CHANGELOG",
+                    title: "Changelog"
                 }
             ]
         }

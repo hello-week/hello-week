@@ -1,10 +1,10 @@
 ![Stewed](assets/images/helloweek.png)
 
-[![npm](https://img.shields.io/npm/v/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
-[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
-![David](https://img.shields.io/david/mauroreisvieira/hello-week.svg?style=flat-square)
-[![Build Status](https://travis-ci.org/mauroreisvieira/hello-week.svg?branch=master&style=flat-square)](https://travis-ci.org/mauroreisvieira/hello-week)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
+
+[![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
+[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
+[![GitHub issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
 
 
 ## Quick start
@@ -80,18 +80,6 @@ new HelloWeek({
 });
 ```
 
-### Date Format
-
-Input | Example | Description |
---- | --- | ---|
-`dd` | `1..31` | Day of the month without leading zeros.
-`DD` | `01..31` | Day of the month, 2 digits with leading zeros.
-`mm` | `1..12` | Numeric representation of a month, without leading zeros
-`MM` | `01..12` | Month number, with leading zeros.
-`mmm` | `Jan..Dec` | Month name with short textual representation.
-`MMM` | `January..December` | A full textual representation of a month.
-`yyyy` or `YYYY` | `2018` | A full numeric representation of a year, 4 digits.
-`yy` or `YY` | `18` |   A two digit representation of a year.
 
 ### Useful links
 
@@ -108,8 +96,6 @@ Input | Example | Description |
 - Edge 17
 - iOS Safari 6.0
 
-## License
+### License
 
 **Hello Week** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-
-Created with ♥️ by [@mauroreisvieira](https://twitter.com/mauroreisvieira) in **Portugal**
