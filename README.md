@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/images/helloweek.png" width="360"/></p>
+![Stewed](assets/images/helloweek.png)
 
 [![npm](https://img.shields.io/npm/v/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
 [![npm](https://img.shields.io/npm/dt/hello-week.svg?style=flat-square)](https://www.npmjs.com/package/hello-week)
