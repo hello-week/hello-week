@@ -55,7 +55,7 @@ const config = {
     |
     */
     router: [
-        {
+{
             name: "Get Started",
             isVisible: true,
             menus: [
@@ -82,6 +82,16 @@ const config = {
                 {
                     url: "/docs/languages",
                     title: "Languages"
+                }
+            ]
+        },
+        {
+            name: "Demos",
+            isVisible: true,
+            menus: [
+                {
+                    url: "/docs/demos/disabled-dates",
+                    title: "Disabled Dates"
                 }
             ]
         }
