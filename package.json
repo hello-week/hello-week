@@ -21,8 +21,6 @@
     "node_modules"
   ],
   "scripts": {
-    "build:demos": "webpack --config ./demos/webpack.config.js --mode production",
-    "dev:demos": "webpack --config ./demos/webpack.config.js --watch --progress --mode development",
     "build": "webpack",
     "dev": "webpack --watch --progress --mode development",
     "start": "webpack-dev-server --mode development",
