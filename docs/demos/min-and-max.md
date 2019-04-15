@@ -13,7 +13,7 @@ Restrict the range of selectable dates with the minDate and maxDate options. Set
 
 #### Javascript Initialization
 ```js
-const to = new HelloWeek({
+let to = new HelloWeek({
     selector: '.to',
     todayHighlight: false,
     onSelect: () => {
@@ -22,7 +22,7 @@ const to = new HelloWeek({
     }
 });
 
-const from = new HelloWeek({
+let from = new HelloWeek({
     selector: '.from',
     todayHighlight: false,
     onSelect: () => {

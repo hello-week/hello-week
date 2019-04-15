@@ -10,7 +10,7 @@ Locks all days in calendar.
 
 #### Javascript Initialization
 ```js
-const calendar = new HelloWeek({
+let calendar = new HelloWeek({
     selector: '.calendar',
     locked: true,
     onNavigation: () => {

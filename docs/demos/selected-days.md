@@ -13,7 +13,7 @@ because you have multiple days selected, also need to have the option `multipleP
 
 #### Javascript Initialization
 ```js
-const calendar = new HelloWeek({
+let calendar = new HelloWeek({
     daysSelected: ['2019-04-25', '2019-05-01', '2019-05-02', '2019-05-03'],
     multiplePick: true,
     onSelect: () => {

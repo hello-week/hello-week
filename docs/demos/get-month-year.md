@@ -10,7 +10,7 @@ _TODO_
 
 #### Javascript Initialization
 ```js
-const calendar = new HelloWeek({
+let calendar = new HelloWeek({
     onNavigation: () => {
         console.log('Current Month: ', calendar.getMonth());
         console.log('Current Year: ', calendar.getYear());

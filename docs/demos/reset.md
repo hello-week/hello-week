@@ -11,7 +11,7 @@ Method reset calendar to initial value.
 
 #### Javascript Initialization
 ```js
-const calendar = new HelloWeek({
+let calendar = new HelloWeek({
     minDate: '2019-03-10',
     maxDate: '2019-03-28',
     onNavigation: () => {

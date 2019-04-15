@@ -10,7 +10,7 @@ This demonstrates how to retrieve the clicked date or dates.
 
 #### Javascript Initialization
 ```js
-const calendar = new HelloWeek({
+let calendar = new HelloWeek({
     onSelect: () => {
         console.log(calendar.getDays());
         /** Add your code to handle the days here */

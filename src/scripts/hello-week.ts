@@ -192,7 +192,7 @@ export class HelloWeek {
      * @public
      */
     public getMonth(): string {
-        return this.date.getMonth();
+        return this.date.getMonth() + 1;
     }
 
     /**
@@ -464,8 +464,8 @@ export class HelloWeek {
      * @private
      */
     private createMonth(): void {
-        while (this.date.getMonth() === this.getMonth()) {
-
+        const currentMonth = this.date.getMonth();
+        while (this.date.getMonth() === currentMonth) {
             this.createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);
         }
