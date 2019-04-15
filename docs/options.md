@@ -7,7 +7,6 @@ Define selector to use as a datepicker.
 > **type**: `String`\
 > **default**: `.hello-week`
 
-
 ---
 
 #### lang
@@ -15,7 +14,6 @@ Determines which translation file will be read.
 
 > **type**: `String`\
 > **default**: `en`
-
 
 ---
 
@@ -25,7 +23,6 @@ Determines folder path of your langs.
 > **type**: `String`\
 > **default**: `./dist/langs/`
 
-
 ---
 
 #### format
@@ -33,7 +30,6 @@ The format also determines which components are displayed.
 
 > **type**:  `String`\
 > **default**: `dd/mm/yyyy`
-
 
 ---
 
@@ -43,7 +39,6 @@ Sets the format of the week.
 > **type**: `Boolean`\
 > **default**: `true`
 
-
 ---
 
 #### monthShort
@@ -51,7 +46,6 @@ Sets the format of the month.
 
 > **type**: `Boolean`\
 > **default**: `false`
-
 
 ---
 
@@ -61,7 +55,6 @@ Allows multiple days selection.
 > **type**: `Boolean`\
 > **default**: `false`
 
-
 ---
 
 #### **default**Date
@@ -69,7 +62,6 @@ Define the start date in calendar.
 
 > **type**: `String`\
 > **default**: `null`
-
 
 ---
 
@@ -79,7 +71,6 @@ Highlights the current date.
 > **type**: `Boolean`\
 > **default**: `true`
 
-
 ---
 
 #### disablePastDays
@@ -87,7 +78,6 @@ Disable date before the current day.
 
 > **type**: `Boolean`\
 > **default**: `false`
-
 
 ---
 
@@ -98,7 +88,6 @@ Multiple values should be comma-separated.
 > **type**: `Array`\
 > **default**: `null`
 
-
 ---
 
 #### disableDates
@@ -106,7 +95,6 @@ Array of date strings or a single date string to make days disabled.
 
 > **type**: `Array`\
 > **default**: `null`
-
 
 ---
 
@@ -116,7 +104,6 @@ Array of date strings or a single date string to make days with highlight.
 > **type**: `Array`\
 > **default**: `null`
 
-
 ---
 
 #### daysSelected
@@ -124,7 +111,6 @@ Array of strings with day/days to make selected.
 
 > **type**: `Array`\
 > **default**: `null`
-
 
 ---
 
@@ -134,7 +120,6 @@ Allows you to select array range of days.
 > **type**: `Boolean`\
 > **default**: `false`
 
-
 ---
 
 #### rtl
@@ -142,7 +127,6 @@ Allows layout for languages written from right to left (like Hebrew or Arabic).
 
 > **type**: `Boolean`\
 > **default**: `false`
-
 
 ---
 
@@ -152,7 +136,6 @@ Sets all days of the week locked.
 > **type**: `Boolean`\
 > **default**: `false`
 
-
 ---
 
 #### weekStart
@@ -160,7 +143,6 @@ Day of the week start. 0 (Sunday) to 6 (Saturday).
 
 > **type**: `Integer`\
 > **default**: 0
-
 
 ---
 
@@ -170,7 +152,6 @@ Disable date selections before this date. When set to null, there is no minimum.
 > **type**: `Number` or `String`\
 > **default**: `null`
 
-
 ---
 
 #### maxDate
@@ -178,7 +159,6 @@ Disable date selections after this date. When set to null, there is no maximum.
 
 > **type**: `Number` or `String`\
 > **default**: `null`
-
 
 ---
 

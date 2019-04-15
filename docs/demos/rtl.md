@@ -10,7 +10,7 @@ Displays the calendar in right-to-left mode.
 
 #### Javascript Initialization
 ```js
-    new HelloWeek({
-        rtl: true
-    });
+new HelloWeek({
+    rtl: true
+});
 ```

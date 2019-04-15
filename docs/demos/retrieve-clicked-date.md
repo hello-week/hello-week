@@ -10,12 +10,12 @@ This demonstrates how to retrieve the clicked date or dates.
 
 #### Javascript Initialization
 ```js
-	const calendar = new HelloWeek({
-        onSelect: () => {
-            console.log(calendar.getDays());
-            /** Add your code to handle the days here */
-        }
-    });
+const calendar = new HelloWeek({
+    onSelect: () => {
+        console.log(calendar.getDays());
+        /** Add your code to handle the days here */
+    }
+});
 ```
 
 Whenever a user clicks on a date in the calendar, the selected day(s) are returned as an array. The

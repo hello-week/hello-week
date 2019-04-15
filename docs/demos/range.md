@@ -7,12 +7,12 @@ Each key is the label for the range, and its value an array with all dates betwe
 
 #### HTML Structure
 ```html
-    <div class="hello-week"></div>
+<div class="hello-week"></div>
 ```
 
 #### Javascript Initialization
 ```js
-    new HelloWeek({
-        range: true
-    });
+new HelloWeek({
+    range: true
+});
 ```

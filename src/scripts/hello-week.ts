@@ -187,6 +187,24 @@ export class HelloWeek {
     }
 
     /**
+     * Returns the current month selected.
+     * @return {string}
+     * @public
+     */
+    public getMonth(): string {
+        return this.date.getMonth();
+    }
+
+    /**
+     * Returns the current year selected.
+     * @return {string}
+     * @public
+     */
+    public getYear(): string {
+        return this.date.getFullYear();
+    }
+
+    /**
      * Set highlight dates,
      * @public
      */
@@ -446,8 +464,7 @@ export class HelloWeek {
      * @private
      */
     private createMonth(): void {
-        const currentMonth = this.date.getMonth();
-        while (this.date.getMonth() === currentMonth) {
+        while (this.date.getMonth() === this.getMonth()) {
 
             this.createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);

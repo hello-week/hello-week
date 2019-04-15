@@ -102,6 +102,10 @@ const config = {
                     title: "Go to Date"
                 },
                 {
+                    url: "/docs/demos/get-month-year",
+                    title: "Get Month and Year"
+                },
+                {
                     url: "/docs/demos/highlight-dates",
                     title: "Dates Highlight"
                 },
