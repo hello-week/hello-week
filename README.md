@@ -1,4 +1,4 @@
-![Stewed](assets/images/helloweek.png)
+![Hello Week](assets/images/helloweek.png)
 
 
 [![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
