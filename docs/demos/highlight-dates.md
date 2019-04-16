@@ -10,7 +10,7 @@ Set day/days highlight, with different customizes.
 
 #### Javascript Initialization
 ```js
-let calendar = new HelloWeek({
+var calendar = new HelloWeek({
     daysHighlight: [
         {
             days: ['2019-03-22'],
