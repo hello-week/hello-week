@@ -706,3 +706,5 @@ export namespace MyModule {
 }
 
 (<any>window).HelloWeek = MyModule.HelloWeek;
+
+export default HelloWeek;
