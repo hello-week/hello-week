@@ -21,12 +21,9 @@ Once node is installed, simply clone our repository (or your fork of it) and run
 
 ```bash
   $ yarn run watch # Listen changes and Hello Week.
-  $ yarn run demos:start # Run the files in demos folder.
-  $ yarn run demos:watch # Listen changes inside demos folder.
+  $ yarn run start # Run the files in demos folder.
   $ open http://localhost:8082/# # Open the browser to see the demos.
 ```
-
-`yarn run demos:start` runs a webpack-dev-server instance that uses demos/ as its content base.
 
 This should aid you in initial development of a component. It's served on port 8080.
 
@@ -34,7 +31,6 @@ This should aid you in initial development of a component. It's served on port 8
 
 ```bash
   $ yarn run build # Cleans out build/ and builds.
-  $ yarn run demos:build # Cleans out build/ and builds demo CSS/JS.
 ```
 
 #### Linting / Testing

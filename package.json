@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "webpack",
-    "dev": "webpack --watch --progress --mode development",
+    "watch": "webpack --watch --progress --mode development",
     "start": "webpack-dev-server --mode development",
     "lint:ts": "./node_modules/.bin/tslint -c tslint.json -p ./",
     "lint:scss": "stylelint src/**/*.scss",

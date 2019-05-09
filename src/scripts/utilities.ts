@@ -35,7 +35,7 @@ export class Utilities {
         }
 
         if (date || typeof date === 'string') {
-            return new Date(date + ' 00:00:00').getTime();
+            return new Date(date + 'T00:00:00Z').getTime();
         }
         return new Date().setHours(0, 0, 0, 0);
     }

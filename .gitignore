@@ -1,10 +1,21 @@
-# Struct
-node_modules
-package-lock.json
+# macOS filesystem
 .DS_Store
-*.log*
-dist/css/*.js
+Thumbs.db
 
-# Editor
-*.sublime-project
-*.sublime-workspace
+# Editors and IDEs
+*.sublime-*
+*.code-workspace
+.vscode/
+.idea/
+
+# Generated folders
+node_modules/
+
+# Generated files
+package-lock.json
+npm-debug
+yarn.lock
+yarn-error.log
+
+# Dist
+dist/css/*.js
