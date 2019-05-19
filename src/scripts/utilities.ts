@@ -8,7 +8,7 @@ export class Utilities {
      * @return     {string}
      * @public
      */
-    public static formatDate(timestamp: number, format: string, langs: any): string {
+    public static timestampToHuman(timestamp: number, format: string, langs: any): string {
         const dt = new Date(timestamp);
         format = format.replace('dd', dt.getDate().toString());
         format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
@@ -21,6 +21,10 @@ export class Utilities {
         format = format.replace('YY', (dt.getFullYear().toString()).substring(2));
         format = format.replace('yy', (dt.getFullYear().toString()).substring(2));
         return format;
+    }
+
+    public static formatDate(day: number, month: number, year: number): string {
+        return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + (day)).slice(-2)}`;
     }
 
     /**

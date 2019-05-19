@@ -49,8 +49,10 @@ export class HelloWeek {
         if (this.options.selector !== HelloWeek.cssClasses.CALENDAR) {
             Utilities.addClass(this.selector, HelloWeek.cssClasses.CALENDAR);
         }
+
         this.calendar.navigation = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.NAVIGATION,
                 this.selector);
+
         if (this.options.nav) {
             this.calendar.prevMonth = Utilities.creatHTMLElement(this.selector, HelloWeek.cssClasses.PREV,
                 this.calendar.navigation, this.options.nav[0]);
@@ -165,7 +167,8 @@ export class HelloWeek {
      * @public
      */
     public getDays(): any {
-        return this.daysSelected.map((day: number) => Utilities.formatDate(day, this.options.format, this.langs));
+        return this.daysSelected.map((day: number) =>
+            Utilities.timestampToHuman(day, this.options.format, this.langs));
     }
 
     /**
@@ -349,7 +352,7 @@ export class HelloWeek {
             return date.getTime();
         };
         while (currentDate <= endDate) {
-            dates.push(Utilities.formatDate(currentDate, FORMAT_DATE.DEFAULT, this.langs));
+            dates.push(Utilities.timestampToHuman(currentDate, FORMAT_DATE.DEFAULT, this.langs));
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -376,14 +379,14 @@ export class HelloWeek {
                     }
                     if (!this.days[index].isSelected) {
                         this.daysSelected
-                            .push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
+                            .push(Utilities.timestampToHuman(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
                     }
                 } else {
                     if (!this.days[index].locked) {
                         this.removeStatesClass();
                     }
                     this.daysSelected = [];
-                    this.daysSelected.push(Utilities.formatDate(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
+                    this.daysSelected.push(Utilities.timestampToHuman(this.lastSelectedDay, FORMAT_DATE.DEFAULT, this.langs));
                 }
             }
             Utilities.toggleClass(event.target, HelloWeek.cssStates.IS_SELECTED);
@@ -484,7 +487,7 @@ export class HelloWeek {
         const newDay = <any>document.createElement('div');
         const dayOptions = {
             day: num,
-            timestamp: new Date(this.date).setHours(0,0,0,0),
+            timestamp: Utilities.setToTimestamp(Utilities.formatDate(date.getDate(), date.getMonth(), date.getFullYear())),
             isWeekend: false,
             locked: false,
             isToday: false,
