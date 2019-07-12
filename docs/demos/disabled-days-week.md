@@ -11,7 +11,7 @@ Set disabled specific days of week.
 #### Javascript Initialization
 ```js
 new HelloWeek({
-    disabledDaysOfWeek: [0, 1] // disabling weekends
+    disableDaysOfWeek: [0, 1] // disabling weekends
 });
 ```
 

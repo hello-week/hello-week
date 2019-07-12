@@ -81,7 +81,7 @@ Disable date before the current day.
 
 ---
 
-#### disabledDaysOfWeek
+#### disableDaysOfWeek
 Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).\
 Multiple values should be comma-separated.
 
