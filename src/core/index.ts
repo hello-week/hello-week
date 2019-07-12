@@ -1,17 +1,7 @@
 import { formatDate } from 'format';
 import { setToTimestamp, timestampToHuman } from 'timestamp';
-import {
-    addClass,
-    creatHTMLElement,
-    extend,
-    getIndexForEventTarget,
-    readFile,
-    removeClass,
-    setDataAttr,
-    setStyle,
-
-    toggleClass,
-} from '../shared/util';
+import { addClass, creatElement, removeClass, setAttr, setStyle, toggleClass } from '../component/element';
+import { extend, getIndexForEventTarget, readFile } from '../shared/util';
 import { CSS_CLASSES, CSS_STATES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
 type CallbackFunction = (...args: any[]) => void;
@@ -63,32 +53,33 @@ export class HelloWeek {
             addClass(this.selector, HelloWeek.cssClasses.CALENDAR);
         }
 
-        this.calendar.navigation = creatHTMLElement(
+        this.calendar.navigation = creatElement(
                 this.selector,
                 HelloWeek.cssClasses.NAVIGATION,
                 this.selector);
 
         if (this.options.nav) {
-            this.calendar.prevMonth = creatHTMLElement(
+            this.calendar.prevMonth = creatElement(
                 this.selector,
                 HelloWeek.cssClasses.PREV,
                 this.calendar.navigation,
-                this.options.nav[0]);
-            this.calendar.period = creatHTMLElement(
+                this.options.nav[0]
+            );
+            this.calendar.period = creatElement(
                 this.selector,
                 HelloWeek.cssClasses.PERIOD,
                 this.calendar.navigation
             );
-            this.calendar.nextMonth = creatHTMLElement(this.selector, HelloWeek.cssClasses.NEXT,
+            this.calendar.nextMonth = creatElement(this.selector, HelloWeek.cssClasses.NEXT,
                 this.calendar.navigation, this.options.nav[1]);
             this.calendar.prevMonth.addEventListener('click', () => { this.prev( () => { /** callback */ } ); });
             this.calendar.nextMonth.addEventListener('click', () => { this.next( () => { /** callback */ } ); });
         } else {
-            this.calendar.period = creatHTMLElement(this.selector, HelloWeek.cssClasses.PERIOD,
+            this.calendar.period = creatElement(this.selector, HelloWeek.cssClasses.PERIOD,
                 this.calendar.navigation);
         }
-        this.calendar.week = creatHTMLElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
-        this.calendar.month = creatHTMLElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
+        this.calendar.week = creatElement(this.selector, HelloWeek.cssClasses.WEEK, this.selector);
+        this.calendar.month = creatElement(this.selector, HelloWeek.cssClasses.MONTH, this.selector);
 
         if (this.options.rtl) {
             addClass(this.calendar.week, HelloWeek.cssClasses.RTL);
@@ -103,7 +94,6 @@ export class HelloWeek {
 
     /**
      * Destroy the calendar and remove the instance from the target element.
-     * @public
      */
     destroy(): void {
         this.removeStatesClass();
@@ -113,7 +103,6 @@ export class HelloWeek {
     /**
      * Change the month to the previous, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
-     * @public
      */
     prev(callback: CallbackFunction): void {
         const prevMonth = this.date.getMonth() - 1;
@@ -129,7 +118,6 @@ export class HelloWeek {
     /**
      * Change the month to the next, also you can send a callback function like a parameter.
      * @param {CallbackFunction} callback
-     * @public
      */
     next(callback: CallbackFunction): void {
         const nextMonth = this.date.getMonth() + 1;
@@ -185,7 +173,6 @@ export class HelloWeek {
     /**
      * Returns the selected days with the format specified.
      * @return {any}
-     * @public
      */
     getDays(): any {
         return this.daysSelected.map((day: number) =>
@@ -195,7 +182,6 @@ export class HelloWeek {
     /**
      * Gets the day selected.
      * @return {number}
-     * @public
      */
     getDaySelected(): number {
         return this.lastSelectedDay;
@@ -204,7 +190,6 @@ export class HelloWeek {
     /**
      * Returns the highlight dates.
      * @return {object}
-     * @public
      */
     getDaysHighlight(): string {
         return this.daysHighlight;
@@ -213,7 +198,6 @@ export class HelloWeek {
     /**
      * Returns the current month selected.
      * @return {string}
-     * @public
      */
     getMonth(): string {
         return this.date.getMonth() + 1;
@@ -222,7 +206,6 @@ export class HelloWeek {
     /**
      * Returns the current year selected.
      * @return {string}
-     * @public
      */
     getYear(): string {
         return this.date.getFullYear();
@@ -230,7 +213,6 @@ export class HelloWeek {
 
     /**
      * Set highlight dates,
-     * @public
      */
     setDaysHighlight(daysHighlight: any): void {
         this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
@@ -239,7 +221,6 @@ export class HelloWeek {
     /**
      * Sets calendar with multiple pick.
      * @param {boolean} state
-     * @public
      */
     setMultiplePick(state: boolean) {
         this.options.multiplePick = state;
@@ -248,7 +229,6 @@ export class HelloWeek {
     /**
      * Sets calendar with disable past days.
      * @param {boolean} state
-     * @public
      */
     setDisablePastDays(state: boolean) {
         this.options.disablePastDays = state;
@@ -257,7 +237,6 @@ export class HelloWeek {
     /**
      * Sets calendar with today highlight.
      * @param {boolean} state
-     * @public
      */
     setTodayHighlight(state: boolean) {
         this.options.todayHighlight = state;
@@ -266,7 +245,6 @@ export class HelloWeek {
     /**
      * Sets calendar range.
      * @param {boolean} state
-     * @public
      */
     setRange(state: boolean) {
         this.options.range = state;
@@ -275,7 +253,6 @@ export class HelloWeek {
     /**
      * Sets calendar locked.
      * @param {boolean} state
-     * @public
      */
     setLocked(state: boolean) {
         this.options.locked = state;
@@ -284,7 +261,6 @@ export class HelloWeek {
     /**
      * Set min date.
      * @param {string} date
-     * @public
      */
     setMinDate(date: number | string) {
         this.options.minDate = new Date(date);
@@ -295,7 +271,6 @@ export class HelloWeek {
     /**
      * Set max date.
      * @param {string} date
-     * @public
      */
     setMaxDate(date: number | string) {
         this.options.maxDate = new Date(date);
@@ -305,7 +280,6 @@ export class HelloWeek {
 
     /**
      * @param {CallbackFunction} callback
-     * @public
      */
     private init(callback: CallbackFunction) {
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
@@ -345,7 +319,6 @@ export class HelloWeek {
     /**
      * Select day
      * @param {CallbackFunction} callback
-     * @private
      */
     private selectDay(callback: CallbackFunction): void {
         this.daysOfMonth =
@@ -362,7 +335,6 @@ export class HelloWeek {
      * Gets the interval of dates.
      * @param      {number}  startDate
      * @param      {number}  endDate
-     * @private
      */
     private getIntervalOfDates(startDate: number, endDate: number) {
         const dates = [];
@@ -382,7 +354,6 @@ export class HelloWeek {
     /**
      * @param {HTMLElement} target
      * @param {CallbackFunction} callback
-     * @private
      */
     private handleClickInteraction(target: HTMLElement, callback: CallbackFunction): void {
         target.addEventListener('click', (event: any) => {
@@ -445,7 +416,6 @@ export class HelloWeek {
 
     /**
      * @param {HTMLElement} target
-     * @private
      */
     private handleMouseInteraction(target: HTMLElement): void {
         target.addEventListener('mouseover', (event: any) => {
@@ -475,7 +445,6 @@ export class HelloWeek {
 
     /**
      * @param      {string}  dayShort
-     * @private
      */
     private creatWeek(dayShort: string): void {
         const weekDay = document.createElement('span');
@@ -497,7 +466,6 @@ export class HelloWeek {
     /**
      * Create days inside hello-week
      * @param {Date} date
-     * @private
      */
     private createDay(date: Date): void {
         const num = date.getDate();
@@ -557,8 +525,9 @@ export class HelloWeek {
             dayOptions.isToday = true;
         }
 
-        this.daysSelected.find( (day: number) => {
-            if (day === dayOptions.timestamp || setToTimestamp(day.toString()) === dayOptions.timestamp) {
+        this.daysSelected.find( (daySelected: number) => {
+            if (daySelected === dayOptions.timestamp ||
+                setToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
                 addClass(newDay, HelloWeek.cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
@@ -588,7 +557,6 @@ export class HelloWeek {
      * Sets the days disable.
      * @param      {HTMLElement}  newDay
      * @param      {any}  dayOptions
-     * @private
      */
     private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
@@ -613,7 +581,6 @@ export class HelloWeek {
      * Set day highlight.
      * @param      {HTMLElement}  newDay
      * @param      {any}  dayOptions
-     * @private
      */
     private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
         for (const key in this.daysHighlight) {
@@ -639,13 +606,12 @@ export class HelloWeek {
      * @param      {HTMLElement}  newDay
      * @param      {any}  key
      * @param      {any}  dayOptions
-     * @private
      */
     private setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
         addClass(newDay, HelloWeek.cssStates.IS_HIGHLIGHT);
         if (this.daysHighlight[key].title) {
             dayOptions.tile = this.daysHighlight[key].title;
-            setDataAttr(newDay, 'data-title', this.daysHighlight[key].title);
+            setAttr(newDay, 'data-title', this.daysHighlight[key].title);
         }
 
         if (this.daysHighlight[key].color) {
@@ -660,7 +626,6 @@ export class HelloWeek {
     /**
      * @param      {number}  monthIndex
      * @return     {object}
-     * @private
      */
     private monthsAsString(monthIndex: number): any {
         return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
@@ -669,7 +634,6 @@ export class HelloWeek {
     /**
      * @param      {number}  weekIndex
      * @return     {object}
-     * @private
      */
     private weekAsString(weekIndex: number): any {
         return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
@@ -699,7 +663,6 @@ export class HelloWeek {
 
     /**
      * Clean calendar.
-     * @private
      */
     private clearCalendar(): void {
         this.calendar.month.textContent = '';
@@ -707,7 +670,6 @@ export class HelloWeek {
 
     /**
      * Removes all selected classes.
-     * @private
      */
     private removeStatesClass(): void {
         for (const i of Object.keys(this.daysOfMonth)) {
