@@ -5,9 +5,13 @@ export const config = {
     disableDates: null,
     disableDaysOfWeek: null,
     disablePastDays: false,
-    format: 'DD/MM/YYYY',
-    lang: 'en',
-    langFolder: './dist/langs/',
+    format: {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        timeZone: 'UTC'
+    },
+    lang: 'en-GB',
     locked: false,
     maxDate: null,
     minDate: null,
