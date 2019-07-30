@@ -9,6 +9,9 @@
         "quotemark": [true, "single"],
         "trailing-comma": false,
         "no-console": false,
+        "ordered-imports": false,
+        "no-empty": false,
+        "forin": false,
         "object-literal-sort-keys": false
     },
     "rulesDirectory": []

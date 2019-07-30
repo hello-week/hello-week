@@ -1,14 +1,25 @@
-import typescript2 from 'rollup-plugin-typescript2';
-import loadz0r from 'rollup-plugin-loadz0r';
+import typescript from "rollup-plugin-typescript2"
+import resolve from "rollup-plugin-node-resolve";
+import commonjs from "rollup-plugin-commonjs";
+import uglify from "rollup-plugin-uglify-es";
+
+const production = process.env.NODE_ENV === 'production';
 
 export default {
-  input: ['src/bootstrap.ts'],
-  output: {
-    format: 'amd',
-    dir: 'dist'
-  },
-  plugins: [
-    typescript2(),
-    loadz0r()
-  ]
+    input: ['src/core/index.ts'],
+    output: {
+        file: production ? "dist/hello-week.min.js" : "dist/hello-week.js",
+        name: "hello-week",
+        format: 'es'
+    },
+    plugins: [
+        typescript({}),
+        resolve({
+            jsnext: true,
+            main: true,
+            browser: true
+        }),
+        commonjs(),
+        production && uglify()
+    ]
 }

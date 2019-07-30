@@ -1,10 +1,11 @@
 import { addClass, creatElement, removeClass, setAttr, setStyle, toggleClass } from '../component/element';
-import { CSS_CLASSES, CSS_STATES, DAYS_WEEK, FORMAT_DATE } from '../shared/constants';
-import { extend, getIndexForEventTarget, readFile } from '../shared/util';
-import { formatDate, humanToTimestamp, timestampToHuman } from 'format';
+import { CSS_CLASSES, CSS_STATES, DAYS_WEEK } from '../shared/constants';
+import { extend, getIndexForEventTarget } from './../util/index';
+import { formatDate, humanToTimestamp, timestampToHuman } from './format';
+import { config } from './config';
 
 export class HelloWeek {
-    private static initOptions: any;
+    private readonly initOptions: any;
     private calendar: any = {};
     private date: any;
     private days: any;
@@ -14,7 +15,7 @@ export class HelloWeek {
     private defaultDate: any;
     private intervalRange: any = {};
     private langs: any;
-    private lastSelectedDay: number;
+    private lastSelectedDay: number = 0;
     private options: any;
     private selector: any;
     private todayDate: any;
@@ -35,8 +36,8 @@ export class HelloWeek {
     }
 
     constructor(options: any = {}) {
-        this.options = extend(options);
-        HelloWeek.initOptions = Object.assign({}, extend(options));
+        this.options = extend(options, config);
+        this.initOptions = extend(options, config);
         this.selector = typeof this.options.selector === 'string' ?
             document.querySelector(this.options.selector) :
             this.options.selector;
@@ -144,7 +145,7 @@ export class HelloWeek {
      */
     reset(options: any = {}, callback?: () => void): void {
         this.clearCalendar();
-        this.options = extend(options, HelloWeek.initOptions);
+        this.options = extend(options, this.initOptions);
         this.init(callback as () => void);
     }
 
@@ -338,8 +339,8 @@ export class HelloWeek {
     private getIntervalOfDates(startDate: number, endDate: number) {
         const dates = [];
         let currentDate = startDate;
-        const addDays = function(days: any) {
-            const date = new Date(this.valueOf());
+        const addDays = (days: any) => {
+            const date = new Date(this.valueOf() as any);
             date.setDate(date.getDate() + days);
             return date.getTime();
         };
@@ -478,11 +479,11 @@ export class HelloWeek {
             isToday: false,
             isSelected: false,
             isHighlight: false,
-            element: false,
+            element: undefined,
         };
 
         this.days = this.days || {};
-        newDay.textContent = dayOptions.day;
+        newDay.textContent = String(dayOptions.day);
         addClass(newDay, HelloWeek.cssClasses.DAY);
 
         if (dayOptions.day === 1) {
@@ -548,7 +549,7 @@ export class HelloWeek {
             this.calendar.month.appendChild(newDay);
         }
 
-        dayOptions.element = newDay;
+        dayOptions.element = newDay as any;
         this.days[dayOptions.day] = dayOptions;
     }
 
