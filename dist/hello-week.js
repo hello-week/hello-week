@@ -183,6 +183,21 @@ function toggleClass(el, className) {
     return el.classList.toggle(className);
 }
 
+function diff(start, end) {
+    const dates = [];
+    let currentDate = start;
+    const addDays = (days) => {
+        const date = new Date();
+        date.setDate(date.getDate() + days);
+        return date.getTime();
+    };
+    while (currentDate <= end) {
+        dates.push(timestampToHuman(currentDate));
+        currentDate = addDays.call(currentDate, 1);
+    }
+    return dates;
+}
+
 class HelloWeek {
     constructor(options = {}) {
         this.calendar = {};
@@ -194,7 +209,6 @@ class HelloWeek {
         this.selector = isString(this.options.selector)
             ? document.querySelector(this.options.selector)
             : this.options.selector;
-        // early throw if selector doesn't exists
         if (!isDef(this.selector)) {
             error("You need to specify a selector!");
         }
@@ -497,7 +511,7 @@ class HelloWeek {
                 }
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
-                    this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
+                    this.daysSelected = diff(this.intervalRange.begin, this.intervalRange.end);
                     addClass(event.target, cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange.begin = undefined;

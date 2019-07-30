@@ -15,6 +15,7 @@ import {
     setStyle,
     toggleClass
 } from "./../vdom/patch";
+import { diff } from "./diff";
 import { config } from "./config";
 
 export class HelloWeek {
@@ -40,7 +41,6 @@ export class HelloWeek {
             ? document.querySelector(this.options.selector)
             : this.options.selector;
 
-        // early throw if selector doesn't exists
         if (!isDef(this.selector)) {
             error("You need to specify a selector!");
         }
@@ -402,7 +402,7 @@ export class HelloWeek {
                 }
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].timestamp;
-                    this.daysSelected = this.getIntervalOfDates(
+                    this.daysSelected = diff(
                         this.intervalRange.begin,
                         this.intervalRange.end
                     );
@@ -515,7 +515,12 @@ export class HelloWeek {
         };
 
         this.days = this.days || {};
-        const newDay = createElement("div", { class: cssClasses.DAY}, String(dayOptions.day), this.calendar.month);
+        const newDay = createElement(
+            "div",
+            { class: cssClasses.DAY },
+            String(dayOptions.day),
+            this.calendar.month
+        );
 
         if (dayOptions.day === 1) {
             if (this.options.weekStart === daysWeek.SUNDAY) {
