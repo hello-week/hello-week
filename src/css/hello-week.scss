@@ -1,5 +1,9 @@
 @import "variables";
 
+* {
+  box-sizing: border-box;
+}
+
 .hello-week {
   width: 100%;
   margin: 0 auto;

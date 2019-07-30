@@ -1,4 +1,4 @@
-export function createElement(vnode: any, parentDom?: HTMLElement) {
+export function render(vnode: any, parentDom?: HTMLElement) {
     // Strings just convert to #text Nodes:
     if (vnode.split) {
         return document.createTextNode(vnode);
@@ -9,10 +9,10 @@ export function createElement(vnode: any, parentDom?: HTMLElement) {
 
     // copy attributes onto the new node:
     const a = vnode.attributes || {};
-    Object.keys(a).forEach( (k) => n.setAttribute(k, a[k]) );
+    Object.keys(a).forEach(k => n.setAttribute(k, a[k]));
 
     // render (build) and then append child nodes:
-    (vnode.children || []).forEach( (c: any) => n.appendChild(createElement(c)) );
+    (vnode.children || []).forEach((c: any) => n.appendChild(render(c)));
 
     return parentDom ? parentDom.appendChild(n) : n;
 }
@@ -30,4 +30,3 @@ export function h(nodeName: string, attributes: any, ...args: any) {
 
     return vnode;
 }
-

@@ -6,26 +6,34 @@ export const config = {
     disableDaysOfWeek: null,
     disablePastDays: false,
     format: {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        timeZone: 'UTC'
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        timeZone: "UTC"
     },
-    lang: 'en-GB',
+    lang: "en",
     locked: false,
     maxDate: null,
     minDate: null,
     monthShort: false,
     multiplePick: false,
-    nav: ['◀', '▶'],
+    nav: ["◀", "▶"],
     range: false,
     rtl: false,
-    selector: '.hello-week',
+    selector: ".hello-week",
     todayHighlight: true,
     weekShort: true,
     weekStart: 0,
-    onLoad: () => { /** callback function */ },
-    onClear: () => { /** callback function */ },
-    onNavigation: () => { /** callback function */ },
-    onSelect: () => { /** callback function */ },
+    onLoad: () => {
+        /** callback function */
+    },
+    onClear: () => {
+        /** callback function */
+    },
+    onNavigation: () => {
+        /** callback function */
+    },
+    onSelect: () => {
+        /** callback function */
+    }
 };
