@@ -1,20 +1,22 @@
 import { cssClasses, cssStates, daysWeek } from "../shared/constants";
 import {
-    extend,
+    assing,
     getIndexForEventTarget,
     error,
     isString,
     isDef
 } from "./../util/index";
-import { formatDate, humanToTimestamp, timestampToHuman } from "./format";
-import { template, createElement } from "./../vdom/create-element";
+import { formatDate } from "./format";
+import { humanToTimestamp, timestampToHuman } from "./timestamp";
 import {
+    template,
+    createElement,
     addClass,
     removeClass,
     setAttr,
     setStyle,
     toggleClass
-} from "./../vdom/patch";
+} from "./../vdom/index";
 import { diff } from "./diff";
 import { config } from "./config";
 
@@ -35,8 +37,8 @@ export class HelloWeek {
     private todayDate: any;
 
     constructor(options: any = {}) {
-        this.options = extend(options, config);
-        this.initOptions = extend(options, config);
+        this.options = assing(options, config);
+        this.initOptions = assing(options, config);
         this.selector = isString(this.options.selector)
             ? document.querySelector(this.options.selector)
             : this.options.selector;
@@ -139,7 +141,7 @@ export class HelloWeek {
      */
     reset(options: any = {}, callback?: () => void): void {
         this.clearCalendar();
-        this.options = extend(options, this.initOptions);
+        this.options = assing(options, this.initOptions);
         this.init(callback as () => void);
     }
 
@@ -285,8 +287,8 @@ export class HelloWeek {
             : [];
 
         if (this.daysSelected.length > 1 && !this.options.multiplePick) {
-            throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option
-                is ${this.options.multiplePick}!`);
+            error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is
+                ${this.options.multiplePick}!`);
         }
 
         this.todayDate = humanToTimestamp();

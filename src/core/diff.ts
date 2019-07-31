@@ -1,4 +1,4 @@
-import { timestampToHuman } from "./format";
+import { timestampToHuman } from "./timestamp";
 
 export function diff(start: any, end: any) {
     const dates = [];
