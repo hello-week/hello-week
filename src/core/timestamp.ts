@@ -1,3 +1,5 @@
+import { config } from "./config";
+
 /**
  * Set date timestamp to human format.
  *
