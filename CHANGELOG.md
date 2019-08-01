@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+#### [2.10.3] - 2019-08-01
+**Changed**
+- Fix issue [#29](https://github.com/mauroreisvieira/hello-week/issues/29) `range` option.
+- Fix issue [#26](https://github.com/mauroreisvieira/hello-week/issues/26) timezone.
+---
+
 #### [2.10.1] - 2019-05-09
 **Changed**
 - Fix issue [#23](https://github.com/mauroreisvieira/hello-week/issues/23) `setDayHighlight()` method.
