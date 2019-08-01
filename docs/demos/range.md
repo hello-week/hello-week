@@ -12,7 +12,12 @@ Each key is the label for the range, and its value an array with all dates betwe
 
 #### Javascript Initialization
 ```js
-new HelloWeek({
-    range: true
+var calendar = new HelloWeek({
+    range: true,
+    disablePastDays: true,
+    onSelect: () => {
+        console.log(calendar.getDays());
+        /** Add your code to handle the days here */
+    }
 });
 ```

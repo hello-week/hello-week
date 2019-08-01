@@ -302,7 +302,7 @@ export class HelloWeek {
                 is ${this.options.multiplePick}!`);
         }
 
-        this.todayDate = Utilities.setToTimestamp();
+        this.todayDate = Utilities.setToTimestamp()-(new Date().getTimezoneOffset() * 1000  * 60);
         this.date = new Date();
         this.defaultDate = new Date();
 
@@ -443,12 +443,7 @@ export class HelloWeek {
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
                 if (this.days[index].timestamp >= this.intervalRange.begin) {
-                    if (this.days[i].locked) {
-                        return;
-                    }
-                    if (this.days[i].timestamp >= this.intervalRange.begin &&
-                            this.days[i].timestamp <= this.days[index].timestamp) {
-                        this.days[i].isSelected = true;
+                    if (this.days[i].timestamp >= this.intervalRange.begin && this.days[i].timestamp <= this.days[index].timestamp) {
                         Utilities.addClass(this.days[i].element, HelloWeek.cssStates.IS_SELECTED);
                         if (this.days[i].timestamp === this.intervalRange.begin) {
                             Utilities.addClass(this.days[i].element, HelloWeek.cssStates.IS_BEGIN_RANGE);
