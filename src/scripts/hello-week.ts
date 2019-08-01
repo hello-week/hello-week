@@ -74,10 +74,17 @@ export class HelloWeek {
             Utilities.addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
 
-        Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
-            this.langs = JSON.parse(text);
-            this.init(() => { /** callback function */ });
-        });
+        if (Utilities.checkUrl(this.options.langFolder)) {
+            Utilities.readFile(this.options.langFolder, (text: any) => {
+                this.langs = JSON.parse(text);
+                this.init(() => { /** callback function */ });
+            });
+        } else {
+            Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
+                this.langs = JSON.parse(text);
+                this.init(() => { /** callback function */ });
+            });
+        }
     }
 
     /**
