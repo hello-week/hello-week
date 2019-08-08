@@ -1,6 +1,7 @@
 export type CallbackFunction = (...args: any[]) => void;
 
 interface BaseOptions {
+    selector: string,
     daysHighlight: any,
     daysSelected: any,
     defaultDate?: any,
@@ -17,7 +18,6 @@ interface BaseOptions {
     nav: ["◀", "▶"],
     range: boolean,
     rtl: boolean,
-    selector: string,
     todayHighlight: true,
     weekShort: true,
     weekStart: number;
@@ -27,7 +27,8 @@ interface BaseOptions {
     onSelect: CallbackFunction;
 }
 
-export const defaults: BaseOptions = {
+export let defaults: BaseOptions = {
+    selector: ".hello-week",
     daysHighlight: null,
     daysSelected: null,
     defaultDate: null,
@@ -49,7 +50,6 @@ export const defaults: BaseOptions = {
     nav: ["◀", "▶"],
     range: false,
     rtl: false,
-    selector: ".hello-week",
     todayHighlight: true,
     weekShort: true,
     weekStart: 0,

@@ -57,3 +57,7 @@ export function removeClass(el: HTMLElement, className: string) {
 export function toggleClass(el: HTMLElement, className: string) {
     return el.classList.toggle(className);
 }
+
+export function existElement(className: string, where: HTMLElement) {
+    return isDef(where) ? where.querySelector(`.${className}`) : document.querySelector(`.${className}`);
+}

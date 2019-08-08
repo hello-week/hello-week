@@ -1,8 +1,10 @@
 import { defaults, Options } from "./../shared/options";
 import { build } from "./template";
+import { today, date } from "./dates";
 import { cssClasses, cssStates, daysWeek } from "./../shared/constants";
 import {
     error,
+    log,
     extend,
     isString,
     isDef,
@@ -32,11 +34,11 @@ export class HelloWeek {
     private lastSelectedDay: number = 0;
     private options: any;
     private selector: any;
-    private todayDate: any;
+    private todayDate: any = today();
 
     constructor(options: Options) {
-        this.options = extend(defaults, options);
-        this.initOptions = extend(defaults, options);
+        this.options = extend(extend({}, defaults), options);
+        this.initOptions = extend(extend({}, defaults), options);
 
         const calendar = build(this.options, {
             prev: {
@@ -82,10 +84,12 @@ export class HelloWeek {
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.update();
-
-        this.options.onNavigation.call(this);
+        this.options.onNavigation({
+            month: this.date.getMonth() + 1,
+            year: this.date.getFullYear()
+        });
         if (callback) {
-            callback.call(this);
+            callback();
         }
     }
 
@@ -97,10 +101,12 @@ export class HelloWeek {
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.update();
-
-        this.options.onNavigation.call(this);
+        this.options.onNavigation({
+            month: this.date.getMonth() + 1,
+            year: this.date.getFullYear()
+        });
         if (callback) {
-            callback.call(this);
+            callback();
         }
     }
 
@@ -135,8 +141,8 @@ export class HelloWeek {
      * @param {any} date
      * @public
      */
-    goToDate(date: any = this.todayDate): void {
-        this.date = new Date(date);
+    goToDate(dt: any = this.todayDate): void {
+        this.date = date(dt);
         this.date.setDate(1);
         this.update();
     }
@@ -232,8 +238,8 @@ export class HelloWeek {
      * Set min date.
      * @param {string} date
      */
-    setMinDate(date: number | string) {
-        this.options.minDate = new Date(date);
+    setMinDate(dt: number | string) {
+        this.options.minDate = date(dt);
         this.options.minDate.setHours(0, 0, 0, 0);
         this.options.minDate.setDate(this.options.minDate.getDate() - 1);
     }
@@ -242,8 +248,8 @@ export class HelloWeek {
      * Set max date.
      * @param {string} date
      */
-    setMaxDate(date: number | string) {
-        this.options.maxDate = new Date(date);
+    setMaxDate(dt: number | string) {
+        this.options.maxDate = date(dt);
         this.options.maxDate.setHours(0, 0, 0, 0);
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     }
@@ -256,13 +262,12 @@ export class HelloWeek {
         this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
 
         if (this.daysSelected.length > 1 && !this.options.multiplePick) {
-            error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is
-                ${this.options.multiplePick}!`);
+            error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is false`);
         }
 
-        this.todayDate = humanToTimestamp();
-        this.date = new Date();
-        this.defaultDate = new Date();
+        this.date = date();
+        console.log(this.date);
+        this.defaultDate = date();
 
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
@@ -280,7 +285,7 @@ export class HelloWeek {
         }
 
         this.mounted();
-        this.options.onLoad.call(this);
+        this.options.onLoad();
         if (callback) {
             callback.call(this);
         }
@@ -309,9 +314,9 @@ export class HelloWeek {
         const dates = [];
         let currentDate = startDate;
         const addDays = (days: any) => {
-            const date = new Date(this.valueOf() as any);
-            date.setDate(date.getDate() + days);
-            return date.getTime();
+            const dt = date(this.valueOf() as any);
+            dt.setDate(dt.getDate() + days);
+            return dt.getTime();
         };
         while (currentDate <= endDate) {
             dates.push(timestampToHuman(currentDate));

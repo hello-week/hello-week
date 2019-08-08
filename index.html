@@ -1,37 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Hello Week - Javascript Calendar</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./assets/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./assets/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="./assets/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="./assets/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./assets/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="./assets/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#7FCBC3">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#7FCBC3">
-    <link href="dist/hello.week.min.css" rel="stylesheet">
-    <link href="dist/hello.week.theme.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet">
-    <link href="assets/css/styles.css" rel="stylesheet">
-</head>
-<body>
-    <h1>Hello Week</h1>
-    <div class="calendar"></div>
-    <script src="main.js" type="module"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello Week - Javascript Calendar</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+        <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+        <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/apple-icon-60x60.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="./assets/images/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/apple-icon-76x76.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="./assets/images/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="./assets/images/apple-icon-120x120.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="./assets/images/apple-icon-144x144.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="./assets/images/apple-icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="./assets/images/android-icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="./assets/images/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="msapplication-TileColor" content="#7FCBC3" />
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+        <meta name="theme-color" content="#7FCBC3" />
+        <link href="dist/hello.week.min.css" rel="stylesheet" />
+        <link href="dist/hello.week.theme.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet" />
+        <link href="assets/css/styles.css" rel="stylesheet" />
+        <style>
+            .grid {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                margin: 40px 0;
+            }
+
+            .grid .calendar {
+                flex-basis: 25%;
+                border: 2px solid #999;
+                margin: 1rem;
+            }
+
+            .btn {
+                border: 0;
+                margin: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid">
+            <div class="calendar example-1">
+            <button class="prev btn btn--prev">Prev</button>
+            <button class="next btn btn--next">Next</button>
+                <div class="navigation">
+                    <div class="period"></div>
+                </div>
+                <div class="week"></div>
+                <div class="month"></div>
+            </div>
+            <div class="calendar example-2"></div>
+        </div>
+
+        <script type="module">
+            import { HelloWeek } from "./dist/hello-week.js";
+
+            const example1 = new HelloWeek({
+                selector: ".example-1",
+                nav: false,
+                defaultDate: "2019-06-10",
+                multiplePick: true
+            });
+            document.querySelector(".example-1 .btn--prev").addEventListener("click", () => example1.prev());
+            document.querySelector(".example-1 .btn--next").addEventListener("click", () => example1.next());
+
+            const example2 = new HelloWeek({
+                selector: ".example-2",
+                multiplePick: true
+            });
+        </script>
+    </body>
 </html>

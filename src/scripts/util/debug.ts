@@ -1,19 +1,17 @@
-import { version as v } from "../../../package.json";
+import { version } from "../../../package.json";
 
 export function warn(msg: any) {
-    console.warn(`[Hello Week Warn]: ${msg}`);
+    console.group(`[Warn]`);
+    console.warn(msg);
+    console.groupEnd();
 }
 
 export function log(msg: any) {
-    console.group(`[Hello Week Log]`);
+    console.group(`[Log]`);
     console.log(msg);
     console.groupEnd();
 }
 
 export function error(msg: any) {
     throw new Error(`[Hello Week Error]: ${msg}`);
-}
-
-export function version() {
-    console.log(`%c[Hello Week (${v})]`, "color: #42a298");
 }

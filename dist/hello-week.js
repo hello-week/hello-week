@@ -1,4 +1,5 @@
 var defaults = {
+    selector: ".hello-week",
     daysHighlight: null,
     daysSelected: null,
     defaultDate: null,
@@ -20,7 +21,6 @@ var defaults = {
     nav: ["◀", "▶"],
     range: false,
     rtl: false,
-    selector: ".hello-week",
     todayHighlight: true,
     weekShort: true,
     weekStart: 0,
@@ -32,6 +32,13 @@ var defaults = {
 
 function error(msg) {
     throw new Error("[Hello Week Error]: " + msg);
+}
+
+function isDef(v) {
+    return v !== undefined && v !== null;
+}
+function isString(val) {
+    return typeof val === "string";
 }
 
 function render(vnode, parentDom) {
@@ -76,31 +83,12 @@ function removeClass(el, className) {
 function toggleClass(el, className) {
     return el.classList.toggle(className);
 }
-
-function hasOwnProp(a, b) {
-    return Object.prototype.hasOwnProperty.call(a, b);
+function existElement(className, where) {
+    return isDef(where) ? where.querySelector("." + className) : document.querySelector("." + className);
 }
 
 function extend(to, from) {
-    for (var i in from) {
-        if (hasOwnProp(from, i)) {
-            to[i] = from[i];
-        }
-    }
-    if (hasOwnProp(from, 'toString')) {
-        to.toString = from.toString;
-    }
-    if (hasOwnProp(from, 'valueOf')) {
-        to.valueOf = from.valueOf;
-    }
-    return to;
-}
-
-function isDef(v) {
-    return v !== undefined && v !== null;
-}
-function isString(val) {
-    return typeof val === "string";
+    return Object.assign(to, from);
 }
 
 var cssClasses = {
@@ -148,18 +136,30 @@ function build(options, args) {
         }
     }
     self.calendar = {};
-    self.calendar.navigation = render(h("div", { class: cssClasses.NAVIGATION }), self.selector);
+    self.calendar.navigation = existElement(cssClasses.NAVIGATION, self.selector);
+    if (!isDef(self.calendar.navigation)) {
+        self.calendar.navigation = render(h("div", { class: cssClasses.NAVIGATION }), self.selector);
+    }
     if (isDef(options.nav[0])) {
         self.calendar.prevMonth = render(h("div", { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
         self.calendar.prevMonth.addEventListener("click", function () { return args.prev.cb(); });
     }
-    self.calendar.period = render(h("div", { class: cssClasses.PERIOD }), self.calendar.navigation);
+    self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
+    if (!isDef(self.calendar.period)) {
+        self.calendar.period = render(h("div", { class: cssClasses.PERIOD }), self.calendar.navigation);
+    }
     if (isDef(options.nav[1])) {
         self.calendar.nextMonth = render(h("div", { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
         self.calendar.nextMonth.addEventListener("click", function () { return args.next.cb(); });
     }
-    self.calendar.week = render(h("div", { class: cssClasses.WEEK }), self.selector);
-    self.calendar.month = render(h("div", { class: cssClasses.MONTH }), self.selector);
+    self.calendar.week = existElement(cssClasses.WEEK, self.selector);
+    if (!isDef(self.calendar.week)) {
+        self.calendar.week = render(h("div", { class: cssClasses.WEEK }), self.selector);
+    }
+    self.calendar.month = existElement(cssClasses.MONTH, self.selector);
+    if (!isDef(self.calendar.month)) {
+        self.calendar.month = render(h("div", { class: cssClasses.MONTH }), self.selector);
+    }
     if (options.rtl) {
         addClass(self.calendar.week, cssClasses.RTL);
         addClass(self.calendar.month, cssClasses.RTL);
@@ -169,6 +169,43 @@ function build(options, args) {
 
 function formatDate(day, month, year) {
     return year + "-" + ("0" + (month + 1)).slice(-2) + "-" + ("0" + day).slice(-2);
+}
+var formats = {
+    dd: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { day: "numeric" }).format(date);
+    },
+    DD: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { day: "2-digit" }).format(date);
+    },
+    mm: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { month: "numeric" }).format(date);
+    },
+    MM: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { month: "2-digit" }).format(date);
+    },
+    yy: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { year: "2-digit" }).format(date);
+    },
+    YY: function (date, lang) {
+        if (lang === void 0) { lang = defaults.lang; }
+        return new Intl.DateTimeFormat(lang, { year: "numeric" }).format(date);
+    },
+    default: function (date) { return new Intl.DateTimeFormat(defaults.lang, { day: "2-digit", month: "2-digit", year: "numeric" }).format(date); }
+};
+
+function date(dt) {
+    if (isDef(dt)) {
+        return new Date(dt);
+    }
+    return new Date();
+}
+function today() {
+    return formats.default(new Date());
 }
 
 function timestampToHuman(timestamp, lang, format) {
@@ -207,8 +244,9 @@ var HelloWeek = (function () {
         this.daysSelected = [];
         this.intervalRange = {};
         this.lastSelectedDay = 0;
-        this.options = extend(defaults, options);
-        this.initOptions = extend(defaults, options);
+        this.todayDate = today();
+        this.options = extend(extend({}, defaults), options);
+        this.initOptions = extend(extend({}, defaults), options);
         var calendar = build(this.options, {
             prev: {
                 cb: function () { return _this.prev(); }
@@ -241,18 +279,24 @@ var HelloWeek = (function () {
         var prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.update();
-        this.options.onNavigation.call(this);
+        this.options.onNavigation({
+            month: this.date.getMonth() + 1,
+            year: this.date.getFullYear()
+        });
         if (callback) {
-            callback.call(this);
+            callback();
         }
     };
     HelloWeek.prototype.next = function (callback) {
         var nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.update();
-        this.options.onNavigation.call(this);
+        this.options.onNavigation({
+            month: this.date.getMonth() + 1,
+            year: this.date.getFullYear()
+        });
         if (callback) {
-            callback.call(this);
+            callback();
         }
     };
     HelloWeek.prototype.update = function () {
@@ -270,9 +314,9 @@ var HelloWeek = (function () {
         this.date.setDate(1);
         this.update();
     };
-    HelloWeek.prototype.goToDate = function (date) {
-        if (date === void 0) { date = this.todayDate; }
-        this.date = new Date(date);
+    HelloWeek.prototype.goToDate = function (dt) {
+        if (dt === void 0) { dt = this.todayDate; }
+        this.date = date(dt);
         this.date.setDate(1);
         this.update();
     };
@@ -309,13 +353,13 @@ var HelloWeek = (function () {
     HelloWeek.prototype.setLocked = function (state) {
         this.options.locked = state;
     };
-    HelloWeek.prototype.setMinDate = function (date) {
-        this.options.minDate = new Date(date);
+    HelloWeek.prototype.setMinDate = function (dt) {
+        this.options.minDate = date(dt);
         this.options.minDate.setHours(0, 0, 0, 0);
         this.options.minDate.setDate(this.options.minDate.getDate() - 1);
     };
-    HelloWeek.prototype.setMaxDate = function (date) {
-        this.options.maxDate = new Date(date);
+    HelloWeek.prototype.setMaxDate = function (dt) {
+        this.options.maxDate = date(dt);
         this.options.maxDate.setHours(0, 0, 0, 0);
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     };
@@ -323,11 +367,11 @@ var HelloWeek = (function () {
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
         this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
         if (this.daysSelected.length > 1 && !this.options.multiplePick) {
-            error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option is\n                " + this.options.multiplePick + "!");
+            error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option is false");
         }
-        this.todayDate = humanToTimestamp();
-        this.date = new Date();
-        this.defaultDate = new Date();
+        this.date = date();
+        console.log(this.date);
+        this.defaultDate = date();
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
             this.defaultDate = new Date(this.options.defaultDate);
@@ -341,7 +385,7 @@ var HelloWeek = (function () {
             this.setMaxDate(this.options.maxDate);
         }
         this.mounted();
-        this.options.onLoad.call(this);
+        this.options.onLoad();
         if (callback) {
             callback.call(this);
         }
@@ -361,9 +405,9 @@ var HelloWeek = (function () {
         var dates = [];
         var currentDate = startDate;
         var addDays = function (days) {
-            var date = new Date(_this.valueOf());
-            date.setDate(date.getDate() + days);
-            return date.getTime();
+            var dt = date(_this.valueOf());
+            dt.setDate(dt.getDate() + days);
+            return dt.getTime();
         };
         while (currentDate <= endDate) {
             dates.push(timestampToHuman(currentDate));
