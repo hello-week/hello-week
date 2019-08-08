@@ -1,18 +1,3 @@
-export function getIndexForEventTarget(daysOfMonth: any, target: HTMLElement): number {
-    return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
-}
-
-export function assing(to: any, from: any): object {
-    if (typeof Object.assign === "function") {
-        return Object.assign(from, to);
-    }
-
-    for (const key in from) {
-        to[key] = from[key];
-    }
-    return to;
-}
-
 export function isDef(v: any): boolean {
     return v !== undefined && v !== null;
 }

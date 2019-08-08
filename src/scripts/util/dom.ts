@@ -1,3 +1,6 @@
+import { isDef } from "./types";
+import { cssClasses } from "../shared/constants";
+
 export function render(vnode: any, parentDom?: HTMLElement) {
     // Strings just convert to #text Nodes:
     if (vnode.split) {
@@ -29,4 +32,28 @@ export function h(nodeName: string, attributes: any, ...args: any) {
     }
 
     return vnode;
+}
+
+export function createElement(nodeName: string, attributes: any, children?: any, parentDom?: HTMLElement) {
+    return render(h(nodeName, attributes, children), parentDom);
+}
+
+export function setAttr(el: HTMLElement, name: string, value: string) {
+    return el.setAttribute(name, value);
+}
+
+export function setStyle(el: HTMLElement, prop: string, value: string) {
+    return el.style.setProperty(prop, value);
+}
+
+export function addClass(el: HTMLElement, className: string) {
+    return el.classList.add(className);
+}
+
+export function removeClass(el: HTMLElement, className: string) {
+    return el.classList.remove(className);
+}
+
+export function toggleClass(el: HTMLElement, className: string) {
+    return el.classList.toggle(className);
 }

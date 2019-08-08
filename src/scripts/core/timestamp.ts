@@ -1,4 +1,4 @@
-import { config } from "./config";
+import { defaults } from "./../shared/options";
 
 /**
  * Set date timestamp to human format.
@@ -14,8 +14,8 @@ export function timestampToHuman(
 ): string {
     const dt = new Date(timestamp);
     return new Intl.DateTimeFormat(
-        lang ? lang : config.lang,
-        format ? format : config.format
+        lang ? lang : defaults.lang,
+        format ? format : defaults.format
     ).format(dt);
 }
 
