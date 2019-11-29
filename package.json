@@ -19,7 +19,7 @@
     "scripts": {
         "dev": "http-server -c0 -g && rollup -c -w",
         "build": "NODE_ENV=production rimraf dist && yarn run sass:build && rollup -c --environment NODE_ENV:production",
-        "sass:build": "node-sass src/styles/hello-week-theme.scss dist/hello.week.theme.min.css && node-sass src/styles/hello-week.scss dist/hello.week.min.css --output-style compressed",
+        "sass:build": "node-sass src/styles/hello-week-theme.scss dist/hello.week.theme.min.css --output-style compressed && node-sass src/styles/hello-week.scss dist/hello.week.min.css --output-style compressed",
         "lint": "prettier --write --parser typescript \"src/scripts/**/*.ts?(x)\"",
         "test": "jest"
     },
