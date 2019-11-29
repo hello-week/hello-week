@@ -1,5 +1,5 @@
 import { cssClasses, cssStates, daysWeek, formatDate } from '../shared/constants'
-import { log, warn, checkUrl, readFile, extend, getIndexForEventTarget, createElement, addClass, removeClass, setStyle, toggleClass } from './../util/index'
+import { log, warn, checkUrl, readFile, extend, getIndexForEventTarget, setAttr, createElement, addClass, removeClass, setStyle, toggleClass } from './../util/index'
 import { defaults } from "../shared/options";
 import { build } from './template'
 import { format } from './format'

@@ -98,6 +98,9 @@ function h(nodeName, attributes) {
 function createElement(nodeName, attributes, children, parentDom) {
     return render(h(nodeName, attributes, children), parentDom);
 }
+function setAttr(el, name, value) {
+    return el.setAttribute(name, value);
+}
 function setStyle(el, prop, value) {
     return el.style.setProperty(prop, value);
 }
@@ -132,6 +135,10 @@ function readFile(file, callback) {
 function checkUrl(str) {
     var regexp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
     return regexp.test(str);
+}
+
+function getIndexForEventTarget(daysOfMonth, target) {
+    return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
 var defaults = {
@@ -212,6 +219,26 @@ function format(day, month, year) {
     return year + "-" + ('0' + (month + 1)).slice(-2) + "-" + ('0' + day).slice(-2);
 }
 
+function timestampToHuman(timestamp, format, langs) {
+    var dt = new Date(timestamp);
+    format = format.replace('dd', dt.getDate().toString());
+    format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+    format = format.replace('mm', (dt.getMonth() + 1).toString());
+    format = format.replace('MMM', langs.months[dt.getMonth()]);
+    format = format.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
+    format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
+    format = format.replace('yyyy', dt.getFullYear().toString());
+    format = format.replace('YYYY', dt.getFullYear().toString());
+    format = format.replace('YY', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    format = format.replace('yy', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    return format;
+}
 function humanToTimestamp(date) {
     if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
         throw new Error("The date " + date + " is not valid!");
@@ -230,123 +257,6 @@ function setToTimestamp(date) {
     }
     return new Date().setHours(0, 0, 0, 0);
 }
-
-var Utilities = (function () {
-    function Utilities() {
-    }
-    Utilities.timestampToHuman = function (timestamp, format, langs) {
-        var dt = new Date(timestamp);
-        format = format.replace('dd', dt.getDate().toString());
-        format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-        format = format.replace('mm', (dt.getMonth() + 1).toString());
-        format = format.replace('MMM', langs.months[dt.getMonth()]);
-        format = format.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
-        format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
-        format = format.replace('yyyy', dt.getFullYear().toString());
-        format = format.replace('YYYY', dt.getFullYear().toString());
-        format = format.replace('YY', dt
-            .getFullYear()
-            .toString()
-            .substring(2));
-        format = format.replace('yy', dt
-            .getFullYear()
-            .toString()
-            .substring(2));
-        return format;
-    };
-    Utilities.formatDate = function (day, month, year) {
-        return year + "-" + ('0' + (month + 1)).slice(-2) + "-" + ('0' + day).slice(-2);
-    };
-    Utilities.setToTimestamp = function (date) {
-        if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
-            throw new Error("The date " + date + " is not valid!");
-        }
-        if (date || typeof date === 'string') {
-            return new Date(date + 'T00:00:00Z').getTime();
-        }
-        return new Date().setHours(0, 0, 0, 0);
-    };
-    Utilities.creatHTMLElement = function (el, className, parentElement, textNode) {
-        if (textNode === void 0) { textNode = null; }
-        var elem = el.querySelector('.' + className);
-        if (!elem) {
-            elem = document.createElement('div');
-            elem.classList.add(className);
-            if (textNode !== null) {
-                var text = document.createTextNode(textNode);
-                elem.appendChild(text);
-            }
-            parentElement.appendChild(elem);
-        }
-        return elem;
-    };
-    Utilities.setDataAttr = function (el, name, value) {
-        return el.setAttribute(name, value);
-    };
-    Utilities.setStyle = function (el, prop, value) {
-        return el.style.setProperty(prop, value);
-    };
-    Utilities.addClass = function (el, className) {
-        return el.classList.add(className);
-    };
-    Utilities.removeClass = function (el, className) {
-        return el.classList.remove(className);
-    };
-    Utilities.toggleClass = function (el, className) {
-        return el.classList.toggle(className);
-    };
-    Utilities.readFile = function (file, callback) {
-        var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType('application/json');
-        xobj.open('GET', file, true);
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState === 4 && xobj.status === 200) {
-                callback(xobj.responseText);
-            }
-        };
-        xobj.send(null);
-    };
-    Utilities.getIndexForEventTarget = function (daysOfMonth, target) {
-        return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
-    };
-    Utilities.extend = function (options, configurations) {
-        var settings = configurations
-            ? configurations
-            : {
-                selector: '.hello-week',
-                lang: 'en',
-                langFolder: './langs/',
-                format: 'DD/MM/YYYY',
-                monthShort: false,
-                weekShort: true,
-                defaultDate: null,
-                minDate: null,
-                maxDate: null,
-                disabledDaysOfWeek: null,
-                disableDates: null,
-                weekStart: 0,
-                daysSelected: null,
-                daysHighlight: null,
-                multiplePick: false,
-                disablePastDays: false,
-                todayHighlight: true,
-                range: false,
-                locked: false,
-                rtl: false,
-                nav: ['◀', '▶'],
-                onLoad: function () {
-                },
-                onNavigation: function () {
-                },
-                onSelect: function () {
-                },
-                onClear: function () {
-                }
-            };
-        return Object.assign(settings, options);
-    };
-    return Utilities;
-}());
 
 var HelloWeek = (function () {
     function HelloWeek(options) {
@@ -428,7 +338,7 @@ var HelloWeek = (function () {
     HelloWeek.prototype.getDays = function () {
         var _this = this;
         return this.daysSelected.map(function (day) {
-            return Utilities.timestampToHuman(day, _this.options.format, _this.langs);
+            return timestampToHuman(day, _this.options.format, _this.langs);
         });
     };
     HelloWeek.prototype.getDaySelected = function () {
@@ -481,8 +391,7 @@ var HelloWeek = (function () {
         if (this.daysSelected.length > 1 && !this.options.multiplePick) {
             throw new Error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option\n                is " + this.options.multiplePick + "!");
         }
-        this.todayDate =
-            setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
+        this.todayDate = setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
         this.date = new Date();
         this.defaultDate = new Date();
         if (this.options.defaultDate) {
@@ -523,7 +432,7 @@ var HelloWeek = (function () {
             return dt.getTime();
         };
         while (currentDate <= endDate) {
-            dates.push(Utilities.timestampToHuman(currentDate, formatDate.DEFAULT, this.langs));
+            dates.push(timestampToHuman(currentDate, formatDate.DEFAULT, this.langs));
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -531,7 +440,7 @@ var HelloWeek = (function () {
     HelloWeek.prototype.handleClickInteraction = function (target, callback) {
         var _this = this;
         target.addEventListener('click', function (event) {
-            var index = Utilities.getIndexForEventTarget(_this.daysOfMonth, event.target);
+            var index = getIndexForEventTarget(_this.daysOfMonth, event.target);
             if (_this.days[index].locked) {
                 return;
             }
@@ -544,7 +453,7 @@ var HelloWeek = (function () {
                         });
                     }
                     if (!_this.days[index].isSelected) {
-                        _this.daysSelected.push(Utilities.timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
+                        _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
                     }
                 }
                 else {
@@ -552,7 +461,7 @@ var HelloWeek = (function () {
                         _this.removeStatesClass();
                     }
                     _this.daysSelected = [];
-                    _this.daysSelected.push(Utilities.timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
+                    _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
                 }
             }
             toggleClass(event.target, cssStates.IS_SELECTED);
@@ -587,7 +496,7 @@ var HelloWeek = (function () {
     HelloWeek.prototype.handleMouseInteraction = function (target) {
         var _this = this;
         target.addEventListener('mouseover', function (event) {
-            var index = Utilities.getIndexForEventTarget(_this.daysOfMonth, event.target);
+            var index = getIndexForEventTarget(_this.daysOfMonth, event.target);
             if (!_this.intervalRange.begin ||
                 (_this.intervalRange.begin && _this.intervalRange.end)) {
                 return;
@@ -739,7 +648,7 @@ var HelloWeek = (function () {
         addClass(newDay, cssStates.IS_HIGHLIGHT);
         if (this.daysHighlight[key].title) {
             dayOptions.tile = this.daysHighlight[key].title;
-            Utilities.setDataAttr(newDay, 'data-title', this.daysHighlight[key].title);
+            setAttr(newDay, 'data-title', this.daysHighlight[key].title);
         }
         if (this.daysHighlight[key].color) {
             setStyle(newDay, 'color', this.daysHighlight[key].color);
