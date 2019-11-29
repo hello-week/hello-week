@@ -32,3 +32,8 @@ export const daysWeek: any = {
     TUESDAY: 2,
     WEDNESDAY: 3,
 };
+
+/* @enum {string} */
+export const formatDate = {
+    DEFAULT: "YYYY-MM-DD",
+};
