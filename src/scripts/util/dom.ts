@@ -34,12 +34,7 @@ export function h(nodeName: string, attributes: any, ...args: any) {
   return vnode
 }
 
-export function createElement(
-  nodeName: string,
-  attributes: any,
-  children?: any,
-  parentDom?: HTMLElement
-) {
+export function createElement(nodeName: string, attributes: any, children?: any, parentDom?: HTMLElement) {
   return render(h(nodeName, attributes, children), parentDom)
 }
 
@@ -64,7 +59,5 @@ export function toggleClass(el: HTMLElement, className: string) {
 }
 
 export function existElement(className: string, where: HTMLElement) {
-  return isDef(where)
-    ? where.querySelector(`.${className}`)
-    : document.querySelector(`.${className}`)
+  return isDef(where) ? where.querySelector(`.${className}`) : document.querySelector(`.${className}`)
 }

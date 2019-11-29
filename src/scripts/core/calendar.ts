@@ -1,9 +1,4 @@
-import {
-  cssClasses,
-  cssStates,
-  daysWeek,
-  formatDate
-} from '../shared/constants'
+import { cssClasses, cssStates, daysWeek, formatDate } from '../shared/constants'
 import {
   error,
   log,
@@ -61,15 +56,12 @@ export class HelloWeek {
         })
       })
     } else {
-      Utilities.readFile(
-        this.options.langFolder + this.options.lang + '.json',
-        (text: any) => {
-          this.langs = JSON.parse(text)
-          this.init(() => {
-            /** callback function */
-          })
-        }
-      )
+      Utilities.readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
+        this.langs = JSON.parse(text)
+        this.init(() => {
+          /** callback function */
+        })
+      })
     }
   }
 
@@ -158,9 +150,7 @@ export class HelloWeek {
    * @public
    */
   getDays(): any {
-    return this.daysSelected.map((day: number) =>
-      Utilities.timestampToHuman(day, this.options.format, this.langs)
-    )
+    return this.daysSelected.map((day: number) => Utilities.timestampToHuman(day, this.options.format, this.langs))
   }
 
   /**
@@ -278,20 +268,15 @@ export class HelloWeek {
    * @public
    */
   private init(callback?: () => void) {
-    this.daysHighlight = this.options.daysHighlight
-      ? this.options.daysHighlight
-      : []
-    this.daysSelected = this.options.daysSelected
-      ? this.options.daysSelected
-      : []
+    this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : []
+    this.daysSelected = this.options.daysSelected ? this.options.daysSelected : []
 
     if (this.daysSelected.length > 1 && !this.options.multiplePick) {
       throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option
                 is ${this.options.multiplePick}!`)
     }
 
-    this.todayDate =
-      Utilities.setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60
+    this.todayDate = Utilities.setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60
     this.date = new Date()
     this.defaultDate = new Date()
 
@@ -322,9 +307,7 @@ export class HelloWeek {
    * @private
    */
   private selectDay(callback?: () => void): void {
-    this.daysOfMonth = this.selector.querySelectorAll(
-      '.' + cssClasses.MONTH + ' .' + cssClasses.DAY
-    )
+    this.daysOfMonth = this.selector.querySelectorAll('.' + cssClasses.MONTH + ' .' + cssClasses.DAY)
     for (const i of Object.keys(this.daysOfMonth)) {
       this.handleClickInteraction(this.daysOfMonth[i], callback)
       if (this.options.range) {
@@ -348,9 +331,7 @@ export class HelloWeek {
       return dt.getTime()
     }
     while (currentDate <= endDate) {
-      dates.push(
-        Utilities.timestampToHuman(currentDate, formatDate.DEFAULT, this.langs)
-      )
+      dates.push(Utilities.timestampToHuman(currentDate, formatDate.DEFAULT, this.langs))
       currentDate = addDays.call(currentDate, 1)
     }
     return dates
@@ -360,15 +341,9 @@ export class HelloWeek {
    * @param {HTMLElement} target
    * @private
    */
-  private handleClickInteraction(
-    target: HTMLElement,
-    callback?: () => void
-  ): void {
+  private handleClickInteraction(target: HTMLElement, callback?: () => void): void {
     target.addEventListener('click', (event: any) => {
-      const index = Utilities.getIndexForEventTarget(
-        this.daysOfMonth,
-        event.target
-      )
+      const index = Utilities.getIndexForEventTarget(this.daysOfMonth, event.target)
       if (this.days[index].locked) {
         return
       }
@@ -378,31 +353,18 @@ export class HelloWeek {
         if (this.options.multiplePick) {
           if (this.days[index].timestamp) {
             this.daysSelected = this.daysSelected.filter(
-              (day: string) =>
-                Utilities.setToTimestamp(day) !== this.lastSelectedDay
+              (day: string) => Utilities.setToTimestamp(day) !== this.lastSelectedDay
             )
           }
           if (!this.days[index].isSelected) {
-            this.daysSelected.push(
-              Utilities.timestampToHuman(
-                this.lastSelectedDay,
-                formatDate.DEFAULT,
-                this.langs
-              )
-            )
+            this.daysSelected.push(Utilities.timestampToHuman(this.lastSelectedDay, formatDate.DEFAULT, this.langs))
           }
         } else {
           if (!this.days[index].locked) {
             this.removeStatesClass()
           }
           this.daysSelected = []
-          this.daysSelected.push(
-            Utilities.timestampToHuman(
-              this.lastSelectedDay,
-              formatDate.DEFAULT,
-              this.langs
-            )
-          )
+          this.daysSelected.push(Utilities.timestampToHuman(this.lastSelectedDay, formatDate.DEFAULT, this.langs))
         }
       }
       Utilities.toggleClass(event.target, cssStates.IS_SELECTED)
@@ -415,10 +377,7 @@ export class HelloWeek {
         }
         if (this.intervalRange.begin && !this.intervalRange.end) {
           this.intervalRange.end = this.days[index].timestamp
-          this.daysSelected = this.getIntervalOfDates(
-            this.intervalRange.begin,
-            this.intervalRange.end
-          )
+          this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end)
           Utilities.addClass(event.target, cssStates.IS_END_RANGE)
           if (this.intervalRange.begin > this.intervalRange.end) {
             this.intervalRange.begin = undefined
@@ -447,14 +406,8 @@ export class HelloWeek {
    */
   private handleMouseInteraction(target: HTMLElement): void {
     target.addEventListener('mouseover', (event: any) => {
-      const index = Utilities.getIndexForEventTarget(
-        this.daysOfMonth,
-        event.target
-      )
-      if (
-        !this.intervalRange.begin ||
-        (this.intervalRange.begin && this.intervalRange.end)
-      ) {
+      const index = Utilities.getIndexForEventTarget(this.daysOfMonth, event.target)
+      if (!this.intervalRange.begin || (this.intervalRange.begin && this.intervalRange.end)) {
         return
       }
       this.removeStatesClass()
@@ -476,12 +429,7 @@ export class HelloWeek {
   }
 
   private creatWeek(dayShort: string): void {
-    createElement(
-      'span',
-      { class: cssClasses.DAY },
-      dayShort,
-      this.calendar.week
-    )
+    createElement('span', { class: cssClasses.DAY }, dayShort, this.calendar.week)
   }
 
   /**
@@ -509,9 +457,7 @@ export class HelloWeek {
     const day = date.getDay()
     const dayOptions: any = {
       day: num,
-      timestamp: humanToTimestamp(
-        format(date.getDate(), date.getMonth(), date.getFullYear())
-      ),
+      timestamp: humanToTimestamp(format(date.getDate(), date.getMonth(), date.getFullYear())),
       isWeekend: false,
       locked: false,
       isToday: false,
@@ -521,12 +467,7 @@ export class HelloWeek {
     }
 
     this.days = this.days || {}
-    const newDay = createElement(
-      'div',
-      { class: cssClasses.DAY },
-      String(dayOptions.day),
-      this.calendar.month
-    )
+    const newDay = createElement('div', { class: cssClasses.DAY }, String(dayOptions.day), this.calendar.month)
 
     if (dayOptions.day === 1) {
       if (this.options.weekStart === daysWeek.SUNDAY) {
@@ -540,9 +481,7 @@ export class HelloWeek {
           setStyle(
             newDay,
             this.options.rtl ? 'margin-right' : 'margin-left',
-            (Object.keys(daysWeek).length - this.options.weekStart) *
-              (100 / Object.keys(daysWeek).length) +
-              '%'
+            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
           )
         } else {
           setStyle(
@@ -560,11 +499,8 @@ export class HelloWeek {
     }
     if (
       this.options.locked ||
-      (this.options.disableDaysOfWeek &&
-        this.options.disableDaysOfWeek.includes(day)) ||
-      (this.options.disablePastDays &&
-        +this.date.setHours(0, 0, 0, 0) <=
-          +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
+      (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
+      (this.options.disablePastDays && +this.date.setHours(0, 0, 0, 0) <= +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
       (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
       (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)
     ) {
@@ -576,19 +512,13 @@ export class HelloWeek {
       this.setDaysDisable(newDay, dayOptions)
     }
 
-    if (
-      this.todayDate === dayOptions.timestamp &&
-      this.options.todayHighlight
-    ) {
+    if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
       addClass(newDay, cssStates.IS_TODAY)
       dayOptions.isToday = true
     }
 
     this.daysSelected.find((daySelected: number) => {
-      if (
-        daySelected === dayOptions.timestamp ||
-        humanToTimestamp(daySelected.toString()) === dayOptions.timestamp
-      ) {
+      if (daySelected === dayOptions.timestamp || humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
         addClass(newDay, cssStates.IS_SELECTED)
         dayOptions.isSelected = true
       }
@@ -681,11 +611,7 @@ export class HelloWeek {
       Utilities.setStyle(newDay, 'color', this.daysHighlight[key].color)
     }
     if (this.daysHighlight[key].backgroundColor) {
-      Utilities.setStyle(
-        newDay,
-        'background-color',
-        this.daysHighlight[key].backgroundColor
-      )
+      Utilities.setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor)
     }
     dayOptions.isHighlight = true
   }
@@ -696,9 +622,7 @@ export class HelloWeek {
    * @private
    */
   private monthsAsString(monthIndex: number): any {
-    return this.options.monthShort
-      ? this.langs.monthsShort[monthIndex]
-      : this.langs.months[monthIndex]
+    return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex]
   }
 
   /**
@@ -707,9 +631,7 @@ export class HelloWeek {
    * @private
    */
   private weekAsString(weekIndex: number): any {
-    return this.options.weekShort
-      ? this.langs.daysShort[weekIndex]
-      : this.langs.days[weekIndex]
+    return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex]
   }
 
   /**
@@ -718,10 +640,7 @@ export class HelloWeek {
   private mounted(): void {
     const listDays: number[] = []
     if (this.calendar.period) {
-      this.calendar.period.innerHTML =
-        this.monthsAsString(this.date.getMonth()) +
-        ' ' +
-        this.date.getFullYear()
+      this.calendar.period.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear()
     }
     /** define week format */
     this.calendar.week.textContent = ''

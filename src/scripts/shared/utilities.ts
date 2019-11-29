@@ -8,26 +8,13 @@ export class Utilities {
    * @return     {string}
    * @public
    */
-  static timestampToHuman(
-    timestamp: number,
-    format: string,
-    langs: any
-  ): string {
+  static timestampToHuman(timestamp: number, format: string, langs: any): string {
     const dt = new Date(timestamp)
     format = format.replace('dd', dt.getDate().toString())
-    format = format.replace(
-      'DD',
-      (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString()
-    )
+    format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString())
     format = format.replace('mm', (dt.getMonth() + 1).toString())
     format = format.replace('MMM', langs.months[dt.getMonth()])
-    format = format.replace(
-      'MM',
-      (dt.getMonth() + 1 > 9
-        ? dt.getMonth() + 1
-        : '0' + (dt.getMonth() + 1)
-      ).toString()
-    )
+    format = format.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString())
     format = format.replace('mmm', langs.monthsShort[dt.getMonth()])
     format = format.replace('yyyy', dt.getFullYear().toString())
     format = format.replace('YYYY', dt.getFullYear().toString())
@@ -76,12 +63,7 @@ export class Utilities {
    * @param {string} textNode
    * @public
    */
-  static creatHTMLElement(
-    el: HTMLElement,
-    className: string,
-    parentElement: HTMLElement,
-    textNode: any = null
-  ) {
+  static creatHTMLElement(el: HTMLElement, className: string, parentElement: HTMLElement, textNode: any = null) {
     let elem = el.querySelector('.' + className)
     if (!elem) {
       elem = document.createElement('div')

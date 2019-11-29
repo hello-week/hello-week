@@ -7,16 +7,9 @@ import { defaults } from './../shared/options'
  * @param      {string}  format
  * @return     {string}
  */
-export function timestampToHuman(
-  timestamp: number,
-  lang?: string,
-  format?: any
-): string {
+export function timestampToHuman(timestamp: number, lang?: string, format?: any): string {
   const dt = new Date(timestamp)
-  return new Intl.DateTimeFormat(
-    lang ? lang : defaults.lang,
-    format ? format : defaults.format
-  ).format(dt)
+  return new Intl.DateTimeFormat(lang ? lang : defaults.lang, format ? format : defaults.format).format(dt)
 }
 
 /**
