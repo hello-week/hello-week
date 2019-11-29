@@ -1,4 +1,4 @@
-import { defaults } from "./../shared/options";
+import { defaults } from './../shared/options'
 
 /**
  * Set date timestamp to human format.
@@ -8,15 +8,15 @@ import { defaults } from "./../shared/options";
  * @return     {string}
  */
 export function timestampToHuman(
-    timestamp: number,
-    lang?: string,
-    format?: any
+  timestamp: number,
+  lang?: string,
+  format?: any
 ): string {
-    const dt = new Date(timestamp);
-    return new Intl.DateTimeFormat(
-        lang ? lang : defaults.lang,
-        format ? format : defaults.format
-    ).format(dt);
+  const dt = new Date(timestamp)
+  return new Intl.DateTimeFormat(
+    lang ? lang : defaults.lang,
+    format ? format : defaults.format
+  ).format(dt)
 }
 
 /**
@@ -26,12 +26,12 @@ export function timestampToHuman(
  * @return     {number}
  */
 export function humanToTimestamp(date?: string): number {
-    if (date && (!isNaN(Number(date)) || date.split("-").length !== 3)) {
-        throw new Error(`The date ${date} is not valid!`);
-    }
+  if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
+    throw new Error(`The date ${date} is not valid!`)
+  }
 
-    if (date || typeof date === "string") {
-        return new Date(date + "T00:00:00Z").getTime();
-    }
-    return new Date().setHours(0, 0, 0, 0);
+  if (date || typeof date === 'string') {
+    return new Date(date + 'T00:00:00Z').getTime()
+  }
+  return new Date().setHours(0, 0, 0, 0)
 }

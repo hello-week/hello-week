@@ -1,7 +1,7 @@
-import { HelloWeek as Calendar } from "./core/calendar";
+import { HelloWeek as Calendar } from './core/calendar'
 
-export const HelloWeek = Calendar;
+export const HelloWeek = Calendar
 
-(window as any).HelloWeek = HelloWeek;
+;(window as any).HelloWeek = HelloWeek
 
-export default Calendar;
+export default Calendar
