@@ -118,6 +118,22 @@ function extend(to, from) {
     return Object.assign(to, from);
 }
 
+function readFile(file, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType('application/json');
+    xobj.open('GET', file, true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState === 4 && xobj.status === 200) {
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+function checkUrl(str) {
+    var regexp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    return regexp.test(str);
+}
+
 var defaults = {
     selector: ".hello-week",
     lang: "en",
@@ -205,6 +221,15 @@ function humanToTimestamp(date) {
     }
     return new Date().setHours(0, 0, 0, 0);
 }
+function setToTimestamp(date) {
+    if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
+        throw new Error("The date " + date + " is not valid!");
+    }
+    if (date || typeof date === 'string') {
+        return new Date(date + 'T00:00:00Z').getTime();
+    }
+    return new Date().setHours(0, 0, 0, 0);
+}
 
 var Utilities = (function () {
     function Utilities() {
@@ -284,10 +309,6 @@ var Utilities = (function () {
     Utilities.getIndexForEventTarget = function (daysOfMonth, target) {
         return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
     };
-    Utilities.checkUrl = function (str) {
-        var regexp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
-        return regexp.test(str);
-    };
     Utilities.extend = function (options, configurations) {
         var settings = configurations
             ? configurations
@@ -346,15 +367,15 @@ var HelloWeek = (function () {
         });
         this.selector = calendar.selector;
         this.calendar = calendar.calendar;
-        if (Utilities.checkUrl(this.options.langFolder)) {
-            Utilities.readFile(this.options.langFolder, function (text) {
+        if (checkUrl(this.options.langFolder)) {
+            readFile(this.options.langFolder, function (text) {
                 _this.langs = JSON.parse(text);
                 _this.init(function () {
                 });
             });
         }
         else {
-            Utilities.readFile(this.options.langFolder + this.options.lang + '.json', function (text) {
+            readFile(this.options.langFolder + this.options.lang + '.json', function (text) {
                 _this.langs = JSON.parse(text);
                 _this.init(function () {
                 });
@@ -461,7 +482,7 @@ var HelloWeek = (function () {
             throw new Error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option\n                is " + this.options.multiplePick + "!");
         }
         this.todayDate =
-            Utilities.setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
+            setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
         this.date = new Date();
         this.defaultDate = new Date();
         if (this.options.defaultDate) {
@@ -519,7 +540,7 @@ var HelloWeek = (function () {
                 if (_this.options.multiplePick) {
                     if (_this.days[index].timestamp) {
                         _this.daysSelected = _this.daysSelected.filter(function (day) {
-                            return Utilities.setToTimestamp(day) !== _this.lastSelectedDay;
+                            return setToTimestamp(day) !== _this.lastSelectedDay;
                         });
                     }
                     if (!_this.days[index].isSelected) {
@@ -674,8 +695,8 @@ var HelloWeek = (function () {
     HelloWeek.prototype.setDaysDisable = function (newDay, dayOptions) {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map(function (date) {
-                if (dayOptions.timestamp >= Utilities.setToTimestamp(date[0]) &&
-                    dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
+                if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
+                    dayOptions.timestamp <= setToTimestamp(date[1])) {
                     addClass(newDay, cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -683,7 +704,7 @@ var HelloWeek = (function () {
         }
         else {
             this.options.disableDates.map(function (date) {
-                if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
+                if (dayOptions.timestamp === setToTimestamp(date)) {
                     addClass(newDay, cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -695,15 +716,15 @@ var HelloWeek = (function () {
         var _loop_1 = function (key) {
             if (this_1.daysHighlight[key].days[0] instanceof Array) {
                 this_1.daysHighlight[key].days.map(function (date, index) {
-                    if (dayOptions.timestamp >= Utilities.setToTimestamp(date[0]) &&
-                        dayOptions.timestamp <= Utilities.setToTimestamp(date[1])) {
+                    if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
+                        dayOptions.timestamp <= setToTimestamp(date[1])) {
                         _this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             }
             else {
                 this_1.daysHighlight[key].days.map(function (date) {
-                    if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
+                    if (dayOptions.timestamp === setToTimestamp(date)) {
                         _this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });

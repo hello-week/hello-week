@@ -1,10 +1,9 @@
 import { cssClasses, cssStates, daysWeek, formatDate } from '../shared/constants'
-import { log, warn, extend, createElement, addClass, removeClass, setStyle, toggleClass } from './../util/index'
+import { log, warn, checkUrl, readFile, extend, getIndexForEventTarget, createElement, addClass, removeClass, setStyle, toggleClass } from './../util/index'
 import { defaults } from "../shared/options";
 import { build } from './template'
 import { format } from './format'
-import { humanToTimestamp, timestampToHuman } from './timestamp'
-import { Utilities } from '../shared/utilities'
+import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp'
 
 export class HelloWeek {
   private readonly defaultsOptions: any
@@ -38,15 +37,15 @@ export class HelloWeek {
     this.selector = calendar.selector
     this.calendar = calendar.calendar
 
-    if (Utilities.checkUrl(this.options.langFolder)) {
-      Utilities.readFile(this.options.langFolder, (text: any) => {
+    if (checkUrl(this.options.langFolder)) {
+      readFile(this.options.langFolder, (text: any) => {
         this.langs = JSON.parse(text)
         this.init(() => {
           /** callback function */
         })
       })
     } else {
-      Utilities.readFile(
+      readFile(
         this.options.langFolder + this.options.lang + '.json',
         (text: any) => {
           this.langs = JSON.parse(text)
@@ -144,7 +143,7 @@ export class HelloWeek {
    */
   getDays(): any {
     return this.daysSelected.map((day: number) =>
-      Utilities.timestampToHuman(day, this.options.format, this.langs)
+      timestampToHuman(day, this.options.format, this.langs)
     )
   }
 
@@ -275,8 +274,7 @@ export class HelloWeek {
                 is ${this.options.multiplePick}!`)
     }
 
-    this.todayDate =
-      Utilities.setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60
+    this.todayDate = setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60
     this.date = new Date()
     this.defaultDate = new Date()
 
@@ -334,7 +332,7 @@ export class HelloWeek {
     }
     while (currentDate <= endDate) {
       dates.push(
-        Utilities.timestampToHuman(currentDate, formatDate.DEFAULT, this.langs)
+        timestampToHuman(currentDate, formatDate.DEFAULT, this.langs)
       )
       currentDate = addDays.call(currentDate, 1)
     }
@@ -350,7 +348,7 @@ export class HelloWeek {
     callback?: () => void
   ): void {
     target.addEventListener('click', (event: any) => {
-      const index = Utilities.getIndexForEventTarget(
+      const index = getIndexForEventTarget(
         this.daysOfMonth,
         event.target
       )
@@ -364,12 +362,12 @@ export class HelloWeek {
           if (this.days[index].timestamp) {
             this.daysSelected = this.daysSelected.filter(
               (day: string) =>
-                Utilities.setToTimestamp(day) !== this.lastSelectedDay
+                setToTimestamp(day) !== this.lastSelectedDay
             )
           }
           if (!this.days[index].isSelected) {
             this.daysSelected.push(
-              Utilities.timestampToHuman(
+              timestampToHuman(
                 this.lastSelectedDay,
                 formatDate.DEFAULT,
                 this.langs
@@ -382,7 +380,7 @@ export class HelloWeek {
           }
           this.daysSelected = []
           this.daysSelected.push(
-            Utilities.timestampToHuman(
+            timestampToHuman(
               this.lastSelectedDay,
               formatDate.DEFAULT,
               this.langs
@@ -432,7 +430,7 @@ export class HelloWeek {
    */
   private handleMouseInteraction(target: HTMLElement): void {
     target.addEventListener('mouseover', (event: any) => {
-      const index = Utilities.getIndexForEventTarget(
+      const index = getIndexForEventTarget(
         this.daysOfMonth,
         event.target
       )
@@ -604,8 +602,8 @@ export class HelloWeek {
     if (this.options.disableDates[0] instanceof Array) {
       this.options.disableDates.map((date: any) => {
         if (
-          dayOptions.timestamp >= Utilities.setToTimestamp(date[0]) &&
-          dayOptions.timestamp <= Utilities.setToTimestamp(date[1])
+          dayOptions.timestamp >= setToTimestamp(date[0]) &&
+          dayOptions.timestamp <= setToTimestamp(date[1])
         ) {
           addClass(newDay, cssStates.IS_DISABLED)
           dayOptions.locked = true
@@ -613,7 +611,7 @@ export class HelloWeek {
       })
     } else {
       this.options.disableDates.map((date: any) => {
-        if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
+        if (dayOptions.timestamp === setToTimestamp(date)) {
           addClass(newDay, cssStates.IS_DISABLED)
           dayOptions.locked = true
         }
@@ -632,15 +630,15 @@ export class HelloWeek {
       if (this.daysHighlight[key].days[0] instanceof Array) {
         this.daysHighlight[key].days.map((date: any, index: number) => {
           if (
-            dayOptions.timestamp >= Utilities.setToTimestamp(date[0]) &&
-            dayOptions.timestamp <= Utilities.setToTimestamp(date[1])
+            dayOptions.timestamp >= setToTimestamp(date[0]) &&
+            dayOptions.timestamp <= setToTimestamp(date[1])
           ) {
             this.setStyleDayHighlight(newDay, key, dayOptions)
           }
         })
       } else {
         this.daysHighlight[key].days.map((date: any) => {
-          if (dayOptions.timestamp === Utilities.setToTimestamp(date)) {
+          if (dayOptions.timestamp === setToTimestamp(date)) {
             this.setStyleDayHighlight(newDay, key, dayOptions)
           }
         })
@@ -659,7 +657,7 @@ export class HelloWeek {
     addClass(newDay, cssStates.IS_HIGHLIGHT)
     if (this.daysHighlight[key].title) {
       dayOptions.tile = this.daysHighlight[key].title
-      Utilities.setDataAttr(newDay, 'data-title', this.daysHighlight[key].title)
+      setAttr(newDay, 'data-title', this.daysHighlight[key].title)
     }
 
     if (this.daysHighlight[key].color) {
