@@ -20,15 +20,12 @@
         "watch": "rollup -c -w",
         "build": "NODE_ENV=production rimraf dist && yarn run sass:build && rollup -c --environment NODE_ENV:production",
         "sass:build": "node-sass src/styles/hello-week-theme.scss dist/hello.week.theme.min.css && node-sass src/styles/hello-week.scss dist/hello.week.min.css --output-style compressed",
-        "serve": "http-server -c0 -g"
+        "serve": "http-server -c0 -g",
+        "test": "jest"
     },
     "devDependencies": {
         "@babel/core": "7.4.5",
         "@babel/preset-env": "7.4.5",
-        "jest": "^24.9.0",
-        "karma-chrome-launcher": "^2.2.0",
-        "karma-mocha": "^1.3.0",
-        "karma-typescript": "^4.0.0",
         "mocha": "^6.0.0",
         "node-sass": "^4.12.0",
         "prettier": "^1.18.2",
@@ -41,6 +38,9 @@
         "rollup-plugin-uglify-es": "0.0.1",
         "tslint": "^5.12.1",
         "tslint-config-prettier": "^1.18.0",
-        "typescript": "^3.7.0"
+        "typescript": "^3.7.0",
+        "@types/jest": "*",
+        "babel-jest": "*",
+        "jest": "*"
     }
 }
