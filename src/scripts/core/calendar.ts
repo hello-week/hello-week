@@ -12,6 +12,7 @@ import {
     setStyle,
     toggleClass,
 } from "./../util/index";
+import { build } from "./template";
 import { format } from "./format";
 import { humanToTimestamp, timestampToHuman } from "./timestamp";
 import { Utilities } from "../shared/utilities";
@@ -35,68 +36,17 @@ export class HelloWeek {
     constructor(options: any = {}) {
         this.options = Utilities.extend(options);
         HelloWeek.initOptions = Object.assign({}, Utilities.extend(options));
-        this.selector =
-            typeof this.options.selector === "string"
-                ? document.querySelector(this.options.selector)
-                : this.options.selector;
-
-        // early throw if selector doesn't exists
-        if (this.selector === null) {
-            throw new Error("You need to specify a selector!");
-        }
-
-        if (this.options.selector !== cssClasses.CALENDAR) {
-            Utilities.addClass(this.selector, cssClasses.CALENDAR);
-        }
-
-        this.calendar.navigation = Utilities.creatHTMLElement(
-            this.selector,
-            cssClasses.NAVIGATION,
-            this.selector
+        const calendar = build(this.options, {
+            prev: {
+                cb: () => this.prev()
+            },
+            next: {
+                cb: () => this.next()
+            }}
         );
 
-        if (this.options.nav) {
-            this.calendar.prevMonth = Utilities.creatHTMLElement(
-                this.selector,
-                cssClasses.PREV,
-                this.calendar.navigation,
-                this.options.nav[0]
-            );
-            this.calendar.period = Utilities.creatHTMLElement(
-                this.selector,
-                cssClasses.PERIOD,
-                this.calendar.navigation
-            );
-            this.calendar.nextMonth = Utilities.creatHTMLElement(
-                this.selector,
-                cssClasses.NEXT,
-                this.calendar.navigation,
-                this.options.nav[1]
-            );
-            this.calendar.prevMonth.addEventListener("click", () => {
-                this.prev(() => {
-                    /** callback */
-                });
-            });
-            this.calendar.nextMonth.addEventListener("click", () => {
-                this.next(() => {
-                    /** callback */
-                });
-            });
-        } else {
-            this.calendar.period = Utilities.creatHTMLElement(
-                this.selector,
-                cssClasses.PERIOD,
-                this.calendar.navigation
-            );
-        }
-        this.calendar.week = Utilities.creatHTMLElement(this.selector, cssClasses.WEEK, this.selector);
-        this.calendar.month = Utilities.creatHTMLElement(this.selector, cssClasses.MONTH, this.selector);
-
-        if (this.options.rtl) {
-            Utilities.addClass(this.calendar.week, cssClasses.RTL);
-            Utilities.addClass(this.calendar.month, cssClasses.RTL);
-        }
+        this.selector = calendar.selector;
+        this.calendar = calendar.calendar;
 
         if (Utilities.checkUrl(this.options.langFolder)) {
             Utilities.readFile(this.options.langFolder, (text: any) => {

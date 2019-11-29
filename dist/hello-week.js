@@ -54,6 +54,17 @@ var formatDate = {
     DEFAULT: "YYYY-MM-DD",
 };
 
+function error(msg) {
+    throw new Error("[Hello Week Error]: " + msg);
+}
+
+function isDef(v) {
+    return v !== undefined && v !== null;
+}
+function isString(val) {
+    return typeof val === "string";
+}
+
 function render(vnode, parentDom) {
     if (vnode.split) {
         return document.createTextNode(vnode);
@@ -86,6 +97,55 @@ function setStyle(el, prop, value) {
 }
 function addClass(el, className) {
     return el.classList.add(className);
+}
+function existElement(className, where) {
+    return isDef(where) ? where.querySelector("." + className) : document.querySelector("." + className);
+}
+
+function build(options, args) {
+    var self = {};
+    if (!isString(options.selector) && !isDef(options.selector)) {
+        error("You need to specify a selector!");
+    }
+    self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
+    if (!isDef(self.selector)) {
+        self.selector = render(h("div", { class: options.selector + " " + cssClasses.CALENDAR }));
+    }
+    else {
+        if (options.selector !== cssClasses.CALENDAR) {
+            addClass(self.selector, cssClasses.CALENDAR);
+        }
+    }
+    self.calendar = {};
+    self.calendar.navigation = existElement(cssClasses.NAVIGATION, self.selector);
+    if (!isDef(self.calendar.navigation)) {
+        self.calendar.navigation = render(h("div", { class: cssClasses.NAVIGATION }), self.selector);
+    }
+    if (isDef(options.nav[0])) {
+        self.calendar.prevMonth = render(h("div", { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
+        self.calendar.prevMonth.addEventListener("click", function () { return args.prev.cb(); });
+    }
+    self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
+    if (!isDef(self.calendar.period)) {
+        self.calendar.period = render(h("div", { class: cssClasses.PERIOD }), self.calendar.navigation);
+    }
+    if (isDef(options.nav[1])) {
+        self.calendar.nextMonth = render(h("div", { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
+        self.calendar.nextMonth.addEventListener("click", function () { return args.next.cb(); });
+    }
+    self.calendar.week = existElement(cssClasses.WEEK, self.selector);
+    if (!isDef(self.calendar.week)) {
+        self.calendar.week = render(h("div", { class: cssClasses.WEEK }), self.selector);
+    }
+    self.calendar.month = existElement(cssClasses.MONTH, self.selector);
+    if (!isDef(self.calendar.month)) {
+        self.calendar.month = render(h("div", { class: cssClasses.MONTH }), self.selector);
+    }
+    if (options.rtl) {
+        addClass(self.calendar.week, cssClasses.RTL);
+        addClass(self.calendar.month, cssClasses.RTL);
+    }
+    return self;
 }
 
 function format(day, month, year) {
@@ -234,39 +294,16 @@ var HelloWeek = (function () {
         this.daysSelected = [];
         this.options = Utilities.extend(options);
         HelloWeek.initOptions = Object.assign({}, Utilities.extend(options));
-        this.selector =
-            typeof this.options.selector === "string"
-                ? document.querySelector(this.options.selector)
-                : this.options.selector;
-        if (this.selector === null) {
-            throw new Error("You need to specify a selector!");
-        }
-        if (this.options.selector !== cssClasses.CALENDAR) {
-            Utilities.addClass(this.selector, cssClasses.CALENDAR);
-        }
-        this.calendar.navigation = Utilities.creatHTMLElement(this.selector, cssClasses.NAVIGATION, this.selector);
-        if (this.options.nav) {
-            this.calendar.prevMonth = Utilities.creatHTMLElement(this.selector, cssClasses.PREV, this.calendar.navigation, this.options.nav[0]);
-            this.calendar.period = Utilities.creatHTMLElement(this.selector, cssClasses.PERIOD, this.calendar.navigation);
-            this.calendar.nextMonth = Utilities.creatHTMLElement(this.selector, cssClasses.NEXT, this.calendar.navigation, this.options.nav[1]);
-            this.calendar.prevMonth.addEventListener("click", function () {
-                _this.prev(function () {
-                });
-            });
-            this.calendar.nextMonth.addEventListener("click", function () {
-                _this.next(function () {
-                });
-            });
-        }
-        else {
-            this.calendar.period = Utilities.creatHTMLElement(this.selector, cssClasses.PERIOD, this.calendar.navigation);
-        }
-        this.calendar.week = Utilities.creatHTMLElement(this.selector, cssClasses.WEEK, this.selector);
-        this.calendar.month = Utilities.creatHTMLElement(this.selector, cssClasses.MONTH, this.selector);
-        if (this.options.rtl) {
-            Utilities.addClass(this.calendar.week, cssClasses.RTL);
-            Utilities.addClass(this.calendar.month, cssClasses.RTL);
-        }
+        var calendar = build(this.options, {
+            prev: {
+                cb: function () { return _this.prev(); }
+            },
+            next: {
+                cb: function () { return _this.next(); }
+            }
+        });
+        this.selector = calendar.selector;
+        this.calendar = calendar.calendar;
         if (Utilities.checkUrl(this.options.langFolder)) {
             Utilities.readFile(this.options.langFolder, function (text) {
                 _this.langs = JSON.parse(text);
