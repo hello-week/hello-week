@@ -1,23 +1,25 @@
-export function isAfter(input: any, units: any) {
-  return units
+import { normalizeDate } from '../util/index'
+
+export function isAfter(input: any, date: any) {
+  return date
 }
 
-export function isBefore(input: any, units: any) {
-  return units
+export function isBefore(input: any, date: any) {
+  return date
 }
 
-export function isBetween(from: string, to: string, units: string) {
-  return units > from && units < to
+export function isBetween(from: number, to: number, date: number) {
+  return normalizeDate(date) > normalizeDate(from) && normalizeDate(date) < normalizeDate(to)
 }
 
-export function isSame(input: any, units: any) {
-  return units
+export function isSame(input: any, date: any) {
+  return date
 }
 
-export function isSameOrAfter(input: any, units: any) {
-  return isSame(input, units) || isAfter(input, units)
+export function isSameOrAfter(input: any, date: any) {
+  return isSame(input, date) || isAfter(input, date)
 }
 
-export function isSameOrBefore(input: any, units: any) {
-  return isSame(input, units) || isBefore(input, units)
+export function isSameOrBefore(input: any, date: any) {
+  return isSame(input, date) || isBefore(input, date)
 }
