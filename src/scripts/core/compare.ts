@@ -7,7 +7,7 @@ export function isBefore(input: any, units: any) {
 }
 
 export function isBetween(from: string, to: string, units: string) {
-  return units
+  return units > from && units < to
 }
 
 export function isSame(input: any, units: any) {
