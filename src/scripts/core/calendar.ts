@@ -7,6 +7,7 @@ import {
   readFile,
   extend,
   getIndexForEventTarget,
+  isObject,
   setAttr,
   h,
   render,
@@ -447,32 +448,36 @@ export class HelloWeek {
       isToday: false,
       isSelected: false,
       isHighlight: false,
-      style: {
-        prop: this.options.rtl ? 'margin-right' : 'margin-left',
-        value: '',
-        toString: () => `${dayOptions.style.prop}:${dayOptions.style.value}`
+      title: undefined,
+      attributes: {
+        class: [cssClasses.DAY],
+        style: [
+          {'color': 'red'},
+          {'margin-right': undefined},
+          {'margin-left': undefined},
+        ]
       },
-      class: [cssClasses.DAY],
       element: undefined
     }
 
     this.days = this.days || {}
 
     if (dayOptions.day === 1) {
+      const margin = this.options.rtl ? 'margin-right' : 'margin-left';
+      dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%'
       if (this.options.weekStart === daysWeek.SUNDAY) {
-        dayOptions.style.value = day * (100 / Object.keys(daysWeek).length) + '%'
+        dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%'
       } else {
         if (day === daysWeek.SUNDAY) {
-          dayOptions.style.value =
-            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
+          dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
         } else {
-          dayOptions.style.value = (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
+          dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
         }
       }
     }
 
     if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
-      dayOptions.class.push(cssStates.IS_WEEKEND)
+      dayOptions.attributes.class.push(cssStates.IS_WEEKEND)
       dayOptions.isWeekend = true
     }
     if (
@@ -482,7 +487,7 @@ export class HelloWeek {
       (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
       (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)
     ) {
-      dayOptions.class.push(cssStates.IS_DISABLED)
+      dayOptions.attributes.class.push(cssStates.IS_DISABLED)
       dayOptions.locked = true
     }
 
@@ -491,35 +496,35 @@ export class HelloWeek {
     }
 
     if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
-      dayOptions.class.push(cssStates.IS_TODAY)
+      dayOptions.attributes.class.push(cssStates.IS_TODAY)
       dayOptions.isToday = true
     }
 
     this.daysSelected.find((daySelected: number) => {
       if (daySelected === dayOptions.timestamp || humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
-        dayOptions.class.push(cssStates.IS_SELECTED)
+        dayOptions.attributes.class.push(cssStates.IS_SELECTED)
         dayOptions.isSelected = true
       }
     })
 
     if (dayOptions.timestamp === this.intervalRange.begin) {
-      dayOptions.class.push(cssStates.IS_BEGIN_RANGE)
+      dayOptions.attributes.class.push(cssStates.IS_BEGIN_RANGE)
     }
 
     if (dayOptions.timestamp === this.intervalRange.end) {
-      dayOptions.class.push(cssStates.IS_END_RANGE)
+      dayOptions.attributes.class.push(cssStates.IS_END_RANGE)
     }
 
     if (this.daysHighlight) {
-      //this.setDayHighlight(newDay, dayOptions)
+      this.setDayHighlight(dayOptions)
     }
 
-    console.log(dayOptions.class.join(' '));
-    console.log(dayOptions.style);
+    console.log(dayOptions.attributes);
     dayOptions.element = render(
-      h('div', { class: dayOptions.class.join(' '), style: dayOptions.style.toString() }, String(dayOptions.day)),
+      h('div', dayOptions.attributes, String(dayOptions.day)),
       this.calendar.month
     )
+
     this.days[dayOptions.day] = dayOptions
   }
 
@@ -527,14 +532,14 @@ export class HelloWeek {
     if (this.options.disableDates[0] instanceof Array) {
       this.options.disableDates.map((date: any) => {
         if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-          dayOptions.class.push(cssStates.IS_DISABLED)
+          dayOptions.attributes.class.push(cssStates.IS_DISABLED)
           dayOptions.locked = true
         }
       })
     } else {
       this.options.disableDates.map((date: any) => {
         if (dayOptions.timestamp === setToTimestamp(date)) {
-          dayOptions.class.push(cssStates.IS_DISABLED)
+          dayOptions.attributes.class.push(cssStates.IS_DISABLED)
           dayOptions.locked = true
         }
       })
@@ -547,45 +552,40 @@ export class HelloWeek {
    * @param      {any}  dayOptions
    * @private
    */
-  private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
+  private setDayHighlight(dayOptions: any): void {
     for (const key in this.daysHighlight) {
       if (this.daysHighlight[key].days[0] instanceof Array) {
         this.daysHighlight[key].days.map((date: any, index: number) => {
           if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-            this.setStyleDayHighlight(newDay, key, dayOptions)
+            this.setStyleDayHighlight(key, dayOptions)
           }
         })
       } else {
         this.daysHighlight[key].days.map((date: any) => {
           if (dayOptions.timestamp === setToTimestamp(date)) {
-            this.setStyleDayHighlight(newDay, key, dayOptions)
+            this.setStyleDayHighlight(key, dayOptions)
           }
         })
       }
     }
   }
 
-  /**
-   * Sets styles for days highlight.
-   * @param      {HTMLElement}  newDay
-   * @param      {any}  key
-   * @param      {any}  dayOptions
-   * @private
-   */
-  private setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
-    addClass(newDay, cssStates.IS_HIGHLIGHT)
-    if (this.daysHighlight[key].title) {
-      dayOptions.tile = this.daysHighlight[key].title
-      setAttr(newDay, 'data-title', this.daysHighlight[key].title)
+
+  private setStyleDayHighlight(key: any, dayOptions: any) {
+    const { title, attributes} = this.daysHighlight[key];
+
+    if (title) {
+      dayOptions.title = title
     }
 
-    if (this.daysHighlight[key].color) {
-      setStyle(newDay, 'color', this.daysHighlight[key].color)
+    if (isObject(attributes)) {
+      const {style, data} = attributes;
+      dayOptions.attributes.style = Array.from(new Set(dayOptions.attributes.style.concat(style)))
     }
-    if (this.daysHighlight[key].backgroundColor) {
-      setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor)
-    }
+
+    dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT)
     dayOptions.isHighlight = true
+
   }
 
   /**

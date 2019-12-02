@@ -1,4 +1,4 @@
-import { isDef } from './types'
+import { isDef, isString, isArray, isObject } from './types'
 import { cssClasses } from '../shared/constants'
 
 export function render(vnode: any, parentDom?: HTMLElement) {
@@ -12,7 +12,30 @@ export function render(vnode: any, parentDom?: HTMLElement) {
 
   // copy attributes onto the new node:
   const a = vnode.attributes || {}
-  Object.keys(a).forEach(k => n.setAttribute(k, a[k]))
+  Object.keys(a).forEach(k => {
+    if (k === 'class') {
+      if (isString(a[k])) {
+        n.className = a[k]
+      } else if (isArray(a[k])) {
+        a[k].forEach((v: any) => {
+            n.classList.add(v)
+        })
+      }
+    } else if (k === 'style') {
+      if (isString(a[k])) {
+        n.style = a[k]
+      } else if (isArray(a[k])) {
+        a[k].forEach((y: any, v: any) => {
+            if(isObject(y)) {
+              Object.keys(y).forEach((z, p) => {
+                n.style.setProperty(z, y[z]);
+              })
+            }
+        })
+      }
+    }
+  }
+ )
 
   // render (build) and then append child nodes:
   ;(vnode.children || []).forEach((c: any) => n.appendChild(render(c)))

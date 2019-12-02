@@ -1,47 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Hello Week - Javascript Calendar</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
-        <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-        <link href="dist/hello.week.min.css" rel="stylesheet" />
-        <link href="dist/hello.week.theme.min.css" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Week - Javascript Calendar</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <link href="dist/hello.week.min.css" rel="stylesheet" />
+    <link href="dist/hello.week.theme.min.css" rel="stylesheet" />
 
-        <style>
-            .grid {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                margin: 40px 0;
+    <style>
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 40px 0;
+      }
+
+      .grid .calendar {
+        flex-basis: 25%;
+        border: 2px solid #999;
+        margin: 1rem;
+      }
+
+      .btn {
+        border: 0;
+        margin: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="hello-week" id="calendar"></div>
+    </div>
+
+    <script type="module">
+      import { HelloWeek } from './dist/hello-week.js'
+      new HelloWeek({
+        selector: '#calendar',
+        multiplePick: true,
+        disableDates: [['2019-12-02', '2019-12-12']],
+        daysHighlight: [
+          {
+            title: 'Dad Birthday',
+            days: ['2019-12-22'],
+            attributes: {
+              style: [{'background-color': '#000'}],
+              data: {
+                title: 'Dad Birthday'
+              }
             }
-
-            .grid .calendar {
-                flex-basis: 25%;
-                border: 2px solid #999;
-                margin: 1rem;
-            }
-
-            .btn {
-                border: 0;
-                margin: 6px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="grid">
-            <div class="hello-week" id="calendar"></div>
-        </div>
-
-        <script type="module">
-            import { HelloWeek } from "./dist/hello-week.js";
-            new HelloWeek({
-                selector: "#calendar",
-                multiplePick: true
-            });
-        </script>
-    </body>
+          },
+          {
+            days: ['2019-12-18'],
+            backgroundColor: '#f08080',
+            title: 'Mom Birthday'
+          },
+          {
+            days: [
+            ['2020-01-01', '2020-01-14'],
+            ['2020-02-16', '2020-02-26']
+            ],
+            backgroundColor: '#6495ed',
+            color: '#fff',
+            title: 'Summer Holidays'
+          }
+        ]
+      })
+    </script>
+  </body>
 </html>

@@ -67,6 +67,12 @@ function error() {
 function isDef(v) {
     return v !== undefined && v !== null;
 }
+function isObject(obj) {
+    return obj !== null && typeof obj === 'object';
+}
+function isArray(obj) {
+    return obj !== null && Array.isArray(obj);
+}
 function isString(val) {
     return typeof val === 'string';
 }
@@ -77,7 +83,32 @@ function render(vnode, parentDom) {
     }
     var n = document.createElement(vnode.nodeName);
     var a = vnode.attributes || {};
-    Object.keys(a).forEach(function (k) { return n.setAttribute(k, a[k]); });
+    Object.keys(a).forEach(function (k) {
+        if (k === 'class') {
+            if (isString(a[k])) {
+                n.className = a[k];
+            }
+            else if (isArray(a[k])) {
+                a[k].forEach(function (v) {
+                    n.classList.add(v);
+                });
+            }
+        }
+        else if (k === 'style') {
+            if (isString(a[k])) {
+                n.style = a[k];
+            }
+            else if (isArray(a[k])) {
+                a[k].forEach(function (y, v) {
+                    if (isObject(y)) {
+                        Object.keys(y).forEach(function (z, p) {
+                            n.style.setProperty(z, y[z]);
+                        });
+                    }
+                });
+            }
+        }
+    });
     (vnode.children || []).forEach(function (c) { return n.appendChild(render(c)); });
     return parentDom ? parentDom.appendChild(n) : n;
 }
@@ -94,12 +125,6 @@ function h(nodeName, attributes) {
         vnode.children = [].concat.apply([], args);
     }
     return vnode;
-}
-function setAttr(el, name, value) {
-    return el.setAttribute(name, value);
-}
-function setStyle(el, prop, value) {
-    return el.style.setProperty(prop, value);
 }
 function addClass(el, className) {
     return el.classList.add(className);
@@ -527,31 +552,35 @@ var HelloWeek = (function () {
             isToday: false,
             isSelected: false,
             isHighlight: false,
-            style: {
-                prop: this.options.rtl ? 'margin-right' : 'margin-left',
-                value: '',
-                toString: function () { return dayOptions.style.prop + ":" + dayOptions.style.value; }
+            title: undefined,
+            attributes: {
+                class: [cssClasses.DAY],
+                style: [
+                    { 'color': 'red' },
+                    { 'margin-right': undefined },
+                    { 'margin-left': undefined },
+                ]
             },
-            class: [cssClasses.DAY],
             element: undefined
         };
         this.days = this.days || {};
         if (dayOptions.day === 1) {
+            var margin = this.options.rtl ? 'margin-right' : 'margin-left';
+            dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%';
             if (this.options.weekStart === daysWeek.SUNDAY) {
-                dayOptions.style.value = day * (100 / Object.keys(daysWeek).length) + '%';
+                dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%';
             }
             else {
                 if (day === daysWeek.SUNDAY) {
-                    dayOptions.style.value =
-                        (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
+                    dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
                 }
                 else {
-                    dayOptions.style.value = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
+                    dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
                 }
             }
         }
         if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
-            dayOptions.class.push(cssStates.IS_WEEKEND);
+            dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
         if (this.options.locked ||
@@ -559,39 +588,40 @@ var HelloWeek = (function () {
             (this.options.disablePastDays && +this.date.setHours(0, 0, 0, 0) <= +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
             (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
             (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)) {
-            dayOptions.class.push(cssStates.IS_DISABLED);
+            dayOptions.attributes.class.push(cssStates.IS_DISABLED);
             dayOptions.locked = true;
         }
         if (this.options.disableDates) {
             this.setDaysDisable(dayOptions);
         }
         if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
-            dayOptions.class.push(cssStates.IS_TODAY);
+            dayOptions.attributes.class.push(cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
         this.daysSelected.find(function (daySelected) {
             if (daySelected === dayOptions.timestamp || humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
-                dayOptions.class.push(cssStates.IS_SELECTED);
+                dayOptions.attributes.class.push(cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
         });
         if (dayOptions.timestamp === this.intervalRange.begin) {
-            dayOptions.class.push(cssStates.IS_BEGIN_RANGE);
+            dayOptions.attributes.class.push(cssStates.IS_BEGIN_RANGE);
         }
         if (dayOptions.timestamp === this.intervalRange.end) {
-            dayOptions.class.push(cssStates.IS_END_RANGE);
+            dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
         }
-        if (this.daysHighlight) ;
-        console.log(dayOptions.class.join(' '));
-        console.log(dayOptions.style);
-        dayOptions.element = render(h('div', { class: dayOptions.class.join(' '), style: dayOptions.style.toString() }, String(dayOptions.day)), this.calendar.month);
+        if (this.daysHighlight) {
+            this.setDayHighlight(dayOptions);
+        }
+        console.log(dayOptions.attributes);
+        dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     };
     HelloWeek.prototype.setDaysDisable = function (dayOptions) {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map(function (date) {
                 if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-                    dayOptions.class.push(cssStates.IS_DISABLED);
+                    dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
             });
@@ -599,26 +629,26 @@ var HelloWeek = (function () {
         else {
             this.options.disableDates.map(function (date) {
                 if (dayOptions.timestamp === setToTimestamp(date)) {
-                    dayOptions.class.push(cssStates.IS_DISABLED);
+                    dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
             });
         }
     };
-    HelloWeek.prototype.setDayHighlight = function (newDay, dayOptions) {
+    HelloWeek.prototype.setDayHighlight = function (dayOptions) {
         var _this = this;
         var _loop_1 = function (key) {
             if (this_1.daysHighlight[key].days[0] instanceof Array) {
                 this_1.daysHighlight[key].days.map(function (date, index) {
                     if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-                        _this.setStyleDayHighlight(newDay, key, dayOptions);
+                        _this.setStyleDayHighlight(key, dayOptions);
                     }
                 });
             }
             else {
                 this_1.daysHighlight[key].days.map(function (date) {
                     if (dayOptions.timestamp === setToTimestamp(date)) {
-                        _this.setStyleDayHighlight(newDay, key, dayOptions);
+                        _this.setStyleDayHighlight(key, dayOptions);
                     }
                 });
             }
@@ -628,18 +658,16 @@ var HelloWeek = (function () {
             _loop_1(key);
         }
     };
-    HelloWeek.prototype.setStyleDayHighlight = function (newDay, key, dayOptions) {
-        addClass(newDay, cssStates.IS_HIGHLIGHT);
-        if (this.daysHighlight[key].title) {
-            dayOptions.tile = this.daysHighlight[key].title;
-            setAttr(newDay, 'data-title', this.daysHighlight[key].title);
+    HelloWeek.prototype.setStyleDayHighlight = function (key, dayOptions) {
+        var _a = this.daysHighlight[key], title = _a.title, attributes = _a.attributes;
+        if (title) {
+            dayOptions.title = title;
         }
-        if (this.daysHighlight[key].color) {
-            setStyle(newDay, 'color', this.daysHighlight[key].color);
+        if (isObject(attributes)) {
+            var style = attributes.style, data = attributes.data;
+            dayOptions.attributes.style = Array.from(new Set(dayOptions.attributes.style.concat(style)));
         }
-        if (this.daysHighlight[key].backgroundColor) {
-            setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
-        }
+        dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT);
         dayOptions.isHighlight = true;
     };
     HelloWeek.prototype.monthsAsString = function (monthIndex) {
