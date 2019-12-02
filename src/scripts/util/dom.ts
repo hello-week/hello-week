@@ -34,10 +34,6 @@ export function h(nodeName: string, attributes: any, ...args: any) {
   return vnode
 }
 
-export function createElement(nodeName: string, attributes: any, children?: any, parentDom?: HTMLElement) {
-  return render(h(nodeName, attributes, children), parentDom)
-}
-
 export function setAttr(el: HTMLElement, name: string, value: string) {
   return el.setAttribute(name, value)
 }

@@ -95,9 +95,6 @@ function h(nodeName, attributes) {
     }
     return vnode;
 }
-function createElement(nodeName, attributes, children, parentDom) {
-    return render(h(nodeName, attributes, children), parentDom);
-}
 function setAttr(el, name, value) {
     return el.setAttribute(name, value);
 }
@@ -337,9 +334,7 @@ var HelloWeek = (function () {
     };
     HelloWeek.prototype.getDays = function () {
         var _this = this;
-        return this.daysSelected.map(function (day) {
-            return timestampToHuman(day, _this.options.format, _this.langs);
-        });
+        return this.daysSelected.map(function (day) { return timestampToHuman(day, _this.options.format, _this.langs); });
     };
     HelloWeek.prototype.getDaySelected = function () {
         return this.lastSelectedDay;
@@ -382,14 +377,10 @@ var HelloWeek = (function () {
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     };
     HelloWeek.prototype.init = function (callback) {
-        this.daysHighlight = this.options.daysHighlight
-            ? this.options.daysHighlight
-            : [];
-        this.daysSelected = this.options.daysSelected
-            ? this.options.daysSelected
-            : [];
+        this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
+        this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
         if (this.daysSelected.length > 1 && !this.options.multiplePick) {
-            throw new Error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option\n                is " + this.options.multiplePick + "!");
+            error("There are " + this.daysSelected.length + " dates selected, but the multiplePick option\n                is " + this.options.multiplePick + "!");
         }
         this.todayDate = setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
         this.date = new Date();
@@ -448,9 +439,7 @@ var HelloWeek = (function () {
             if (!_this.options.range) {
                 if (_this.options.multiplePick) {
                     if (_this.days[index].timestamp) {
-                        _this.daysSelected = _this.daysSelected.filter(function (day) {
-                            return setToTimestamp(day) !== _this.lastSelectedDay;
-                        });
+                        _this.daysSelected = _this.daysSelected.filter(function (day) { return setToTimestamp(day) !== _this.lastSelectedDay; });
                     }
                     if (!_this.days[index].isSelected) {
                         _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
@@ -497,8 +486,7 @@ var HelloWeek = (function () {
         var _this = this;
         target.addEventListener('mouseover', function (event) {
             var index = getIndexForEventTarget(_this.daysOfMonth, event.target);
-            if (!_this.intervalRange.begin ||
-                (_this.intervalRange.begin && _this.intervalRange.end)) {
+            if (!_this.intervalRange.begin || (_this.intervalRange.begin && _this.intervalRange.end)) {
                 return;
             }
             _this.removeStatesClass();
@@ -517,7 +505,7 @@ var HelloWeek = (function () {
         });
     };
     HelloWeek.prototype.creatWeek = function (dayShort) {
-        createElement('span', { class: cssClasses.DAY }, dayShort, this.calendar.week);
+        render(h('span', { class: cssClasses.DAY }, dayShort), this.calendar.week);
     };
     HelloWeek.prototype.createMonth = function () {
         var currentMonth = this.date.getMonth();
@@ -526,8 +514,7 @@ var HelloWeek = (function () {
             this.date.setDate(this.date.getDate() + 1);
         }
         this.date.setMonth(this.date.getMonth() - 1);
-        this.selectDay(function () {
-        });
+        this.selectDay();
     };
     HelloWeek.prototype.createDay = function (date) {
         var num = date.getDate();
@@ -540,73 +527,71 @@ var HelloWeek = (function () {
             isToday: false,
             isSelected: false,
             isHighlight: false,
+            style: {
+                prop: this.options.rtl ? 'margin-right' : 'margin-left',
+                value: '',
+                toString: function () { return dayOptions.style.prop + ":" + dayOptions.style.value; }
+            },
+            class: [cssClasses.DAY],
             element: undefined
         };
         this.days = this.days || {};
-        var newDay = createElement('div', { class: cssClasses.DAY }, String(dayOptions.day), this.calendar.month);
         if (dayOptions.day === 1) {
             if (this.options.weekStart === daysWeek.SUNDAY) {
-                setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', day * (100 / Object.keys(daysWeek).length) + '%');
+                dayOptions.style.value = day * (100 / Object.keys(daysWeek).length) + '%';
             }
             else {
                 if (day === daysWeek.SUNDAY) {
-                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (Object.keys(daysWeek).length - this.options.weekStart) *
-                        (100 / Object.keys(daysWeek).length) +
-                        '%');
+                    dayOptions.style.value =
+                        (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
                 }
                 else {
-                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (day - 1) * (100 / Object.keys(daysWeek).length) + '%');
+                    dayOptions.style.value = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
                 }
             }
         }
         if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
-            addClass(newDay, cssStates.IS_WEEKEND);
+            dayOptions.class.push(cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
         if (this.options.locked ||
-            (this.options.disableDaysOfWeek &&
-                this.options.disableDaysOfWeek.includes(day)) ||
-            (this.options.disablePastDays &&
-                +this.date.setHours(0, 0, 0, 0) <=
-                    +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
+            (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
+            (this.options.disablePastDays && +this.date.setHours(0, 0, 0, 0) <= +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
             (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
             (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)) {
-            addClass(newDay, cssStates.IS_DISABLED);
+            dayOptions.class.push(cssStates.IS_DISABLED);
             dayOptions.locked = true;
         }
         if (this.options.disableDates) {
-            this.setDaysDisable(newDay, dayOptions);
+            this.setDaysDisable(dayOptions);
         }
-        if (this.todayDate === dayOptions.timestamp &&
-            this.options.todayHighlight) {
-            addClass(newDay, cssStates.IS_TODAY);
+        if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
+            dayOptions.class.push(cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
         this.daysSelected.find(function (daySelected) {
-            if (daySelected === dayOptions.timestamp ||
-                humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
-                addClass(newDay, cssStates.IS_SELECTED);
+            if (daySelected === dayOptions.timestamp || humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
+                dayOptions.class.push(cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
         });
         if (dayOptions.timestamp === this.intervalRange.begin) {
-            addClass(newDay, cssStates.IS_BEGIN_RANGE);
+            dayOptions.class.push(cssStates.IS_BEGIN_RANGE);
         }
         if (dayOptions.timestamp === this.intervalRange.end) {
-            addClass(newDay, cssStates.IS_END_RANGE);
+            dayOptions.class.push(cssStates.IS_END_RANGE);
         }
-        if (this.daysHighlight) {
-            this.setDayHighlight(newDay, dayOptions);
-        }
-        dayOptions.element = newDay;
+        if (this.daysHighlight) ;
+        console.log(dayOptions.class.join(' '));
+        console.log(dayOptions.style);
+        dayOptions.element = render(h('div', { class: dayOptions.class.join(' '), style: dayOptions.style.toString() }, String(dayOptions.day)), this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     };
-    HelloWeek.prototype.setDaysDisable = function (newDay, dayOptions) {
+    HelloWeek.prototype.setDaysDisable = function (dayOptions) {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map(function (date) {
-                if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-                    dayOptions.timestamp <= setToTimestamp(date[1])) {
-                    addClass(newDay, cssStates.IS_DISABLED);
+                if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
+                    dayOptions.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
             });
@@ -614,7 +599,7 @@ var HelloWeek = (function () {
         else {
             this.options.disableDates.map(function (date) {
                 if (dayOptions.timestamp === setToTimestamp(date)) {
-                    addClass(newDay, cssStates.IS_DISABLED);
+                    dayOptions.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
             });
@@ -625,8 +610,7 @@ var HelloWeek = (function () {
         var _loop_1 = function (key) {
             if (this_1.daysHighlight[key].days[0] instanceof Array) {
                 this_1.daysHighlight[key].days.map(function (date, index) {
-                    if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-                        dayOptions.timestamp <= setToTimestamp(date[1])) {
+                    if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
                         _this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
@@ -659,22 +643,15 @@ var HelloWeek = (function () {
         dayOptions.isHighlight = true;
     };
     HelloWeek.prototype.monthsAsString = function (monthIndex) {
-        return this.options.monthShort
-            ? this.langs.monthsShort[monthIndex]
-            : this.langs.months[monthIndex];
+        return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
     };
     HelloWeek.prototype.weekAsString = function (weekIndex) {
-        return this.options.weekShort
-            ? this.langs.daysShort[weekIndex]
-            : this.langs.days[weekIndex];
+        return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
     };
     HelloWeek.prototype.mounted = function () {
         var listDays = [];
         if (this.calendar.period) {
-            this.calendar.period.innerHTML =
-                this.monthsAsString(this.date.getMonth()) +
-                    ' ' +
-                    this.date.getFullYear();
+            this.calendar.period.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
         }
         this.calendar.week.textContent = '';
         for (var i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
