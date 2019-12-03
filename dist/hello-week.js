@@ -56,6 +56,13 @@ var formatDate = {
 
 var version = "3.0.0";
 
+function log() {
+    var msg = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        msg[_i] = arguments[_i];
+    }
+    console.log.apply(console, __spreadArrays(['[LOG]'], msg));
+}
 function error() {
     var msg = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -555,30 +562,11 @@ var HelloWeek = (function () {
             title: undefined,
             attributes: {
                 class: [cssClasses.DAY],
-                style: [
-                    { 'color': 'red' },
-                    { 'margin-right': undefined },
-                    { 'margin-left': undefined },
-                ]
+                style: { 'color': 'red' }
             },
             element: undefined
         };
         this.days = this.days || {};
-        if (dayOptions.day === 1) {
-            var margin = this.options.rtl ? 'margin-right' : 'margin-left';
-            dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%';
-            if (this.options.weekStart === daysWeek.SUNDAY) {
-                dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%';
-            }
-            else {
-                if (day === daysWeek.SUNDAY) {
-                    dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
-                }
-                else {
-                    dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
-                }
-            }
-        }
         if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
             dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
@@ -610,10 +598,8 @@ var HelloWeek = (function () {
         if (dayOptions.timestamp === this.intervalRange.end) {
             dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
         }
-        if (this.daysHighlight) {
-            this.setDayHighlight(dayOptions);
-        }
-        console.log(dayOptions.attributes);
+        if (this.daysHighlight) ;
+        log('DAY', dayOptions.attributes);
         dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     };

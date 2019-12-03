@@ -451,30 +451,27 @@ export class HelloWeek {
       title: undefined,
       attributes: {
         class: [cssClasses.DAY],
-        style: [
-          {'color': 'red'},
-          {'margin-right': undefined},
-          {'margin-left': undefined},
-        ]
+        style: {'color': 'red'}
       },
       element: undefined
     }
 
     this.days = this.days || {}
 
-    if (dayOptions.day === 1) {
-      const margin = this.options.rtl ? 'margin-right' : 'margin-left';
-      dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%'
-      if (this.options.weekStart === daysWeek.SUNDAY) {
-        dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%'
-      } else {
-        if (day === daysWeek.SUNDAY) {
-          dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
-        } else {
-          dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
-        }
-      }
-    }
+   // const margin = this.options.rtl ? 'margin-right' : 'margin-left';
+   //  if (dayOptions.day === 1) {
+   //    dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%'
+   //    if (this.options.weekStart === daysWeek.SUNDAY) {
+   //      dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%'
+   //    } else {
+   //      if (day === daysWeek.SUNDAY) {
+   //        dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
+   //      } else {
+   //        dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
+   //      }
+   //    }
+   //  }
+
 
     if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
       dayOptions.attributes.class.push(cssStates.IS_WEEKEND)
@@ -516,10 +513,10 @@ export class HelloWeek {
     }
 
     if (this.daysHighlight) {
-      this.setDayHighlight(dayOptions)
+      //this.setDayHighlight(dayOptions)
     }
 
-    console.log(dayOptions.attributes);
+    log('DAY', dayOptions.attributes);
     dayOptions.element = render(
       h('div', dayOptions.attributes, String(dayOptions.day)),
       this.calendar.month
@@ -569,7 +566,6 @@ export class HelloWeek {
       }
     }
   }
-
 
   private setStyleDayHighlight(key: any, dayOptions: any) {
     const { title, attributes} = this.daysHighlight[key];
