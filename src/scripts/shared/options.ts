@@ -1,6 +1,6 @@
 import { IOptions } from "../interfaces/iOptions"
 
-export let defaults: IOptions = {
+export const defaults: IOptions = {
   selector: ".hello-week",
   lang: "en",
   langFolder: "./langs/",

@@ -49,11 +49,11 @@ export interface ICssStates {
 }
 
 export interface IDaysWeek {
-  FRIDAY:number
-  MONDAY:number
-  SATURDAY:number
-  SUNDAY:number
-  THURSDAY:number
-  TUESDAY:number
-  WEDNESDAY:number
+  FRIDAY: number
+  MONDAY: number
+  SATURDAY: number
+  SUNDAY: number
+  THURSDAY: number
+  TUESDAY: number
+  WEDNESDAY: number
 }

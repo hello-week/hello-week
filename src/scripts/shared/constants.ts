@@ -1,6 +1,5 @@
 import { ICssClasses, ICssStates, IDaysWeek } from "../interfaces/iOptions"
 
-/* @enum {string} */
 export const cssClasses: ICssClasses = {
   CALENDAR: 'hello-week',
   DAY: 'day',
@@ -13,7 +12,6 @@ export const cssClasses: ICssClasses = {
   WEEK: 'week'
 }
 
-/* @enum {string} */
 export const cssStates: ICssStates = {
   IS_BEGIN_RANGE: 'is-begin-range',
   IS_DISABLED: 'is-disabled',
@@ -24,7 +22,6 @@ export const cssStates: ICssStates = {
   IS_WEEKEND: 'is-weekend'
 }
 
-/* @enum {string} */
 export const daysWeek: IDaysWeek = {
   FRIDAY: 5,
   MONDAY: 1,
@@ -35,7 +32,6 @@ export const daysWeek: IDaysWeek = {
   WEDNESDAY: 3
 }
 
-/* @enum {string} */
 export const formatDate = {
   DEFAULT: 'YYYY-MM-DD'
 }
