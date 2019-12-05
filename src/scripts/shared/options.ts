@@ -1,10 +1,10 @@
-import { IOptions } from "../interfaces/iOptions"
+import { IOptions } from '../defs/iOptions';
 
 export const defaults: IOptions = {
-  selector: ".hello-week",
-  lang: "en",
-  langFolder: "./langs/",
-  format: "DD/MM/YYYY",
+  selector: '.hello-week',
+  lang: 'en',
+  langFolder: './langs/',
+  format: 'DD/MM/YYYY',
   monthShort: false,
   weekShort: true,
   defaultDate: null,
@@ -21,9 +21,9 @@ export const defaults: IOptions = {
   range: false,
   locked: false,
   rtl: false,
-  nav: ["◀", "▶"],
+  nav: ['◀', '▶'],
   onLoad: () => {},
   onClear: () => {},
   onNavigation: () => {},
   onSelect: () => {}
-}
+};

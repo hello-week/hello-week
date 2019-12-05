@@ -50,9 +50,6 @@ var daysWeek = {
     TUESDAY: 2,
     WEDNESDAY: 3
 };
-var formatDate = {
-    DEFAULT: 'YYYY-MM-DD'
-};
 
 var version = "3.0.0";
 
@@ -171,10 +168,10 @@ function getIndexForEventTarget(daysOfMonth, target) {
 }
 
 var defaults = {
-    selector: ".hello-week",
-    lang: "en",
-    langFolder: "./langs/",
-    format: "DD/MM/YYYY",
+    selector: '.hello-week',
+    lang: 'en',
+    langFolder: './langs/',
+    format: 'DD/MM/YYYY',
     monthShort: false,
     weekShort: true,
     defaultDate: null,
@@ -191,7 +188,7 @@ var defaults = {
     range: false,
     locked: false,
     rtl: false,
-    nav: ["◀", "▶"],
+    nav: ['◀', '▶'],
     onLoad: function () { },
     onClear: function () { },
     onNavigation: function () { },
@@ -248,7 +245,8 @@ function format(day, month, year) {
     return year + "-" + ('0' + (month + 1)).slice(-2) + "-" + ('0' + day).slice(-2);
 }
 
-function timestampToHuman(timestamp, format, langs) {
+function timestampToHuman(timestamp, langs, format) {
+    if (format === void 0) { format = 'YYYY-MM-DD'; }
     var dt = new Date(timestamp);
     format = format.replace('dd', dt.getDate().toString());
     format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
@@ -366,7 +364,7 @@ var HelloWeek = (function () {
     };
     HelloWeek.prototype.getDays = function () {
         var _this = this;
-        return this.daysSelected.map(function (day) { return timestampToHuman(day, _this.options.format, _this.langs); });
+        return this.daysSelected.map(function (day) { return timestampToHuman(day, _this.langs, _this.options.format); });
     };
     HelloWeek.prototype.getDaySelected = function () {
         return this.lastSelectedDay;
@@ -455,7 +453,7 @@ var HelloWeek = (function () {
             return dt.getTime();
         };
         while (currentDate <= endDate) {
-            dates.push(timestampToHuman(currentDate, formatDate.DEFAULT, this.langs));
+            dates.push(timestampToHuman(currentDate, this.langs));
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -474,7 +472,7 @@ var HelloWeek = (function () {
                         _this.daysSelected = _this.daysSelected.filter(function (day) { return setToTimestamp(day) !== _this.lastSelectedDay; });
                     }
                     if (!_this.days[index].isSelected) {
-                        _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
+                        _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, _this.langs));
                     }
                 }
                 else {
@@ -482,7 +480,7 @@ var HelloWeek = (function () {
                         _this.removeStatesClass();
                     }
                     _this.daysSelected = [];
-                    _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, formatDate.DEFAULT, _this.langs));
+                    _this.daysSelected.push(timestampToHuman(_this.lastSelectedDay, _this.langs));
                 }
             }
             toggleClass(event.target, cssStates.IS_SELECTED);
@@ -562,7 +560,7 @@ var HelloWeek = (function () {
             title: undefined,
             attributes: {
                 class: [cssClasses.DAY],
-                style: { 'color': 'red' }
+                style: { color: 'red' }
             },
             element: undefined
         };

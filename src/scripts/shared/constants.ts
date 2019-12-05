@@ -1,4 +1,4 @@
-import { ICssClasses, ICssStates, IDaysWeek } from "../interfaces/iOptions"
+import { ICssClasses, ICssStates, IDaysWeek } from '../defs/iOptions';
 
 export const cssClasses: ICssClasses = {
   CALENDAR: 'hello-week',
@@ -10,7 +10,7 @@ export const cssClasses: ICssClasses = {
   PREV: 'prev',
   RTL: 'rtl',
   WEEK: 'week'
-}
+};
 
 export const cssStates: ICssStates = {
   IS_BEGIN_RANGE: 'is-begin-range',
@@ -20,7 +20,7 @@ export const cssStates: ICssStates = {
   IS_SELECTED: 'is-selected',
   IS_TODAY: 'is-today',
   IS_WEEKEND: 'is-weekend'
-}
+};
 
 export const daysWeek: IDaysWeek = {
   FRIDAY: 5,
@@ -30,8 +30,8 @@ export const daysWeek: IDaysWeek = {
   THURSDAY: 4,
   TUESDAY: 2,
   WEDNESDAY: 3
-}
+};
 
 export const formatDate = {
   DEFAULT: 'YYYY-MM-DD'
-}
+};
