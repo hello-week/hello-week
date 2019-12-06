@@ -115,29 +115,29 @@ function render(vnode, parentDom) {
         return document.createTextNode(vnode);
     }
     // create a DOM element with the nodeName of our VDOM element:
-    var n = document.createElement(vnode.nodeName);
+    var node = document.createElement(vnode.nodeName);
     // copy attributes onto the new node:
-    var a = vnode.attributes || {};
-    Object.keys(a).forEach(function (k) {
-        if (k === 'class') {
-            if (isString(a[k])) {
-                n.className = a[k];
+    var attributes = vnode.attributes || {};
+    Object.keys(attributes).forEach(function (key) {
+        if (key === 'class') {
+            if (isString(attributes[key])) {
+                node.className = attributes[key];
             }
-            else if (isArray(a[k])) {
-                a[k].forEach(function (v) {
-                    n.classList.add(v);
+            else if (isArray(attributes[key])) {
+                attributes[key].forEach(function (value) {
+                    addClass(node, value);
                 });
             }
         }
-        else if (k === 'style') {
-            if (isString(a[k])) {
-                n.style = a[k];
+        else if (key === 'style') {
+            if (isString(attributes[key])) {
+                node.style = attributes[key];
             }
-            else if (isArray(a[k])) {
-                a[k].forEach(function (y, v) {
+            else if (isArray(attributes[key])) {
+                attributes[key].forEach(function (y) {
                     if (isObject(y)) {
                         Object.keys(y).forEach(function (z, p) {
-                            n.style.setProperty(z, y[z]);
+                            node.style.setProperty(z, y[z]);
                         });
                     }
                 });
@@ -145,8 +145,8 @@ function render(vnode, parentDom) {
         }
     });
     // render (build) and then append child nodes:
-    (vnode.children || []).forEach(function (c) { return n.appendChild(render(c)); });
-    return parentDom ? parentDom.appendChild(n) : n;
+    (vnode.children || []).forEach(function (c) { return node.appendChild(render(c)); });
+    return parentDom ? parentDom.appendChild(node) : node;
 }
 function h(nodeName, attributes) {
     var args = [];
@@ -161,9 +161,6 @@ function h(nodeName, attributes) {
         vnode.children = [].concat.apply([], args);
     }
     return vnode;
-}
-function setStyle(el, prop, value) {
-    return el.style.setProperty(prop, value);
 }
 function addClass(el, className) {
     return el.classList.add(className);
@@ -183,15 +180,11 @@ function extend(to, from) {
 }
 
 function readFile(file, callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType('application/json');
-    xobj.open('GET', file, true);
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState === 4 && xobj.status === 200) {
-            callback(xobj.responseText);
-        }
-    };
-    xobj.send(null);
+    fetch(file)
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+        callback(data);
+    });
 }
 function checkUrl(str) {
     var regexp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
@@ -356,7 +349,7 @@ var HelloWeek = /** @class */ (function () {
         this.calendar = calendar.calendar;
         if (checkUrl(this.options.langFolder)) {
             readFile(this.options.langFolder, function (text) {
-                _this.langs = JSON.parse(text);
+                _this.langs = text;
                 _this.init(function () {
                     /** callback function */
                 });
@@ -364,7 +357,7 @@ var HelloWeek = /** @class */ (function () {
         }
         else {
             readFile(this.options.langFolder + this.options.lang + '.json', function (text) {
-                _this.langs = JSON.parse(text);
+                _this.langs = text;
                 _this.init(function () {
                     /** callback function */
                 });
@@ -729,23 +722,34 @@ var HelloWeek = /** @class */ (function () {
         if (dayOptions.timestamp === this.intervalRange.end) {
             dayOptions.attributes["class"].push(cssStates.IS_END_RANGE);
         }
-        var newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
         if (this.daysHighlight) {
-            this.setDayHighlight(newDay, dayOptions);
+            this.setDayHighlight(dayOptions);
         }
-        if (dayOptions.day === 1) {
-            if (this.options.weekStart === daysWeek.SUNDAY) {
-                setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', day * (100 / Object.keys(daysWeek).length) + '%');
-            }
-            else {
-                if (day === daysWeek.SUNDAY) {
-                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%');
-                }
-                else {
-                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (day - 1) * (100 / Object.keys(daysWeek).length) + '%');
-                }
-            }
-        }
+        console.log(dayOptions);
+        var newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+        // if (dayOptions.day === 1) {
+        //   if (this.options.weekStart === daysWeek.SUNDAY) {
+        //     setStyle(
+        //       newDay,
+        //       this.options.rtl ? 'margin-right' : 'margin-left',
+        //       day * (100 / Object.keys(daysWeek).length) + '%'
+        //     );
+        //   } else {
+        //     if (day === daysWeek.SUNDAY) {
+        //       setStyle(
+        //         newDay,
+        //         this.options.rtl ? 'margin-right' : 'margin-left',
+        //         (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
+        //       );
+        //     } else {
+        //       setStyle(
+        //         newDay,
+        //         this.options.rtl ? 'margin-right' : 'margin-left',
+        //         (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
+        //       );
+        //     }
+        //   }
+        // }
         dayOptions.element = newDay;
         this.days[dayOptions.day] = dayOptions;
     };
@@ -767,21 +771,20 @@ var HelloWeek = /** @class */ (function () {
             });
         }
     };
-    HelloWeek.prototype.setDayHighlight = function (newDay, dayOptions) {
+    HelloWeek.prototype.setDayHighlight = function (dayOptions) {
         var _this = this;
         var _loop_1 = function (key) {
             if (this_1.daysHighlight[key].days[0] instanceof Array) {
                 this_1.daysHighlight[key].days.map(function (date, index) {
-                    if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-                        dayOptions.timestamp <= setToTimestamp(date[1])) {
-                        _this.setStyleDayHighlight(newDay, key, dayOptions);
+                    if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
+                        _this.setStyleDayHighlight(key, dayOptions);
                     }
                 });
             }
             else {
                 this_1.daysHighlight[key].days.map(function (date) {
                     if (dayOptions.timestamp === setToTimestamp(date)) {
-                        _this.setStyleDayHighlight(newDay, key, dayOptions);
+                        _this.setStyleDayHighlight(key, dayOptions);
                     }
                 });
             }
@@ -791,14 +794,17 @@ var HelloWeek = /** @class */ (function () {
             _loop_1(key);
         }
     };
-    HelloWeek.prototype.setStyleDayHighlight = function (newDay, key, dayOptions) {
-        addClass(newDay, cssStates.IS_HIGHLIGHT);
-        if (this.daysHighlight[key].color) {
-            setStyle(newDay, 'color', this.daysHighlight[key].color);
+    HelloWeek.prototype.setStyleDayHighlight = function (key, dayOptions) {
+        var attributes = this.daysHighlight[key].attributes;
+        for (var k in attributes) {
+            if (dayOptions.attributes[k] && attributes[k]) {
+                dayOptions.attributes[k] = extend(dayOptions.attributes[k], attributes[k]);
+            }
+            else if (attributes[k]) {
+                dayOptions.attributes[k] = attributes[k];
+            }
         }
-        if (this.daysHighlight[key].backgroundColor) {
-            setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
-        }
+        dayOptions.attributes["class"].push(cssStates.IS_HIGHLIGHT);
         dayOptions.isHighlight = true;
     };
     HelloWeek.prototype.monthsAsString = function (monthIndex) {

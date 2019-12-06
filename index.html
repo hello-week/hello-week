@@ -26,8 +26,6 @@
   </head>
   <body>
     <main>
-      <h1 class="heading">Tests</h1>
-      <h2 class="heading">Tests</h2>
       <div class="flex wrap">
         <!-- default calendar -->
         <div class="calendar">
@@ -64,21 +62,21 @@
     <script type="module">
       import { HelloWeek } from './dist/hello-week.js';
 
-      new HelloWeek({
-        selector: '#default'
-      });
+      // new HelloWeek({
+      //   selector: '#default'
+      // });
 
-      new HelloWeek({
-        selector: '#disableDaysOfWeek',
-        todayHighlight: false,
-        disableDaysOfWeek: [0, 1, 2] // disabling weekends
-      });
+      // new HelloWeek({
+      //   selector: '#disableDaysOfWeek',
+      //   todayHighlight: false,
+      //   disableDaysOfWeek: [0, 1, 2] 
+      // });
 
-      new HelloWeek({
-        selector: '#range',
-        range: ['2019-12-10', '2019-12-24'],
-        todayHighlight: false
-      });
+      // new HelloWeek({
+      //   selector: '#range',
+      //   range: ['2019-12-10', '2019-12-24'],
+      //   todayHighlight: false
+      // });
 
       new HelloWeek({
         selector: '#highlights',
@@ -88,35 +86,48 @@
               ['2019-12-02', '2019-12-09'],
               ['2020-01-16', '2020-01-29']
             ],
-            backgroundColor: '#9C27B0',
-            color: '#fff',
-            title: 'Summer Holidays'
+            attributes: {
+              style: {
+                backgroundColor: '#9C27B0',
+                color: '#fff',
+              },
+              dataset: {
+                title: 'Summer Holidays'
+              }
+            }
           },
           {
             days: ['2019-12-18'],
-            backgroundColor: '#E91E63',
-            title: 'Mom Birthday'
+            attributes: {
+              style: {
+                backgroundColor: '#E91E63',
+                color: '#fff',
+              },
+              dataset: {
+                title: 'Mom Birthday'
+              }
+            }
           }
         ]
       });
 
-      const to = new HelloWeek({
-        selector: '#to',
-        todayHighlight: false,
-        onSelect: () => {
-          from.setMinDate(to.getDaySelected());
-          from.update();
-        }
-      });
+      // const to = new HelloWeek({
+      //   selector: '#to',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     from.setMinDate(to.getDaySelected());
+      //     from.update();
+      //   }
+      // });
 
-      const from = new HelloWeek({
-        selector: '#from',
-        todayHighlight: false,
-        onSelect: () => {
-          to.setMaxDate(from.getDaySelected());
-          to.update();
-        }
-      });
+      // const from = new HelloWeek({
+      //   selector: '#from',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     to.setMaxDate(from.getDaySelected());
+      //     to.update();
+      //   }
+      // });
     </script>
   </body>
 </html>

@@ -59,14 +59,14 @@ export class HelloWeek {
 
     if (checkUrl(this.options.langFolder)) {
       readFile(this.options.langFolder, (text: any) => {
-        this.langs = JSON.parse(text);
+        this.langs = text;
         this.init(() => {
           /** callback function */
         });
       });
     } else {
       readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
-        this.langs = JSON.parse(text);
+        this.langs = text;
         this.init(() => {
           /** callback function */
         });
@@ -479,35 +479,35 @@ export class HelloWeek {
       dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
     }
 
+    if (this.daysHighlight) {
+      this.setDayHighlight(dayOptions);
+    }
+    console.log(dayOptions);
     const newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
 
-    if (this.daysHighlight) {
-      this.setDayHighlight(newDay, dayOptions);
-    }
-
-    if (dayOptions.day === 1) {
-      if (this.options.weekStart === daysWeek.SUNDAY) {
-        setStyle(
-          newDay,
-          this.options.rtl ? 'margin-right' : 'margin-left',
-          day * (100 / Object.keys(daysWeek).length) + '%'
-        );
-      } else {
-        if (day === daysWeek.SUNDAY) {
-          setStyle(
-            newDay,
-            this.options.rtl ? 'margin-right' : 'margin-left',
-            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
-          );
-        } else {
-          setStyle(
-            newDay,
-            this.options.rtl ? 'margin-right' : 'margin-left',
-            (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
-          );
-        }
-      }
-    }
+    // if (dayOptions.day === 1) {
+    //   if (this.options.weekStart === daysWeek.SUNDAY) {
+    //     setStyle(
+    //       newDay,
+    //       this.options.rtl ? 'margin-right' : 'margin-left',
+    //       day * (100 / Object.keys(daysWeek).length) + '%'
+    //     );
+    //   } else {
+    //     if (day === daysWeek.SUNDAY) {
+    //       setStyle(
+    //         newDay,
+    //         this.options.rtl ? 'margin-right' : 'margin-left',
+    //         (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
+    //       );
+    //     } else {
+    //       setStyle(
+    //         newDay,
+    //         this.options.rtl ? 'margin-right' : 'margin-left',
+    //         (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
+    //       );
+    //     }
+    //   }
+    // }
 
     dayOptions.element = newDay;
     this.days[dayOptions.day] = dayOptions;
@@ -531,33 +531,35 @@ export class HelloWeek {
     }
   }
 
-  private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
+  private setDayHighlight(dayOptions: any): void {
     for (const key in this.daysHighlight) {
       if (this.daysHighlight[key].days[0] instanceof Array) {
         this.daysHighlight[key].days.map((date: any, index: number) => {
-          if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-            dayOptions.timestamp <= setToTimestamp(date[1])) {
-            this.setStyleDayHighlight(newDay, key, dayOptions);
-        }
-      });
+          if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
+            this.setStyleDayHighlight(key, dayOptions);
+          }
+        });
       } else {
         this.daysHighlight[key].days.map((date: any) => {
           if (dayOptions.timestamp === setToTimestamp(date)) {
-            this.setStyleDayHighlight(newDay, key, dayOptions);
+            this.setStyleDayHighlight(key, dayOptions);
           }
         });
       }
     }
   }
 
-  private setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
-    addClass(newDay, cssStates.IS_HIGHLIGHT);
-    if (this.daysHighlight[key].color) {
-      setStyle(newDay, 'color', this.daysHighlight[key].color);
+  private setStyleDayHighlight(key: any, dayOptions: any) {
+    const { attributes } = this.daysHighlight[key];
+
+    for (const k in attributes) {
+      if (dayOptions.attributes[k] && attributes[k]) {
+        dayOptions.attributes[k] = extend(dayOptions.attributes[k], attributes[k]);
+      } else if (attributes[k]) {
+        dayOptions.attributes[k] = attributes[k];
+      }
     }
-    if (this.daysHighlight[key].backgroundColor) {
-      setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
-    }
+    dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT);
     dayOptions.isHighlight = true;
   }
 

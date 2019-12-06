@@ -8,27 +8,28 @@ export function render(vnode: any, parentDom?: HTMLElement) {
   }
 
   // create a DOM element with the nodeName of our VDOM element:
-  const n = document.createElement(vnode.nodeName);
+  const node = document.createElement(vnode.nodeName);
 
   // copy attributes onto the new node:
-  const a = vnode.attributes || {};
-  Object.keys(a).forEach((k: string) => {
-    if (k === 'class') {
-      if (isString(a[k])) {
-        n.className = a[k];
-      } else if (isArray(a[k])) {
-        a[k].forEach((v: any) => {
-          n.classList.add(v);
+  const attributes = vnode.attributes || {};
+
+  Object.keys(attributes).forEach((key: string) => {
+    if (key === 'class') {
+      if (isString(attributes[key])) {
+        node.className = attributes[key];
+      } else if (isArray(attributes[key])) {
+        attributes[key].forEach((value: any) => {
+          addClass(node, value);
         });
       }
-    } else if (k === 'style') {
-      if (isString(a[k])) {
-        n.style = a[k];
-      } else if (isArray(a[k])) {
-        a[k].forEach((y: any, v: any) => {
+    } else if (key === 'style') {
+      if (isString(attributes[key])) {
+        node.style = attributes[key];
+      } else if (isArray(attributes[key])) {
+        attributes[key].forEach((y: any) => {
           if (isObject(y)) {
             Object.keys(y).forEach((z, p) => {
-              n.style.setProperty(z, y[z]);
+              node.style.setProperty(z, y[z]);
             });
           }
         });
@@ -37,9 +38,9 @@ export function render(vnode: any, parentDom?: HTMLElement) {
   });
 
   // render (build) and then append child nodes:
-  (vnode.children || []).forEach((c: any) => n.appendChild(render(c)));
+  (vnode.children || []).forEach((c: any) => node.appendChild(render(c)));
 
-  return parentDom ? parentDom.appendChild(n) : n;
+  return parentDom ? parentDom.appendChild(node) : node;
 }
 
 export function h(nodeName: string, attributes: any, ...args: any) {

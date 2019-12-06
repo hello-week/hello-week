@@ -25,3 +25,7 @@ export function isString(val: string): boolean {
 export function toArray(obj: any) {
   return Object.values(obj);
 }
+
+export function isNode(arg: any) {
+  return arg && arg.nodeType;
+}
