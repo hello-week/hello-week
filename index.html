@@ -30,6 +30,11 @@
           <div class="hello-week default-theme" id="default"></div>
         </div>
 
+        <!-- disabled days of week -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="disableDaysOfWeek"></div>
+        </div>
+
         <!-- range calendar -->
         <div class="calendar">
           <div class="hello-week default-theme" id="range"></div>
@@ -60,6 +65,12 @@
       });
 
       new HelloWeek({
+        selector: '#disableDaysOfWeek',
+        todayHighlight: false,
+        disableDaysOfWeek: [0, 1, 2] // disabling weekends
+      });
+
+      new HelloWeek({
         selector: '#range',
         range: ['2019-12-10', '2019-12-24'],
         todayHighlight: false
@@ -69,23 +80,18 @@
         selector: '#highlights',
         daysHighlight: [
           {
-            days: ['2020-01-22'],
-            backgroundColor: '#f08080',
-            title: 'Dad Birthday'
-          },
-          {
-            days: ['2020-12-18'],
-            backgroundColor: '#f08080',
-            title: 'Mom Birthday'
-          },
-          {
             days: [
-              ['2020-06-01', '2020-06-14'],
-              ['2020-08-16', '2020-04-29']
+              ['2019-12-02', '2019-12-09'],
+              ['2020-01-16', '2020-01-29']
             ],
-            backgroundColor: '#6495ed',
+            backgroundColor: '#9C27B0',
             color: '#fff',
             title: 'Summer Holidays'
+          },
+          {
+            days: ['2019-12-18'],
+            backgroundColor: '#E91E63',
+            title: 'Mom Birthday'
           }
         ]
       });

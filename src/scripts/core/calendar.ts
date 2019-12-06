@@ -479,11 +479,11 @@ export class HelloWeek {
       dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
     }
 
-    // if (this.daysHighlight) {
-    //   this.setDayHighlight(dayOptions);
-    // }
-
     const newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+
+    if (this.daysHighlight) {
+      this.setDayHighlight(newDay, dayOptions);
+    }
 
     if (dayOptions.day === 1) {
       if (this.options.weekStart === daysWeek.SUNDAY) {
@@ -531,37 +531,33 @@ export class HelloWeek {
     }
   }
 
-  private setDayHighlight(dayOptions: any): void {
+  private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
     for (const key in this.daysHighlight) {
       if (this.daysHighlight[key].days[0] instanceof Array) {
         this.daysHighlight[key].days.map((date: any, index: number) => {
-          if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-            this.setStyleDayHighlight(key, dayOptions);
-          }
-        });
+          if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
+            dayOptions.timestamp <= setToTimestamp(date[1])) {
+            this.setStyleDayHighlight(newDay, key, dayOptions);
+        }
+      });
       } else {
         this.daysHighlight[key].days.map((date: any) => {
           if (dayOptions.timestamp === setToTimestamp(date)) {
-            this.setStyleDayHighlight(key, dayOptions);
+            this.setStyleDayHighlight(newDay, key, dayOptions);
           }
         });
       }
     }
   }
 
-  private setStyleDayHighlight(key: any, dayOptions: any) {
-    const { title, attributes } = this.daysHighlight[key];
-
-    if (title) {
-      dayOptions.title = title;
+  private setStyleDayHighlight(newDay: HTMLElement, key: any, dayOptions: any) {
+    addClass(newDay, cssStates.IS_HIGHLIGHT);
+    if (this.daysHighlight[key].color) {
+      setStyle(newDay, 'color', this.daysHighlight[key].color);
     }
-
-    if (isObject(attributes)) {
-      const { style, data } = attributes;
-      dayOptions.attributes.style = Array.from(new Set(dayOptions.attributes.style.concat(style)));
+    if (this.daysHighlight[key].backgroundColor) {
+      setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
     }
-
-    dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT);
     dayOptions.isHighlight = true;
   }
 

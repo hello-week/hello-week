@@ -729,10 +729,10 @@ var HelloWeek = /** @class */ (function () {
         if (dayOptions.timestamp === this.intervalRange.end) {
             dayOptions.attributes["class"].push(cssStates.IS_END_RANGE);
         }
-        // if (this.daysHighlight) {
-        //   this.setDayHighlight(dayOptions);
-        // }
         var newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+        if (this.daysHighlight) {
+            this.setDayHighlight(newDay, dayOptions);
+        }
         if (dayOptions.day === 1) {
             if (this.options.weekStart === daysWeek.SUNDAY) {
                 setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', day * (100 / Object.keys(daysWeek).length) + '%');
@@ -767,20 +767,21 @@ var HelloWeek = /** @class */ (function () {
             });
         }
     };
-    HelloWeek.prototype.setDayHighlight = function (dayOptions) {
+    HelloWeek.prototype.setDayHighlight = function (newDay, dayOptions) {
         var _this = this;
         var _loop_1 = function (key) {
             if (this_1.daysHighlight[key].days[0] instanceof Array) {
                 this_1.daysHighlight[key].days.map(function (date, index) {
-                    if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-                        _this.setStyleDayHighlight(key, dayOptions);
+                    if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
+                        dayOptions.timestamp <= setToTimestamp(date[1])) {
+                        _this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             }
             else {
                 this_1.daysHighlight[key].days.map(function (date) {
                     if (dayOptions.timestamp === setToTimestamp(date)) {
-                        _this.setStyleDayHighlight(key, dayOptions);
+                        _this.setStyleDayHighlight(newDay, key, dayOptions);
                     }
                 });
             }
@@ -790,16 +791,14 @@ var HelloWeek = /** @class */ (function () {
             _loop_1(key);
         }
     };
-    HelloWeek.prototype.setStyleDayHighlight = function (key, dayOptions) {
-        var _a = this.daysHighlight[key], title = _a.title, attributes = _a.attributes;
-        if (title) {
-            dayOptions.title = title;
+    HelloWeek.prototype.setStyleDayHighlight = function (newDay, key, dayOptions) {
+        addClass(newDay, cssStates.IS_HIGHLIGHT);
+        if (this.daysHighlight[key].color) {
+            setStyle(newDay, 'color', this.daysHighlight[key].color);
         }
-        if (isObject(attributes)) {
-            var style = attributes.style, data = attributes.data;
-            dayOptions.attributes.style = Array.from(new Set(dayOptions.attributes.style.concat(style)));
+        if (this.daysHighlight[key].backgroundColor) {
+            setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
         }
-        dayOptions.attributes["class"].push(cssStates.IS_HIGHLIGHT);
         dayOptions.isHighlight = true;
     };
     HelloWeek.prototype.monthsAsString = function (monthIndex) {
