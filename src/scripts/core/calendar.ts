@@ -1,4 +1,5 @@
 import { cssClasses, cssStates, daysWeek, formatDate } from '../shared/constants';
+import { defaults } from '../shared/options';
 import {
   log,
   warn,
@@ -16,8 +17,7 @@ import {
   setStyle,
   toggleClass
 } from './../util/index';
-import { defaults } from '../shared/options';
-import { build } from './template';
+import { template } from './template';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
@@ -42,7 +42,7 @@ export class HelloWeek {
     this.options = extend(extend({}, defaults), options);
     this.defaultsOptions = extend(extend({}, defaults), options);
 
-    const calendar = build(this.options, {
+    const calendar = template(this.options, {
       prev: {
         cb: () => this.prev()
       },
@@ -92,7 +92,6 @@ export class HelloWeek {
 
   /**
    * Change the month to the next, also you can send a callback function like a parameter.
-   * @public
    */
   next(callback?: () => void): void {
     const nextMonth = this.date.getMonth() + 1;
@@ -107,7 +106,6 @@ export class HelloWeek {
 
   /**
    * Update and redraws the events for the current month.
-   * @public
    */
   update(): void {
     this.clearCalendar();
@@ -116,7 +114,6 @@ export class HelloWeek {
 
   /**
    * Reset calendar
-   * @public
    */
   reset(options: any = {}, callback?: () => void): void {
     this.clearCalendar();
@@ -126,7 +123,6 @@ export class HelloWeek {
 
   /**
    * Move the calendar to current day.
-   * @public
    */
   goToday(): void {
     this.date = this.todayDate;
@@ -137,7 +133,6 @@ export class HelloWeek {
   /**
    * Move the calendar to arbitrary day.
    * @param {any} date
-   * @public
    */
   goToDate(date: any = this.todayDate): void {
     this.date = new Date(date);
@@ -148,7 +143,6 @@ export class HelloWeek {
   /**
    * Returns the selected days with the format specified.
    * @return {any}
-   * @public
    */
   getDays(): any {
     return this.daysSelected.map((day: number) => timestampToHuman(day, this.langs, this.options.format));
@@ -157,7 +151,6 @@ export class HelloWeek {
   /**
    * Gets the day selected.
    * @return {number}
-   * @public
    */
   getDaySelected(): number {
     return this.lastSelectedDay;
@@ -166,7 +159,6 @@ export class HelloWeek {
   /**
    * Returns the highlight dates.
    * @return {object}
-   * @public
    */
   getDaysHighlight(): string {
     return this.daysHighlight;
@@ -175,7 +167,6 @@ export class HelloWeek {
   /**
    * Returns the current month selected.
    * @return {string}
-   * @public
    */
   getMonth(): string {
     return this.date.getMonth() + 1;
@@ -184,7 +175,6 @@ export class HelloWeek {
   /**
    * Returns the current year selected.
    * @return {string}
-   * @public
    */
   getYear(): string {
     return this.date.getFullYear();
@@ -192,7 +182,6 @@ export class HelloWeek {
 
   /**
    * Set highlight dates,
-   * @public
    */
   setDaysHighlight(daysHighlight: any): void {
     this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
@@ -201,7 +190,6 @@ export class HelloWeek {
   /**
    * Sets calendar with multiple pick.
    * @param {boolean} state
-   * @public
    */
   setMultiplePick(state: boolean) {
     this.options.multiplePick = state;
@@ -210,7 +198,6 @@ export class HelloWeek {
   /**
    * Sets calendar with disable past days.
    * @param {boolean} state
-   * @public
    */
   setDisablePastDays(state: boolean) {
     this.options.disablePastDays = state;
@@ -219,7 +206,6 @@ export class HelloWeek {
   /**
    * Sets calendar with today highlight.
    * @param {boolean} state
-   * @public
    */
   setTodayHighlight(state: boolean) {
     this.options.todayHighlight = state;
@@ -228,7 +214,6 @@ export class HelloWeek {
   /**
    * Sets calendar range.
    * @param {boolean} state
-   * @public
    */
   setRange(state: boolean) {
     this.options.range = state;
@@ -237,7 +222,6 @@ export class HelloWeek {
   /**
    * Sets calendar locked.
    * @param {boolean} state
-   * @public
    */
   setLocked(state: boolean) {
     this.options.locked = state;
@@ -246,7 +230,6 @@ export class HelloWeek {
   /**
    * Set min date.
    * @param {string} date
-   * @public
    */
   setMinDate(date: number | string) {
     this.options.minDate = setMinDate(date);
@@ -260,8 +243,6 @@ export class HelloWeek {
     this.options.maxDate = setMaxDate(date);
   }
 
-  /**
-   */
   private init(callback?: () => void) {
     this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
     this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
@@ -312,7 +293,6 @@ export class HelloWeek {
   }
 
   private getIntervalOfDates(startDate: number, endDate: number) {
-    console.log('test');
     const dates = [];
     let currentDate = startDate;
     const addDays = function(this: any, days: any) {
@@ -483,9 +463,9 @@ export class HelloWeek {
       dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
     }
 
-    if (this.daysHighlight) {
-      //this.setDayHighlight(dayOptions)
-    }
+    // if (this.daysHighlight) {
+    //   this.setDayHighlight(dayOptions);
+    // }
 
     const newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
 

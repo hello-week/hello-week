@@ -12,7 +12,7 @@ export function render(vnode: any, parentDom?: HTMLElement) {
 
   // copy attributes onto the new node:
   const a = vnode.attributes || {};
-  Object.keys(a).forEach(k => {
+  Object.keys(a).forEach((k: string) => {
     if (k === 'class') {
       if (isString(a[k])) {
         n.className = a[k];

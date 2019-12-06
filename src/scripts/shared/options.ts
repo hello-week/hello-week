@@ -22,8 +22,16 @@ export const defaults: IOptions = {
   locked: false,
   rtl: false,
   nav: ['◀', '▶'],
-  onLoad: () => {},
-  onClear: () => {},
-  onNavigation: () => {},
-  onSelect: () => {}
+  onLoad: () => {
+    /** callback */
+  },
+  onClear: () => {
+    /** callback */
+  },
+  onNavigation: () => {
+    /** callback */
+  },
+  onSelect: () => {
+    /** callback */
+  }
 };

@@ -2,7 +2,7 @@ import { IOptions } from '../defs/iOptions';
 import { render, h, existElement, error, warn, log, isString, isDef, isTrue, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
-export function build(options: IOptions, args: any) {
+export function template(options: IOptions, args: any) {
   const self: any = {};
 
   if (!isString(options.selector) && !isDef(options.selector)) {

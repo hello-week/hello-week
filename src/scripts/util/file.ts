@@ -3,7 +3,7 @@ export function readFile(file: string, callback: any): void {
   xobj.overrideMimeType('application/json');
   xobj.open('GET', file, true);
   xobj.onreadystatechange = () => {
-    if (xobj.readyState === 4 && <any>xobj.status === 200) {
+    if (xobj.readyState === 4 && xobj.status === 200) {
       callback(xobj.responseText);
     }
   };

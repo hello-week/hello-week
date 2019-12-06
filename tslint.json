@@ -1,27 +1,17 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist",
-    "sourceMap": false,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "allowJs": false,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "removeComments": false,
-    "jsx": "preserve",
-    "lib": ["esnext", "dom"],
-    "types": ["jest", "node"],
-    "rootDir": "."
+  "extends": ["tslint:recommended"],
+  "rules": {
+    "ordered-imports": false,
+    "ban-ts-ignore": true,
+    "curly": true,
+    "eofline": true,
+    "no-console": false,
+    "member-access": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single"],
+    "trailing-comma": false
   },
-  "include": [
-    "src",
-    "__tests__"
-  ]
+  "linterOptions": {
+    "exclude": ["node_modules"]
+  }
 }

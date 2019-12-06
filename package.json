@@ -18,9 +18,10 @@
     ],
     "scripts": {
         "dev": "http-server -c0 -g && rollup -c -w",
-        "build": "NODE_ENV=production rimraf dist && yarn run lint && yarn run sass:build && rollup -c --environment NODE_ENV:production",
+        "build": "NODE_ENV=production rimraf dist && yarn run lint &&  yarn run prettier && yarn run sass:build && rollup -c --environment NODE_ENV:production",
         "sass:build": "node-sass src/styles/hello-week-theme.scss dist/hello.week.theme.min.css --output-style compressed && node-sass src/styles/hello-week.scss dist/hello.week.min.css --output-style compressed",
-        "lint": "prettier --write --parser typescript \"src/scripts/**/*.ts?(x)\"",
+        "prettier": "prettier --write --parser typescript \"src/scripts/**/*.ts?(x)\"",
+        "lint": "tslint \"src/*.ts\" \"src/**/*.ts\" \"__tests__/**/*.ts\"",
         "test": "jest"
     },
     "gitHooks": {
