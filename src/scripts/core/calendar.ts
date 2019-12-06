@@ -18,6 +18,7 @@ import {
 } from './../util/index';
 import { defaults } from '../shared/options';
 import { build } from './template';
+import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
 
@@ -77,7 +78,6 @@ export class HelloWeek {
 
   /**
    * Change the month to the previous, also you can send a callback function like a parameter.
-   * @public
    */
   prev(callback?: () => void): void {
     const prevMonth = this.date.getMonth() - 1;
@@ -249,24 +249,18 @@ export class HelloWeek {
    * @public
    */
   setMinDate(date: number | string) {
-    this.options.minDate = new Date(date);
-    this.options.minDate.setHours(0, 0, 0, 0);
-    this.options.minDate.setDate(this.options.minDate.getDate() - 1);
+    this.options.minDate = setMinDate(date);
   }
 
   /**
    * Set max date.
    * @param {string} date
-   * @public
    */
   setMaxDate(date: number | string) {
-    this.options.maxDate = new Date(date);
-    this.options.maxDate.setHours(0, 0, 0, 0);
-    this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
+    this.options.maxDate = setMaxDate(date);
   }
 
   /**
-   * @public
    */
   private init(callback?: () => void) {
     this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
@@ -317,19 +311,14 @@ export class HelloWeek {
     }
   }
 
-  /**
-   * Gets the interval of dates.
-   * @param      {number}  startDate
-   * @param      {number}  endDate
-   * @private
-   */
   private getIntervalOfDates(startDate: number, endDate: number) {
+    console.log('test');
     const dates = [];
     let currentDate = startDate;
-    const addDays = (days: any) => {
-      const dt = this.date(this.valueOf() as any);
-      dt.setDate(dt.getDate() + days);
-      return dt.getTime();
+    const addDays = function(this: any, days: any) {
+      const date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date.getTime();
     };
     while (currentDate <= endDate) {
       dates.push(timestampToHuman(currentDate, this.langs));
@@ -410,6 +399,7 @@ export class HelloWeek {
             this.days[i].timestamp <= this.days[index].timestamp
           ) {
             addClass(this.days[i].element, cssStates.IS_SELECTED);
+            addClass(this.days[i].element, cssStates.IS_RANGE);
             if (this.days[i].timestamp === this.intervalRange.begin) {
               addClass(this.days[i].element, cssStates.IS_BEGIN_RANGE);
             }
@@ -447,26 +437,12 @@ export class HelloWeek {
       title: undefined,
       attributes: {
         class: [cssClasses.DAY],
-        style: { color: 'red' }
+        style: {}
       },
       element: undefined
     };
 
     this.days = this.days || {};
-
-    // const margin = this.options.rtl ? 'margin-right' : 'margin-left';
-    //  if (dayOptions.day === 1) {
-    //    dayOptions.attributes.style[margin] = dayOptions.attributes.style[margin] + '%'
-    //    if (this.options.weekStart === daysWeek.SUNDAY) {
-    //      dayOptions.attributes.style[margin] = day * (100 / Object.keys(daysWeek).length) + '%'
-    //    } else {
-    //      if (day === daysWeek.SUNDAY) {
-    //        dayOptions.attributes.style[margin] = (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
-    //      } else {
-    //        dayOptions.attributes.style[margin] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
-    //      }
-    //    }
-    //  }
 
     if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
       dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
@@ -511,8 +487,33 @@ export class HelloWeek {
       //this.setDayHighlight(dayOptions)
     }
 
-    log('DAY', dayOptions.attributes);
-    dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+    const newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+
+    if (dayOptions.day === 1) {
+      if (this.options.weekStart === daysWeek.SUNDAY) {
+        setStyle(
+          newDay,
+          this.options.rtl ? 'margin-right' : 'margin-left',
+          day * (100 / Object.keys(daysWeek).length) + '%'
+        );
+      } else {
+        if (day === daysWeek.SUNDAY) {
+          setStyle(
+            newDay,
+            this.options.rtl ? 'margin-right' : 'margin-left',
+            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
+          );
+        } else {
+          setStyle(
+            newDay,
+            this.options.rtl ? 'margin-right' : 'margin-left',
+            (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
+          );
+        }
+      }
+    }
+
+    dayOptions.element = newDay;
 
     this.days[dayOptions.day] = dayOptions;
   }

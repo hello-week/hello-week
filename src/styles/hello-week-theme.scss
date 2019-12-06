@@ -1,13 +1,26 @@
 @import "variables";
 
-.hello-week {
+.default-theme {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  font-size: 14px;
+
+  .navigation {
+    background-color: #f7f8f9;
+  }
 
   .week {
+    background-color: #f7f8f9;
     color: $hw-color-week;
+    border-bottom: .05rem solid #dadee4;
     font-size: map-get($hw-typography-font-size, week);
   }
 
+  .month {
+    padding: .4rem 0;
+  }
+
   .day {
+    color: #66758c;
 
     &.is-weekend {
       color: $hw-color-weekend;
@@ -24,13 +37,18 @@
     }
 
     &.is-selected {
-      background-color: $hw-color-selected !important;
-      color: $hw-color-white !important;
+      background-color: $hw-color-selected;
+      color: $hw-color-white;
     }
 
-     &.is-begin-range,
-     &.is-end-range {
-      background-color: $hw-color-range !important;
+    &.is-range {
+      background-color: #f1f1fc;
+      color: #5755d9;
+    }
+
+    &.is-begin-range,
+    &.is-end-range {
+      background-color: $hw-color-selected !important;
       color: $hw-color-white !important;
     }
 

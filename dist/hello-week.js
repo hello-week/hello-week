@@ -38,6 +38,7 @@ var cssStates = {
     IS_END_RANGE: 'is-end-range',
     IS_HIGHLIGHT: 'is-highlight',
     IS_SELECTED: 'is-selected',
+    IS_RANGE: 'is-range',
     IS_TODAY: 'is-today',
     IS_WEEKEND: 'is-weekend'
 };
@@ -53,13 +54,6 @@ var daysWeek = {
 
 var version = "3.0.0";
 
-function log() {
-    var msg = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        msg[_i] = arguments[_i];
-    }
-    console.log.apply(console, __spreadArrays(['[LOG]'], msg));
-}
 function error() {
     var msg = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -129,6 +123,9 @@ function h(nodeName, attributes) {
         vnode.children = [].concat.apply([], args);
     }
     return vnode;
+}
+function setStyle(el, prop, value) {
+    return el.style.setProperty(prop, value);
 }
 function addClass(el, className) {
     return el.classList.add(className);
@@ -243,6 +240,24 @@ function build(options, args) {
 
 function format(day, month, year) {
     return year + "-" + ('0' + (month + 1)).slice(-2) + "-" + ('0' + day).slice(-2);
+}
+
+function date(dt) {
+    if (isDef(dt)) {
+        return new Date(dt);
+    }
+    return new Date();
+}
+
+function setMinDate(dt) {
+    var min = date(dt);
+    min.setHours(0, 0, 0, 0);
+    return min.setDate(min.getDate() - 1);
+}
+function setMaxDate(dt) {
+    var max = date(dt);
+    max.setHours(0, 0, 0, 0);
+    return max.setDate(max.getDate() + 1);
 }
 
 function timestampToHuman(timestamp, langs, format) {
@@ -397,14 +412,10 @@ var HelloWeek = (function () {
         this.options.locked = state;
     };
     HelloWeek.prototype.setMinDate = function (date) {
-        this.options.minDate = new Date(date);
-        this.options.minDate.setHours(0, 0, 0, 0);
-        this.options.minDate.setDate(this.options.minDate.getDate() - 1);
+        this.options.minDate = setMinDate(date);
     };
     HelloWeek.prototype.setMaxDate = function (date) {
-        this.options.maxDate = new Date(date);
-        this.options.maxDate.setHours(0, 0, 0, 0);
-        this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
+        this.options.maxDate = setMaxDate(date);
     };
     HelloWeek.prototype.init = function (callback) {
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
@@ -444,13 +455,13 @@ var HelloWeek = (function () {
         }
     };
     HelloWeek.prototype.getIntervalOfDates = function (startDate, endDate) {
-        var _this = this;
+        console.log('test');
         var dates = [];
         var currentDate = startDate;
         var addDays = function (days) {
-            var dt = _this.date(_this.valueOf());
-            dt.setDate(dt.getDate() + days);
-            return dt.getTime();
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date.getTime();
         };
         while (currentDate <= endDate) {
             dates.push(timestampToHuman(currentDate, this.langs));
@@ -526,6 +537,7 @@ var HelloWeek = (function () {
                     if (_this.days[i].timestamp >= _this.intervalRange.begin &&
                         _this.days[i].timestamp <= _this.days[index].timestamp) {
                         addClass(_this.days[i].element, cssStates.IS_SELECTED);
+                        addClass(_this.days[i].element, cssStates.IS_RANGE);
                         if (_this.days[i].timestamp === _this.intervalRange.begin) {
                             addClass(_this.days[i].element, cssStates.IS_BEGIN_RANGE);
                         }
@@ -560,7 +572,7 @@ var HelloWeek = (function () {
             title: undefined,
             attributes: {
                 class: [cssClasses.DAY],
-                style: { color: 'red' }
+                style: {}
             },
             element: undefined
         };
@@ -597,8 +609,21 @@ var HelloWeek = (function () {
             dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
         }
         if (this.daysHighlight) ;
-        log('DAY', dayOptions.attributes);
-        dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+        var newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+        if (dayOptions.day === 1) {
+            if (this.options.weekStart === daysWeek.SUNDAY) {
+                setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', day * (100 / Object.keys(daysWeek).length) + '%');
+            }
+            else {
+                if (day === daysWeek.SUNDAY) {
+                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%');
+                }
+                else {
+                    setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', (day - 1) * (100 / Object.keys(daysWeek).length) + '%');
+                }
+            }
+        }
+        dayOptions.element = newDay;
         this.days[dayOptions.day] = dayOptions;
     };
     HelloWeek.prototype.setDaysDisable = function (dayOptions) {

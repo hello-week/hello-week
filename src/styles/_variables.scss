@@ -1,7 +1,7 @@
 $hw-color-white: #fff !default;
-$hw-color-selected :#7fcbc3 !default;
+$hw-color-selected :#3634d2 !default;
 $hw-color-range: #42a298 !default;
-$hw-color-week :#42a298 !default;
+$hw-color-week :#bcc3ce !default;
 $hw-color-highlight :#8fbc8f !default;
 $hw-color-today: #ff3860 !default;
 $hw-color-weekend: #ff3860 !default;
@@ -18,6 +18,6 @@ $hw-typography-font-weight: (
 
 $hw-typography-font-size: (
   base: 1em,
-  period: 1.6em,
-  week: 1.2em
+  period: 1.2em,
+  week: .9em
 ) !default;

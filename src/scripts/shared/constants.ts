@@ -18,6 +18,7 @@ export const cssStates: ICssStates = {
   IS_END_RANGE: 'is-end-range',
   IS_HIGHLIGHT: 'is-highlight',
   IS_SELECTED: 'is-selected',
+  IS_RANGE: 'is-range',
   IS_TODAY: 'is-today',
   IS_WEEKEND: 'is-weekend'
 };

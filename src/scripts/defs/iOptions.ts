@@ -40,8 +40,9 @@ export interface ICssClasses {
 
 export interface ICssStates {
   IS_BEGIN_RANGE: string;
-  IS_DISABLED: string;
   IS_END_RANGE: string;
+  IS_RANGE: string;
+  IS_DISABLED: string;
   IS_HIGHLIGHT: string;
   IS_SELECTED: string;
   IS_TODAY: string;
