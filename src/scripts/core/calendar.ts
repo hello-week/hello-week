@@ -9,6 +9,7 @@ import {
   extend,
   getIndexForEventTarget,
   isObject,
+  isTrue,
   isArray,
   setAttr,
   h,
@@ -215,10 +216,14 @@ export class HelloWeek {
 
   /**
    * Sets calendar range.
-   * @param {boolean} state
    */
-  setRange(state: boolean) {
-    this.options.range = state;
+  setRange(value: boolean | [string | number]) {
+    if (isArray(this.options.range)) {
+      this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
+      this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+    } else {
+      this.options.range = value;
+    }
   }
 
   /**
@@ -273,9 +278,8 @@ export class HelloWeek {
       this.setMaxDate(this.options.maxDate);
     }
 
-    if (isArray(this.options.range)) {
-      this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
-      this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+    if (this.options.range) {
+      this.setRange(this.options.range);
     }
 
     this.mounted();

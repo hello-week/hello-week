@@ -498,10 +498,15 @@ var HelloWeek = /** @class */ (function () {
     };
     /**
      * Sets calendar range.
-     * @param {boolean} state
      */
-    HelloWeek.prototype.setRange = function (state) {
-        this.options.range = state;
+    HelloWeek.prototype.setRange = function (value) {
+        if (isArray(this.options.range)) {
+            this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
+            this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+        }
+        else {
+            this.options.range = value;
+        }
     };
     /**
      * Sets calendar locked.
@@ -545,9 +550,8 @@ var HelloWeek = /** @class */ (function () {
         if (this.options.maxDate) {
             this.setMaxDate(this.options.maxDate);
         }
-        if (isArray(this.options.range)) {
-            this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
-            this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+        if (this.options.range) {
+            this.setRange(this.options.range);
         }
         this.mounted();
         this.options.onLoad.call(this);
