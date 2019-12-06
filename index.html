@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-  <html>
+<html>
   <head>
     <meta charset="UTF-8" />
     <title>Hello Week - Javascript Calendar</title>
@@ -11,38 +11,102 @@
     <link href="dist/hello.week.theme.min.css" rel="stylesheet" />
 
     <style>
+      .flex {
+        display: flex;
+      }
+
       .calendar {
+        max-width: 320px;
         border: 1px solid #dadee4;
+        margin: 2em 0.5em;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="calendar">
-       <div class="hello-week default-theme" id="to"></div>
-       <div class="hello-week default-theme" id="from"></div>
-     </div>
-   </div>
+    <main>
+      <div class="flex">
+        <!-- default calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="default"></div>
+        </div>
 
-   <script type="module">
-    import { HelloWeek } from './dist/hello-week.js'
-    const to = new HelloWeek({
-      selector: '#to',
-      todayHighlight: false,
-      onSelect: () => {
-        from.setMinDate(to.getDaySelected());
-        from.update();
-      }
-    });
+        <!-- range calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="range"></div>
+        </div>
 
-    const from = new HelloWeek({
-      selector: '#from',
-      todayHighlight: false,
-      onSelect: () => {
-        to.setMaxDate(from.getDaySelected());
-        to.update();
-      }
-    });
-  </script>
-</body>
+        <!-- highlights calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="highlights"></div>
+        </div>
+      </div>
+
+      <!-- max and min -->
+      <div class="flex">
+        <div class="calendar">
+          <div class="hello-week default-theme" id="to"></div>
+        </div>
+        <div class="calendar">
+          <div class="hello-week default-theme" id="from"></div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module">
+      import { HelloWeek } from './dist/hello-week.js';
+
+      // new HelloWeek({
+      //   selector: '#default'
+      // });
+
+      new HelloWeek({
+        selector: '#range',
+        range: ['2019-12-20', '2020-01-20'],
+        todayHighlight: false
+      });
+
+      // new HelloWeek({
+      //   selector: '#highlights',
+      //   daysHighlight: [
+      //     {
+      //       days: ['2020-01-22'],
+      //       backgroundColor: '#f08080',
+      //       title: 'Dad Birthday'
+      //     },
+      //     {
+      //       days: ['2020-12-18'],
+      //       backgroundColor: '#f08080',
+      //       title: 'Mom Birthday'
+      //     },
+      //     {
+      //       days: [
+      //         ['2020-06-01', '2020-06-14'],
+      //         ['2020-08-16', '2020-04-29']
+      //       ],
+      //       backgroundColor: '#6495ed',
+      //       color: '#fff',
+      //       title: 'Summer Holidays'
+      //     }
+      //   ]
+      // });
+
+      // const to = new HelloWeek({
+      //   selector: '#to',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     from.setMinDate(to.getDaySelected());
+      //     from.update();
+      //   }
+      // });
+
+      // const from = new HelloWeek({
+      //   selector: '#from',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     to.setMaxDate(from.getDaySelected());
+      //     to.update();
+      //   }
+      // });
+    </script>
+  </body>
 </html>

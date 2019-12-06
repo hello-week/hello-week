@@ -202,6 +202,10 @@ function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
+function isBetween(to, from, date) {
+    return date > to && date < from;
+}
+
 function template(options, args) {
     var self = {};
     if (!isString(options.selector) && !isDef(options.selector)) {
@@ -541,6 +545,10 @@ var HelloWeek = /** @class */ (function () {
         if (this.options.maxDate) {
             this.setMaxDate(this.options.maxDate);
         }
+        if (isArray(this.options.range)) {
+            this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
+            this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+        }
         this.mounted();
         this.options.onLoad.call(this);
         if (callback) {
@@ -604,8 +612,7 @@ var HelloWeek = /** @class */ (function () {
             _this.days[index].isSelected = !_this.days[index].isSelected;
             if (_this.options.range) {
                 if (_this.intervalRange.begin && _this.intervalRange.end) {
-                    _this.intervalRange.begin = undefined;
-                    _this.intervalRange.end = undefined;
+                    _this.intervalRange = {};
                     _this.removeStatesClass();
                 }
                 if (_this.intervalRange.begin && !_this.intervalRange.end) {
@@ -613,8 +620,7 @@ var HelloWeek = /** @class */ (function () {
                     _this.daysSelected = _this.getIntervalOfDates(_this.intervalRange.begin, _this.intervalRange.end);
                     addClass(event.target, cssStates.IS_END_RANGE);
                     if (_this.intervalRange.begin > _this.intervalRange.end) {
-                        _this.intervalRange.begin = undefined;
-                        _this.intervalRange.end = undefined;
+                        _this.intervalRange = {};
                         _this.removeStatesClass();
                     }
                 }
@@ -673,6 +679,7 @@ var HelloWeek = /** @class */ (function () {
             isWeekend: false,
             locked: false,
             isToday: false,
+            isRange: false,
             isSelected: false,
             isHighlight: false,
             title: undefined,
@@ -708,6 +715,10 @@ var HelloWeek = /** @class */ (function () {
                 dayOptions.isSelected = true;
             }
         });
+        if (isBetween(this.intervalRange.begin, this.intervalRange.end, dayOptions.timestamp)) {
+            dayOptions.attributes["class"].push(cssStates.IS_RANGE);
+            dayOptions.isRange = true;
+        }
         if (dayOptions.timestamp === this.intervalRange.begin) {
             dayOptions.attributes["class"].push(cssStates.IS_BEGIN_RANGE);
         }
@@ -818,6 +829,7 @@ var HelloWeek = /** @class */ (function () {
         for (var _i = 0, _a = Object.keys(this.daysOfMonth); _i < _a.length; _i++) {
             var i = _a[_i];
             removeClass(this.daysOfMonth[i], cssStates.IS_SELECTED);
+            removeClass(this.daysOfMonth[i], cssStates.IS_RANGE);
             removeClass(this.daysOfMonth[i], cssStates.IS_BEGIN_RANGE);
             removeClass(this.daysOfMonth[i], cssStates.IS_END_RANGE);
             this.days[+i + 1].isSelected = false;

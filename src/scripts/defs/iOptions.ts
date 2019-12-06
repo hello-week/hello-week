@@ -15,7 +15,7 @@ export interface IOptions {
   monthShort: boolean;
   multiplePick: boolean;
   nav: ['◀', '▶'];
-  range: boolean;
+  range: boolean | [string];
   rtl: boolean;
   todayHighlight: boolean;
   weekShort: boolean;

@@ -9,6 +9,7 @@ import {
   extend,
   getIndexForEventTarget,
   isObject,
+  isArray,
   setAttr,
   h,
   render,
@@ -17,6 +18,7 @@ import {
   setStyle,
   toggleClass
 } from './../util/index';
+import { isBetween } from './compare';
 import { template } from './template';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
@@ -271,6 +273,11 @@ export class HelloWeek {
       this.setMaxDate(this.options.maxDate);
     }
 
+    if (isArray(this.options.range)) {
+      this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
+      this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+    }
+
     this.mounted();
     this.options.onLoad.call(this);
     if (callback) {
@@ -335,8 +342,7 @@ export class HelloWeek {
       this.days[index].isSelected = !this.days[index].isSelected;
       if (this.options.range) {
         if (this.intervalRange.begin && this.intervalRange.end) {
-          this.intervalRange.begin = undefined;
-          this.intervalRange.end = undefined;
+          this.intervalRange = {};
           this.removeStatesClass();
         }
         if (this.intervalRange.begin && !this.intervalRange.end) {
@@ -344,8 +350,7 @@ export class HelloWeek {
           this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
           addClass(event.target, cssStates.IS_END_RANGE);
           if (this.intervalRange.begin > this.intervalRange.end) {
-            this.intervalRange.begin = undefined;
-            this.intervalRange.end = undefined;
+            this.intervalRange = {};
             this.removeStatesClass();
           }
         }
@@ -412,6 +417,7 @@ export class HelloWeek {
       isWeekend: false,
       locked: false,
       isToday: false,
+      isRange: false,
       isSelected: false,
       isHighlight: false,
       title: undefined,
@@ -428,6 +434,7 @@ export class HelloWeek {
       dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
       dayOptions.isWeekend = true;
     }
+
     if (
       this.options.locked ||
       (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
@@ -454,6 +461,11 @@ export class HelloWeek {
         dayOptions.isSelected = true;
       }
     });
+
+    if (isBetween(this.intervalRange.begin, this.intervalRange.end, dayOptions.timestamp)) {
+      dayOptions.attributes.class.push(cssStates.IS_RANGE);
+      dayOptions.isRange = true;
+    }
 
     if (dayOptions.timestamp === this.intervalRange.begin) {
       dayOptions.attributes.class.push(cssStates.IS_BEGIN_RANGE);
@@ -494,7 +506,6 @@ export class HelloWeek {
     }
 
     dayOptions.element = newDay;
-
     this.days[dayOptions.day] = dayOptions;
   }
 
@@ -587,6 +598,7 @@ export class HelloWeek {
   private removeStatesClass(): void {
     for (const i of Object.keys(this.daysOfMonth)) {
       removeClass(this.daysOfMonth[i], cssStates.IS_SELECTED);
+      removeClass(this.daysOfMonth[i], cssStates.IS_RANGE);
       removeClass(this.daysOfMonth[i], cssStates.IS_BEGIN_RANGE);
       removeClass(this.daysOfMonth[i], cssStates.IS_END_RANGE);
       this.days[+i + 1].isSelected = false;

@@ -2,8 +2,6 @@
   "extends": ["tslint:recommended"],
   "rules": {
     "ordered-imports": false,
-    "ban-ts-ignore": true,
-    "curly": true,
     "eofline": true,
     "no-console": false,
     "member-access": false,

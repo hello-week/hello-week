@@ -8,8 +8,8 @@ export function isBefore(input: any, date: any) {
   return date;
 }
 
-export function isBetween(from: number, to: number, date: number) {
-  return normalizeDate(date) > normalizeDate(from) && normalizeDate(date) < normalizeDate(to);
+export function isBetween(to: number, from: number, date: number) {
+  return date > to && date < from;
 }
 
 export function isSame(input: any, date: any) {
