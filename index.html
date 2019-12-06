@@ -15,16 +15,20 @@
         display: flex;
       }
 
+      .wrap {
+        flex-wrap: wrap;
+      }
+
       .calendar {
         max-width: 320px;
-        border: 1px solid #dadee4;
-        margin: 2em 0.5em;
       }
     </style>
   </head>
   <body>
     <main>
-      <div class="flex">
+      <h1 class="heading">Tests</h1>
+      <h2 class="heading">Tests</h2>
+      <div class="flex wrap">
         <!-- default calendar -->
         <div class="calendar">
           <div class="hello-week default-theme" id="default"></div>
