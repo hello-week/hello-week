@@ -1,5 +1,3 @@
-@import 'variables';
-
 * {
   box-sizing: border-box;
 }
@@ -8,7 +6,7 @@
   width: 100%;
   margin: 0 auto;
   user-select: none;
-  font-size: map-get($hw-typography-font-size, base);
+  font-size: map-get($typography-font-size, base);
 
   .navigation {
     display: flex;
@@ -19,14 +17,14 @@
 
   .prev,
   .next {
-    padding: $hw-baseline;
+    padding: $baseline;
     cursor: pointer;
   }
 
   .period {
     width: 100%;
-    font-size: map-get($hw-typography-font-size, period);
-    font-weight: map-get($hw-typography-font-weight, regular);
+    font-size: map-get($typography-font-size, period);
+    font-weight: map-get($typography-font-weight, regular);
     text-align: center;
   }
 
@@ -53,8 +51,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: $hw-day-width;
-    padding: $hw-baseline;
-    transition: background-color $hw-transition;
+    width: $day-width;
+    padding: $baseline;
+    transition: background-color $transition;
   }
 }
