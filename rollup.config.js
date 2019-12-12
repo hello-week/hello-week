@@ -3,6 +3,7 @@ import typescript from "rollup-plugin-typescript2";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import uglify from "rollup-plugin-uglify-es";
+import serve from "rollup-plugin-serve";
 
 const production = process.env.NODE_ENV === "production";
 
@@ -14,6 +15,7 @@ export default {
         format: "es",
     },
     plugins: [
+        serve(),
         typescript({}),
         resolve({
             jsnext: true,
