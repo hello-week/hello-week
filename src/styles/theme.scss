@@ -10,12 +10,7 @@
   .week {
     background-color: #f7f8f9;
     color: $color-week;
-    border-bottom: .05rem solid #dadee4;
-    font-size: map-get($typography-font-size, week);
-  }
-
-  .month {
-    padding: .4rem 0;
+    border-bottom: 1px solid #dadee4;
   }
 
   .day {
@@ -27,17 +22,17 @@
 
     &.is-highlight {
       background-color: $color-highlight;
-      color: $color-white;
+      color: #fff;
     }
 
     &.is-today {
       background-color: $color-today;
-      color: $color-white;
+      color: #fff;
     }
 
     &.is-selected {
       background-color: $color-selected;
-      color: $color-white;
+      color: #fff;
     }
 
     &.is-range {
@@ -48,7 +43,7 @@
     &.is-begin-range,
     &.is-end-range {
       background-color: $color-selected !important;
-      color: $color-white !important;
+      color: #fff !important;
     }
 
     &.is-disabled {

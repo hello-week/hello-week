@@ -21,12 +21,14 @@
     font-weight: 400;
     text-align: center; }
   .hello-week .week {
-    display: flex; }
+    display: flex;
+    font-size: 0.9em; }
     .hello-week .week.rtl {
       flex-direction: row-reverse; }
   .hello-week .month {
     display: flex;
     flex-wrap: wrap;
+    padding: .4em 0;
     cursor: pointer; }
     .hello-week .month.rtl {
       flex-direction: row-reverse; }
@@ -48,10 +50,7 @@
   .default-theme .week {
     background-color: #f7f8f9;
     color: #bcc3ce;
-    border-bottom: .05rem solid #dadee4;
-    font-size: 0.9em; }
-  .default-theme .month {
-    padding: .4rem 0; }
+    border-bottom: 1px solid #dadee4; }
   .default-theme .day {
     color: #66758c; }
     .default-theme .day.is-weekend {

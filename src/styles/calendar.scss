@@ -6,7 +6,7 @@
   width: 100%;
   margin: 0 auto;
   user-select: none;
-  font-size: map-get($typography-font-size, base);
+  font-size: map-get($typography-size, base);
 
   .navigation {
     display: flex;
@@ -23,13 +23,14 @@
 
   .period {
     width: 100%;
-    font-size: map-get($typography-font-size, period);
-    font-weight: map-get($typography-font-weight, regular);
+    font-size: map-get($typography-size, period);
+    font-weight: map-get($typography-weight, regular);
     text-align: center;
   }
 
   .week {
     display: flex;
+    font-size: map-get($typography-size, week);
 
     &.rtl {
       flex-direction: row-reverse;
@@ -39,6 +40,7 @@
   .month {
     display: flex;
     flex-wrap: wrap;
+    padding: .4em 0;
     cursor: pointer;
 
     &.rtl {

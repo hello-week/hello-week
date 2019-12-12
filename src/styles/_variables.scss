@@ -6,17 +6,26 @@ $color-highlight :#8fbc8f !default;
 $color-today: #ff3860 !default;
 $color-weekend: #ff3860 !default;
 
+$colors: (
+  selected :#3634d2,
+  range: #42a298,
+  week :#bcc3ce,
+  highlight :#8fbc8f,
+  today: #ff3860,
+  weekend: #ff3860,
+);
+
 $transition: .2s cubic-bezier(.25, .1, .49, .9) !default;
 $baseline: 1em !default;
-$day-width: 100% / 7 !default;
+$day-width: 100% / 7;
 
-$typography-font-weight: (
+$typography-weight: (
   light: 300,
   regular: 400,
   bold: 700
 ) !default;
 
-$typography-font-size: (
+$typography-size: (
   base: 1em,
   period: 1.2em,
   week: .9em
