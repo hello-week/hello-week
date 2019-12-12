@@ -1,5 +1,4 @@
 .default-theme {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   font-size: 14px;
   border: 1px solid #dadee4;
 
@@ -9,7 +8,7 @@
 
   .week {
     background-color: #f7f8f9;
-    color: $color-week;
+    color: map-get($colors, week);
     border-bottom: 1px solid #dadee4;
   }
 
@@ -17,21 +16,21 @@
     color: #66758c;
 
     &.is-weekend {
-      color: $color-weekend;
+      color: map-get($colors, weekend);
     }
 
     &.is-highlight {
-      background-color: $color-highlight;
+      background-color: map-get($colors, highlight);
       color: #fff;
     }
 
     &.is-today {
-      background-color: $color-today;
+      background-color: map-get($colors, today);
       color: #fff;
     }
 
     &.is-selected {
-      background-color: $color-selected;
+      background-color: map-get($colors, selected);
       color: #fff;
     }
 
@@ -42,7 +41,7 @@
 
     &.is-begin-range,
     &.is-end-range {
-      background-color: $color-selected !important;
+      background-color: map-get($colors, selected);
       color: #fff !important;
     }
 
