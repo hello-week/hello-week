@@ -424,7 +424,6 @@ export class HelloWeek {
       isRange: false,
       isSelected: false,
       isHighlight: false,
-      title: undefined,
       attributes: {
         class: [cssClasses.DAY],
         style: {}
@@ -482,34 +481,23 @@ export class HelloWeek {
     if (this.daysHighlight) {
       this.setDayHighlight(dayOptions);
     }
-    console.log(dayOptions);
-    const newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
 
-    // if (dayOptions.day === 1) {
-    //   if (this.options.weekStart === daysWeek.SUNDAY) {
-    //     setStyle(
-    //       newDay,
-    //       this.options.rtl ? 'margin-right' : 'margin-left',
-    //       day * (100 / Object.keys(daysWeek).length) + '%'
-    //     );
-    //   } else {
-    //     if (day === daysWeek.SUNDAY) {
-    //       setStyle(
-    //         newDay,
-    //         this.options.rtl ? 'margin-right' : 'margin-left',
-    //         (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
-    //       );
-    //     } else {
-    //       setStyle(
-    //         newDay,
-    //         this.options.rtl ? 'margin-right' : 'margin-left',
-    //         (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
-    //       );
-    //     }
-    //   }
-    // }
+    if (dayOptions.day === 1) {
+      if (this.options.weekStart === daysWeek.SUNDAY) {
+        dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+          day * (100 / Object.keys(daysWeek).length) + '%';
+      } else {
+        if (day === daysWeek.SUNDAY) {
+          dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
+        } else {
+          dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+            (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
+        }
+      }
+    }
 
-    dayOptions.element = newDay;
+    dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
     this.days[dayOptions.day] = dayOptions;
   }
 

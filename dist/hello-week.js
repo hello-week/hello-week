@@ -133,13 +133,9 @@ function render(vnode, parentDom) {
             if (isString(attributes[key])) {
                 node.style = attributes[key];
             }
-            else if (isArray(attributes[key])) {
-                attributes[key].forEach(function (y) {
-                    if (isObject(y)) {
-                        Object.keys(y).forEach(function (z, p) {
-                            node.style.setProperty(z, y[z]);
-                        });
-                    }
+            else if (isObject(attributes[key])) {
+                Object.keys(attributes[key]).forEach(function (props) {
+                    node.style.setProperty(props, attributes[key][props]);
                 });
             }
         }
@@ -679,7 +675,6 @@ var HelloWeek = /** @class */ (function () {
             isRange: false,
             isSelected: false,
             isHighlight: false,
-            title: undefined,
             attributes: {
                 "class": [cssClasses.DAY],
                 style: {}
@@ -725,32 +720,23 @@ var HelloWeek = /** @class */ (function () {
         if (this.daysHighlight) {
             this.setDayHighlight(dayOptions);
         }
-        console.log(dayOptions);
-        var newDay = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
-        // if (dayOptions.day === 1) {
-        //   if (this.options.weekStart === daysWeek.SUNDAY) {
-        //     setStyle(
-        //       newDay,
-        //       this.options.rtl ? 'margin-right' : 'margin-left',
-        //       day * (100 / Object.keys(daysWeek).length) + '%'
-        //     );
-        //   } else {
-        //     if (day === daysWeek.SUNDAY) {
-        //       setStyle(
-        //         newDay,
-        //         this.options.rtl ? 'margin-right' : 'margin-left',
-        //         (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%'
-        //       );
-        //     } else {
-        //       setStyle(
-        //         newDay,
-        //         this.options.rtl ? 'margin-right' : 'margin-left',
-        //         (day - 1) * (100 / Object.keys(daysWeek).length) + '%'
-        //       );
-        //     }
-        //   }
-        // }
-        dayOptions.element = newDay;
+        if (dayOptions.day === 1) {
+            if (this.options.weekStart === daysWeek.SUNDAY) {
+                dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+                    day * (100 / Object.keys(daysWeek).length) + '%';
+            }
+            else {
+                if (day === daysWeek.SUNDAY) {
+                    dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+                        (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
+                }
+                else {
+                    dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+                        (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
+                }
+            }
+        }
+        dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     };
     HelloWeek.prototype.setDaysDisable = function (dayOptions) {

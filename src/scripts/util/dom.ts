@@ -25,13 +25,9 @@ export function render(vnode: any, parentDom?: HTMLElement) {
     } else if (key === 'style') {
       if (isString(attributes[key])) {
         node.style = attributes[key];
-      } else if (isArray(attributes[key])) {
-        attributes[key].forEach((y: any) => {
-          if (isObject(y)) {
-            Object.keys(y).forEach((z, p) => {
-              node.style.setProperty(z, y[z]);
-            });
-          }
+      } else if (isObject(attributes[key])) {
+        Object.keys(attributes[key]).forEach((props: any) => {
+          node.style.setProperty(props, attributes[key][props]);
         });
       }
     }
