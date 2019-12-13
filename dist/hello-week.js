@@ -192,7 +192,7 @@ function getIndexForEventTarget(daysOfMonth, target) {
 }
 
 function isBetween(to, from, date) {
-    return date > to && date < from;
+    return (date > to) && (date < from);
 }
 
 function template(options, args) {

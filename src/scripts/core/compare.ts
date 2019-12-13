@@ -1,11 +1,11 @@
 import { normalizeDate } from '../util/index';
 
 export function isAfter(input: any, date: any) {
-  return date;
+  return input > date;
 }
 
 export function isBefore(input: any, date: any) {
-  return date;
+  return input < date;
 }
 
 export function isBetween(to: number, from: number, date: number) {
@@ -13,7 +13,7 @@ export function isBetween(to: number, from: number, date: number) {
 }
 
 export function isSame(input: any, date: any) {
-  return date;
+  return input === date;
 }
 
 export function isSameOrAfter(input: any, date: any) {
