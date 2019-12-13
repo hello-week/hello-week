@@ -39,6 +39,8 @@ Method destroy the calendar and remove the instance from the target element.
 #### goToday()
 Method move the calendar to current day.
 
+> DEPRECATED
+
 > **type**: `triggerable`
 
 ---

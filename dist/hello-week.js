@@ -405,14 +405,6 @@ var HelloWeek = /** @class */ (function () {
         this.init(callback);
     };
     /**
-     * Move the calendar to current day.
-     */
-    HelloWeek.prototype.goToday = function () {
-        this.date = this.todayDate;
-        this.date.setDate(1);
-        this.update();
-    };
-    /**
      * Move the calendar to arbitrary day.
      * @param {any} date
      */

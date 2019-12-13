@@ -125,15 +125,6 @@ export class HelloWeek {
   }
 
   /**
-   * Move the calendar to current day.
-   */
-  goToday(): void {
-    this.date = this.todayDate;
-    this.date.setDate(1);
-    this.update();
-  }
-
-  /**
    * Move the calendar to arbitrary day.
    * @param {any} date
    */

@@ -18,7 +18,7 @@
     ],
     "scripts": {
         "dev": "rollup -c -w",
-        "build": "rimraf dist && yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",
+        "build": "yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",
         "prettier": "prettier --write --parser typescript \"src/scripts/**/*.ts?(x)\"",
         "lint": "tslint \"src/*.ts\" \"src/**/*.ts\" \"__tests__/**/*.ts\"",
         "test": "jest"
