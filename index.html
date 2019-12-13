@@ -46,6 +46,11 @@
         <div class="calendar">
           <div class="hello-week default-theme" id="highlights"></div>
         </div>
+
+        <!-- rtl calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="rtl"></div>
+        </div>
       </div>
 
       <!-- max and min -->
@@ -76,6 +81,11 @@
         selector: '#range',
         range: ['2019-12-10', '2019-12-24'],
         todayHighlight: false
+      });
+
+      new HelloWeek({
+        selector: '#rtl',
+        rtl: true
       });
 
       new HelloWeek({

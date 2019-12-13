@@ -55,13 +55,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: $day-width;
+    width: calc(100% / 7);
     padding: $baseline;
     transition: background-color $transition;
 
     &.is-disabled {
       cursor: not-allowed;
-      opacity: 0.33;
+      opacity: $disabled;
     }
   }
 }
