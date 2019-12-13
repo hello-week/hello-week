@@ -11,6 +11,11 @@
     <link href="dist/default.theme.css" rel="stylesheet" />
 
     <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
       .flex {
         display: flex;
       }
@@ -21,6 +26,7 @@
 
       .calendar {
         max-width: 320px;
+        margin: 6px;
       }
     </style>
   </head>
@@ -42,14 +48,19 @@
           <div class="hello-week default-theme" id="range"></div>
         </div>
 
-        <!-- highlights calendar -->
-        <div class="calendar">
-          <div class="hello-week default-theme" id="highlights"></div>
-        </div>
-
         <!-- rtl calendar -->
         <div class="calendar">
           <div class="hello-week default-theme" id="rtl"></div>
+        </div>
+
+        <!-- selected days -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="selected-days"></div>
+        </div>
+
+        <!-- highlights calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="highlights"></div>
         </div>
       </div>
 
@@ -87,6 +98,16 @@
         selector: '#rtl',
         rtl: true
       });
+
+      new HelloWeek({
+        selector: '#selected-days',
+        daysSelected: ['2019-12-01', '2019-12-02', '2019-12-03', '2019-12-25'],
+        multiplePick: true,
+        onSelect: () => {
+          console.log(calendar.getDays());
+        }
+      });
+
 
       new HelloWeek({
         selector: '#highlights',
