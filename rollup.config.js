@@ -18,7 +18,6 @@ export default {
   plugins: [
     !production && serve(),
     scss({
-      output: true,
       output: 'dist/hello.week.css'
     }),
     typescript({}),
