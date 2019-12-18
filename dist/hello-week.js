@@ -139,6 +139,14 @@ function render(vnode, parentDom) {
                 });
             }
         }
+        else if (key === 'dataset') {
+            Object.keys(attributes[key]).forEach(function (props) {
+                node.setAttribute('data-' + props, attributes[key][props]);
+            });
+        }
+        else {
+            node.setAttribute(key, attributes[key]);
+        }
     });
     // render (build) and then append child nodes:
     (vnode.children || []).forEach(function (c) { return node.appendChild(render(c)); });

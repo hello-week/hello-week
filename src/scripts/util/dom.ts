@@ -30,6 +30,12 @@ export function render(vnode: any, parentDom?: HTMLElement) {
           node.style.setProperty(props, attributes[key][props]);
         });
       }
+    } else if (key === 'dataset') {
+      Object.keys(attributes[key]).forEach((props: any) => {
+        node.setAttribute('data-' + props, attributes[key][props]);
+      });
+    } else {
+      node.setAttribute(key, attributes[key]);
     }
   });
 
