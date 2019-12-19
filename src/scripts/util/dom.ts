@@ -45,7 +45,7 @@ export function render(vnode: any, parentDom?: HTMLElement) {
   return parentDom ? parentDom.appendChild(node) : node;
 }
 
-export function h(nodeName: string, attributes: any, ...args: any) {
+function h(nodeName: string, attributes: any, ...args: any) {
   const vnode: any = { nodeName };
 
   if (attributes) {
@@ -82,3 +82,5 @@ export function toggleClass(el: HTMLElement, className: string) {
 export function existElement(className: string, where: HTMLElement) {
   return isDef(where) ? where.querySelector(`.${className}`) : document.querySelector(`.${className}`);
 }
+
+export { h as el };

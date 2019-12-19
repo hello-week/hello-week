@@ -12,7 +12,7 @@ import {
   isTrue,
   isArray,
   setAttr,
-  h,
+  el,
   render,
   addClass,
   removeClass,
@@ -24,6 +24,7 @@ import { template } from './template';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
+import { IOptions, IDayOptions } from '../defs/iOptions';
 
 export class HelloWeek {
   private readonly defaultsOptions: any;
@@ -41,7 +42,7 @@ export class HelloWeek {
   private lastSelectedDay: any;
   private days: any;
 
-  constructor(options: any = {}) {
+  constructor(options: IOptions) {
     this.options = extend(extend({}, defaults), options);
     this.defaultsOptions = extend(extend({}, defaults), options);
 
@@ -87,9 +88,9 @@ export class HelloWeek {
     this.date.setMonth(prevMonth);
     this.update();
 
-    this.options.onNavigation.call(this);
+    this.options.onNavigation();
     if (callback) {
-      callback.call(this);
+      callback();
     }
   }
 
@@ -101,9 +102,9 @@ export class HelloWeek {
     this.date.setMonth(nextMonth);
     this.update();
 
-    this.options.onNavigation.call(this);
+    this.options.onNavigation();
     if (callback) {
-      callback.call(this);
+      callback();
     }
   }
 
@@ -274,9 +275,9 @@ export class HelloWeek {
     }
 
     this.mounted();
-    this.options.onLoad.call(this);
+    this.options.onLoad();
     if (callback) {
-      callback.call(this);
+      callback();
     }
   }
 
@@ -357,9 +358,9 @@ export class HelloWeek {
         addClass(event.target, cssStates.IS_SELECTED);
       }
 
-      this.options.onSelect.call(this);
+      this.options.onSelect();
       if (callback) {
-        callback.call(this);
+        callback();
       }
     });
   }
@@ -390,7 +391,7 @@ export class HelloWeek {
   }
 
   private creatWeek(dayShort: string): void {
-    render(h('span', { class: cssClasses.DAY }, dayShort), this.calendar.week);
+    render(el('span', { class: cssClasses.DAY }, dayShort), this.calendar.week);
   }
 
   private createMonth(): void {
@@ -404,9 +405,9 @@ export class HelloWeek {
   }
 
   private createDay(date: Date): void {
-    const num = date.getDate();
+    const num = date.getDate().toString();
     const day = date.getDay();
-    const dayOptions: any = {
+    let dayOptions: IDayOptions = {
       day: num,
       timestamp: humanToTimestamp(format(date.getDate(), date.getMonth(), date.getFullYear())),
       isWeekend: false,
@@ -473,7 +474,7 @@ export class HelloWeek {
       this.setDayHighlight(dayOptions);
     }
 
-    if (dayOptions.day === 1) {
+    if (dayOptions.day === '1') {
       if (this.options.weekStart === daysWeek.SUNDAY) {
         dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
           day * (100 / Object.keys(daysWeek).length) + '%';
@@ -488,8 +489,10 @@ export class HelloWeek {
       }
     }
 
-    dayOptions.element = render(h('div', dayOptions.attributes, String(dayOptions.day)), this.calendar.month);
+    dayOptions.element = el('div', dayOptions.attributes, dayOptions.day);
     this.days[dayOptions.day] = dayOptions;
+    dayOptions = this.options.beforeCreateDay(dayOptions);
+    render(dayOptions.element,  this.calendar.month);
   }
 
   private setDaysDisable(dayOptions: any): void {
@@ -586,3 +589,5 @@ export class HelloWeek {
     }
   }
 }
+
+export { el };

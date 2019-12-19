@@ -58,11 +58,16 @@
           <div class="hello-week default-theme" id="selected-days"></div>
         </div>
 
+        <!-- before create day calendar -->
+        <div class="calendar">
+          <div class="hello-week default-theme" id="beforeCreateDay"></div>
+        </div>
+      </div>
+
         <!-- highlights calendar -->
         <div class="calendar">
           <div class="hello-week default-theme" id="highlights"></div>
         </div>
-      </div>
 
       <!-- max and min -->
       <div class="flex">
@@ -76,7 +81,7 @@
     </main>
 
     <script type="module">
-      import { HelloWeek } from './dist/hello-week.js';
+      import { HelloWeek, el }  from './dist/hello-week.js';
 
       new HelloWeek({
         selector: '#default'
@@ -108,6 +113,14 @@
         }
       });
 
+      const beforeCreateDay = new HelloWeek({
+        selector: '#beforeCreateDay',
+        multiplePick: true,
+        beforeCreateDay: (dayOptions) => {
+          dayOptions.element = el('span', dayOptions.attributes, dayOptions.day);
+          return dayOptions;
+        }
+      });
 
       new HelloWeek({
         selector: '#highlights',

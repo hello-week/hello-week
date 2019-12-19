@@ -1,4 +1,4 @@
-import { IOptions } from '../defs/iOptions';
+import { IOptions, IDayOptions } from '../defs/iOptions';
 
 export const defaults: IOptions = {
   selector: '.hello-week',
@@ -33,5 +33,6 @@ export const defaults: IOptions = {
   },
   onSelect: () => {
     /** callback */
-  }
+  },
+  beforeCreateDay: (data: IDayOptions) => data
 };

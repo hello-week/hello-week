@@ -24,6 +24,20 @@ export interface IOptions {
   onClear: () => void;
   onNavigation: () => void;
   onSelect: () => void;
+  beforeCreateDay: (data: IDayOptions) => IDayOptions;
+}
+
+export interface IDayOptions {
+  day: string;
+  timestamp: number;
+  isWeekend: boolean;
+  locked: boolean;
+  isToday: boolean;
+  isRange: boolean;
+  isSelected: boolean;
+  isHighlight: boolean;
+  attributes: any;
+  element: HTMLElement | undefined;
 }
 
 export interface ICssClasses {
