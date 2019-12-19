@@ -1,4 +1,3 @@
-.default-theme { font-family: sans-serif; border: 1px solid #dadee4; }
 .default-theme .navigation { background-color: #f7f8f9;}
 .default-theme .navigation .prev {}
 .default-theme .navigation .period {}
@@ -12,4 +11,3 @@
 .default-theme .day.is-range { background-color: #f1f1fc; color: #5755d9; }
 .default-theme .day.is-begin-range,
 .default-theme .day.is-end-range { background-color: #3634d2; color: #fff; }
-

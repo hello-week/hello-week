@@ -39,7 +39,7 @@
     justify-content: center;
     width: calc(100% / 7);
     padding: 1em;
-    transition: background-color 0.2s cubic-bezier(0.25, 0.1, 0.49, 0.9); }
+    cursor: pointer; }
     .hello-week .day.is-disabled {
       cursor: not-allowed;
       opacity: 0.3; }

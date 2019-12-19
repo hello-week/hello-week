@@ -57,7 +57,7 @@
     justify-content: center;
     width: calc(100% / 7);
     padding: $baseline;
-    transition: background-color $transition;
+    cursor: pointer;
 
     &.is-disabled {
       cursor: not-allowed;
