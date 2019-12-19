@@ -37,6 +37,7 @@ export interface IDayOptions {
   isSelected: boolean;
   isHighlight: boolean;
   attributes: any;
+  node: Node | undefined;
   element: HTMLElement | undefined;
 }
 

@@ -420,6 +420,7 @@ export class HelloWeek {
         class: [cssClasses.DAY],
         style: {}
       },
+      node: undefined,
       element: undefined
     };
 
@@ -489,10 +490,10 @@ export class HelloWeek {
       }
     }
 
-    dayOptions.element = el('div', dayOptions.attributes, dayOptions.day);
-    this.days[dayOptions.day] = dayOptions;
+    dayOptions.node = el('div', dayOptions.attributes, dayOptions.day);
     dayOptions = this.options.beforeCreateDay(dayOptions);
-    render(dayOptions.element,  this.calendar.month);
+    dayOptions.element = render(dayOptions.node,  this.calendar.month);
+    this.days[dayOptions.day] = dayOptions;
   }
 
   private setDaysDisable(dayOptions: any): void {

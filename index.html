@@ -64,10 +64,10 @@
         </div>
       </div>
 
-        <!-- highlights calendar -->
-        <div class="calendar">
-          <div class="hello-week default-theme" id="highlights"></div>
-        </div>
+      <!-- highlights calendar -->
+      <div class="calendar">
+        <div class="hello-week default-theme" id="highlights"></div>
+      </div>
 
       <!-- max and min -->
       <div class="flex">
@@ -81,7 +81,7 @@
     </main>
 
     <script type="module">
-      import { HelloWeek, el }  from './dist/hello-week.js';
+      import { HelloWeek, el } from './dist/hello-week.js';
 
       new HelloWeek({
         selector: '#default'
@@ -90,7 +90,7 @@
       new HelloWeek({
         selector: '#disableDaysOfWeek',
         todayHighlight: false,
-        disableDaysOfWeek: [0, 1, 2] 
+        disableDaysOfWeek: [0, 1, 2]
       });
 
       new HelloWeek({
@@ -116,9 +116,9 @@
       const beforeCreateDay = new HelloWeek({
         selector: '#beforeCreateDay',
         multiplePick: true,
-        beforeCreateDay: (dayOptions) => {
-          dayOptions.element = el('span', dayOptions.attributes, dayOptions.day);
-          return dayOptions;
+        beforeCreateDay: data => {
+          data.node = el('span', data.attributes, data.day);
+          return data;
         }
       });
 
@@ -133,7 +133,7 @@
             attributes: {
               style: {
                 'background-color': '#9C27B0',
-                color: '#fff',
+                color: '#fff'
               },
               dataset: {
                 title: 'Summer Holidays'
@@ -145,7 +145,7 @@
             attributes: {
               style: {
                 'background-color': '#E91E63',
-                color: '#fff',
+                color: '#fff'
               },
               dataset: {
                 title: 'Mom Birthday'

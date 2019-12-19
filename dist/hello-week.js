@@ -679,6 +679,7 @@ var HelloWeek = /** @class */ (function () {
                 "class": [cssClasses.DAY],
                 style: {}
             },
+            node: undefined,
             element: undefined
         };
         this.days = this.days || {};
@@ -736,10 +737,10 @@ var HelloWeek = /** @class */ (function () {
                 }
             }
         }
-        dayOptions.element = h('div', dayOptions.attributes, dayOptions.day);
-        this.days[dayOptions.day] = dayOptions;
+        dayOptions.node = h('div', dayOptions.attributes, dayOptions.day);
         dayOptions = this.options.beforeCreateDay(dayOptions);
-        render(dayOptions.element, this.calendar.month);
+        dayOptions.element = render(dayOptions.node, this.calendar.month);
+        this.days[dayOptions.day] = dayOptions;
     };
     HelloWeek.prototype.setDaysDisable = function (dayOptions) {
         if (this.options.disableDates[0] instanceof Array) {
