@@ -109,7 +109,7 @@ function render(vnode, parentDom) {
             }
             else if (isObject(attributes[key])) {
                 Object.keys(attributes[key]).forEach((props) => {
-                    node.style.setProperty(props, attributes[key][props]);
+                    node.style[props] = attributes[key][props];
                 });
             }
         }
@@ -376,7 +376,6 @@ class HelloWeek {
     }
     /**
      * Move the calendar to arbitrary day.
-     * @param {any} date
      */
     goToDate(date = this.todayDate) {
         this.date = new Date(date);
@@ -385,14 +384,12 @@ class HelloWeek {
     }
     /**
      * Returns the selected days with the format specified.
-     * @return {any}
      */
     getDays() {
         return this.daysSelected.map((day) => timestampToHuman(day, this.langs, this.options.format));
     }
     /**
      * Gets the day selected.
-     * @return {number}
      */
     getDaySelected() {
         return this.lastSelectedDay;

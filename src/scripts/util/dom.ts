@@ -26,7 +26,7 @@ export function render(vnode: any, parentDom?: HTMLElement) {
         node.style = attributes[key];
       } else if (isObject(attributes[key])) {
         Object.keys(attributes[key]).forEach((props: any) => {
-          node.style.setProperty(props, attributes[key][props]);
+          node.style[props] = attributes[key][props];
         });
       }
     } else if (key === 'dataset') {
