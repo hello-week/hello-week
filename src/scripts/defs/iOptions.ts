@@ -15,7 +15,7 @@ export interface IOptions {
   monthShort: boolean;
   multiplePick: boolean;
   nav: ['◀', '▶'];
-  range: boolean | [string];
+  range: boolean | [string | number];
   rtl: boolean;
   todayHighlight: boolean;
   weekShort: boolean;
@@ -28,7 +28,7 @@ export interface IOptions {
 }
 
 export interface IDayOptions {
-  day: string;
+  day: number;
   timestamp: number;
   isWeekend: boolean;
   locked: boolean;
@@ -72,4 +72,11 @@ export interface IDaysWeek {
   THURSDAY: number;
   TUESDAY: number;
   WEDNESDAY: number;
+}
+
+export interface ILangs {
+  days: [string, string, string, string, string, string, string];
+  daysShort: [string, string, string, string, string, string, string];
+  months: [string, string, string, string, string, string, string, string, string, string, string, string];
+  monthsShort: [string, string, string, string, string, string, string, string, string, string, string, string];
 }

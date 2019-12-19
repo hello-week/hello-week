@@ -1,5 +1,3 @@
-import { normalizeDate } from '../util/index';
-
 export function isAfter(input: any, date: any) {
   return input > date;
 }

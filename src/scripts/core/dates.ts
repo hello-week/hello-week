@@ -1,5 +1,4 @@
 import { isDef } from './../util/index';
-import { defaults } from './../shared/options';
 import { formats } from './format';
 
 export function date(dt?: any): any {

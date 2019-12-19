@@ -1,5 +1,4 @@
 import { isDef, isString, isArray, isObject } from './types';
-import { cssClasses } from '../shared/constants';
 
 export function render(vnode: any, parentDom?: HTMLElement) {
   // Strings just convert to #text Nodes:

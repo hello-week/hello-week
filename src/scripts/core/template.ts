@@ -1,5 +1,5 @@
 import { IOptions } from '../defs/iOptions';
-import { render, el, existElement, error, warn, log, isString, isDef, isTrue, addClass } from './../util/index';
+import { render, el, existElement, error, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
 export function template(options: IOptions, args: any) {
@@ -12,7 +12,7 @@ export function template(options: IOptions, args: any) {
   self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
 
   if (!isDef(self.selector)) {
-    self.selector = render(el('div', { class: `${options.selector} ${cssClasses.CALENDAR}` }));
+    self.selector = render(el('div', { class: [options.selector, cssClasses.CALENDAR] }));
   } else {
     if (options.selector !== cssClasses.CALENDAR) {
       addClass(self.selector, cssClasses.CALENDAR);

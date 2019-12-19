@@ -1,41 +1,34 @@
-import { cssClasses, cssStates, daysWeek, formatDate } from '../shared/constants';
+import { cssClasses, cssStates, daysWeek } from '../shared/constants';
 import { defaults } from '../shared/options';
 import {
-  log,
-  warn,
   error,
-  checkUrl,
-  readFile,
   extend,
   getIndexForEventTarget,
-  isObject,
-  isTrue,
   isArray,
-  setAttr,
   el,
   render,
   addClass,
   removeClass,
-  setStyle,
   toggleClass
 } from './../util/index';
-import { isBetween } from './compare';
+import { isBetween, isSame } from './compare';
 import { template } from './template';
+import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
-import { IOptions, IDayOptions } from '../defs/iOptions';
+import { IOptions, IDayOptions, ILangs } from '../defs/iOptions';
 
 export class HelloWeek {
   private readonly defaultsOptions: IOptions;
   private options: IOptions;
+  private langs: ILangs;
   private selector: any;
   private calendar: any = {};
   private date: any;
   private todayDate: any;
   private daysHighlight: any;
   private defaultDate: any;
-  private langs: any;
   private daysOfMonth: any;
   private intervalRange: any = {};
   private daysSelected: any = [];
@@ -58,21 +51,12 @@ export class HelloWeek {
     this.selector = calendar.selector;
     this.calendar = calendar.calendar;
 
-    if (checkUrl(this.options.langFolder)) {
-      readFile(this.options.langFolder, (text: any) => {
-        this.langs = text;
-        this.init(() => {
-          /** callback function */
-        });
+    import(this.options.langFolder + this.options.lang + '.js')
+      .then((data: any) => data.default)
+      .then((lang: ILangs) => {
+        this.langs = lang;
+        this.init();
       });
-    } else {
-      readFile(this.options.langFolder + this.options.lang + '.json', (text: any) => {
-        this.langs = text;
-        this.init(() => {
-          /** callback function */
-        });
-      });
-    }
   }
 
   destroy(): void {
@@ -295,21 +279,6 @@ export class HelloWeek {
     }
   }
 
-  private getIntervalOfDates(startDate: number, endDate: number) {
-    const dates = [];
-    let currentDate = startDate;
-    const addDays = function(this: any, days: any) {
-      const date = new Date(this.valueOf());
-      date.setDate(date.getDate() + days);
-      return date.getTime();
-    };
-    while (currentDate <= endDate) {
-      dates.push(timestampToHuman(currentDate, this.langs));
-      currentDate = addDays.call(currentDate, 1);
-    }
-    return dates;
-  }
-
   private handleClickInteraction(target: HTMLElement, callback?: () => void): void {
     target.addEventListener('click', (event: any) => {
       const index = getIndexForEventTarget(this.daysOfMonth, event.target);
@@ -343,7 +312,7 @@ export class HelloWeek {
         }
         if (this.intervalRange.begin && !this.intervalRange.end) {
           this.intervalRange.end = this.days[index].timestamp;
-          this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
+          this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end, this.langs);
           addClass(event.target, cssStates.IS_END_RANGE);
           if (this.intervalRange.begin > this.intervalRange.end) {
             this.intervalRange = {};
@@ -405,7 +374,7 @@ export class HelloWeek {
   }
 
   private createDay(date: Date): void {
-    const num = date.getDate().toString();
+    const num = date.getDate();
     const day = date.getDay();
     let dayOptions: IDayOptions = {
       day: num,
@@ -426,7 +395,7 @@ export class HelloWeek {
 
     this.days = this.days || {};
 
-    if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
+    if (isSame(day, daysWeek.SUNDAY) || isSame(day, daysWeek.SATURDAY)) {
       dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
       dayOptions.isWeekend = true;
     }
@@ -446,13 +415,16 @@ export class HelloWeek {
       this.setDaysDisable(dayOptions);
     }
 
-    if (this.todayDate === dayOptions.timestamp && this.options.todayHighlight) {
+    if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.timestamp)) {
       dayOptions.attributes.class.push(cssStates.IS_TODAY);
       dayOptions.isToday = true;
     }
 
     this.daysSelected.find((daySelected: number) => {
-      if (daySelected === dayOptions.timestamp || humanToTimestamp(daySelected.toString()) === dayOptions.timestamp) {
+      if (
+        isSame(daySelected, dayOptions.timestamp) ||
+        isSame(humanToTimestamp(daySelected.toString()), dayOptions.timestamp)
+      ) {
         dayOptions.attributes.class.push(cssStates.IS_SELECTED);
         dayOptions.isSelected = true;
       }
@@ -463,11 +435,11 @@ export class HelloWeek {
       dayOptions.isRange = true;
     }
 
-    if (dayOptions.timestamp === this.intervalRange.begin) {
+    if (isSame(dayOptions.timestamp, this.intervalRange.begin)) {
       dayOptions.attributes.class.push(cssStates.IS_BEGIN_RANGE);
     }
 
-    if (dayOptions.timestamp === this.intervalRange.end) {
+    if (isSame(dayOptions.timestamp, this.intervalRange.end)) {
       dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
     }
 
@@ -475,7 +447,7 @@ export class HelloWeek {
       this.setDayHighlight(dayOptions);
     }
 
-    if (dayOptions.day === '1') {
+    if (dayOptions.day === 1) {
       if (this.options.weekStart === daysWeek.SUNDAY) {
         dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
           day * (100 / Object.keys(daysWeek).length) + '%';
@@ -490,9 +462,9 @@ export class HelloWeek {
       }
     }
 
-    dayOptions.node = el('div', dayOptions.attributes, dayOptions.day);
+    dayOptions.node = el('div', dayOptions.attributes, dayOptions.day.toString());
     dayOptions = this.options.beforeCreateDay(dayOptions);
-    dayOptions.element = render(dayOptions.node,  this.calendar.month);
+    dayOptions.element = render(dayOptions.node, this.calendar.month);
     this.days[dayOptions.day] = dayOptions;
   }
 
@@ -517,7 +489,7 @@ export class HelloWeek {
   private setDayHighlight(dayOptions: any): void {
     for (const key in this.daysHighlight) {
       if (this.daysHighlight[key].days[0] instanceof Array) {
-        this.daysHighlight[key].days.map((date: any, index: number) => {
+        this.daysHighlight[key].days.map((date: any) => {
           if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
             this.setStyleDayHighlight(key, dayOptions);
           }

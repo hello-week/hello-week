@@ -37,47 +37,47 @@
       <div class="flex wrap">
         <!-- default calendar -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="default"></div>
+          <div class="default-theme" id="default"></div>
         </div>
 
         <!-- disabled days of week -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="disableDaysOfWeek"></div>
+          <div class="default-theme" id="disableDaysOfWeek"></div>
         </div>
 
         <!-- range calendar -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="range"></div>
+          <div class="default-theme" id="range"></div>
         </div>
 
         <!-- rtl calendar -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="rtl"></div>
+          <div class="default-theme" id="rtl"></div>
         </div>
 
         <!-- selected days -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="selected-days"></div>
+          <div class="default-theme" id="selected-days"></div>
         </div>
 
         <!-- before create day calendar -->
         <div class="calendar">
-          <div class="hello-week default-theme" id="beforeCreateDay"></div>
+          <div class="default-theme" id="beforeCreateDay"></div>
         </div>
       </div>
 
       <!-- highlights calendar -->
       <div class="calendar">
-        <div class="hello-week default-theme" id="highlights"></div>
+        <div class="default-theme" id="highlights"></div>
       </div>
 
       <!-- max and min -->
       <div class="flex">
         <div class="calendar">
-          <div class="hello-week default-theme" id="to"></div>
+          <div class="default-theme" id="to"></div>
         </div>
         <div class="calendar">
-          <div class="hello-week default-theme" id="from"></div>
+          <div class="default-theme" id="from"></div>
         </div>
       </div>
     </main>
@@ -119,7 +119,7 @@
         selector: '#beforeCreateDay',
         multiplePick: true,
         beforeCreateDay: data => {
-          data.node = el('span', data.attributes, data.day);
+          data.node = el('span', data.attributes, data.day.toString());
           return data;
         }
       });

@@ -1,4 +1,8 @@
 {
-   "noUnusedLocals": true,
-   "noUnusedParameters": true
+   "compilerOptions":{
+      "target": "es6",
+      "module": "esnext",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true
+   }
 }

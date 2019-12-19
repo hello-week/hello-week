@@ -1,5 +1,3 @@
-import { defaults } from './../shared/options';
-
 /**
  * Set date timestamp to human format.
  *
