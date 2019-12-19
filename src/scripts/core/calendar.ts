@@ -27,8 +27,8 @@ import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp'
 import { IOptions, IDayOptions } from '../defs/iOptions';
 
 export class HelloWeek {
-  private readonly defaultsOptions: any;
-  private options: any;
+  private readonly defaultsOptions: IOptions;
+  private options: IOptions;
   private selector: any;
   private calendar: any = {};
   private date: any;
