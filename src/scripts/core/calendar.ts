@@ -32,7 +32,7 @@ export class HelloWeek {
   private daysOfMonth: any;
   private intervalRange: any = {};
   private daysSelected: any = [];
-  private lastSelectedDay: any;
+  private lastSelectedDay: number;
   private days: any;
 
   constructor(options: IOptions) {
@@ -111,7 +111,6 @@ export class HelloWeek {
 
   /**
    * Move the calendar to arbitrary day.
-   * @param {any} date
    */
   goToDate(date: any = this.todayDate): void {
     this.date = new Date(date);
@@ -121,7 +120,6 @@ export class HelloWeek {
 
   /**
    * Returns the selected days with the format specified.
-   * @return {any}
    */
   getDays(): any {
     return this.daysSelected.map((day: number) => timestampToHuman(day, this.langs, this.options.format));
@@ -129,7 +127,6 @@ export class HelloWeek {
 
   /**
    * Gets the day selected.
-   * @return {number}
    */
   getDaySelected(): number {
     return this.lastSelectedDay;

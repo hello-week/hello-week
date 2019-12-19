@@ -3,7 +3,7 @@ import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify-es';
+import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
 
 const production = process.env.NODE_ENV === 'production';
@@ -28,6 +28,6 @@ export default {
     }),
     json(),
     commonjs(),
-    production && uglify()
+    production && terser()
   ]
 };
