@@ -40,6 +40,11 @@
           <div class="default-theme" id="default"></div>
         </div>
 
+       <!-- rtl calendar -->
+        <div class="calendar">
+          <div class="default-theme" id="rtl"></div>
+        </div>
+
         <!-- disabled days of week -->
         <div class="calendar">
           <div class="default-theme" id="disableDaysOfWeek"></div>
@@ -50,10 +55,6 @@
           <div class="default-theme" id="range"></div>
         </div>
 
-        <!-- rtl calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="rtl"></div>
-        </div>
 
         <!-- selected days -->
         <div class="calendar">
@@ -86,7 +87,14 @@
       import { HelloWeek, el } from './dist/hello-week.js';
 
       new HelloWeek({
-        selector: '#default'
+        selector: '#default',
+        lang: 'pt'
+      });
+
+      new HelloWeek({
+        lang: 'zh',
+        selector: '#rtl',
+        rtl: true
       });
 
       new HelloWeek({
@@ -99,11 +107,6 @@
         selector: '#range',
         range: ['2019-12-10', '2019-12-24'],
         todayHighlight: false
-      });
-
-      new HelloWeek({
-        selector: '#rtl',
-        rtl: true
       });
 
       const selectedDays = new HelloWeek({
