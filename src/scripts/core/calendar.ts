@@ -23,13 +23,13 @@ export class HelloWeek {
   private readonly defaultsOptions: IOptions;
   private options: IOptions;
   private langs: ILangs;
-  private selector: any;
+  private selector: HTMLElement;
+  private daysOfMonth: NodeListOf<Element>;
   private calendar: any = {};
   private date: any;
   private todayDate: any;
-  private daysHighlight: any;
   private defaultDate: any;
-  private daysOfMonth: any;
+  private daysHighlight: any;
   private intervalRange: any = {};
   private daysSelected: any = [];
   private lastSelectedDay: number;
