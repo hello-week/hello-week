@@ -584,7 +584,7 @@ class HelloWeek {
                         this.days[i].timestamp <= this.days[index].timestamp) {
                         addClass(this.days[i].element, cssStates.IS_SELECTED);
                         addClass(this.days[i].element, cssStates.IS_RANGE);
-                        if (this.days[i].timestamp === this.intervalRange.begin) {
+                        if (isSame(this.days[i].timestamp, this.intervalRange.begin)) {
                             addClass(this.days[i].element, cssStates.IS_BEGIN_RANGE);
                         }
                     }
@@ -597,7 +597,7 @@ class HelloWeek {
     }
     createMonth() {
         const currentMonth = this.date.getMonth();
-        while (this.date.getMonth() === currentMonth) {
+        while (isSame(this.date.getMonth(), currentMonth)) {
             this.createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);
         }
@@ -695,7 +695,7 @@ class HelloWeek {
         }
         else {
             this.options.disableDates.map((date) => {
-                if (dayOptions.timestamp === setToTimestamp(date)) {
+                if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -713,7 +713,7 @@ class HelloWeek {
             }
             else {
                 this.daysHighlight[key].days.map((date) => {
-                    if (dayOptions.timestamp === setToTimestamp(date)) {
+                    if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
                         this.setStyleDayHighlight(key, dayOptions);
                     }
                 });

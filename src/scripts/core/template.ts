@@ -1,4 +1,4 @@
-import { IOptions } from '../defs/iOptions';
+import { IOptions } from '../defs/index';
 import { render, el, existElement, error, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 

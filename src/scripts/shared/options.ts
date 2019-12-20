@@ -1,4 +1,4 @@
-import { IOptions, IDayOptions } from '../defs/iOptions';
+import { IOptions, IDayOptions } from '../defs/index';
 
 export const defaults: IOptions = {
   selector: '.hello-week',

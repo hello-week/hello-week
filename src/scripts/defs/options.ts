@@ -73,10 +73,3 @@ export interface IDaysWeek {
   TUESDAY: number;
   WEDNESDAY: number;
 }
-
-export interface ILangs {
-  days: [string, string, string, string, string, string, string];
-  daysShort: [string, string, string, string, string, string, string];
-  months: [string, string, string, string, string, string, string, string, string, string, string, string];
-  monthsShort: [string, string, string, string, string, string, string, string, string, string, string, string];
-}

@@ -17,7 +17,7 @@ import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
-import { IOptions, IDayOptions, ILangs } from '../defs/iOptions';
+import { IOptions, IDayOptions, ILangs } from '../defs/index';
 
 export class HelloWeek {
   private readonly defaultsOptions: IOptions;
@@ -347,7 +347,7 @@ export class HelloWeek {
           ) {
             addClass(this.days[i].element, cssStates.IS_SELECTED);
             addClass(this.days[i].element, cssStates.IS_RANGE);
-            if (this.days[i].timestamp === this.intervalRange.begin) {
+            if (isSame(this.days[i].timestamp, this.intervalRange.begin)) {
               addClass(this.days[i].element, cssStates.IS_BEGIN_RANGE);
             }
           }
@@ -362,7 +362,7 @@ export class HelloWeek {
 
   private createMonth(): void {
     const currentMonth = this.date.getMonth();
-    while (this.date.getMonth() === currentMonth) {
+    while (isSame(this.date.getMonth(), currentMonth)) {
       this.createDay(this.date);
       this.date.setDate(this.date.getDate() + 1);
     }
@@ -475,7 +475,7 @@ export class HelloWeek {
       });
     } else {
       this.options.disableDates.map((date: any) => {
-        if (dayOptions.timestamp === setToTimestamp(date)) {
+        if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
           dayOptions.attributes.class.push(cssStates.IS_DISABLED);
           dayOptions.locked = true;
         }
@@ -493,7 +493,7 @@ export class HelloWeek {
         });
       } else {
         this.daysHighlight[key].days.map((date: any) => {
-          if (dayOptions.timestamp === setToTimestamp(date)) {
+          if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
             this.setStyleDayHighlight(key, dayOptions);
           }
         });
