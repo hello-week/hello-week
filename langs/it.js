@@ -15,7 +15,5 @@ export default {
     'Novembre',
     'Dicembre'
   ],
-  monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'JGui', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-  oggi: 'Oggi',
-  cancella: 'Cancella'
+  monthsShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'JGui', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic']
 };

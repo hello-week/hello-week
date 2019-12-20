@@ -15,7 +15,5 @@ export default {
     'Noviembre',
     'Diciembre'
   ],
-  monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-  today: 'Hoy',
-  clear: 'Limpiar'
+  monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 };
