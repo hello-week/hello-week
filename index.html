@@ -122,7 +122,9 @@
         selector: '#beforeCreateDay',
         multiplePick: true,
         beforeCreateDay: data => {
-          data.node = el('span', data.attributes, data.day.toString());
+          console.log(data.attributes.style);
+          data.attributes.style = { ...data.attributes.style, ...{ border: 0, fontSize: 'small', outline: 'none' }}
+          data.node = el('button', data.attributes, data.day.toString());
           return data;
         }
       });
