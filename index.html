@@ -9,6 +9,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <link href="dist/hello.week.css" rel="stylesheet" />
     <link href="dist/default.theme.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
 
     <style>
       body {
@@ -88,7 +89,8 @@
 
       new HelloWeek({
         selector: '#default',
-        lang: 'pt'
+        lang: 'pt',
+        nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
       });
 
       new HelloWeek({
@@ -122,7 +124,6 @@
         selector: '#beforeCreateDay',
         multiplePick: true,
         beforeCreateDay: data => {
-          console.log(data.attributes.style);
           data.attributes.style = { ...data.attributes.style, ...{ border: 0, fontSize: 'small', outline: 'none' }}
           data.node = el('button', data.attributes, data.day.toString());
           return data;
