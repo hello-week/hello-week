@@ -7,7 +7,7 @@ export interface IOptions {
   disableDates: any;
   disableDaysOfWeek: any;
   disablePastDays: boolean;
-  format: any;
+  format: IDateTimeFormat;
   lang: string;
   locked: boolean;
   maxDate: any;
@@ -25,6 +25,15 @@ export interface IOptions {
   onNavigation: () => void;
   onSelect: () => void;
   beforeCreateDay: (data: IDayOptions) => IDayOptions;
+}
+
+export interface IDateTimeFormat {
+  year: 'numeric' | '2-digit';
+  month: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
+  day: 'numeric' | '2-digit';
+  weekday?: 'narrow' | 'short' | 'long';
+  timeZoneName?: 'short' | 'long';
+  timeZone?: string;
 }
 
 export interface IDayOptions {
