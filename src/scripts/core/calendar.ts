@@ -121,9 +121,9 @@ export class HelloWeek {
   /**
    * Returns the selected days with the format specified.
    */
-  getDays(): any {
+  getDaySelected(): any {
     return this.daysSelected
-      .filter((a: string, b: string) => formatDateToCompare(a) - formatDateToCompare(b))
+      .sort((a: string, b: string) => formatDateToCompare(a) - formatDateToCompare(b))
       .map((day: number) => formatDate(day, this.langs, this.options.format));
   }
 
@@ -283,7 +283,7 @@ export class HelloWeek {
             this.removeStatesClass();
           }
           this.daysSelected = [];
-          this.daysSelected.push(formatDate(this.lastSelectedDay, this.langs));
+          this.daysSelected.push(this.lastSelectedDay);
         }
       }
 

@@ -117,7 +117,7 @@
         daysSelected: ['2019-12-01', '2019-12-02', '2019-12-03', '2019-12-25'],
         multiplePick: true,
         onSelect: () => {
-          console.log(selectedDays.getDays());
+          console.log(selectedDays.getDaySelected());
         }
       });
 
@@ -165,23 +165,23 @@
         ]
       });
 
-      // const to = new HelloWeek({
-      //   selector: '#to',
-      //   todayHighlight: false,
-      //   onSelect: () => {
-      //     from.setMinDate(to.getDaySelected());
-      //     from.update();
-      //   }
-      // });
+      const to = new HelloWeek({
+        selector: '#to',
+        todayHighlight: false,
+        onSelect: () => {
+          from.setMinDate(to.getLastDaySelected());
+          from.update();
+        }
+      });
 
-      // const from = new HelloWeek({
-      //   selector: '#from',
-      //   todayHighlight: false,
-      //   onSelect: () => {
-      //     to.setMaxDate(from.getDaySelected());
-      //     to.update();
-      //   }
-      // });
+      const from = new HelloWeek({
+        selector: '#from',
+        todayHighlight: false,
+        onSelect: () => {
+          to.setMaxDate(from.getLastDaySelected());
+          to.update();
+        }
+      });
     </script>
   </body>
 </html>

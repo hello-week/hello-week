@@ -157,12 +157,12 @@ function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
-function format(day, month, year) {
-    return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
-}
 function toDate(date) {
     const dt = new Date(date);
-    return format(dt.getDate(), dt.getMonth(), dt.getFullYear());
+    return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
+}
+function defaultFormat(day, month, year) {
+    return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 function formatDate(date, langs, formats = defaults.format) {
     const dt = new Date(date);
@@ -282,7 +282,6 @@ function date(dt) {
  */
 function setMinDate(dt) {
     const min = date(dt);
-    min.setHours(0, 0, 0, 0);
     return min.setDate(min.getDate() - 1);
 }
 /**
@@ -291,7 +290,6 @@ function setMinDate(dt) {
  */
 function setMaxDate(dt) {
     const max = date(dt);
-    max.setHours(0, 0, 0, 0);
     return max.setDate(max.getDate() + 1);
 }
 
@@ -376,9 +374,9 @@ class HelloWeek {
     /**
      * Returns the selected days with the format specified.
      */
-    getDays() {
+    getDaySelected() {
         return this.daysSelected
-            .filter((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
+            .sort((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
             .map((day) => formatDate(day, this.langs, this.options.format));
     }
     /**
@@ -516,7 +514,7 @@ class HelloWeek {
                         this.removeStatesClass();
                     }
                     this.daysSelected = [];
-                    this.daysSelected.push(formatDate(this.lastSelectedDay, this.langs));
+                    this.daysSelected.push(this.lastSelectedDay);
                 }
             }
             toggleClass(event.target, cssStates.IS_SELECTED);

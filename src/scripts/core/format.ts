@@ -1,12 +1,12 @@
 import { defaults } from './../shared/options';
 
-export function format(day: number, month: number, year: number): string {
-  return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
-}
-
 export function toDate(date: Date) {
   const dt = new Date(date);
-  return format(dt.getDate(), dt.getMonth(), dt.getFullYear());
+  return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
+}
+
+export function defaultFormat(day: number, month: number, year: number): string {
+  return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 
 export function formatDate(date: Date | string | number, langs: any, formats: string = defaults.format): string {

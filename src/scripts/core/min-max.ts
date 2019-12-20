@@ -6,8 +6,8 @@ import { date } from './dates';
  */
 export function setMinDate(dt: number | string) {
   const min = date(dt);
-  min.setHours(0, 0, 0, 0);
   return min.setDate(min.getDate() - 1);
+
 }
 
 /**
@@ -16,6 +16,5 @@ export function setMinDate(dt: number | string) {
  */
 export function setMaxDate(dt: number | string) {
   const max = date(dt);
-  max.setHours(0, 0, 0, 0);
   return max.setDate(max.getDate() + 1);
 }
