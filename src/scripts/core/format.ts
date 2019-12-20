@@ -9,31 +9,24 @@ export function defaultFormat(day: number, month: number, year: number): string 
   return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 
-export function formatDate(date: Date | string | number, langs: any, formats: string = defaults.format): string {
-  const dt = new Date(date);
-  formats = formats.replace('dd', dt.getDate().toString());
-  formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-  formats = formats.replace('mm', (dt.getMonth() + 1).toString());
-  formats = formats.replace('MMM', langs.months[dt.getMonth()]);
-  formats = formats.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
-  formats = formats.replace('mmm', langs.monthsShort[dt.getMonth()]);
-  formats = formats.replace('yyyy', dt.getFullYear().toString());
-  formats = formats.replace('YYYY', dt.getFullYear().toString());
-  formats = formats.replace(
-    'YY',
-    dt
-      .getFullYear()
-      .toString()
-      .substring(2)
-  );
-  formats = formats.replace(
-    'yy',
-    dt
-      .getFullYear()
-      .toString()
-      .substring(2)
-  );
-  return formats;
+export const formats = {
+  dd: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { day: 'numeric' }).format(date),
+  DD: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { day: '2-digit' }).format(date),
+  mm: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { month: 'numeric' }).format(date),
+  MM: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { month: '2-digit' }).format(date),
+  yy: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { year: '2-digit' }).format(date),
+  YY: (date: Date, lang: string = defaults.lang) => new Intl.DateTimeFormat(lang, { year: 'numeric' }).format(date),
+  default: (date: Date) =>
+    new Intl.DateTimeFormat(defaults.lang, { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)
+};
+
+export function formatDate(
+  date: Date | string | number,
+  langs: string = defaults.lang,
+  options: any = defaults.format
+): string {
+  console.log(Intl.DateTimeFormat(langs, options).format(new Date(date)));
+  return new Intl.DateTimeFormat(langs, options).format(new Date(date));
 }
 
 export function formatDateToCompare(date: number | string | Date): number {

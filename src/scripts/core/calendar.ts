@@ -124,7 +124,7 @@ export class HelloWeek {
   getDaySelected(): any {
     return this.daysSelected
       .sort((a: string, b: string) => formatDateToCompare(a) - formatDateToCompare(b))
-      .map((day: number) => formatDate(day, this.langs, this.options.format));
+      .map((day: number) => formatDate(day, this.options.lang, this.options.format));
   }
 
   /**

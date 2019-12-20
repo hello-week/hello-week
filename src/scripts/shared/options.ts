@@ -2,9 +2,13 @@ import { IOptions, IDayOptions } from '../defs/index';
 
 export const defaults: IOptions = {
   selector: '.hello-week',
-  lang: 'en',
+  lang: 'en-GB',
   langFolder: '../langs/',
-  format: 'DD/MM/YYYY',
+  format: {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  },
   monthShort: false,
   weekShort: true,
   defaultDate: null,

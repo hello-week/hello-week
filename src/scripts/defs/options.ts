@@ -7,7 +7,7 @@ export interface IOptions {
   disableDates: any;
   disableDaysOfWeek: any;
   disablePastDays: boolean;
-  format: string;
+  format: any;
   lang: string;
   locked: boolean;
   maxDate: any;
