@@ -2,16 +2,25 @@
     "name": "hello-week",
     "version": "3.0.0",
     "description": "Lightweight and simple calendar with no dependencies in pure JavaScript",
-    "license": "MIT",
     "repository": "https://github.com/maurovieirareis/hello-week",
     "keywords": [
         "lightweight",
         "datepicker",
         "calendar"
     ],
-    "author": "Mauro Reis Vieira <mauroreisvieira@gmail.com>",
     "bugs": {
         "url": "https://github.com/maurovieirareis/hello-week/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/maurovieirareis/hello-week.git",
+        "homepage": "https://github.com/maurovieirareis/hello-week"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Mauro Reis Vieira ",
+        "email": "mauroreisvieira@gmail.com",
+        "url": "http://mauroreisvieira.com/"
     },
     "ignore": [
         "node_modules"

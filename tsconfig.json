@@ -3,8 +3,9 @@
       "target": "esnext",
       "module": "esnext",
       "sourceMap": false,
-      "allowJs": false,
       "noUnusedLocals": true,
-      "noUnusedParameters": true
+      "noUnusedParameters": true,
+      "allowJs": true,
+      "checkJs": true
    }
 }
