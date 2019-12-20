@@ -1,4 +1,4 @@
-import { cssClasses, cssStates, daysWeek } from '../shared/constants';
+import { cssClasses, cssStates, daysWeek, margins } from '../shared/constants';
 import { defaults } from '../shared/options';
 import {
   error,
@@ -11,13 +11,13 @@ import {
   removeClass,
   toggleClass
 } from './../util/index';
-import { isBetween, isSame } from './compare';
+import { isBetween, isSame, isSameOrAfter, isSameOrBefore } from './compare';
 import { template } from './template';
 import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { format } from './format';
 import { humanToTimestamp, timestampToHuman, setToTimestamp } from './timestamp';
-import { IOptions, IDayOptions, ILangs } from '../defs/index';
+import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../defs/index';
 
 export class HelloWeek {
   private readonly defaultsOptions: IOptions;
@@ -25,21 +25,22 @@ export class HelloWeek {
   private langs: ILangs;
   private selector: HTMLElement;
   private daysOfMonth: NodeListOf<Element>;
-  private calendar: any = {};
+  private todayDate: string | number;
+  private calendar: ICalendarTemplate;
+  private defaultDate: Date;
+  private days: { [day: number]: IDayOptions };
+  private isRTL: string;
   private date: any;
-  private todayDate: any;
-  private defaultDate: any;
   private daysHighlight: any;
   private intervalRange: any = {};
   private daysSelected: any = [];
   private lastSelectedDay: number;
-  private days: any;
 
   constructor(options: IOptions) {
     this.options = extend(extend({}, defaults), options);
     this.defaultsOptions = extend(extend({}, defaults), options);
 
-    const calendar = template(this.options, {
+    const { calendar, selector } = template(this.options, {
       prev: {
         cb: () => this.prev()
       },
@@ -48,8 +49,9 @@ export class HelloWeek {
       }
     });
 
-    this.selector = calendar.selector;
-    this.calendar = calendar.calendar;
+    this.selector = selector;
+    this.calendar = calendar;
+    this.isRTL = this.options.rtl ? margins.RIGHT : margins.LEFT;
 
     import(this.options.langFolder + this.options.lang + '.js')
       .then((data: any) => data.default)
@@ -134,7 +136,6 @@ export class HelloWeek {
 
   /**
    * Returns the highlight dates.
-   * @return {object}
    */
   getDaysHighlight(): string {
     return this.daysHighlight;
@@ -142,7 +143,6 @@ export class HelloWeek {
 
   /**
    * Returns the current month selected.
-   * @return {string}
    */
   getMonth(): string {
     return this.date.getMonth() + 1;
@@ -150,7 +150,6 @@ export class HelloWeek {
 
   /**
    * Returns the current year selected.
-   * @return {string}
    */
   getYear(): string {
     return this.date.getFullYear();
@@ -165,7 +164,6 @@ export class HelloWeek {
 
   /**
    * Sets calendar with multiple pick.
-   * @param {boolean} state
    */
   setMultiplePick(state: boolean) {
     this.options.multiplePick = state;
@@ -173,7 +171,6 @@ export class HelloWeek {
 
   /**
    * Sets calendar with disable past days.
-   * @param {boolean} state
    */
   setDisablePastDays(state: boolean) {
     this.options.disablePastDays = state;
@@ -181,7 +178,6 @@ export class HelloWeek {
 
   /**
    * Sets calendar with today highlight.
-   * @param {boolean} state
    */
   setTodayHighlight(state: boolean) {
     this.options.todayHighlight = state;
@@ -201,7 +197,6 @@ export class HelloWeek {
 
   /**
    * Sets calendar locked.
-   * @param {boolean} state
    */
   setLocked(state: boolean) {
     this.options.locked = state;
@@ -209,7 +204,6 @@ export class HelloWeek {
 
   /**
    * Set min date.
-   * @param {string} date
    */
   setMinDate(date: number | string) {
     this.options.minDate = setMinDate(date);
@@ -217,7 +211,6 @@ export class HelloWeek {
 
   /**
    * Set max date.
-   * @param {string} date
    */
   setMaxDate(date: number | string) {
     this.options.maxDate = setMaxDate(date);
@@ -262,10 +255,6 @@ export class HelloWeek {
     }
   }
 
-  /**
-   * Select day
-   * @private
-   */
   private selectDay(callback?: () => void): void {
     this.daysOfMonth = this.selector.querySelectorAll('.' + cssClasses.MONTH + ' .' + cssClasses.DAY);
     for (const i of Object.keys(this.daysOfMonth)) {
@@ -340,10 +329,10 @@ export class HelloWeek {
       this.removeStatesClass();
       for (let i = 1; i <= Object.keys(this.days).length; i++) {
         this.days[i].isSelected = false;
-        if (this.days[index].timestamp >= this.intervalRange.begin) {
+        if (isSameOrAfter(this.days[index].timestamp, this.intervalRange.begin)) {
           if (
-            this.days[i].timestamp >= this.intervalRange.begin &&
-            this.days[i].timestamp <= this.days[index].timestamp
+            isSameOrAfter(this.days[i].timestamp, this.intervalRange.begin) &&
+            isSameOrBefore(this.days[i].timestamp, this.days[index].timestamp)
           ) {
             addClass(this.days[i].element, cssStates.IS_SELECTED);
             addClass(this.days[i].element, cssStates.IS_RANGE);
@@ -400,9 +389,10 @@ export class HelloWeek {
     if (
       this.options.locked ||
       (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
-      (this.options.disablePastDays && +this.date.setHours(0, 0, 0, 0) <= +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
-      (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
-      (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)
+      (this.options.disablePastDays &&
+        isSameOrBefore(+this.date.setHours(0, 0, 0, 0), +this.defaultDate.setHours(0, 0, 0, 0) - 1)) ||
+      (this.options.minDate && isSameOrAfter(+this.options.minDate, dayOptions.timestamp)) ||
+      (this.options.maxDate && isSameOrBefore(+this.options.maxDate, dayOptions.timestamp))
     ) {
       dayOptions.attributes.class.push(cssStates.IS_DISABLED);
       dayOptions.locked = true;
@@ -446,15 +436,13 @@ export class HelloWeek {
 
     if (dayOptions.day === 1) {
       if (this.options.weekStart === daysWeek.SUNDAY) {
-        dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
-          day * (100 / Object.keys(daysWeek).length) + '%';
+        dayOptions.attributes.style[this.isRTL] = day * (100 / Object.keys(daysWeek).length) + '%';
       } else {
         if (day === daysWeek.SUNDAY) {
-          dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+          dayOptions.attributes.style[this.isRTL] =
             (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
         } else {
-          dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
-            (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
+          dayOptions.attributes.style[this.isRTL] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
         }
       }
     }
@@ -466,9 +454,12 @@ export class HelloWeek {
   }
 
   private setDaysDisable(dayOptions: any): void {
-    if (this.options.disableDates[0] instanceof Array) {
+    if (isArray(this.options.disableDates[0])) {
       this.options.disableDates.map((date: any) => {
-        if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
+        if (
+          isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
+          isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))
+        ) {
           dayOptions.attributes.class.push(cssStates.IS_DISABLED);
           dayOptions.locked = true;
         }
@@ -484,31 +475,34 @@ export class HelloWeek {
   }
 
   private setDayHighlight(dayOptions: any): void {
-    for (const key in this.daysHighlight) {
-      if (this.daysHighlight[key].days[0] instanceof Array) {
-        this.daysHighlight[key].days.map((date: any) => {
-          if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-            this.setStyleDayHighlight(key, dayOptions);
+    for (const day in this.daysHighlight) {
+      if (this.daysHighlight[day].days[0] instanceof Array) {
+        this.daysHighlight[day].days.map((date: any) => {
+          if (
+            isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
+            isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))
+          ) {
+            this.setStyleDayHighlight(day, dayOptions);
           }
         });
       } else {
-        this.daysHighlight[key].days.map((date: any) => {
+        this.daysHighlight[day].days.map((date: any) => {
           if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
-            this.setStyleDayHighlight(key, dayOptions);
+            this.setStyleDayHighlight(day, dayOptions);
           }
         });
       }
     }
   }
 
-  private setStyleDayHighlight(key: any, dayOptions: any) {
-    const { attributes } = this.daysHighlight[key];
+  private setStyleDayHighlight(day: any, dayOptions: any) {
+    const { attributes } = this.daysHighlight[day];
 
-    for (const k in attributes) {
-      if (dayOptions.attributes[k] && attributes[k]) {
-        dayOptions.attributes[k] = extend(dayOptions.attributes[k], attributes[k]);
-      } else if (attributes[k]) {
-        dayOptions.attributes[k] = attributes[k];
+    for (const key in attributes) {
+      if (dayOptions.attributes[key] && attributes[key]) {
+        dayOptions.attributes[key] = extend(dayOptions.attributes[key], attributes[key]);
+      } else if (attributes[key]) {
+        dayOptions.attributes[key] = attributes[key];
       }
     }
     dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT);

@@ -73,3 +73,8 @@ export interface IDaysWeek {
   TUESDAY: number;
   WEDNESDAY: number;
 }
+
+export interface IRTL {
+  RIGHT: string;
+  LEFT: string;
+}

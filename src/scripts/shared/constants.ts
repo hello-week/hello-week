@@ -1,4 +1,4 @@
-import { ICssClasses, ICssStates, IDaysWeek } from '../defs/index';
+import { ICssClasses, ICssStates, IDaysWeek, IRTL } from '../defs/index';
 
 export const cssClasses: ICssClasses = {
   CALENDAR: 'hello-week',
@@ -35,4 +35,9 @@ export const daysWeek: IDaysWeek = {
 
 export const formatDate = {
   DEFAULT: 'YYYY-MM-DD'
+};
+
+export const margins: IRTL = {
+  RIGHT: 'margin-right',
+  LEFT: 'margin-left',
 };

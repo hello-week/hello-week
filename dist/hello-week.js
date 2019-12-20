@@ -28,6 +28,10 @@ const daysWeek = {
     TUESDAY: 2,
     WEDNESDAY: 3
 };
+const margins = {
+    RIGHT: 'margin-right',
+    LEFT: 'margin-left',
+};
 
 const defaults = {
     selector: '.hello-week',
@@ -157,11 +161,23 @@ function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
+function isAfter(input, date) {
+    return input > date;
+}
+function isBefore(input, date) {
+    return input < date;
+}
 function isBetween(to, from, date) {
     return date > to && date < from;
 }
 function isSame(input, date) {
     return input === date;
+}
+function isSameOrAfter(input, date) {
+    return isSame(input, date) || isAfter(input, date);
+}
+function isSameOrBefore(input, date) {
+    return isSame(input, date) || isBefore(input, date);
 }
 
 function template(options, args) {
@@ -309,12 +325,11 @@ function setMaxDate(dt) {
 
 class HelloWeek {
     constructor(options) {
-        this.calendar = {};
         this.intervalRange = {};
         this.daysSelected = [];
         this.options = extend(extend({}, defaults), options);
         this.defaultsOptions = extend(extend({}, defaults), options);
-        const calendar = template(this.options, {
+        const { calendar, selector } = template(this.options, {
             prev: {
                 cb: () => this.prev()
             },
@@ -322,8 +337,9 @@ class HelloWeek {
                 cb: () => this.next()
             }
         });
-        this.selector = calendar.selector;
-        this.calendar = calendar.calendar;
+        this.selector = selector;
+        this.calendar = calendar;
+        this.isRTL = this.options.rtl ? margins.RIGHT : margins.LEFT;
         import(this.options.langFolder + this.options.lang + '.js')
             .then((data) => data.default)
             .then((lang) => {
@@ -396,21 +412,18 @@ class HelloWeek {
     }
     /**
      * Returns the highlight dates.
-     * @return {object}
      */
     getDaysHighlight() {
         return this.daysHighlight;
     }
     /**
      * Returns the current month selected.
-     * @return {string}
      */
     getMonth() {
         return this.date.getMonth() + 1;
     }
     /**
      * Returns the current year selected.
-     * @return {string}
      */
     getYear() {
         return this.date.getFullYear();
@@ -423,21 +436,18 @@ class HelloWeek {
     }
     /**
      * Sets calendar with multiple pick.
-     * @param {boolean} state
      */
     setMultiplePick(state) {
         this.options.multiplePick = state;
     }
     /**
      * Sets calendar with disable past days.
-     * @param {boolean} state
      */
     setDisablePastDays(state) {
         this.options.disablePastDays = state;
     }
     /**
      * Sets calendar with today highlight.
-     * @param {boolean} state
      */
     setTodayHighlight(state) {
         this.options.todayHighlight = state;
@@ -456,21 +466,18 @@ class HelloWeek {
     }
     /**
      * Sets calendar locked.
-     * @param {boolean} state
      */
     setLocked(state) {
         this.options.locked = state;
     }
     /**
      * Set min date.
-     * @param {string} date
      */
     setMinDate(date) {
         this.options.minDate = setMinDate(date);
     }
     /**
      * Set max date.
-     * @param {string} date
      */
     setMaxDate(date) {
         this.options.maxDate = setMaxDate(date);
@@ -506,10 +513,6 @@ class HelloWeek {
             callback();
         }
     }
-    /**
-     * Select day
-     * @private
-     */
     selectDay(callback) {
         this.daysOfMonth = this.selector.querySelectorAll('.' + cssClasses.MONTH + ' .' + cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
@@ -579,9 +582,9 @@ class HelloWeek {
             this.removeStatesClass();
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
-                if (this.days[index].timestamp >= this.intervalRange.begin) {
-                    if (this.days[i].timestamp >= this.intervalRange.begin &&
-                        this.days[i].timestamp <= this.days[index].timestamp) {
+                if (isSameOrAfter(this.days[index].timestamp, this.intervalRange.begin)) {
+                    if (isSameOrAfter(this.days[i].timestamp, this.intervalRange.begin) &&
+                        isSameOrBefore(this.days[i].timestamp, this.days[index].timestamp)) {
                         addClass(this.days[i].element, cssStates.IS_SELECTED);
                         addClass(this.days[i].element, cssStates.IS_RANGE);
                         if (isSame(this.days[i].timestamp, this.intervalRange.begin)) {
@@ -630,9 +633,10 @@ class HelloWeek {
         }
         if (this.options.locked ||
             (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
-            (this.options.disablePastDays && +this.date.setHours(0, 0, 0, 0) <= +this.defaultDate.setHours(0, 0, 0, 0) - 1) ||
-            (this.options.minDate && +this.options.minDate >= dayOptions.timestamp) ||
-            (this.options.maxDate && +this.options.maxDate <= dayOptions.timestamp)) {
+            (this.options.disablePastDays &&
+                isSameOrBefore(+this.date.setHours(0, 0, 0, 0), +this.defaultDate.setHours(0, 0, 0, 0) - 1)) ||
+            (this.options.minDate && isSameOrAfter(+this.options.minDate, dayOptions.timestamp)) ||
+            (this.options.maxDate && isSameOrBefore(+this.options.maxDate, dayOptions.timestamp))) {
             dayOptions.attributes.class.push(cssStates.IS_DISABLED);
             dayOptions.locked = true;
         }
@@ -665,17 +669,15 @@ class HelloWeek {
         }
         if (dayOptions.day === 1) {
             if (this.options.weekStart === daysWeek.SUNDAY) {
-                dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
-                    day * (100 / Object.keys(daysWeek).length) + '%';
+                dayOptions.attributes.style[this.isRTL] = day * (100 / Object.keys(daysWeek).length) + '%';
             }
             else {
                 if (day === daysWeek.SUNDAY) {
-                    dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
+                    dayOptions.attributes.style[this.isRTL] =
                         (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
                 }
                 else {
-                    dayOptions.attributes.style[this.options.rtl ? 'margin-right' : 'margin-left'] =
-                        (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
+                    dayOptions.attributes.style[this.isRTL] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
                 }
             }
         }
@@ -685,9 +687,10 @@ class HelloWeek {
         this.days[dayOptions.day] = dayOptions;
     }
     setDaysDisable(dayOptions) {
-        if (this.options.disableDates[0] instanceof Array) {
+        if (isArray(this.options.disableDates[0])) {
             this.options.disableDates.map((date) => {
-                if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
+                if (isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
+                    isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -703,31 +706,32 @@ class HelloWeek {
         }
     }
     setDayHighlight(dayOptions) {
-        for (const key in this.daysHighlight) {
-            if (this.daysHighlight[key].days[0] instanceof Array) {
-                this.daysHighlight[key].days.map((date) => {
-                    if (dayOptions.timestamp >= setToTimestamp(date[0]) && dayOptions.timestamp <= setToTimestamp(date[1])) {
-                        this.setStyleDayHighlight(key, dayOptions);
+        for (const day in this.daysHighlight) {
+            if (this.daysHighlight[day].days[0] instanceof Array) {
+                this.daysHighlight[day].days.map((date) => {
+                    if (isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
+                        isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))) {
+                        this.setStyleDayHighlight(day, dayOptions);
                     }
                 });
             }
             else {
-                this.daysHighlight[key].days.map((date) => {
+                this.daysHighlight[day].days.map((date) => {
                     if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
-                        this.setStyleDayHighlight(key, dayOptions);
+                        this.setStyleDayHighlight(day, dayOptions);
                     }
                 });
             }
         }
     }
-    setStyleDayHighlight(key, dayOptions) {
-        const { attributes } = this.daysHighlight[key];
-        for (const k in attributes) {
-            if (dayOptions.attributes[k] && attributes[k]) {
-                dayOptions.attributes[k] = extend(dayOptions.attributes[k], attributes[k]);
+    setStyleDayHighlight(day, dayOptions) {
+        const { attributes } = this.daysHighlight[day];
+        for (const key in attributes) {
+            if (dayOptions.attributes[key] && attributes[key]) {
+                dayOptions.attributes[key] = extend(dayOptions.attributes[key], attributes[key]);
             }
-            else if (attributes[k]) {
-                dayOptions.attributes[k] = attributes[k];
+            else if (attributes[key]) {
+                dayOptions.attributes[key] = attributes[key];
             }
         }
         dayOptions.attributes.class.push(cssStates.IS_HIGHLIGHT);
