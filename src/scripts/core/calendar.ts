@@ -23,7 +23,7 @@ export class HelloWeek {
   private langs: ILangs;
   private selector: HTMLElement;
   private daysOfMonth: NodeListOf<Element>;
-  private todayDate: Date = new Date();
+  private todayDate: string = toDate(new Date());
   private date: Date = new Date();
   private defaultDate: Date = new Date();
   private calendar: ICalendarTemplate;

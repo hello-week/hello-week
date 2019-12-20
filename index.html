@@ -87,12 +87,12 @@
     <script type="module">
       import { HelloWeek, el } from './dist/hello-week.js';
 
-      new HelloWeek({
-        selector: '#default',
-        defaultDate: '2020-06-01',
-        lang: 'pt',
-        nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
-      });
+      // new HelloWeek({
+      //   selector: '#default',
+      //   defaultDate: '2020-06-01',
+      //   lang: 'pt',
+      //   nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
+      // });
 
       new HelloWeek({
         lang: 'zh',
@@ -114,7 +114,7 @@
 
       const selectedDays = new HelloWeek({
         selector: '#selected-days',
-        daysSelected: ['2019-12-01', '2019-12-02', '2019-12-03', '2019-12-25'],
+        daysSelected: ['2019-12-10', '2019-12-12', '2019-12-13', '2019-12-25'],
         multiplePick: true,
         onSelect: () => {
           console.log(selectedDays.getDaySelected());

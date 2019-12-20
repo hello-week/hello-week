@@ -295,7 +295,7 @@ function setMaxDate(dt) {
 
 class HelloWeek {
     constructor(options) {
-        this.todayDate = new Date();
+        this.todayDate = toDate(new Date());
         this.date = new Date();
         this.defaultDate = new Date();
         this.intervalRange = {};
