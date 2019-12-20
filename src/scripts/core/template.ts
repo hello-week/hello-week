@@ -1,12 +1,12 @@
 import { IOptions, ITemplate } from '../defs/index';
-import { render, el, existElement, error, isString, isDef, addClass } from './../util/index';
+import { render, el, existElement, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
 export function template(options: IOptions, args: any): ITemplate {
   const self: any = {};
 
   if (!isString(options.selector) && !isDef(options.selector)) {
-    error('You need to specify a selector!');
+    throw new Error('You need to specify a selector!');
   }
 
   self.selector = options.selector ? document.querySelector(options.selector) : options.selector;

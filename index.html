@@ -89,6 +89,7 @@
 
       new HelloWeek({
         selector: '#default',
+        defaultDate: '2020-06-01',
         lang: 'pt',
         nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
       });
@@ -164,23 +165,23 @@
         ]
       });
 
-      const to = new HelloWeek({
-        selector: '#to',
-        todayHighlight: false,
-        onSelect: () => {
-          from.setMinDate(to.getDaySelected());
-          from.update();
-        }
-      });
+      // const to = new HelloWeek({
+      //   selector: '#to',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     from.setMinDate(to.getDaySelected());
+      //     from.update();
+      //   }
+      // });
 
-      const from = new HelloWeek({
-        selector: '#from',
-        todayHighlight: false,
-        onSelect: () => {
-          to.setMaxDate(from.getDaySelected());
-          to.update();
-        }
-      });
+      // const from = new HelloWeek({
+      //   selector: '#from',
+      //   todayHighlight: false,
+      //   onSelect: () => {
+      //     to.setMaxDate(from.getDaySelected());
+      //     to.update();
+      //   }
+      // });
     </script>
   </body>
 </html>

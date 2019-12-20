@@ -30,7 +30,7 @@ const daysWeek = {
 };
 const margins = {
     RIGHT: 'margin-right',
-    LEFT: 'margin-left',
+    LEFT: 'margin-left'
 };
 
 const defaults = {
@@ -69,10 +69,6 @@ const defaults = {
     },
     beforeCreateDay: (data) => data
 };
-
-function error(...msg) {
-    throw new Error(`[Hello Week Error]: ${msg}`);
-}
 
 function isDef(v) {
     return v !== undefined && v !== null;
@@ -161,17 +157,49 @@ function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
+function format(day, month, year) {
+    return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
+}
+function toDate(date) {
+    const dt = new Date(date);
+    return format(dt.getDate(), dt.getMonth(), dt.getFullYear());
+}
+function formatDate(date, langs, formats = defaults.format) {
+    const dt = new Date(date);
+    formats = formats.replace('dd', dt.getDate().toString());
+    formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+    formats = formats.replace('mm', (dt.getMonth() + 1).toString());
+    formats = formats.replace('MMM', langs.months[dt.getMonth()]);
+    formats = formats.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
+    formats = formats.replace('mmm', langs.monthsShort[dt.getMonth()]);
+    formats = formats.replace('yyyy', dt.getFullYear().toString());
+    formats = formats.replace('YYYY', dt.getFullYear().toString());
+    formats = formats.replace('YY', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    formats = formats.replace('yy', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    return formats;
+}
+function formatDateToCompare(date) {
+    const dt = new Date(date);
+    return Number('' + dt.getFullYear() + (dt.getMonth() + 1) + (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+}
+
 function isAfter(input, date) {
-    return input > date;
+    return formatDateToCompare(input) > formatDateToCompare(date);
 }
 function isBefore(input, date) {
-    return input < date;
+    return formatDateToCompare(input) < formatDateToCompare(date);
 }
 function isBetween(to, from, date) {
-    return date > to && date < from;
+    return isAfter(date, to) && isBefore(date, from);
 }
 function isSame(input, date) {
-    return input === date;
+    return formatDateToCompare(input) === formatDateToCompare(date);
 }
 function isSameOrAfter(input, date) {
     return isSame(input, date) || isAfter(input, date);
@@ -183,7 +211,7 @@ function isSameOrBefore(input, date) {
 function template(options, args) {
     const self = {};
     if (!isString(options.selector) && !isDef(options.selector)) {
-        error('You need to specify a selector!');
+        throw new Error('You need to specify a selector!');
     }
     self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
     if (!isDef(self.selector)) {
@@ -226,58 +254,6 @@ function template(options, args) {
     return self;
 }
 
-/**
- * Set date timestamp to human format.
- *
- * @param      {number}  timestamp
- * @param      {string}  format
- * @return     {string}
- */
-function timestampToHuman(timestamp, langs, format = 'YYYY-MM-DD') {
-    const dt = new Date(timestamp);
-    format = format.replace('dd', dt.getDate().toString());
-    format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-    format = format.replace('mm', (dt.getMonth() + 1).toString());
-    format = format.replace('MMM', langs.months[dt.getMonth()]);
-    format = format.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
-    format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
-    format = format.replace('yyyy', dt.getFullYear().toString());
-    format = format.replace('YYYY', dt.getFullYear().toString());
-    format = format.replace('YY', dt
-        .getFullYear()
-        .toString()
-        .substring(2));
-    format = format.replace('yy', dt
-        .getFullYear()
-        .toString()
-        .substring(2));
-    return format;
-}
-/**
- * Set date human format to timestamp.
- *
- * @param      {string}
- * @return     {number}
- */
-function humanToTimestamp(date) {
-    if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
-        throw new Error(`The date ${date} is not valid!`);
-    }
-    if (date || typeof date === 'string') {
-        return new Date(date + 'T00:00:00Z').getTime();
-    }
-    return new Date().setHours(0, 0, 0, 0);
-}
-function setToTimestamp(date) {
-    if (date && (!isNaN(Number(date)) || date.split('-').length !== 3)) {
-        throw new Error(`The date ${date} is not valid!`);
-    }
-    if (date || typeof date === 'string') {
-        return new Date(date + 'T00:00:00Z').getTime();
-    }
-    return new Date().setHours(0, 0, 0, 0);
-}
-
 function getIntervalOfDates(startDate, endDate, langs) {
     const dates = [];
     let currentDate = startDate;
@@ -287,14 +263,10 @@ function getIntervalOfDates(startDate, endDate, langs) {
         return dt.getTime();
     };
     while (currentDate <= endDate) {
-        dates.push(timestampToHuman(currentDate, langs));
+        dates.push(formatDate(currentDate, langs));
         currentDate = addDays.call(currentDate, 1);
     }
     return dates;
-}
-
-function format(day, month, year) {
-    return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 
 function date(dt) {
@@ -325,6 +297,9 @@ function setMaxDate(dt) {
 
 class HelloWeek {
     constructor(options) {
+        this.todayDate = new Date();
+        this.date = new Date();
+        this.defaultDate = new Date();
         this.intervalRange = {};
         this.daysSelected = [];
         this.options = extend(extend({}, defaults), options);
@@ -385,7 +360,7 @@ class HelloWeek {
     /**
      * Reset calendar
      */
-    reset(options = {}, callback) {
+    reset(options, callback) {
         this.clearCalendar();
         this.options = extend(options, this.defaultsOptions);
         this.init(callback);
@@ -402,12 +377,14 @@ class HelloWeek {
      * Returns the selected days with the format specified.
      */
     getDays() {
-        return this.daysSelected.map((day) => timestampToHuman(day, this.langs, this.options.format));
+        return this.daysSelected
+            .filter((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
+            .map((day) => formatDate(day, this.langs, this.options.format));
     }
     /**
-     * Gets the day selected.
+     * Gets last day selected.
      */
-    getDaySelected() {
+    getLastDaySelected() {
         return this.lastSelectedDay;
     }
     /**
@@ -457,8 +434,8 @@ class HelloWeek {
      */
     setRange(value) {
         if (isArray(this.options.range)) {
-            this.intervalRange.begin = humanToTimestamp(this.options.range[0]);
-            this.intervalRange.end = humanToTimestamp(this.options.range[1]);
+            this.intervalRange.begin = this.options.range[0];
+            this.intervalRange.end = this.options.range[1];
         }
         else {
             this.options.range = value;
@@ -485,13 +462,9 @@ class HelloWeek {
     init(callback) {
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
         this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
-        if (this.daysSelected.length > 1 && !this.options.multiplePick) {
-            error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option
-                is ${this.options.multiplePick}!`);
+        if (this.daysSelected.length && !this.options.multiplePick) {
+            throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
         }
-        this.todayDate = setToTimestamp() - new Date().getTimezoneOffset() * 1000 * 60;
-        this.date = new Date();
-        this.defaultDate = new Date();
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
             this.defaultDate = new Date(this.options.defaultDate);
@@ -528,14 +501,14 @@ class HelloWeek {
             if (this.days[index].locked) {
                 return;
             }
-            this.lastSelectedDay = this.days[index].timestamp;
+            this.lastSelectedDay = this.days[index].date;
             if (!this.options.range) {
                 if (this.options.multiplePick) {
-                    if (this.days[index].timestamp) {
-                        this.daysSelected = this.daysSelected.filter((day) => setToTimestamp(day) !== this.lastSelectedDay);
+                    if (this.days[index].date) {
+                        this.daysSelected = this.daysSelected.filter((day) => formatDateToCompare(day) !== formatDateToCompare(this.lastSelectedDay));
                     }
                     if (!this.days[index].isSelected) {
-                        this.daysSelected.push(timestampToHuman(this.lastSelectedDay, this.langs));
+                        this.daysSelected.push(this.lastSelectedDay);
                     }
                 }
                 else {
@@ -543,7 +516,7 @@ class HelloWeek {
                         this.removeStatesClass();
                     }
                     this.daysSelected = [];
-                    this.daysSelected.push(timestampToHuman(this.lastSelectedDay, this.langs));
+                    this.daysSelected.push(formatDate(this.lastSelectedDay, this.langs));
                 }
             }
             toggleClass(event.target, cssStates.IS_SELECTED);
@@ -554,7 +527,7 @@ class HelloWeek {
                     this.removeStatesClass();
                 }
                 if (this.intervalRange.begin && !this.intervalRange.end) {
-                    this.intervalRange.end = this.days[index].timestamp;
+                    this.intervalRange.end = this.days[index].date;
                     this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end, this.langs);
                     addClass(event.target, cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
@@ -563,7 +536,7 @@ class HelloWeek {
                     }
                 }
                 if (!this.intervalRange.begin) {
-                    this.intervalRange.begin = this.days[index].timestamp;
+                    this.intervalRange.begin = this.days[index].date;
                 }
                 addClass(event.target, cssStates.IS_SELECTED);
             }
@@ -582,12 +555,12 @@ class HelloWeek {
             this.removeStatesClass();
             for (let i = 1; i <= Object.keys(this.days).length; i++) {
                 this.days[i].isSelected = false;
-                if (isSameOrAfter(this.days[index].timestamp, this.intervalRange.begin)) {
-                    if (isSameOrAfter(this.days[i].timestamp, this.intervalRange.begin) &&
-                        isSameOrBefore(this.days[i].timestamp, this.days[index].timestamp)) {
+                if (isSameOrAfter(this.days[index].date, this.intervalRange.begin)) {
+                    if (isSameOrAfter(this.days[i].date, this.intervalRange.begin) &&
+                        isSameOrBefore(this.days[i].date, this.days[index].date)) {
                         addClass(this.days[i].element, cssStates.IS_SELECTED);
                         addClass(this.days[i].element, cssStates.IS_RANGE);
-                        if (isSame(this.days[i].timestamp, this.intervalRange.begin)) {
+                        if (isSame(this.days[i].date, this.intervalRange.begin)) {
                             addClass(this.days[i].element, cssStates.IS_BEGIN_RANGE);
                         }
                     }
@@ -600,7 +573,7 @@ class HelloWeek {
     }
     createMonth() {
         const currentMonth = this.date.getMonth();
-        while (isSame(this.date.getMonth(), currentMonth)) {
+        while (this.date.getMonth() === currentMonth) {
             this.createDay(this.date);
             this.date.setDate(this.date.getDate() + 1);
         }
@@ -612,7 +585,7 @@ class HelloWeek {
         const day = date.getDay();
         let dayOptions = {
             day: num,
-            timestamp: humanToTimestamp(format(date.getDate(), date.getMonth(), date.getFullYear())),
+            date: toDate(date),
             isWeekend: false,
             locked: false,
             isToday: false,
@@ -627,41 +600,39 @@ class HelloWeek {
             element: undefined
         };
         this.days = this.days || {};
-        if (isSame(day, daysWeek.SUNDAY) || isSame(day, daysWeek.SATURDAY)) {
+        if (day === daysWeek.SUNDAY || day === daysWeek.SATURDAY) {
             dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
         if (this.options.locked ||
             (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
-            (this.options.disablePastDays &&
-                isSameOrBefore(+this.date.setHours(0, 0, 0, 0), +this.defaultDate.setHours(0, 0, 0, 0) - 1)) ||
-            (this.options.minDate && isSameOrAfter(+this.options.minDate, dayOptions.timestamp)) ||
-            (this.options.maxDate && isSameOrBefore(+this.options.maxDate, dayOptions.timestamp))) {
+            (this.options.disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
+            (this.options.minDate && isSameOrAfter(this.options.minDate, dayOptions.date)) ||
+            (this.options.maxDate && isSameOrBefore(this.options.maxDate, dayOptions.date))) {
             dayOptions.attributes.class.push(cssStates.IS_DISABLED);
             dayOptions.locked = true;
         }
         if (this.options.disableDates) {
             this.setDaysDisable(dayOptions);
         }
-        if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.timestamp)) {
+        if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
             dayOptions.attributes.class.push(cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
         this.daysSelected.find((daySelected) => {
-            if (isSame(daySelected, dayOptions.timestamp) ||
-                isSame(humanToTimestamp(daySelected.toString()), dayOptions.timestamp)) {
+            if (isSame(daySelected, dayOptions.date)) {
                 dayOptions.attributes.class.push(cssStates.IS_SELECTED);
                 dayOptions.isSelected = true;
             }
         });
-        if (isBetween(this.intervalRange.begin, this.intervalRange.end, dayOptions.timestamp)) {
+        if (isBetween(this.intervalRange.begin, this.intervalRange.end, dayOptions.date)) {
             dayOptions.attributes.class.push(cssStates.IS_RANGE);
             dayOptions.isRange = true;
         }
-        if (isSame(dayOptions.timestamp, this.intervalRange.begin)) {
+        if (isSame(dayOptions.date, this.intervalRange.begin)) {
             dayOptions.attributes.class.push(cssStates.IS_BEGIN_RANGE);
         }
-        if (isSame(dayOptions.timestamp, this.intervalRange.end)) {
+        if (isSame(dayOptions.date, this.intervalRange.end)) {
             dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
         }
         if (this.daysHighlight) {
@@ -689,8 +660,7 @@ class HelloWeek {
     setDaysDisable(dayOptions) {
         if (isArray(this.options.disableDates[0])) {
             this.options.disableDates.map((date) => {
-                if (isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
-                    isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))) {
+                if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -698,7 +668,7 @@ class HelloWeek {
         }
         else {
             this.options.disableDates.map((date) => {
-                if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
+                if (isSame(dayOptions.date, date)) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
                 }
@@ -709,15 +679,14 @@ class HelloWeek {
         for (const day in this.daysHighlight) {
             if (this.daysHighlight[day].days[0] instanceof Array) {
                 this.daysHighlight[day].days.map((date) => {
-                    if (isSameOrAfter(dayOptions.timestamp, setToTimestamp(date[0])) &&
-                        isSameOrBefore(dayOptions.timestamp, setToTimestamp(date[1]))) {
+                    if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
                         this.setStyleDayHighlight(day, dayOptions);
                     }
                 });
             }
             else {
                 this.daysHighlight[day].days.map((date) => {
-                    if (isSame(dayOptions.timestamp, setToTimestamp(date))) {
+                    if (isSame(dayOptions.date, date)) {
                         this.setStyleDayHighlight(day, dayOptions);
                     }
                 });

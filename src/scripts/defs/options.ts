@@ -7,7 +7,7 @@ export interface IOptions {
   disableDates: any;
   disableDaysOfWeek: any;
   disablePastDays: boolean;
-  format: any;
+  format: string;
   lang: string;
   locked: boolean;
   maxDate: any;
@@ -29,7 +29,7 @@ export interface IOptions {
 
 export interface IDayOptions {
   day: number;
-  timestamp: number;
+  date: Date | string;
   isWeekend: boolean;
   locked: boolean;
   isToday: boolean;

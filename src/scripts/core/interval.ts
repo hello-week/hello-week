@@ -1,4 +1,4 @@
-import { timestampToHuman } from './timestamp';
+import { formatDate } from './format';
 
 export function getIntervalOfDates(startDate: number, endDate: number, langs: any) {
   const dates = [];
@@ -9,7 +9,7 @@ export function getIntervalOfDates(startDate: number, endDate: number, langs: an
     return dt.getTime();
   };
   while (currentDate <= endDate) {
-    dates.push(timestampToHuman(currentDate, langs));
+    dates.push(formatDate(currentDate, langs));
     currentDate = addDays.call(currentDate, 1);
   }
   return dates;

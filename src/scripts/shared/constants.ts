@@ -33,11 +33,7 @@ export const daysWeek: IDaysWeek = {
   WEDNESDAY: 3
 };
 
-export const formatDate = {
-  DEFAULT: 'YYYY-MM-DD'
-};
-
 export const margins: IRTL = {
   RIGHT: 'margin-right',
-  LEFT: 'margin-left',
+  LEFT: 'margin-left'
 };

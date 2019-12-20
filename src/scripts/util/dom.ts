@@ -17,7 +17,7 @@ export function render(vnode: any, parentDom?: HTMLElement) {
       if (isString(attributes[key])) {
         node.className = attributes[key];
       } else if (isArray(attributes[key])) {
-        attributes[key].forEach((value: any) => {
+        attributes[key].forEach((value: string) => {
           addClass(node, value);
         });
       }
@@ -25,12 +25,12 @@ export function render(vnode: any, parentDom?: HTMLElement) {
       if (isString(attributes[key])) {
         node.style = attributes[key];
       } else if (isObject(attributes[key])) {
-        Object.keys(attributes[key]).forEach((props: any) => {
+        Object.keys(attributes[key]).forEach((props: string) => {
           node.style[props] = attributes[key][props];
         });
       }
     } else if (key === 'dataset') {
-      Object.keys(attributes[key]).forEach((props: any) => {
+      Object.keys(attributes[key]).forEach((props: string) => {
         node.setAttribute('data-' + props, attributes[key][props]);
       });
     } else {
