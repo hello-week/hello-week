@@ -282,7 +282,7 @@ function date(dt) {
  */
 function setMinDate(dt) {
     const min = date(dt);
-    return min.setDate(min.getDate() - 1);
+    return toDate(min.setDate(min.getDate() - 1));
 }
 /**
  * Set max date.
@@ -290,7 +290,7 @@ function setMinDate(dt) {
  */
 function setMaxDate(dt) {
     const max = date(dt);
-    return max.setDate(max.getDate() + 1);
+    return toDate(max.setDate(max.getDate() + 1));
 }
 
 class HelloWeek {

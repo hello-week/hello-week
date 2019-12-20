@@ -1,4 +1,5 @@
 import { date } from './dates';
+import { toDate } from './format';
 
 /**
  * Set min date.
@@ -6,8 +7,7 @@ import { date } from './dates';
  */
 export function setMinDate(dt: number | string) {
   const min = date(dt);
-  return min.setDate(min.getDate() - 1);
-
+  return toDate(min.setDate(min.getDate() - 1));
 }
 
 /**
@@ -16,5 +16,5 @@ export function setMinDate(dt: number | string) {
  */
 export function setMaxDate(dt: number | string) {
   const max = date(dt);
-  return max.setDate(max.getDate() + 1);
+  return toDate(max.setDate(max.getDate() + 1));
 }
