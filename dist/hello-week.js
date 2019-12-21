@@ -37,11 +37,8 @@ const defaults = {
     selector: '.hello-week',
     lang: 'en-GB',
     langFolder: '../langs/',
-    format: {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    },
+    format: 'DD/MM/YYYY',
+    timeZone: null,
     monthShort: false,
     weekShort: true,
     defaultDate: null,
@@ -168,11 +165,30 @@ function toDate(date) {
 function defaultFormat(day, month, year) {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
-function formatDate(date, langs = defaults.lang, options = defaults.format) {
-    console.log(Intl.DateTimeFormat(langs, options).format(new Date(date)));
-    return new Intl.DateTimeFormat(langs, options).format(new Date(date));
+function formatDate(date, langs, formats = defaults.format) {
+    const dt = new Date(date);
+    formats = formats.replace('dd', dt.getDate().toString());
+    formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
+    formats = formats.replace('mm', (dt.getMonth() + 1).toString());
+    formats = formats.replace('MMM', langs.months[dt.getMonth()]);
+    formats = formats.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
+    formats = formats.replace('mmm', langs.monthsShort[dt.getMonth()]);
+    formats = formats.replace('yyyy', dt.getFullYear().toString());
+    formats = formats.replace('YYYY', dt.getFullYear().toString());
+    formats = formats.replace('YY', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    formats = formats.replace('yy', dt
+        .getFullYear()
+        .toString()
+        .substring(2));
+    return formats;
 }
 function formatDateToCompare(date) {
+    // new Intl.DateTimeFormat({
+    //   timeZone: 'America/Anchorage'
+    // }).format(new Date());
     const dt = new Date(date);
     return Number('' + dt.getFullYear() + (dt.getMonth() + 1) + (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
 }
@@ -365,7 +381,7 @@ class HelloWeek {
     getDaySelected() {
         return this.daysSelected
             .sort((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
-            .map((day) => formatDate(day, this.options.lang, this.options.format));
+            .map((day) => formatDate(day, this.langs, this.options.format));
     }
     /**
      * Gets last day selected.

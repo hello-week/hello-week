@@ -4,11 +4,8 @@ export const defaults: IOptions = {
   selector: '.hello-week',
   lang: 'en-GB',
   langFolder: '../langs/',
-  format: {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  },
+  format: 'DD/MM/YYYY',
+  timeZone: null,
   monthShort: false,
   weekShort: true,
   defaultDate: null,

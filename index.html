@@ -87,15 +87,15 @@
     <script type="module">
       import { HelloWeek, el } from './dist/hello-week.js';
 
-      // new HelloWeek({
-      //   selector: '#default',
-      //   defaultDate: '2020-06-01',
-      //   lang: 'pt',
-      //   nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
-      // });
+      new HelloWeek({
+        selector: '#default',
+        defaultDate: '2020-06-01',
+        lang: 'pt-PT',
+        nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
+      });
 
       new HelloWeek({
-        lang: 'zh',
+        lang: 'zh-CN',
         selector: '#rtl',
         rtl: true
       });
