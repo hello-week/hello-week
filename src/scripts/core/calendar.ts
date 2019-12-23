@@ -14,7 +14,7 @@ import { isBetween, isSame, isSameOrAfter, isSameOrBefore } from './compare';
 import { template } from './template';
 import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
-import { toDate, formatDate, formatDateToCompare } from './format';
+import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
 import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../defs/index';
 
 export class HelloWeek {
@@ -25,7 +25,7 @@ export class HelloWeek {
   private daysOfMonth: NodeListOf<Element>;
   private todayDate: string = toDate(new Date());
   private date: Date = new Date();
-  private defaultDate: Date = new Date();
+  private defaultDate?: Date;
   private calendar: ICalendarTemplate;
   private days: { [day: number]: IDayOptions };
   private isRTL: string;
@@ -224,8 +224,8 @@ export class HelloWeek {
     }
 
     if (this.options.defaultDate) {
-      this.date = new Date(this.options.defaultDate);
-      this.defaultDate = new Date(this.options.defaultDate);
+      this.date = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
+      this.defaultDate = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
       this.defaultDate.setDate(this.defaultDate.getDate());
     }
     this.date.setDate(1);

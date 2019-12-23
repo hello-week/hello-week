@@ -38,13 +38,13 @@ const defaults = {
     lang: 'en-GB',
     langFolder: '../langs/',
     format: 'DD/MM/YYYY',
-    timeZone: null,
     monthShort: false,
     weekShort: true,
     defaultDate: null,
     minDate: null,
     maxDate: null,
     disableDaysOfWeek: null,
+    timezoneOffset: new Date().getTimezoneOffset(),
     disableDates: null,
     weekStart: 0,
     daysSelected: null,
@@ -158,15 +158,16 @@ function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
 
-function toDate(date) {
-    const dt = new Date(date);
+function toDate(date, timezoneOffset) {
+    const dt = setTimeZone(date, timezoneOffset);
     return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
 }
 function defaultFormat(day, month, year) {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
-function formatDate(date, langs, formats = defaults.format) {
-    const dt = new Date(date);
+function formatDate(date, langs, formats, timezoneOffset) {
+    const dt = setTimeZone(date, timezoneOffset);
+    formats = formats ? formats : defaults.format;
     formats = formats.replace('dd', dt.getDate().toString());
     formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
     formats = formats.replace('mm', (dt.getMonth() + 1).toString());
@@ -185,10 +186,13 @@ function formatDate(date, langs, formats = defaults.format) {
         .substring(2));
     return formats;
 }
+function setTimeZone(date, timezoneOffset) {
+    const dt = isDef(date) ? new Date(date) : new Date();
+    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
+    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
+    return dt;
+}
 function formatDateToCompare(date) {
-    // new Intl.DateTimeFormat({
-    //   timeZone: 'America/Anchorage'
-    // }).format(new Date());
     const dt = new Date(date);
     return Number('' + dt.getFullYear() + (dt.getMonth() + 1) + (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
 }
@@ -301,7 +305,6 @@ class HelloWeek {
     constructor(options) {
         this.todayDate = toDate(new Date());
         this.date = new Date();
-        this.defaultDate = new Date();
         this.intervalRange = {};
         this.daysSelected = [];
         this.options = extend(extend({}, defaults), options);
@@ -468,8 +471,8 @@ class HelloWeek {
             throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
         }
         if (this.options.defaultDate) {
-            this.date = new Date(this.options.defaultDate);
-            this.defaultDate = new Date(this.options.defaultDate);
+            this.date = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
+            this.defaultDate = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
             this.defaultDate.setDate(this.defaultDate.getDate());
         }
         this.date.setDate(1);

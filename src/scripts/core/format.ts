@@ -1,7 +1,8 @@
 import { defaults } from './../shared/options';
+import { isDef } from '../util/index';
 
-export function toDate(date: Date) {
-  const dt = new Date(date);
+export function toDate(date: Date, timezoneOffset?: number) {
+  const dt = setTimeZone(date, timezoneOffset);
   return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
 }
 
@@ -9,8 +10,14 @@ export function defaultFormat(day: number, month: number, year: number): string 
   return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 
-export function formatDate(date: Date | string | number, langs: any, formats: string = defaults.format): string {
-  const dt = new Date(date);
+export function formatDate(
+  date: Date | string | number,
+  langs: any,
+  formats?: string,
+  timezoneOffset?: number
+): string {
+  const dt = setTimeZone(date, timezoneOffset);
+  formats = formats ? formats : defaults.format;
   formats = formats.replace('dd', dt.getDate().toString());
   formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
   formats = formats.replace('mm', (dt.getMonth() + 1).toString());
@@ -36,10 +43,14 @@ export function formatDate(date: Date | string | number, langs: any, formats: st
   return formats;
 }
 
+export function setTimeZone(date?: number | string | Date, timezoneOffset?: number) {
+  const dt = isDef(date) ? new Date(date) : new Date();
+  timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
+  dt.setTime( dt.getTime() + timezoneOffset * 60 * 1000 );
+  return dt;
+}
+
 export function formatDateToCompare(date?: number | string | Date): number {
-  // new Intl.DateTimeFormat({
-  //   timeZone: 'America/Anchorage'
-  // }).format(new Date());
   const dt = new Date(date);
   return Number(
     '' + dt.getFullYear() + (dt.getMonth() + 1) + (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString()

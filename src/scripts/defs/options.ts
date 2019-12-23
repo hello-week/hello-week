@@ -8,7 +8,7 @@ export interface IOptions {
   disableDaysOfWeek: any;
   disablePastDays: boolean;
   format: string;
-  timeZone: string;
+  timezoneOffset?: number;
   lang: string;
   locked: boolean;
   maxDate: any;
