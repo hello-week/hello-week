@@ -37,7 +37,6 @@ export class HelloWeek {
   constructor(options: IOptions) {
     this.options = extend(extend({}, defaults), options);
     this.defaultsOptions = extend(extend({}, defaults), options);
-
     const { calendar, selector } = template(this.options, {
       prev: {
         cb: () => this.prev()
