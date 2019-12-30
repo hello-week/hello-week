@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Week - Javascript Calendar</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <link href="dist/hello.week.css" rel="stylesheet" />
+    <link href="dist/default.theme.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .wrap {
+        flex-wrap: wrap;
+      }
+
+      .calendar {
+        max-width: 320px;
+        margin: 6px;
+        border: 1px solid #dadee4;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="flex wrap">
+        <!-- default calendar -->
+        <div class="calendar">
+          <div class="default-theme" id="default"></div>
+        </div>
+
+       <!-- rtl calendar -->
+        <div class="calendar">
+          <div class="default-theme" id="rtl"></div>
+        </div>
+
+        <!-- disabled days of week -->
+        <div class="calendar">
+          <div class="default-theme" id="disableDaysOfWeek"></div>
+        </div>
+
+        <!-- range calendar -->
+        <div class="calendar">
+          <div class="default-theme" id="range"></div>
+        </div>
+
+
+        <!-- selected days -->
+        <div class="calendar">
+          <div class="default-theme" id="selected-days"></div>
+        </div>
+
+        <!-- before create day calendar -->
+        <div class="calendar">
+          <div class="default-theme" id="beforeCreateDay"></div>
+        </div>
+      </div>
+
+      <!-- highlights calendar -->
+      <div class="calendar">
+        <div class="default-theme" id="highlights"></div>
+      </div>
+
+      <!-- max and min -->
+      <div class="flex">
+        <div class="calendar">
+          <div class="default-theme" id="to"></div>
+        </div>
+        <div class="calendar">
+          <div class="default-theme" id="from"></div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module">
+      import { HelloWeek, el } from './dist/hello-week.js';
+
+      new HelloWeek({
+        selector: '#default',
+        defaultDate: '2020-06-01',
+        lang: 'pt-PT',
+        nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
+      });
+
+      new HelloWeek({
+        lang: 'zh-CN',
+        selector: '#rtl',
+        rtl: true
+      });
+
+      new HelloWeek({
+        selector: '#disableDaysOfWeek',
+        todayHighlight: false,
+        disableDaysOfWeek: [0, 1, 2]
+      });
+
+      new HelloWeek({
+        selector: '#range',
+        range: ['2019-12-10', '2019-12-24'],
+        todayHighlight: false
+      });
+
+      const selectedDays = new HelloWeek({
+        selector: '#selected-days',
+        daysSelected: ['2019-12-10', '2019-12-12', '2019-12-13', '2019-12-25'],
+        multiplePick: true,
+        onSelect: () => {
+          console.log(selectedDays.getDaySelected());
+        }
+      });
+
+      const beforeCreateDay = new HelloWeek({
+        selector: '#beforeCreateDay',
+        multiplePick: true,
+        beforeCreateDay: data => {
+          data.attributes.style = { ...data.attributes.style, ...{ border: 0, fontSize: 'small', outline: 'none' }}
+          data.node = el('button', data.attributes, data.day.toString());
+          return data;
+        }
+      });
+
+      new HelloWeek({
+        selector: '#highlights',
+        todayHighlight: false,
+        daysHighlight: [
+          {
+            days: [
+              ['2019-12-02', '2019-12-09'],
+              ['2020-01-16', '2020-01-29']
+            ],
+            attributes: {
+              style: {
+                color: '#fff',
+                backgroundColor: '#9C27B0'
+              },
+              dataset: {
+                title: 'Summer Holidays'
+              }
+            }
+          },
+          {
+            days: ['2019-12-18'],
+            attributes: {
+              style: {
+                color: '#fff',
+                backgroundColor: '#E91E63'
+              },
+              dataset: {
+                title: 'Mom Birthday'
+              }
+            }
+          }
+        ]
+      });
+
+      const to = new HelloWeek({
+        selector: '#to',
+        todayHighlight: false,
+        onSelect: () => {
+          from.setMinDate(to.getLastDaySelected());
+          from.update();
+        }
+      });
+
+      const from = new HelloWeek({
+        selector: '#from',
+        todayHighlight: false,
+        onSelect: () => {
+          to.setMaxDate(from.getLastDaySelected());
+          to.update();
+        }
+      });
+    </script>
+  </body>
+</html>

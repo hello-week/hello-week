@@ -1,187 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello Week - Javascript Calendar</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <link href="dist/hello.week.css" rel="stylesheet" />
-    <link href="dist/default.theme.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <html lang="en" class="antialiased">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>RE:DOM</title>
+        <meta name="keywords" content="tiny,view,library,redom,github,npm,javascript,html5,dom,vanilla,plain,fast,benchmark,performance">
+        <meta name="description" content="RE:DOM is a tiny (2 KB) DOM library, which adds useful helpers to create DOM elements and keeping them in sync with the data.">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@redomjs" />
+        <meta name="twitter:title" content="RE:DOM" />
+        <meta
+        name="twitter:description"
+        content="RE:DOM is a tiny (2 KB) DOM library, which adds useful helpers to create DOM elements and keeping them in sync with the data."
+        />
+        <meta name="twitter:image" content="https://redom.js.org/static/images/seo/twitter.jpg">
+        <meta property="og:url" content="https://redomjs.com/" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="RE:DOM" />
+        <meta
+        property="og:description"
+        content="RE:DOM is a tiny (2 KB) DOM library, which adds useful helpers to create DOM elements and keeping them in sync with the data."
+        />
+        <meta property="og:image" content="https://redom.js.org/static/images/seo/og.png">
 
-    <style>
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: sans-serif;
-      }
+        <!-- Disable tap highlight on IE -->
+        <meta name="msapplication-tap-highlight" content="no" />
 
-      .flex {
-        display: flex;
-      }
+        <!-- Web Application Manifest -->
+        <link rel="manifest" href="manifest.json" />
 
-      .wrap {
-        flex-wrap: wrap;
-      }
+        <link rel="apple-touch-icon" sizes="57x57" href="static/images/touch/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="static/images/touch/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="static/images/touch/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="static/images/touch/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="static/images/touch/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="static/images/touch/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="static/images/touch/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="static/images/touch/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="static/images/touch/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="static/images/touch/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="static/images/touch/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="static/images/touch/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="static/images/touch/favicon-16x16.png">
 
-      .calendar {
-        max-width: 320px;
-        margin: 6px;
-        border: 1px solid #dadee4;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <div class="flex wrap">
-        <!-- default calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="default"></div>
-        </div>
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="RE:DOM" />
 
-       <!-- rtl calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="rtl"></div>
-        </div>
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="RE:DOM" />
 
-        <!-- disabled days of week -->
-        <div class="calendar">
-          <div class="default-theme" id="disableDaysOfWeek"></div>
-        </div>
-
-        <!-- range calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="range"></div>
-        </div>
-
-
-        <!-- selected days -->
-        <div class="calendar">
-          <div class="default-theme" id="selected-days"></div>
-        </div>
-
-        <!-- before create day calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="beforeCreateDay"></div>
-        </div>
-      </div>
-
-      <!-- highlights calendar -->
-      <div class="calendar">
-        <div class="default-theme" id="highlights"></div>
-      </div>
-
-      <!-- max and min -->
-      <div class="flex">
-        <div class="calendar">
-          <div class="default-theme" id="to"></div>
-        </div>
-        <div class="calendar">
-          <div class="default-theme" id="from"></div>
-        </div>
-      </div>
-    </main>
-
-    <script type="module">
-      import { HelloWeek, el } from './dist/hello-week.js';
-
-      new HelloWeek({
-        selector: '#default',
-        defaultDate: '2020-06-01',
-        lang: 'pt-PT',
-        nav: [el('i', { class: ['fas', 'fa-chevron-left'] }), el('i', { class: ['fas', 'fa-chevron-right'] })]
-      });
-
-      new HelloWeek({
-        lang: 'zh-CN',
-        selector: '#rtl',
-        rtl: true
-      });
-
-      new HelloWeek({
-        selector: '#disableDaysOfWeek',
-        todayHighlight: false,
-        disableDaysOfWeek: [0, 1, 2]
-      });
-
-      new HelloWeek({
-        selector: '#range',
-        range: ['2019-12-10', '2019-12-24'],
-        todayHighlight: false
-      });
-
-      const selectedDays = new HelloWeek({
-        selector: '#selected-days',
-        daysSelected: ['2019-12-10', '2019-12-12', '2019-12-13', '2019-12-25'],
-        multiplePick: true,
-        onSelect: () => {
-          console.log(selectedDays.getDaySelected());
-        }
-      });
-
-      const beforeCreateDay = new HelloWeek({
-        selector: '#beforeCreateDay',
-        multiplePick: true,
-        beforeCreateDay: data => {
-          data.attributes.style = { ...data.attributes.style, ...{ border: 0, fontSize: 'small', outline: 'none' }}
-          data.node = el('button', data.attributes, data.day.toString());
-          return data;
-        }
-      });
-
-      new HelloWeek({
-        selector: '#highlights',
-        todayHighlight: false,
-        daysHighlight: [
-          {
-            days: [
-              ['2019-12-02', '2019-12-09'],
-              ['2020-01-16', '2020-01-29']
-            ],
-            attributes: {
-              style: {
-                color: '#fff',
-                backgroundColor: '#9C27B0'
-              },
-              dataset: {
-                title: 'Summer Holidays'
-              }
-            }
-          },
-          {
-            days: ['2019-12-18'],
-            attributes: {
-              style: {
-                color: '#fff',
-                backgroundColor: '#E91E63'
-              },
-              dataset: {
-                title: 'Mom Birthday'
-              }
-            }
-          }
-        ]
-      });
-
-      const to = new HelloWeek({
-        selector: '#to',
-        todayHighlight: false,
-        onSelect: () => {
-          from.setMinDate(to.getLastDaySelected());
-          from.update();
-        }
-      });
-
-      const from = new HelloWeek({
-        selector: '#from',
-        todayHighlight: false,
-        onSelect: () => {
-          to.setMaxDate(from.getLastDaySelected());
-          to.update();
-        }
-      });
-    </script>
-  </body>
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="static/images/touch/apple-icon-precomposed.png" />
+        <meta name="msapplication-TileColor" content="#d31b33" />
+        <meta name="theme-color" content="#d31b33" />
+        <link href="dist/hello.week.css" rel="stylesheet" />
+        <link href="dist/default.theme.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="mddoks"></div>
+        <script src="mddoks/mddoks.config.js"></script>
+        <script src="mddoks/mddoks.min.js"></script>
+    </body>
 </html>
