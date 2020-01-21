@@ -2,7 +2,7 @@ import { IOptions, IDayOptions } from '../defs/index';
 
 export const defaults: IOptions = {
   selector: '.hello-week',
-  lang: 'en-GB',
+  lang: 'en',
   langFolder: './langs/',
   format: 'DD/MM/YYYY',
   monthShort: false,

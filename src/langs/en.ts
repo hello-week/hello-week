@@ -1,4 +1,6 @@
-export default {
+import { ILangs } from '../scripts/defs/langs';
+
+const en: ILangs = {
   days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   daysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   months: [
@@ -17,3 +19,5 @@ export default {
   ],
   monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 };
+
+export default en;
