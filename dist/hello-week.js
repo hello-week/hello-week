@@ -36,7 +36,7 @@ const margins = {
 const defaults = {
     selector: '.hello-week',
     lang: 'en-GB',
-    langFolder: '../langs/',
+    langFolder: './langs/',
     format: 'DD/MM/YYYY',
     monthShort: false,
     weekShort: true,
@@ -218,10 +218,15 @@ function isSameOrBefore(input, date) {
 
 function template(options, args) {
     const self = {};
-    if (!isString(options.selector) && !isDef(options.selector)) {
+    if (!isDef(options.selector)) {
         throw new Error('You need to specify a selector!');
     }
-    self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
+    if (isString(options.selector)) {
+        self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
+    }
+    else {
+        self.selector = options.selector;
+    }
     if (!isDef(self.selector)) {
         self.selector = render(h('div', { class: [options.selector, cssClasses.CALENDAR] }));
     }
