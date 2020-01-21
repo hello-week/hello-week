@@ -5,11 +5,15 @@ import { cssClasses } from './../shared/constants';
 export function template(options: IOptions, args: any): ITemplate {
   const self: any = {};
 
-  if (!isString(options.selector) && !isDef(options.selector)) {
+  if (!isDef(options.selector)) {
     throw new Error('You need to specify a selector!');
   }
 
-  self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
+  if (isString(options.selector)) {
+    self.selector = options.selector ? document.querySelector(options.selector) : options.selector;
+  } else {
+    self.selector = options.selector;
+  }
 
   if (!isDef(self.selector)) {
     self.selector = render(el('div', { class: [options.selector, cssClasses.CALENDAR] }));
