@@ -2,7 +2,6 @@
     "name": "hello-week",
     "version": "3.0.2-alpha",
     "description": "Lightweight and simple calendar with no dependencies in pure JavaScript",
-    "repository": "https://github.com/maurovieirareis/hello-week",
     "keywords": [
         "lightweight",
         "datepicker",
@@ -25,6 +24,7 @@
     "ignore": [
         "node_modules"
     ],
+    "main": "./dist/hello-week.min.js",
     "scripts": {
         "dev": "rollup -c -w",
         "build": "yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",
