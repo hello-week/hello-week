@@ -46,7 +46,7 @@ export function formatDate(
 export function setTimeZone(date?: number | string | Date, timezoneOffset?: number) {
   const dt = isDef(date) ? new Date(date) : new Date();
   timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
-  dt.setTime( dt.getTime() + timezoneOffset * 60 * 1000 );
+  dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
   return dt;
 }
 

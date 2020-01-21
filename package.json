@@ -28,7 +28,7 @@
     "scripts": {
         "dev": "rollup -c -w",
         "build": "yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",
-        "prettier": "prettier --write --parser typescript \"src/scripts/**/*.ts?(x)\"",
+        "prettier": "prettier --write --parser typescript \"src/**/**/*.ts?(x)\"",
         "lint": "tslint \"src/*.ts\" \"src/**/*.ts\" \"__tests__/**/*.ts\"",
         "test": "jest"
     },
