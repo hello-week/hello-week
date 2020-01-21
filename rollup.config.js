@@ -5,8 +5,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
-
-const langFiles = ['en-GB', 'es-ES', 'it-IT', 'pt-PT', 'zh-CN'];
+import fs from 'fs';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -33,7 +32,7 @@ export default [{
 		production && terser()
 	]
 }, {
-  input: langFiles.map(e => 'src/langs/' + e + '.js'),
+  input: fs.readdirSync('src/langs').map(e => 'src/langs/' + e),
   output: {
     dir: 'dist/langs/',
     format: 'es'
