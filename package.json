@@ -1,6 +1,6 @@
 {
     "name": "hello-week",
-    "version": "3.0.3-alpha",
+    "version": "3.0.4-alpha",
     "description": "Lightweight and simple calendar with no dependencies in pure JavaScript",
     "keywords": [
         "lightweight",
