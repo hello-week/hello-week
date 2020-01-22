@@ -1,4 +1,6 @@
-export default {
+import { ILangs } from '../scripts/defs/langs';
+
+const pt: ILangs = {
   days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
   daysShort: ['Do', '2ª', '3ª', '4ª', '5ª', '6ª', 'Sa'],
   months: [
@@ -17,3 +19,5 @@ export default {
   ],
   monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 };
+
+export default pt;
