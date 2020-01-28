@@ -1,8 +1,8 @@
 ![Travis (.org)](https://img.shields.io/travis/mauroreisvieira/hello-week?style=for-the-badge)
-[![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?color=%234c1&style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
-[![npm](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
-[![GitHub issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
+[![Releases](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?color=%234c1&style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
+[![NPM](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
+[![Issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?color=%234c1&style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
 
 ## Quick start
 
