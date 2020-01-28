@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/mauroreisvieira/hello-week.svg?branch=master)](https://travis-ci.com/mauroreisvieira/hello-week)
+[![Build Status](https://travis-ci.com/mauroreisvieira/hello-week.svgstyle=for-the-badge&branch=master)](https://travis-ci.com/mauroreisvieira/hello-week)
 [![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
 [![npm](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
 [![GitHub issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
