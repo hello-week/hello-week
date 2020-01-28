@@ -81,7 +81,7 @@ new HelloWeek({
 
 ### Useful links
 
-- [Demos](https://mauroreisvieira.github.io/hello-week/)
+- [Examples](https://hello-week.mauroreisvieira.now.sh/#/)
 - [Changelog](CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)
 
