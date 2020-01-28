@@ -40,6 +40,11 @@ const config = {
         text: 'Guide',
         children: [
           {
+            path: 'guide/00-getting-started.md',
+            slug: 'getting-started',
+            text: 'Getting Started'
+          },
+          {
             path: 'guide/01-options.md',
             slug: 'options',
             text: 'Options'
@@ -87,7 +92,38 @@ const config = {
         ]
       }
     ],
-    v3: []
+    v3: [
+      {
+        text: 'Examples',
+        children: [
+          {
+            path: 'guide/00-getting-started.md',
+            slug: 'getting-started',
+            text: 'Getting Started'
+          }
+        ]
+      },
+      {
+        text: 'Examples',
+        children: [
+          {
+            path: 'examples/01-disabled-dates.md',
+            slug: 'disabled-dates',
+            text: 'Disabled Dates'
+          }
+        ]
+      },
+      {
+        text: 'Integrations',
+        children: [
+          {
+            path: 'integrations/01-vue-hello-week.md',
+            slug: 'vue-hello-week',
+            text: 'Vue Hello Week'
+          }
+        ]
+      }
+    ]
   }
 };
 Object.defineProperty(window, 'VIVALDI', { value: config, writable: false });
