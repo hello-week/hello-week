@@ -10,7 +10,8 @@ install:
   - npm i -g yarn
   - yarn
   - yarn build
-  - yarn demos:build
+  - yarn run lint
+  - yarn run test
 node_js:
   - '8'
 before_install:
