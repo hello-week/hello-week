@@ -1,0 +1,67 @@
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+}
+
+.hello-week {
+  width: 100%;
+  margin: 0 auto;
+  user-select: none;
+  font-size: map-get($typography-size, base);
+
+  .navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+
+  .prev,
+  .next {
+    padding: $baseline;
+    cursor: pointer;
+  }
+
+  .period {
+    width: 100%;
+    font-size: map-get($typography-size, period);
+    font-weight: map-get($typography-weight, regular);
+    text-align: center;
+  }
+
+  .week {
+    display: flex;
+    font-size: map-get($typography-size, week);
+
+    &.rtl {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .month {
+    display: flex;
+    flex-wrap: wrap;
+    padding: .4em 0;
+    cursor: pointer;
+
+    &.rtl {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .day {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 7);
+    padding: $baseline;
+    cursor: pointer;
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: $disabled;
+    }
+  }
+}

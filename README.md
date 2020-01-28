@@ -1,18 +1,14 @@
-![Hello Week](assets/images/helloweek.png)
-
-
 [![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
 [![npm](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
 [![GitHub issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
-
 
 ## Quick start
 
 #### Installation
 
 ```bash
-npm install hello-week --save
+npm install hello-week --D
 ```
 
 ```bash
@@ -22,8 +18,8 @@ yarn add hello-week
 #### Including files:
 
 ```html
-<link rel="stylesheet" type="text/css" href="hello.week.min.css" />
-<link rel="stylesheet" type="text/css" href="hello.week.theme.min.css" />
+<link rel="stylesheet" type="text/css" href="hello.week.css" />
+<link rel="stylesheet" type="text/css" href="default.theme.css" />
 
 <script type="text/javascript" src="hello.week.min.js"></script>
 <script>
@@ -53,33 +49,34 @@ Default values are presented below.
 ```js
 new HelloWeek({
     selector: '.hello-week',
-    lang: 'en',
-    langFolder: './dist/langs/',
-    format: 'DD/MM/YYYY',
-    weekShort: true,
-    monthShort: false,
-    multiplePick: false,
-    defaultDate: null,
-    todayHighlight: true,
-    disablePastDays: false,
-    disabledDaysOfWeek: null,
-    disableDates: null,
-    weekStart: 0, // week start on Sunday
-    daysHighlight: null,
-    daysSelected: null,
-    range: false,
-    rtl: false,
-    locked: false,
-    minDate: null,
-    maxDate: null,
-    nav: ['◀', '▶'],
-    onLoad: () => { /** callback function */ },
-    onChange: () => { /** callback function */ },
-    onSelect: () => { /** callback function */ },
-    onClear: () => { /** callback function */ }
+  lang: 'en',
+  langFolder: './langs/',
+  format: 'DD/MM/YYYY',
+  monthShort: false,
+  weekShort: true,
+  defaultDate: null,
+  minDate: null,
+  maxDate: null,
+  disableDaysOfWeek: null,
+  timezoneOffset: 0,
+  disableDates: null,
+  weekStart: 0,
+  daysSelected: null,
+  daysHighlight: null,
+  multiplePick: false,
+  disablePastDays: false,
+  todayHighlight: true,
+  range: false,
+  locked: false,
+  rtl: false,
+  nav: ['◀', '▶'],
+  onLoad: () => {},
+  onClear: () => {},
+  onNavigation: () => {},
+  onSelect: () => {},
+  beforeCreateDay: (data: IDayOptions) => data
 });
 ```
-
 
 ### Useful links
 
