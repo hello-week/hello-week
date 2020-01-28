@@ -9,57 +9,46 @@ To add more languages, simply translate the example below, to the language you w
 file in `dist/langs` or other directory you wanted, then just initialize the calendar with you new language,
 and if you changed the directory you only need to indicate the `langFolder` in HelloWeek options.
 
+**Quick Example:**
+
+```js
+new HelloWeek({
+  lang: 'pt'
+});
+```
+
+### Support
+
+| Language      | Naming |
+| ------------- | ------ |
+| 🇬🇧 English    | `en`   |
+| 🇪🇸 Spanish    | `es`   |
+| 🇮🇹 Italian    | `it`   |
+| 🇵🇹 Portuguese | `pt`   |
+| 🇨🇳 Chinese    | `zh`   |
+
 ### Structure
 
 ```json
 {
-    "days": [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat"
-    ],
-    "daysShort": [
-        "Su",
-        "Mo",
-        "Tu",
-        "We",
-        "Th",
-        "Fr",
-        "Sa"
-    ],
-    "months": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ],
-    "monthsShort": [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
-    ],
-    "today": "Today",
-    "clear": "Clear"
+  "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  "daysShort": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "today": "Today",
+  "clear": "Clear"
 }
 ```

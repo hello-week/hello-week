@@ -2,6 +2,14 @@
 
 Hello Week have your own date format. In the following table you can see the options available.
 
+**Quick Example:**
+
+```js
+new HelloWeek({
+  format: 'DD-MMM-YYYY'
+});
+```
+
 ## Options
 
 | Input            | Example             | Description                                              |

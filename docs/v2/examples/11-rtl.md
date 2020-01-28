@@ -1,4 +1,4 @@
-## RTL
+# RTL
 
 #### Overview
 Displays the calendar in right-to-left mode.

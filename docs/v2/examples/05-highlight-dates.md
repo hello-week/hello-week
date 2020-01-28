@@ -1,6 +1,5 @@
-## Highlight Dates
+# Highlight Dates
 
-#### Overview
 Set day/days highlight, with different customizes.
 
 #### HTML Structure
@@ -10,7 +9,7 @@ Set day/days highlight, with different customizes.
 
 #### Javascript Initialization
 ```js
-var calendar = new HelloWeek({
+const calendar = new HelloWeek({
     daysHighlight: [
         {
             days: ['2019-03-22'],
@@ -31,11 +30,6 @@ var calendar = new HelloWeek({
             color: '#fff',
             title: 'Summer Holidays'
         }
-    ],
-    onLoad: () => {
-        console.log(calendar.getDaysHighlight());
-        /** Add your code to handle the days here */
-    }
+    ]
 });
 ```
-

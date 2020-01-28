@@ -1,6 +1,5 @@
-## Locked
+# Locked
 
-#### Overview
 Locks all days in calendar.
 
 #### HTML Structure
@@ -10,7 +9,7 @@ Locks all days in calendar.
 
 #### Javascript Initialization
 ```js
-var calendar = new HelloWeek({
+const calendar = new HelloWeek({
     selector: '.calendar',
     locked: true,
     onNavigation: () => {

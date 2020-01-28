@@ -1,6 +1,5 @@
-## Range
+# Range
 
-#### Overview
 Set predefined date ranges the user can select from.
 
 Each key is the label for the range, and its value an array with all dates between two dates representing the bounds of the range.
@@ -12,12 +11,8 @@ Each key is the label for the range, and its value an array with all dates betwe
 
 #### Javascript Initialization
 ```js
-var calendar = new HelloWeek({
+const calendar = new HelloWeek({
     range: true,
-    disablePastDays: true,
-    onSelect: () => {
-        console.log(calendar.getDays());
-        /** Add your code to handle the days here */
-    }
+    disablePastDays: true
 });
 ```

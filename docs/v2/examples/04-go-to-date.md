@@ -1,6 +1,5 @@
-## Go to Date
+# Go to Date
 
-#### Overview
 Displays the calendar in right-to-left mode.
 
 #### HTML Structure
@@ -23,7 +22,7 @@ Displays the calendar in right-to-left mode.
 
 #### Javascript Initialization
 ```js
-var calendar = new HelloWeek({
+const calendar = new HelloWeek({
     onLoad: () => {
         calendar.goToDate('2019-06-01');
     }
