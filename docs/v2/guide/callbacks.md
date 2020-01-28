@@ -1,4 +1,4 @@
-## Callbacks
+# Callbacks
 
 This gives you the ability to listen for any changes and perform your own actions.
 
@@ -27,4 +27,3 @@ Runs on select the day.
 Runs on clear calendar.
 
 > **type**: `attachable`
-

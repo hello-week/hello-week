@@ -1,39 +1,18 @@
-## Options
-**Hello Week** comes with a few (optional) settings that you can change by passing an object as an argument
+# Options
 
-#### selector
-Define selector to use as a datepicker.
+Hello Week comes with a few (optional) settings that you can change by passing an object as an argument
 
-> **type**: `String`\
-> **default**: `.hello-week`
+## Init
 
----
-
-#### lang
-Determines which translation file will be read.
-
-> **type**: `String`\
-> **default**: `en`
-
----
-
-#### langFolder
-Determines folder path of your langs.
-
-> **type**: `String`\
-> **default**: `./dist/langs/`
-
----
-
-#### format
-The format also determines which components are displayed.
-
-> **type**:  `String`\
-> **default**: `dd/mm/yyyy`
-
----
+| Property     | Value Type | default         | Description                                                |
+| ------------ | ---------- | --------------- | ---------------------------------------------------------- |
+| `selector`   | `string`   | `.hello-week`   | Define selector to use as a calendar.                      |
+| `lang`       | `string`   | `en`            | Determines which translation file will be read.            |
+| `langFolder` | `string`   | `./dist/langs/` | Determines folder path of your languages.                  |
+| `format`     | `string`   | `dd/mm/yyyy`    | The format also determines which components are displayed. |
 
 #### weekShort
+
 Sets the format of the week.
 
 > **type**: `Boolean`\
@@ -42,6 +21,7 @@ Sets the format of the week.
 ---
 
 #### monthShort
+
 Sets the format of the month.
 
 > **type**: `Boolean`\
@@ -50,6 +30,7 @@ Sets the format of the month.
 ---
 
 #### multiplePick
+
 Allows multiple days selection.
 
 > **type**: `Boolean`\
@@ -58,6 +39,7 @@ Allows multiple days selection.
 ---
 
 #### **default**Date
+
 Define the start date in calendar.
 
 > **type**: `String`\
@@ -66,6 +48,7 @@ Define the start date in calendar.
 ---
 
 #### todayHighlight
+
 Highlights the current date.
 
 > **type**: `Boolean`\
@@ -74,6 +57,7 @@ Highlights the current date.
 ---
 
 #### disablePastDays
+
 Disable date before the current day.
 
 > **type**: `Boolean`\
@@ -82,6 +66,7 @@ Disable date before the current day.
 ---
 
 #### disableDaysOfWeek
+
 Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).\
 Multiple values should be comma-separated.
 
@@ -91,6 +76,7 @@ Multiple values should be comma-separated.
 ---
 
 #### disableDates
+
 Array of date strings or a single date string to make days disabled.
 
 > **type**: `Array`\
@@ -99,6 +85,7 @@ Array of date strings or a single date string to make days disabled.
 ---
 
 #### daysHighlight
+
 Array of date strings or a single date string to make days with highlight.
 
 > **type**: `Array`\
@@ -107,6 +94,7 @@ Array of date strings or a single date string to make days with highlight.
 ---
 
 #### daysSelected
+
 Array of strings with day/days to make selected.
 
 > **type**: `Array`\
@@ -115,6 +103,7 @@ Array of strings with day/days to make selected.
 ---
 
 #### range
+
 Allows you to select array range of days.
 
 > **type**: `Boolean`\
@@ -123,6 +112,7 @@ Allows you to select array range of days.
 ---
 
 #### rtl
+
 Allows layout for languages written from right to left (like Hebrew or Arabic).
 
 > **type**: `Boolean`\
@@ -131,6 +121,7 @@ Allows layout for languages written from right to left (like Hebrew or Arabic).
 ---
 
 #### locked
+
 Sets all days of the week locked.
 
 > **type**: `Boolean`\
@@ -139,6 +130,7 @@ Sets all days of the week locked.
 ---
 
 #### weekStart
+
 Day of the week start. 0 (Sunday) to 6 (Saturday).
 
 > **type**: `Integer`\
@@ -147,6 +139,7 @@ Day of the week start. 0 (Sunday) to 6 (Saturday).
 ---
 
 #### minDate
+
 Disable date selections before this date. When set to null, there is no minimum.
 
 > **type**: `Number` or `String`\
@@ -155,6 +148,7 @@ Disable date selections before this date. When set to null, there is no minimum.
 ---
 
 #### maxDate
+
 Disable date selections after this date. When set to null, there is no maximum.
 
 > **type**: `Number` or `String`\
@@ -163,10 +157,8 @@ Disable date selections after this date. When set to null, there is no maximum.
 ---
 
 #### nav
+
 Show next/prev buttons.
 
 > **type**: `Array`\
 > **default**: `['◀', '▶']`
-
-
-

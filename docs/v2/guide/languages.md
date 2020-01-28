@@ -1,4 +1,4 @@
-## Languages
+# Languages
 
 HelloWekk supports multiple languages.
 The default is **English**, but other available translations are available in the `dist/langs` directory.

@@ -1,4 +1,4 @@
-## Customization
+# Customization
 
 You can customization your own theme and make advanced changes to the design and behavior of your calendar.
 
@@ -36,5 +36,3 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
 .hello-week .month .day.is-end-range {}
 .hello-week .month .day.is-disabled {}
 ```
-
-
