@@ -80,6 +80,11 @@ const config = {
         text: 'Examples',
         children: [
           {
+            path: 'examples/00-selected-days.md',
+            slug: 'selected-days',
+            text: 'Selected Days'
+          },
+          {
             path: 'examples/01-disabled-dates.md',
             slug: 'disabled-dates',
             text: 'Disabled Dates'
@@ -88,6 +93,11 @@ const config = {
             path: 'examples/02-disabled-days-week.md',
             slug: 'disabled-days-week',
             text: 'Disabled Days of Week'
+          },
+          {
+            path: 'examples/03-get-month-year.md',
+            slug: 'get-month-year',
+            text: 'Get Month & Year'
           }
         ]
       }

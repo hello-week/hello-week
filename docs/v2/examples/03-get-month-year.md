@@ -1,7 +1,6 @@
-## Get current Month and Year
+# Get current Month and Year
 
-#### Overview
-_TODO_
+TODO...
 
 #### HTML Structure
 ```html
@@ -10,11 +9,10 @@ _TODO_
 
 #### Javascript Initialization
 ```js
-var calendar = new HelloWeek({
+const calendar = new HelloWeek({
     onNavigation: () => {
         console.log('Current Month: ', calendar.getMonth());
         console.log('Current Year: ', calendar.getYear());
     }
 });
 ```
-
