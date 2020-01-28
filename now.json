@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "hello-week",
+  "builds": [
+    { "src": "*.html", "use": "@now/static" },
+    { "src": "docs/**/*.md", "use": "@now/static" },
+    { "src": "vivaldi.config.js", "use": "@now/static" },
+    { "src": "static/vivaldi/vivaldi.min.js", "use": "@now/static" },
+    { "src": "static/images/*.png", "use": "@now/static" },
+    { "src": "README.md", "use": "@now/static" }
+  ],
+  "routes": [{ "src": "/", "dest": "index.html" }]
+}

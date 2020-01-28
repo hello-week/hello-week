@@ -1,7 +1,6 @@
-## Disabled Days Week
+# Disabled Dates
 
-#### Overview
-Set disabled specific days of week.
+Set disabled specific day/days.
 
 #### HTML Structure
 ```html
@@ -11,7 +10,6 @@ Set disabled specific days of week.
 #### Javascript Initialization
 ```js
 new HelloWeek({
-    disableDaysOfWeek: [0, 1] // disabling weekends
+    disableDates: [["2019-03-02", "2019-03-12"]]
 });
 ```
-

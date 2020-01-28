@@ -1,8 +1,8 @@
-# Date Format
+# Format
 
 Hello Week have your own date format. In the following table you can see the options available.
 
-## Formats
+## Options
 
 | Input            | Example             | Description                                              |
 | ---------------- | ------------------- | -------------------------------------------------------- |

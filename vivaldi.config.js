@@ -40,35 +40,50 @@ const config = {
         text: 'Guide',
         children: [
           {
-            path: 'guide/methods.md',
-            slug: 'methods',
-            text: 'Methods'
-          },
-          {
-            path: 'guide/options.md',
+            path: 'guide/01-options.md',
             slug: 'options',
             text: 'Options'
           },
           {
-            path: 'guide/date-format.md',
-            slug: 'date-format',
-            text: 'Format Date'
-          },
-          {
-            path: 'guide/callbacks.md',
+            path: 'guide/02-callbacks.md',
             slug: 'callbacks',
             text: 'Callbacks'
           },
           {
-            path: 'guide/customization.md',
-            slug: 'customization',
-            text: 'Customization'
+            path: 'guide/03-methods.md',
+            slug: 'methods',
+            text: 'Methods'
           },
           {
-            path: 'guide/languages.md',
+            path: 'guide/04-format.md',
+            slug: 'format',
+            text: 'Format'
+          },
+          {
+            path: 'guide/05-languages.md',
             slug: 'languages',
             text: 'Languages'
           },
+          {
+            path: 'guide/06-customization.md',
+            slug: 'customization',
+            text: 'Customization'
+          }
+        ]
+      },
+      {
+        text: 'Examples',
+        children: [
+          {
+            path: 'examples/01-disabled-dates.md',
+            slug: 'disabled-dates',
+            text: 'Disabled Dates'
+          },
+          {
+            path: 'examples/02-disabled-days-week.md',
+            slug: 'disabled-days-week',
+            text: 'Disabled Days of Week'
+          }
         ]
       }
     ],

@@ -48,7 +48,7 @@ Default values are presented below.
 
 ```js
 new HelloWeek({
-    selector: '.hello-week',
+  selector: '.hello-week',
   lang: 'en',
   langFolder: './langs/',
   format: 'DD/MM/YYYY',
