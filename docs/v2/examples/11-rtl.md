@@ -5,7 +5,7 @@ Displays the calendar in right-to-left mode.
 
 #### HTML Structure
 ```html
-    <div class="hello-week"></div>
+<div class="hello-week"></div>
 ```
 
 #### Javascript Initialization

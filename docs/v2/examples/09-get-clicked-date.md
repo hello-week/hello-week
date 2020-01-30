@@ -4,7 +4,7 @@ This demonstrates how to get the clicked date or dates.
 
 #### HTML Structure
 ```html
-    <div class="hello-week"></div>
+<div class="hello-week"></div>
 ```
 
 #### Javascript Initialization
