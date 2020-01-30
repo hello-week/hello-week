@@ -13,6 +13,12 @@ Each key is the label for the range, and its value an array with all dates betwe
 ```js
 const calendar = new HelloWeek({
     range: true,
-    disablePastDays: true
+    todayHighlight: false
 });
 ```
+
+<iframe
+    src="docs/demos/range.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

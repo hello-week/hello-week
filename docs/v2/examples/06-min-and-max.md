@@ -28,3 +28,9 @@ const from = new HelloWeek({
     }
 });
 ```
+
+<iframe
+    src="docs/demos/min-max.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

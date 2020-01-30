@@ -2,29 +2,6 @@
   <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link href="../../dist/hello.week.css" rel="stylesheet" />
-    <link href="../../dist/default.theme.css" rel="stylesheet" />
-    <style>
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: sans-serif;
-      }
-
-      .flex {
-        display: flex;
-      }
-
-      .wrap {
-        flex-wrap: wrap;
-      }
-
-      .calendar {
-        max-width: 50%;
-        margin: 6px;
-        border: 1px solid #dadee4;
-      }
-    </style>
   </head>
   <body>
     <main>
@@ -87,12 +64,6 @@
       });
 
       new HelloWeek({
-        lang: 'zh',
-        selector: '#rtl',
-        rtl: true
-      });
-
-      new HelloWeek({
         selector: '#disableDaysOfWeek',
         todayHighlight: false,
         disableDaysOfWeek: [0, 1, 2]
@@ -123,57 +94,6 @@
         }
       });
 
-      new HelloWeek({
-        selector: '#highlights',
-        todayHighlight: false,
-        daysHighlight: [
-        {
-          days: [
-          ['2019-12-02', '2019-12-09'],
-          ['2020-01-16', '2020-01-29']
-          ],
-          attributes: {
-            style: {
-              color: '#fff',
-              backgroundColor: '#9C27B0'
-            },
-            dataset: {
-              title: 'Summer Holidays'
-            }
-          }
-        },
-        {
-          days: ['2019-12-18'],
-          attributes: {
-            style: {
-              color: '#fff',
-              backgroundColor: '#E91E63'
-            },
-            dataset: {
-              title: 'Mom Birthday'
-            }
-          }
-        }
-        ]
-      });
-
-      const to = new HelloWeek({
-        selector: '#to',
-        todayHighlight: false,
-        onSelect: () => {
-          from.setMinDate(to.getLastDaySelected());
-          from.update();
-        }
-      });
-
-      const from = new HelloWeek({
-        selector: '#from',
-        todayHighlight: false,
-        onSelect: () => {
-          to.setMaxDate(from.getLastDaySelected());
-          to.update();
-        }
-      });
     </script>
   </body>
 </body>
