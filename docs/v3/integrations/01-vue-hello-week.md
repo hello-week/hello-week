@@ -21,7 +21,6 @@ import HelloWeek from 'vue-hello-week';
 Vue.use(HelloWeek);
 ```
 
-
 ## Use
 
 ```js

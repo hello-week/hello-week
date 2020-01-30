@@ -3,6 +3,7 @@
 Displays the calendar in right-to-left mode.
 
 #### HTML Structure
+
 ```html
 <div class="hello-week"></div>
 <label for="textfield-1">Choose date</label>
@@ -11,14 +12,15 @@ Displays the calendar in right-to-left mode.
 ```
 
 #### Javascript Initialization
+
 ```js
 const calendar = new HelloWeek({
-    onLoad: () => {
-        calendar.goToDate('2019-06-01');
-    }
+  onLoad: () => {
+    calendar.goToDate('2019-06-01');
+  }
 });
 
-document.querySelector('.btn').addEventListener('click', (evt) => {
-    calendar.goToDate(document.querySelector('input').value);
+document.querySelector('.btn').addEventListener('click', evt => {
+  calendar.goToDate(document.querySelector('input').value);
 });
 ```

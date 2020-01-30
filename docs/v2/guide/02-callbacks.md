@@ -12,8 +12,8 @@ new HelloWeek({
 
 ### Properties
 
-| Property       | Value Type   | Description                            |
-| -------------- | ------------ | -------------------------------------- |
+| Property       | Value Type   | Description                                |
+| -------------- | ------------ | ------------------------------------------ |
 | `onLoad`       | `attachable` | Dispatch immediately after initialization. |
 | `onNavigation` | `attachable` | Dispatch after month change.               |
 | `onSelect`     | `attachable` | Dispatch on select the day.                |

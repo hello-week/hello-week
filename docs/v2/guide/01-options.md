@@ -6,8 +6,8 @@ Hello Week comes with a few (optional) settings that you can change by passing a
 
 ```js
 new HelloWeek({
-    selector: '#calendar'
-})
+  selector: '#calendar'
+});
 ```
 
 ## Properties
@@ -17,7 +17,7 @@ new HelloWeek({
 | `selector`          | `string`             | `.hello-week`   | Define selector to use as a calendar.                                            |
 | `lang`              | `string`             | `en`            | Determines which translation file will be read.                                  |
 | `langFolder`        | `string`             | `./dist/langs/` | Determines folder path of your languages.                                        |
-| `format`            | `string`             | `dd/mm/yyyy`    | Format also determines which components are displayed.                       |
+| `format`            | `string`             | `dd/mm/yyyy`    | Format also determines which components are displayed.                           |
 | `weekShort`         | `boolean`            | `true`          | Sets the format of the week.                                                     |
 | `monthShort`        | `boolean`            | `false`         | Sets the format of the month.                                                    |
 | `multiplePick`      | `boolean`            | `false`         | Allows multiple days selection.                                                  |

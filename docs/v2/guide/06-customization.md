@@ -8,31 +8,43 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
 
 ```html
 <div class="hello-week">
-    <div class="navigation">
-        <button class="prev">Prev</button>
-        <div class="period"></div>
-        <button class="next">Next</button>
-    </div>
-    <div class="week"></div>
-    <div class="month"></div>
+  <div class="navigation">
+    <button class="prev">Prev</button>
+    <div class="period"></div>
+    <button class="next">Next</button>
+  </div>
+  <div class="week"></div>
+  <div class="month"></div>
 </div>
 ```
 
 #### CSS Structure
 
 ```css
-.hello-week .navigation .prev {}
-.hello-week .navigation .period {}
-.hello-week .navigation .next {}
+.hello-week .navigation .prev {
+}
+.hello-week .navigation .period {
+}
+.hello-week .navigation .next {
+}
 
-.hello-week .week {}
+.hello-week .week {
+}
 
-.hello-week .month .day.is-weekend {}
-.hello-week .month .day.is-highlight { }
-.hello-week .month .day.is-today {}
-.hello-week .month .day.is-selected {}
-.hello-week .month .day.is-range  {}
-.hello-week .month .day.is-start-range {}
-.hello-week .month .day.is-end-range {}
-.hello-week .month .day.is-disabled {}
+.hello-week .month .day.is-weekend {
+}
+.hello-week .month .day.is-highlight {
+}
+.hello-week .month .day.is-today {
+}
+.hello-week .month .day.is-selected {
+}
+.hello-week .month .day.is-range {
+}
+.hello-week .month .day.is-start-range {
+}
+.hello-week .month .day.is-end-range {
+}
+.hello-week .month .day.is-disabled {
+}
 ```

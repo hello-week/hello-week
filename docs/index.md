@@ -16,7 +16,7 @@ The Hello Week is open-sourced software licensed under the [MIT license](http://
 
 ## Supported Browsers:
 
--   Chrome 35+
--   Firefox 31+
--   Safari 9+
--   Opera 48+
+- Chrome 35+
+- Firefox 31+
+- Safari 9+
+- Opera 48+

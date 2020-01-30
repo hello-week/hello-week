@@ -14,7 +14,7 @@ Displays the calendar in right-to-left mode.
 
 ```js
 new HelloWeek({
-	rtl: true
+  rtl: true
 });
 ```
 
