@@ -19,7 +19,7 @@ new HelloWeek({
 ```
 
 <iframe
-    src="docs/demos/rtl.html"
+    src="docs/demos/11-rtl.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

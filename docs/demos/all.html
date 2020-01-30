@@ -21,16 +21,6 @@
           <div class="default-theme" id="disableDaysOfWeek"></div>
         </div>
 
-        <!-- range calendar -->
-        <div class="calendar">
-          <div class="default-theme" id="range"></div>
-        </div>
-
-        <!-- selected days -->
-        <div class="calendar">
-          <div class="default-theme" id="selected-days"></div>
-        </div>
-
         <!-- before create day calendar -->
         <div class="calendar">
           <div class="default-theme" id="beforeCreateDay"></div>
@@ -40,16 +30,6 @@
       <!-- highlights calendar -->
       <div class="calendar">
         <div class="default-theme" id="highlights"></div>
-      </div>
-
-      <!-- max and min -->
-      <div class="flex">
-        <div class="calendar">
-          <div class="default-theme" id="to"></div>
-        </div>
-        <div class="calendar">
-          <div class="default-theme" id="from"></div>
-        </div>
       </div>
     </main>
 
@@ -67,21 +47,6 @@
         selector: '#disableDaysOfWeek',
         todayHighlight: false,
         disableDaysOfWeek: [0, 1, 2]
-      });
-
-      new HelloWeek({
-        selector: '#range',
-        range: ['2019-12-10', '2019-12-24'],
-        todayHighlight: false
-      });
-
-      const selectedDays = new HelloWeek({
-        selector: '#selected-days',
-        daysSelected: ['2019-12-10', '2019-12-12', '2019-12-13', '2019-12-25'],
-        multiplePick: true,
-        onSelect: () => {
-          console.log(selectedDays.getDaySelected());
-        }
       });
 
       const beforeCreateDay = new HelloWeek({

@@ -37,7 +37,7 @@ const calendar = new HelloWeek({
 ```
 
 <iframe
-    src="docs/demos/highlights.html"
+    src="docs/demos/05-highlights.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>
