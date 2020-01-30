@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href="../../dist/hello.week.css" rel="stylesheet" />
+        <link href="../../dist/default.theme.css" rel="stylesheet" />
+        <style>
+            html {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .calendar {
+                border: 1px solid #000;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="calendar default-theme" id="rtl"></div>
+        </main>
+
+        <script type="module">
+            import { HelloWeek, el } from '../../dist/hello-week.min.js';
+
+            new HelloWeek({
+                lang: 'zh',
+                selector: '#rtl',
+                rtl: true
+            });
+
+        </script>
+    </body>
+</body>
+</html>
