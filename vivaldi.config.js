@@ -140,17 +140,7 @@ const config = {
             text: 'RTL'
           }
         ]
-      },
-      {
-        text: 'Demo',
-        children: [
-          {
-            path: 'demos/00-selected-days.md',
-            slug: 'selected-days',
-            text: 'Selected Days'
-          },
-          ]
-         }
+      }
     ],
     v3: [
       {
