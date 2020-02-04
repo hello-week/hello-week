@@ -25,7 +25,7 @@ const from = new HelloWeek({
 ```
 
 <iframe
-    src="docs/demos/06-min-max.html"
+    src="docs/v2/demos/06-min-max.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

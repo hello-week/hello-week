@@ -7,7 +7,6 @@ You can initialize the calendar with day/days already selected.
 ```js
 new HelloWeek({
   selector: '.calendar',
-  langFolder: './langs/',
   daysSelected: ['2020-01-10', '2020-02-12', '2020-12-13', '2020-12-25'],
   multiplePick: true
 });

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Locked | Hello Week</title>
+    <link href="../../../static/styles/main.css" rel="stylesheet" />
+    <link href="./css/hello.week.min.css" rel="stylesheet" />
+    <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="calendar"></div>
+    </main>
+
+    <script src="./hello.week.min.js"></script>
+    <script>
+      const calendar = new HelloWeek({
+        selector: '.calendar',
+        langFolder: './langs/',
+        locked: true,
+        onNavigation: () => {
+          calendar.setLocked(false);
+          calendar.update();
+        }
+      });
+    </script>
+  </body>
+</html>

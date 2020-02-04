@@ -6,6 +6,7 @@ Set day/days highlight, with different customizes.
 
 ```js
 new HelloWeek({
+  selector: '.calendar',
   daysHighlight: [
     {
       days: ['2020-03-22'],

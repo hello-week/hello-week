@@ -6,6 +6,7 @@ This demonstrates how to get the clicked date or dates.
 
 ```js
 const calendar = new HelloWeek({
+  selector: '.calendar',
   onSelect: () => {
     console.log(calendar.getDays());
   }
@@ -25,7 +26,7 @@ The `calendar` can only be used inside of HelloWeek.
 - In case a range is set, all dates between the first and the last clicked date are returned
 
 <iframe
-    src="docs/v2/demos/09-get-clicked-date.md"
+    src="docs/v2/demos/09-get-clicked-date.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

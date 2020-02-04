@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Disabled Days of Week | Hello Week</title>
+    <link href="../../../static/styles/main.css" rel="stylesheet" />
+    <link href="./css/hello.week.min.css" rel="stylesheet" />
+    <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="calendar"></div>
+    </main>
+
+    <script src="./hello.week.min.js"></script>
+    <script>
+      new HelloWeek({
+        selector: '.calendar',
+        langFolder: './langs/',
+        disabledDaysOfWeek: [0, 1] // disabling weekends
+      });
+    </script>
+  </body>
+</html>
