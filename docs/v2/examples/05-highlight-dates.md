@@ -2,16 +2,14 @@
 
 Set day/days highlight, with different customizes.
 
-#### HTML Structure
+## Usage
 
 ```html
-<div class="hello-week"></div>
+<div class="calendar"></div>
 ```
 
-#### Javascript Initialization
-
 ```js
-const calendar = new HelloWeek({
+new HelloWeek({
   daysHighlight: [
     {
       days: ['2020-03-22'],
@@ -37,7 +35,7 @@ const calendar = new HelloWeek({
 ```
 
 <iframe
-    src="docs/demos/05-highlights.html"
+    src="docs/v2/demos/05-highlights.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

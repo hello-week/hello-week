@@ -4,23 +4,24 @@ You can initialize the calendar with day/days already selected.
 
 > You have multiple days selected, also need to have the option `multiplePick: true`.
 
-#### HTML Structure
+
+## Usage
 
 ```html
-<div class="hello-week"></div>
+<div class="calendar"></div>
 ```
 
-#### Javascript Initialization
-
 ```js
-const calendar = new HelloWeek({
-  daysSelected: ['2019-04-25', '2019-05-01', '2019-05-02', '2019-05-03'],
+new HelloWeek({
+  selector: '.calendar',
+  langFolder: './langs/',
+  daysSelected: ['2020-01-10', '2020-02-12', '2020-12-13', '2020-12-25'],
   multiplePick: true
 });
 ```
 
 <iframe
-    src="docs/demos/00-selected-days.html"
+    src="docs/v2/demos/00-selected-days.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

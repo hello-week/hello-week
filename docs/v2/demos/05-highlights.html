@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Highlights | Hello Week</title>
+    <link href="../../../static/styles/main.css" rel="stylesheet" />
+    <link href="./css/hello.week.min.css" rel="stylesheet" />
+    <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="calendar"></div>
+    </main>
+
+    <script src="./hello.week.min.js"></script>
+    <script>
+      const dt = new Date();
+      let month = dt.getMonth();
+
+      month = month + 1;
+      nextMonth = month + 1;
+
+      new HelloWeek({
+        selector: '.calendar',
+        langFolder: './langs/',
+        todayHighlight: false,
+        daysHighlight: [
+          {
+            days: [
+              [`2020-${String(month).padStart(2, '0')}-03`, `2020-${String(month).padStart(2, '0')}-07`],
+              [`2020-${String(month).padStart(2, '0')}-20`, `2020-${String(month).padStart(2, '0')}-22`]
+            ],
+            title: 'Summer Holidays',
+            backgroundColor: '#f08080',
+            color: '#fff'
+          },
+          {
+            days: [`2020-${String(nextMonth).padStart(2, '0')}-18`],
+            title: 'Mom Birthday',
+            backgroundColor: '#9C27B0',
+            color: '#fff'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
