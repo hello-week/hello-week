@@ -47,13 +47,6 @@ yarn add hello-week
 HelloWeek comes with a few (optional) settings that you can change by passing an object as an argument.
 Default values are presented below.
 
-
-```diff
-new HelloWeek({
-+   beforeCreateDay: (data: IDayOptions) => data
-});
-```
-
 ```js
 new HelloWeek({
   selector: '.hello-week',
@@ -83,6 +76,12 @@ new HelloWeek({
   onNavigation: () => {},
   onSelect: () => {},
   beforeCreateDay: (data: IDayOptions) => data
+});
+```
+
+```diff
+new HelloWeek({
++   beforeCreateDay: (data: IDayOptions) => data
 });
 ```
 
