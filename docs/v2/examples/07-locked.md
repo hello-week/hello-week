@@ -2,13 +2,7 @@
 
 Locks all days in calendar.
 
-#### HTML Structure
-
-```html
-<div class="calendar"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const calendar = new HelloWeek({
@@ -20,3 +14,9 @@ const calendar = new HelloWeek({
   }
 });
 ```
+
+<iframe
+    src="docs/demos/07-locked.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

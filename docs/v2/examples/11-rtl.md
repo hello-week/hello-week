@@ -1,16 +1,8 @@
 # RTL
 
-#### Overview
-
 Displays the calendar in right-to-left mode.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 new HelloWeek({
@@ -19,7 +11,7 @@ new HelloWeek({
 ```
 
 <iframe
-    src="docs/demos/11-rtl.html"
+    src="docs/v2/demos/11-rtl.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

@@ -1,17 +1,8 @@
 # Go to Date
 
-Displays the calendar in right-to-left mode.
+Move the calendar to specific date.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-<label for="textfield-1">Choose date</label>
-<input type="text" name="textfield-1" placeholder="Textfield" value="2030-06-01" />
-<button class="btn">Go to Date</button>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const calendar = new HelloWeek({
@@ -19,8 +10,10 @@ const calendar = new HelloWeek({
     calendar.goToDate('2019-06-01');
   }
 });
-
-document.querySelector('.btn').addEventListener('click', evt => {
-  calendar.goToDate(document.querySelector('input').value);
-});
 ```
+
+<iframe
+    src="docs/v2/demos/04-go-to-date.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

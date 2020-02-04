@@ -4,10 +4,6 @@ Set day/days highlight, with different customizes.
 
 ## Usage
 
-```html
-<div class="calendar"></div>
-```
-
 ```js
 new HelloWeek({
   daysHighlight: [

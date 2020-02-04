@@ -2,13 +2,7 @@
 
 This demonstrates how to get the clicked date or dates.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const calendar = new HelloWeek({
@@ -29,3 +23,9 @@ The `calendar` can only be used inside of HelloWeek.
 **Range**
 
 - In case a range is set, all dates between the first and the last clicked date are returned
+
+<iframe
+    src="docs/v2/demos/09-get-clicked-date.md"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

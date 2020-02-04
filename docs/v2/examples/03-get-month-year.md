@@ -1,14 +1,8 @@
-# Get current Month and Year
+# Get Month and Year
 
-TODO...
+Get month or year.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const calendar = new HelloWeek({
@@ -18,3 +12,9 @@ const calendar = new HelloWeek({
   }
 });
 ```
+
+<iframe
+    src="docs/v2/demos/03-get-month-year.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

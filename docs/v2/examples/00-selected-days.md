@@ -2,14 +2,7 @@
 
 You can initialize the calendar with day/days already selected.
 
-> You have multiple days selected, also need to have the option `multiplePick: true`.
-
-
 ## Usage
-
-```html
-<div class="calendar"></div>
-```
 
 ```js
 new HelloWeek({
@@ -19,6 +12,8 @@ new HelloWeek({
   multiplePick: true
 });
 ```
+
+> You have multiple days selected, also need to have the option `multiplePick: true`.
 
 <iframe
     src="docs/v2/demos/00-selected-days.html"

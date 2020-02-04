@@ -2,16 +2,16 @@
 
 Set disabled specific days of week.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 new HelloWeek({
   disableDaysOfWeek: [0, 1] // disabling weekends
 });
 ```
+
+<iframe
+    src="docs/v2/demos/02-disabled-days-week.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

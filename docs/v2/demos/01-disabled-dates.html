@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Range | Hello Week</title>
+    <title>Disabled Days | Hello Week</title>
     <link href="../../../static/styles/main.css" rel="stylesheet" />
     <link href="./css/hello.week.min.css" rel="stylesheet" />
     <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
@@ -17,8 +17,7 @@
       new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
-        range: ['2020-01-10', '2020-01-24'],
-        todayHighlight: false
+        disableDates: [['2020-03-02', '2020-03-12']]
       });
     </script>
   </body>

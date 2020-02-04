@@ -2,20 +2,14 @@
 
 Method reset calendar to initial value.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-<button class="btn">Reset Calendar</button>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const calendar = new HelloWeek({
   minDate: '2019-03-10',
   maxDate: '2019-03-28'
 });
+
 document.querySelector('.btn').addEventListener('click', () => {
   calendar.reset({
     minDate: false,
@@ -23,3 +17,9 @@ document.querySelector('.btn').addEventListener('click', () => {
   });
 });
 ```
+
+<iframe
+    src="docs/v2/demos/10-reset.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

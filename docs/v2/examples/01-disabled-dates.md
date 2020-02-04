@@ -2,16 +2,18 @@
 
 Set disabled specific day/days.
 
-#### HTML Structure
-
-```html
-<div class="hello-week"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 new HelloWeek({
-  disableDates: [['2019-03-02', '2019-03-12']]
+  selector: '.calendar',
+  langFolder: './langs/',
+  disableDates: [['2020-03-02', '2020-03-12']]
 });
 ```
+
+<iframe
+    src="docs/v2/demos/01-disabled-dates.html"
+    frameborder="no"
+    allowfullscreen="allowfullscreen">
+</iframe>

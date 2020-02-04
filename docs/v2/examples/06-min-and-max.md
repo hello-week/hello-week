@@ -2,14 +2,7 @@
 
 Restrict the range of selectable dates with the minDate and maxDate options. Set the beginning and end dates
 
-#### HTML Structure
-
-```html
-<div class="to"></div>
-<div class="from"></div>
-```
-
-#### Javascript Initialization
+## Usage
 
 ```js
 const to = new HelloWeek({
