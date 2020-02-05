@@ -13,6 +13,8 @@ const calendar = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v2/demos/04-go-to-date.html"
     frameborder="no"
