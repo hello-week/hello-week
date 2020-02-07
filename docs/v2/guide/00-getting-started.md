@@ -24,7 +24,7 @@ You can also download the library manually:
 ## CDN
 
 A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN and figure out the URLs of the files you need is to visit the package on [Yarn](https://yarnpkg.com/).
-For example, visit the [Hello-Week](https://cdn.jsdelivr.net/npm/hello-week@2.10.3/) package.
+> For example, visit the [Hello-Week](https://cdn.jsdelivr.net/npm/hello-week@2.10.3/) package.
 
 ### Inside HTML
 

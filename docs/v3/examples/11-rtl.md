@@ -1,18 +1,18 @@
-# Disabled Dates
+# RTL
 
-Set disabled specific day/days.
+Displays the calendar in right-to-left mode.
 
 ## Usage
 
 ```js
 new HelloWeek({
   selector: '.calendar',
-  disableDates: [['2020-03-02', '2020-03-12']]
+  rtl: true
 });
 ```
 
 <iframe
-    src="docs/v3/demos/01-disabled-dates.html"
+    src="docs/v3/demos/11-rtl.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

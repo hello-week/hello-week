@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Min & Max | Hello Week</title>
+    <link href="../../../static/styles/main.css" rel="stylesheet" />
+    <link href="../../../dist/hello.week.css" rel="stylesheet" />
+    <link href="../../../dist/default.theme.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="flex">
+        <div class="calendar">
+          <div id="to"></div>
+        </div>
+        <div class="calendar">
+          <div id="from"></div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module">
+      import { HelloWeek } from "../../../dist/hello-week.js";
+      const to = new HelloWeek({
+        selector: '#to',
+        langFolder: './langs/',
+        todayHighlight: false,
+        onSelect: () => {
+          from.setMinDate(to.getLastDaySelected());
+          from.update();
+        }
+      });
+
+      const from = new HelloWeek({
+        selector: '#from',
+        langFolder: './langs/',
+        todayHighlight: false,
+        onSelect: () => {
+          to.setMaxDate(from.getLastDaySelected());
+          to.update();
+        }
+      });
+    </script>
+  </body>
+</html>

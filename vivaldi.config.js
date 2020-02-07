@@ -6,7 +6,7 @@ const config = {
     notFound: '/docs/404.md',
     url: 'https://github.com/mauroreisvieira/hello-week/blob/master/'
   },
-  defaultVersion: 'v2',
+  defaultVersion: 'v3',
   versions: {
     v2: {
       name: '2.x',
@@ -144,12 +144,42 @@ const config = {
     ],
     v3: [
       {
-        text: 'Examples',
+        text: 'Guide',
         children: [
           {
             path: 'guide/00-getting-started.md',
             slug: 'getting-started',
             text: 'Getting Started'
+          },
+          {
+            path: 'guide/01-options.md',
+            slug: 'options',
+            text: 'Options'
+          },
+          {
+            path: 'guide/02-callbacks.md',
+            slug: 'callbacks',
+            text: 'Callbacks'
+          },
+          {
+            path: 'guide/03-methods.md',
+            slug: 'methods',
+            text: 'Methods'
+          },
+          {
+            path: 'guide/04-format.md',
+            slug: 'format',
+            text: 'Format'
+          },
+          {
+            path: 'guide/05-languages.md',
+            slug: 'languages',
+            text: 'Languages'
+          },
+          {
+            path: 'guide/06-customization.md',
+            slug: 'customization',
+            text: 'Customization'
           }
         ]
       },
@@ -157,9 +187,69 @@ const config = {
         text: 'Examples',
         children: [
           {
+            path: 'examples/00-selected-days.md',
+            slug: 'selected-days',
+            text: 'Selected Days'
+          },
+          {
             path: 'examples/01-disabled-dates.md',
             slug: 'disabled-dates',
             text: 'Disabled Dates'
+          },
+          {
+            path: 'examples/02-disabled-days-week.md',
+            slug: 'disabled-days-week',
+            text: 'Disabled Days of Week'
+          },
+          {
+            path: 'examples/03-get-month-year.md',
+            slug: 'get-month-year',
+            text: 'Get Month & Year'
+          },
+          {
+            path: 'examples/04-go-to-date.md',
+            slug: 'go-to-date',
+            text: 'Go to Date'
+          },
+          {
+            path: 'examples/05-highlight-dates.md',
+            slug: 'highlight-dates',
+            text: 'Highlight Dates'
+          },
+          {
+            path: 'examples/06-min-and-max.md',
+            slug: 'min-and-max',
+            text: 'Min & Max'
+          },
+          {
+            path: 'examples/07-locked.md',
+            slug: 'locked',
+            text: 'Locked'
+          },
+          {
+            path: 'examples/08-range.md',
+            slug: 'range',
+            text: 'Range'
+          },
+          {
+            path: 'examples/09-get-clicked-date.md',
+            slug: 'get-clicked-date',
+            text: 'Get Clicked Date'
+          },
+          {
+            path: 'examples/10-reset.md',
+            slug: 'reset',
+            text: 'Reset'
+          },
+          {
+            path: 'examples/11-rtl.md',
+            slug: 'rtl',
+            text: 'RTL'
+          },
+          {
+            path: 'examples/12-before-create-day.md',
+            slug: 'before-create-day',
+            text: 'Before Create Day'
           }
         ]
       },

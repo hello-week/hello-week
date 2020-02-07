@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Highlights | Hello Week</title>
+    <link href="../../../static/styles/main.css" rel="stylesheet" />
+    <link href="../../../dist/hello.week.css" rel="stylesheet" />
+    <link href="../../../dist/default.theme.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="calendar default-theme"></div>
+    </main>
+
+    <script type="module">
+      import { HelloWeek } from "../../../dist/hello-week.js";
+      const dt = new Date();
+      let month = dt.getMonth();
+      let year = dt.getFullYear();
+
+      new HelloWeek({
+        selector: '.calendar',
+        langFolder: './langs/',
+        todayHighlight: false,
+        daysHighlight: [
+          {
+            days: [
+              [`${year}-${String(month + 1).padStart(2, '0')}-03`, `${year}-${String(month + 1).padStart(2, '0')}-07`]
+            ],
+            title: 'Holidays in Portugal',
+            backgroundColor: '#f44336',
+            color: '#fff'
+          },
+          {
+            days: [
+              [`${year}-${String(month + 1).padStart(2, '0')}-20`, `${year}-${String(month + 1).padStart(2, '0')}-22`]
+            ],
+            title: 'Holidays in Paris',
+            backgroundColor: '#2196F3',
+            color: '#fff'
+          },
+          {
+            days: [`${year}-${String(month + 1).padStart(2, '0')}-18`],
+            title: 'Mom Birthday',
+            backgroundColor: '#9c27b0',
+            color: '#fff'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
