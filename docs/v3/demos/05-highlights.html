@@ -9,8 +9,8 @@
   </head>
   <body>
     <main>
-      <div class="calendar default-theme"></div>
       <button class="btn">Today is my day!</button>
+      <div class="calendar default-theme"></div>
     </main>
 
     <script type="module">
@@ -51,10 +51,7 @@
               }
             }
           }
-        ],
-        onSelect: data => {
-          console.log(data);
-        }
+        ]
       });
 
       document.querySelector('.btn').addEventListener('click', () => {

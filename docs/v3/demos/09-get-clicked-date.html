@@ -17,8 +17,8 @@
       const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
-        onSelect: () => {
-          console.log(calendar.getDays());
+        onSelect: (data) => {
+          console.log(data);
         }
       });
     </script>
