@@ -20,7 +20,6 @@ body {
   border: 1px solid #edf2f7;
 }
 
-
 @media (max-width: 480px) {
   .flex {
     flex-direction: column;
@@ -29,4 +28,57 @@ body {
   .calendar {
     margin-bottom: 8px;
   }
+}
+
+label[for] {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+input,
+select {
+  position: relative;
+  min-width: 120px;
+  height: 40px;
+  margin-bottom: 8px;
+  padding: 16px;
+  border: 1px solid #edf2f7;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+input:disabled {
+  opacity: 0.6;
+}
+
+.btn {
+  position: relative;
+  min-width: 120px;
+  margin: 16px 0;
+  font-weight: 600;
+  cursor: pointer;
+  outline: 0;
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 2px;
+  color: #2196f3;
+  border: 2px solid #2196f3;
+  background: transparent;
+}
+
+.btn:hover {
+  background-color: #2196f3;
+  color: #fff;
 }

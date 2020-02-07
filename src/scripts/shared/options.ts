@@ -1,6 +1,6 @@
-import { IOptions, IDayOptions } from '../defs/index';
+import { IProps, IDayOptions } from '../defs/index';
 
-export const defaults: IOptions = {
+export const defaults: IProps = {
   selector: '.hello-week',
   lang: 'en',
   langFolder: './langs/',
@@ -23,17 +23,9 @@ export const defaults: IOptions = {
   locked: false,
   rtl: false,
   nav: ['◀', '▶'],
-  onLoad: () => {
-    /** callback */
-  },
-  onClear: () => {
-    /** callback */
-  },
-  onNavigation: () => {
-    /** callback */
-  },
-  onSelect: () => {
-    /** callback */
-  },
+  onLoad: () => {},
+  onClear: () => {},
+  onNavigation: () => {},
+  onSelect: (data: IDayOptions) => data,
   beforeCreateDay: (data: IDayOptions) => data
 };

@@ -1,4 +1,4 @@
-export interface IOptions {
+export interface IProps {
   selector: string;
   langFolder: string;
   daysHighlight: any;

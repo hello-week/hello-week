@@ -3,7 +3,10 @@ import { isDef, isString, isArray, isObject } from './types';
 export function render(vnode: any, parentDom?: HTMLElement) {
   if (vnode.split) return document.createTextNode(vnode);
   const node = document.createElement(vnode.nodeName);
-  diffProps(vnode, node);
+
+  if (isDef(vnode.attributes)) {
+    diffProps(vnode, node);
+  }
 
   (vnode.children || []).forEach((c: any) => node.appendChild(render(c)));
 
@@ -12,18 +15,14 @@ export function render(vnode: any, parentDom?: HTMLElement) {
 
 function diffProps(vnode, node) {
   for (const name of Object.keys(vnode.attributes)) {
-    const value = vnode.attributes[name];
-    node[name] = value;
-    if (name in node) {
-      if (name === 'class') {
-        classProps(vnode, node, name);
-      } else if (name === 'style') {
-        styleProps(vnode, node, name);
-      } else if (name === 'data') {
-        dataProps(vnode, node, name);
-      }
+    if (name === 'class') {
+      classProps(vnode, node, name);
+    } else if (name === 'style') {
+      styleProps(vnode, node, name);
+    } else if (name === 'data') {
+      dataProps(vnode, node, name);
     } else {
-      setAttr(node, name, value);
+      setAttr(node, name, vnode.attributes[name]);
     }
   }
 }
@@ -87,3 +86,4 @@ export function existElement(className: string, where: HTMLElement) {
 }
 
 export { h as el };
+export { h as createElement };

@@ -1,8 +1,8 @@
-import { IOptions, ITemplate } from '../defs/index';
+import { IProps, ITemplate } from '../defs/index';
 import { render, el, existElement, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
-export function template(options: IOptions, args: any): ITemplate {
+export function template(options: IProps, args: any): ITemplate {
   const self: any = {};
 
   if (!isDef(options.selector)) {

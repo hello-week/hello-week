@@ -9,6 +9,7 @@
   </head>
   <body>
     <main>
+      <button class="btn">Unlock</button>
       <div class="calendar default-theme"></div>
     </main>
 
@@ -17,11 +18,12 @@
       const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
-        locked: true,
-        onNavigation: () => {
-          calendar.setLocked(false);
-          calendar.update();
-        }
+        locked: true
+      });
+
+      document.querySelector('.btn').addEventListener('click', () => {
+        calendar.setLocked(false);
+        calendar.update();
       });
     </script>
   </body>
