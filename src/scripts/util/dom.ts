@@ -1,60 +1,64 @@
 import { isDef, isString, isArray, isObject } from './types';
 
 export function render(vnode: any, parentDom?: HTMLElement) {
-  // Strings just convert to #text Nodes:
-  if (vnode.split) {
-    return document.createTextNode(vnode);
-  }
-
-  // create a DOM element with the nodeName of our VDOM element:
+  if (vnode.split) return document.createTextNode(vnode);
   const node = document.createElement(vnode.nodeName);
+  diffProps(vnode, node);
 
-  // copy attributes onto the new node:
-  const attributes = vnode.attributes || {};
-
-  Object.keys(attributes).forEach((key: string) => {
-    if (key === 'class') {
-      if (isString(attributes[key])) {
-        node.className = attributes[key];
-      } else if (isArray(attributes[key])) {
-        attributes[key].forEach((value: string) => {
-          addClass(node, value);
-        });
-      }
-    } else if (key === 'style') {
-      if (isString(attributes[key])) {
-        node.style = attributes[key];
-      } else if (isObject(attributes[key])) {
-        Object.keys(attributes[key]).forEach((props: string) => {
-          node.style[props] = attributes[key][props];
-        });
-      }
-    } else if (key === 'dataset') {
-      Object.keys(attributes[key]).forEach((props: string) => {
-        node.setAttribute('data-' + props, attributes[key][props]);
-      });
-    } else {
-      node.setAttribute(key, attributes[key]);
-    }
-  });
-
-  // render (build) and then append child nodes:
   (vnode.children || []).forEach((c: any) => node.appendChild(render(c)));
 
   return parentDom ? parentDom.appendChild(node) : node;
 }
 
+function diffProps(vnode, node) {
+  for (const name of Object.keys(vnode.attributes)) {
+    const value = vnode.attributes[name];
+    node[name] = value;
+    if (name in node) {
+      if (name === 'class') {
+        classProps(vnode, node, name);
+      } else if (name === 'style') {
+        styleProps(vnode, node, name);
+      } else if (name === 'data') {
+        dataProps(vnode, node, name);
+      }
+    } else {
+      setAttr(node, name, value);
+    }
+  }
+}
+
+function dataProps(vnode, node, name) {
+  for (const prop of Object.keys(vnode.attributes[name])) {
+    setAttr(node, `data-${name}`, vnode.attributes[name][prop]);
+  }
+}
+
+function classProps(vnode, node, name) {
+  if (isString(vnode.attributes[name])) {
+    node.className = vnode.attributes[name];
+  } else if (isArray(vnode.attributes[name])) {
+    vnode.attributes[name].forEach((value: string) => {
+      addClass(node, value);
+    });
+  }
+}
+
+function styleProps(vnode, node, name) {
+  if (isString(vnode.attributes[name])) {
+    node.style = vnode.attributes[name];
+  } else if (isObject(vnode.attributes[name])) {
+    for (const prop of Object.keys(vnode.attributes[name])) {
+      node.style[prop] = vnode.attributes[name][prop];
+    }
+  }
+}
+
 function h(nodeName: string, attributes: any, ...args: any) {
   const vnode: any = { nodeName };
 
-  if (attributes) {
-    vnode.attributes = attributes;
-  }
-
-  if (args.length) {
-    vnode.children = [].concat(...args);
-  }
-
+  if (attributes) vnode.attributes = attributes;
+  if (args.length) vnode.children = [].concat(...args);
   return vnode;
 }
 

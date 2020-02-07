@@ -10,42 +10,68 @@
   <body>
     <main>
       <div class="calendar default-theme"></div>
+      <button class="btn">Today is my day!</button>
     </main>
 
     <script type="module">
-      import { HelloWeek } from "../../../dist/hello-week.js";
+      import { HelloWeek } from '../../../dist/hello-week.js';
       const dt = new Date();
       let month = dt.getMonth();
       let year = dt.getFullYear();
 
-      new HelloWeek({
+      const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
         todayHighlight: false,
         daysHighlight: [
           {
             days: [
-              [`${year}-${String(month + 1).padStart(2, '0')}-03`, `${year}-${String(month + 1).padStart(2, '0')}-07`]
+              ['2020-03-02', '2020-03-09'],
+              ['2020-04-16', '2020-04-29']
             ],
-            title: 'Holidays in Portugal',
-            backgroundColor: '#f44336',
-            color: '#fff'
+            attributes: {
+              style: {
+                color: '#fff',
+                backgroundColor: '#9C27B0'
+              },
+              data: {
+                title: 'Summer Holidays'
+              }
+            }
           },
           {
-            days: [
-              [`${year}-${String(month + 1).padStart(2, '0')}-20`, `${year}-${String(month + 1).padStart(2, '0')}-22`]
-            ],
-            title: 'Holidays in Paris',
-            backgroundColor: '#2196F3',
-            color: '#fff'
-          },
-          {
-            days: [`${year}-${String(month + 1).padStart(2, '0')}-18`],
-            title: 'Mom Birthday',
-            backgroundColor: '#9c27b0',
-            color: '#fff'
+            days: ['2020-12-18'],
+            attributes: {
+              style: {
+                color: '#fff',
+                backgroundColor: '#E91E63'
+              },
+              data: {
+                title: 'Mom Birthday'
+              }
+            }
           }
-        ]
+        ],
+        onSelect: data => {
+          console.log(data);
+        }
+      });
+
+      document.querySelector('.btn').addEventListener('click', () => {
+        calendar.setDaysHighlight([
+          {
+            days: ['2020-02-07'],
+            title: "It's my day!",
+            name: 'Calendar 2',
+            attributes: {
+              style: {
+                color: '#fff',
+                backgroundColor: '#04f'
+              }
+            }
+          }
+        ]);
+        calendar.update();
       });
     </script>
   </body>

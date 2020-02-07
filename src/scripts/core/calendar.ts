@@ -104,7 +104,7 @@ export class HelloWeek {
    */
   reset(options: IOptions, callback?: () => void): void {
     this.clearCalendar();
-    this.options = extend(options, this.defaultsOptions);
+    this.options = extend(this.defaultsOptions, options);
     this.init(callback);
   }
 
@@ -259,7 +259,7 @@ export class HelloWeek {
     }
   }
 
-  private handleClickInteraction(target: HTMLElement, callback?: () => void): void {
+  private handleClickInteraction(target: HTMLElement, callback?: (data: any) => void): void {
     target.addEventListener('click', (event: any) => {
       const index = getIndexForEventTarget(this.daysOfMonth, event.target);
       if (this.days[index].locked) {
@@ -309,10 +309,9 @@ export class HelloWeek {
 
         addClass(event.target, cssStates.IS_SELECTED);
       }
-
-      this.options.onSelect();
+      this.options.onSelect(this.days[index]);
       if (callback) {
-        callback();
+        callback(this.days[index]);
       }
     });
   }
@@ -395,7 +394,7 @@ export class HelloWeek {
     }
 
     if (this.options.disableDates) {
-      this.setDaysDisable(dayOptions);
+      this.disabledDays(dayOptions);
     }
 
     if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
@@ -424,7 +423,7 @@ export class HelloWeek {
     }
 
     if (this.daysHighlight) {
-      this.setDayHighlight(dayOptions);
+      this.highlightDays(dayOptions);
     }
 
     if (dayOptions.day === 1) {
@@ -446,7 +445,7 @@ export class HelloWeek {
     this.days[dayOptions.day] = dayOptions;
   }
 
-  private setDaysDisable(dayOptions: any): void {
+  private disabledDays(dayOptions: any): void {
     if (isArray(this.options.disableDates[0])) {
       this.options.disableDates.map((date: any) => {
         if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
@@ -464,27 +463,27 @@ export class HelloWeek {
     }
   }
 
-  private setDayHighlight(dayOptions: any): void {
+  private highlightDays(dayOptions: any): void {
     for (const day in this.daysHighlight) {
       if (this.daysHighlight[day].days[0] instanceof Array) {
         this.daysHighlight[day].days.map((date: any) => {
           if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
-            this.setStyleDayHighlight(day, dayOptions);
+            this.computedAttributes(day, dayOptions);
           }
         });
       } else {
         this.daysHighlight[day].days.map((date: any) => {
           if (isSame(dayOptions.date, date)) {
-            this.setStyleDayHighlight(day, dayOptions);
+            this.computedAttributes(day, dayOptions);
           }
         });
       }
     }
   }
 
-  private setStyleDayHighlight(day: any, dayOptions: any) {
-    const { attributes } = this.daysHighlight[day];
-
+  private computedAttributes(day: any, dayOptions: any) {
+    const { attributes, days, ...rest } = this.daysHighlight[day];
+    dayOptions = extend(dayOptions, rest);
     for (const key in attributes) {
       if (dayOptions.attributes[key] && attributes[key]) {
         dayOptions.attributes[key] = extend(dayOptions.attributes[key], attributes[key]);

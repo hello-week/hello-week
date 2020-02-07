@@ -5,6 +5,7 @@
     "eofline": true,
     "no-console": false,
     "member-access": false,
+    "curly": [true, "ignore-same-line"],
     "object-literal-sort-keys": false,
     "quotemark": [true, "single"],
     "trailing-comma": false

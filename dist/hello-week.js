@@ -85,57 +85,68 @@ function isString(val) {
 }
 
 function render(vnode, parentDom) {
-    // Strings just convert to #text Nodes:
-    if (vnode.split) {
+    if (vnode.split)
         return document.createTextNode(vnode);
-    }
-    // create a DOM element with the nodeName of our VDOM element:
     const node = document.createElement(vnode.nodeName);
-    // copy attributes onto the new node:
-    const attributes = vnode.attributes || {};
-    Object.keys(attributes).forEach((key) => {
-        if (key === 'class') {
-            if (isString(attributes[key])) {
-                node.className = attributes[key];
-            }
-            else if (isArray(attributes[key])) {
-                attributes[key].forEach((value) => {
-                    addClass(node, value);
-                });
-            }
-        }
-        else if (key === 'style') {
-            if (isString(attributes[key])) {
-                node.style = attributes[key];
-            }
-            else if (isObject(attributes[key])) {
-                Object.keys(attributes[key]).forEach((props) => {
-                    node.style[props] = attributes[key][props];
-                });
-            }
-        }
-        else if (key === 'dataset') {
-            Object.keys(attributes[key]).forEach((props) => {
-                node.setAttribute('data-' + props, attributes[key][props]);
-            });
-        }
-        else {
-            node.setAttribute(key, attributes[key]);
-        }
-    });
-    // render (build) and then append child nodes:
+    diffProps(vnode, node);
     (vnode.children || []).forEach((c) => node.appendChild(render(c)));
     return parentDom ? parentDom.appendChild(node) : node;
 }
+function diffProps(vnode, node) {
+    for (const name of Object.keys(vnode.attributes)) {
+        const value = vnode.attributes[name];
+        node[name] = value;
+        if (name in node) {
+            if (name === 'class') {
+                classProps(vnode, node, name);
+            }
+            else if (name === 'style') {
+                styleProps(vnode, node, name);
+            }
+            else if (name === 'data') {
+                dataProps(vnode, node, name);
+            }
+        }
+        else {
+            setAttr(node, name, value);
+        }
+    }
+}
+function dataProps(vnode, node, name) {
+    for (const prop of Object.keys(vnode.attributes[name])) {
+        setAttr(node, `data-${name}`, vnode.attributes[name][prop]);
+    }
+}
+function classProps(vnode, node, name) {
+    if (isString(vnode.attributes[name])) {
+        node.className = vnode.attributes[name];
+    }
+    else if (isArray(vnode.attributes[name])) {
+        vnode.attributes[name].forEach((value) => {
+            addClass(node, value);
+        });
+    }
+}
+function styleProps(vnode, node, name) {
+    if (isString(vnode.attributes[name])) {
+        node.style = vnode.attributes[name];
+    }
+    else if (isObject(vnode.attributes[name])) {
+        for (const prop of Object.keys(vnode.attributes[name])) {
+            node.style[prop] = vnode.attributes[name][prop];
+        }
+    }
+}
 function h(nodeName, attributes, ...args) {
     const vnode = { nodeName };
-    if (attributes) {
+    if (attributes)
         vnode.attributes = attributes;
-    }
-    if (args.length) {
+    if (args.length)
         vnode.children = [].concat(...args);
-    }
     return vnode;
+}
+function setAttr(el, name, value) {
+    return el.setAttribute(name, value);
 }
 function addClass(el, className) {
     return el.classList.add(className);
@@ -372,7 +383,7 @@ class HelloWeek {
      */
     reset(options, callback) {
         this.clearCalendar();
-        this.options = extend(options, this.defaultsOptions);
+        this.options = extend(this.defaultsOptions, options);
         this.init(callback);
     }
     /**
@@ -550,9 +561,9 @@ class HelloWeek {
                 }
                 addClass(event.target, cssStates.IS_SELECTED);
             }
-            this.options.onSelect();
+            this.options.onSelect(this.days[index]);
             if (callback) {
-                callback();
+                callback(this.days[index]);
             }
         });
     }
@@ -623,7 +634,7 @@ class HelloWeek {
             dayOptions.locked = true;
         }
         if (this.options.disableDates) {
-            this.setDaysDisable(dayOptions);
+            this.disabledDays(dayOptions);
         }
         if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
             dayOptions.attributes.class.push(cssStates.IS_TODAY);
@@ -646,7 +657,7 @@ class HelloWeek {
             dayOptions.attributes.class.push(cssStates.IS_END_RANGE);
         }
         if (this.daysHighlight) {
-            this.setDayHighlight(dayOptions);
+            this.highlightDays(dayOptions);
         }
         if (dayOptions.day === 1) {
             if (this.options.weekStart === daysWeek.SUNDAY) {
@@ -667,7 +678,7 @@ class HelloWeek {
         dayOptions.element = render(dayOptions.node, this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     }
-    setDaysDisable(dayOptions) {
+    disabledDays(dayOptions) {
         if (isArray(this.options.disableDates[0])) {
             this.options.disableDates.map((date) => {
                 if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
@@ -685,26 +696,27 @@ class HelloWeek {
             });
         }
     }
-    setDayHighlight(dayOptions) {
+    highlightDays(dayOptions) {
         for (const day in this.daysHighlight) {
             if (this.daysHighlight[day].days[0] instanceof Array) {
                 this.daysHighlight[day].days.map((date) => {
                     if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
-                        this.setStyleDayHighlight(day, dayOptions);
+                        this.computedAttributes(day, dayOptions);
                     }
                 });
             }
             else {
                 this.daysHighlight[day].days.map((date) => {
                     if (isSame(dayOptions.date, date)) {
-                        this.setStyleDayHighlight(day, dayOptions);
+                        this.computedAttributes(day, dayOptions);
                     }
                 });
             }
         }
     }
-    setStyleDayHighlight(day, dayOptions) {
-        const { attributes } = this.daysHighlight[day];
+    computedAttributes(day, dayOptions) {
+        const { attributes, days, ...rest } = this.daysHighlight[day];
+        dayOptions = extend(dayOptions, rest);
         for (const key in attributes) {
             if (dayOptions.attributes[key] && attributes[key]) {
                 dayOptions.attributes[key] = extend(dayOptions.attributes[key], attributes[key]);
