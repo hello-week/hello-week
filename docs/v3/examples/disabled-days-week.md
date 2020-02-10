@@ -12,7 +12,7 @@ new HelloWeek({
 ```
 
 <iframe
-    src="docs/v3/demos/02-disabled-days-week.html"
+    src="docs/v3/demos/disabled-days-week.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

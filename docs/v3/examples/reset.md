@@ -20,7 +20,7 @@ document.querySelector('.btn').addEventListener('click', () => {
 ```
 
 <iframe
-    src="docs/v3/demos/10-reset.html"
+    src="docs/v3/demos/reset.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

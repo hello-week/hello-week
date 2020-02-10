@@ -6,21 +6,22 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
 import fs from 'fs';
-import path from 'path'
+import path from 'path';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const NAME = IS_PRODUCTION ? 'hello-week.min' : 'hello-week'
+const NAME = IS_PRODUCTION ? 'hello.week.min' : 'hello.week';
+
 export default [
   {
     input: ['src/scripts/index.ts'],
     output: [
       {
         file: path.resolve(`dist/${NAME}.js`),
-        format: 'es'
+        format: 'iife'
       },
       {
-        file: path.resolve(`dist/${NAME}.cjs.js`),
-        format: 'cjs'
+        file: path.resolve(`dist/${NAME}.esm.js`),
+        format: 'esm'
       }
     ],
     plugins: [

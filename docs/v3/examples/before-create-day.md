@@ -9,7 +9,7 @@ new HelloWeek();
 ```
 
 <iframe
-    src="docs/v3/demos/12-before-create-day.html"
+    src="docs/v3/demos/before-create-day.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

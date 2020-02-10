@@ -15,7 +15,7 @@ new HelloWeek({
 ```
 
 <iframe
-    src="docs/v3/demos/08-range.html"
+    src="docs/v3/demos/range.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

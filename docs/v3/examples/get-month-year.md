@@ -15,7 +15,7 @@ const calendar = new HelloWeek({
 ```
 
 <iframe
-    src="docs/v3/demos/03-get-month-year.html"
+    src="docs/v3/demos/get-month-year.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

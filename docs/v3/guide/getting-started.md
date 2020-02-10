@@ -25,7 +25,21 @@ You can also download the library manually:
 
 A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN and figure out the URLs of the files you need is to visit the package on [Yarn](https://yarnpkg.com/).
 
-> For example, visit the [Hello-Week](https://cdn.jsdelivr.net/npm/hello-week@2.10.3/) package.
+> For example, visit the [Hello-Week](https://cdn.jsdelivr.net/npm/hello-week@3.0.0/) package.
+
+For production, we recommend linking to a specific version number and build to avoid unexpected breakage from newer versions:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/hello-week@3.0.0/dist/hello.week.min.js"></script>
+```
+
+If you are using native **ES Modules**, there is also an ES Modules compatible build:
+
+```html
+<script type="module">
+  import HelloWeek from 'https://cdn.jsdelivr.net/npm/hello-week@3.0.0/dist/hello.week.min.es.js';
+</script>
+```
 
 ### Inside HTML
 

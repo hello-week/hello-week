@@ -40,37 +40,37 @@ const config = {
         text: 'Guide',
         children: [
           {
-            path: 'guide/00-getting-started.md',
+            path: 'guide/getting-started.md',
             slug: 'getting-started',
             text: 'Getting Started'
           },
           {
-            path: 'guide/01-options.md',
+            path: 'guide/options.md',
             slug: 'options',
             text: 'Options'
           },
           {
-            path: 'guide/02-callbacks.md',
+            path: 'guide/callbacks.md',
             slug: 'callbacks',
             text: 'Callbacks'
           },
           {
-            path: 'guide/03-methods.md',
+            path: 'guide/methods.md',
             slug: 'methods',
             text: 'Methods'
           },
           {
-            path: 'guide/04-format.md',
+            path: 'guide/format.md',
             slug: 'format',
             text: 'Format'
           },
           {
-            path: 'guide/05-languages.md',
+            path: 'guide/languages.md',
             slug: 'languages',
             text: 'Languages'
           },
           {
-            path: 'guide/06-customization.md',
+            path: 'guide/customization.md',
             slug: 'customization',
             text: 'Customization'
           }
@@ -80,62 +80,62 @@ const config = {
         text: 'Examples',
         children: [
           {
-            path: 'examples/00-selected-days.md',
+            path: 'examples/selected-days.md',
             slug: 'selected-days',
             text: 'Selected Days'
           },
           {
-            path: 'examples/01-disabled-dates.md',
+            path: 'examples/disabled-dates.md',
             slug: 'disabled-dates',
             text: 'Disabled Dates'
           },
           {
-            path: 'examples/02-disabled-days-week.md',
+            path: 'examples/disabled-days-week.md',
             slug: 'disabled-days-week',
             text: 'Disabled Days of Week'
           },
           {
-            path: 'examples/03-get-month-year.md',
+            path: 'examples/get-month-year.md',
             slug: 'get-month-year',
             text: 'Get Month & Year'
           },
           {
-            path: 'examples/04-go-to-date.md',
+            path: 'examples/go-to-date.md',
             slug: 'go-to-date',
             text: 'Go to Date'
           },
           {
-            path: 'examples/05-highlight-dates.md',
+            path: 'examples/highlight-dates.md',
             slug: 'highlight-dates',
             text: 'Highlight Dates'
           },
           {
-            path: 'examples/06-min-and-max.md',
+            path: 'examples/min-and-max.md',
             slug: 'min-and-max',
             text: 'Min & Max'
           },
           {
-            path: 'examples/07-locked.md',
+            path: 'examples/locked.md',
             slug: 'locked',
             text: 'Locked'
           },
           {
-            path: 'examples/08-range.md',
+            path: 'examples/range.md',
             slug: 'range',
             text: 'Range'
           },
           {
-            path: 'examples/09-get-clicked-date.md',
+            path: 'examples/get-clicked-date.md',
             slug: 'get-clicked-date',
             text: 'Get Clicked Date'
           },
           {
-            path: 'examples/10-reset.md',
+            path: 'examples/reset.md',
             slug: 'reset',
             text: 'Reset'
           },
           {
-            path: 'examples/11-rtl.md',
+            path: 'examples/rtl.md',
             slug: 'rtl',
             text: 'RTL'
           }
@@ -147,37 +147,37 @@ const config = {
         text: 'Guide',
         children: [
           {
-            path: 'guide/00-getting-started.md',
+            path: 'guide/getting-started.md',
             slug: 'getting-started',
             text: 'Getting Started'
           },
           {
-            path: 'guide/01-options.md',
+            path: 'guide/options.md',
             slug: 'options',
             text: 'Options'
           },
           {
-            path: 'guide/02-callbacks.md',
+            path: 'guide/callbacks.md',
             slug: 'callbacks',
             text: 'Callbacks'
           },
           {
-            path: 'guide/03-methods.md',
+            path: 'guide/methods.md',
             slug: 'methods',
             text: 'Methods'
           },
           {
-            path: 'guide/04-format.md',
+            path: 'guide/format.md',
             slug: 'format',
             text: 'Format'
           },
           {
-            path: 'guide/05-languages.md',
+            path: 'guide/languages.md',
             slug: 'languages',
             text: 'Languages'
           },
           {
-            path: 'guide/06-customization.md',
+            path: 'guide/customization.md',
             slug: 'customization',
             text: 'Customization'
           }
@@ -187,67 +187,67 @@ const config = {
         text: 'Examples',
         children: [
           {
-            path: 'examples/00-selected-days.md',
+            path: 'examples/selected-days.md',
             slug: 'selected-days',
             text: 'Selected Days'
           },
           {
-            path: 'examples/01-disabled-dates.md',
+            path: 'examples/disabled-dates.md',
             slug: 'disabled-dates',
             text: 'Disabled Dates'
           },
           {
-            path: 'examples/02-disabled-days-week.md',
+            path: 'examples/disabled-days-week.md',
             slug: 'disabled-days-week',
             text: 'Disabled Days of Week'
           },
           {
-            path: 'examples/03-get-month-year.md',
+            path: 'examples/get-month-year.md',
             slug: 'get-month-year',
             text: 'Get Month & Year'
           },
           {
-            path: 'examples/04-go-to-date.md',
+            path: 'examples/go-to-date.md',
             slug: 'go-to-date',
             text: 'Go to Date'
           },
           {
-            path: 'examples/05-highlight-dates.md',
+            path: 'examples/highlight-dates.md',
             slug: 'highlight-dates',
             text: 'Highlight Dates'
           },
           {
-            path: 'examples/06-min-and-max.md',
+            path: 'examples/min-and-max.md',
             slug: 'min-and-max',
             text: 'Min & Max'
           },
           {
-            path: 'examples/07-locked.md',
+            path: 'examples/locked.md',
             slug: 'locked',
             text: 'Locked'
           },
           {
-            path: 'examples/08-range.md',
+            path: 'examples/range.md',
             slug: 'range',
             text: 'Range'
           },
           {
-            path: 'examples/09-on-select.md',
+            path: 'examples/on-select.md',
             slug: 'on-select',
             text: 'On Select'
           },
           {
-            path: 'examples/10-reset.md',
+            path: 'examples/reset.md',
             slug: 'reset',
             text: 'Reset'
           },
           {
-            path: 'examples/11-rtl.md',
+            path: 'examples/rtl.md',
             slug: 'rtl',
             text: 'RTL'
           },
           {
-            path: 'examples/12-before-create-day.md',
+            path: 'examples/before-create-day.md',
             slug: 'before-create-day',
             text: 'Before Create Day'
           }
@@ -257,7 +257,7 @@ const config = {
         text: 'Integrations',
         children: [
           {
-            path: 'integrations/01-vue-hello-week.md',
+            path: 'integrations/vue-hello-week.md',
             slug: 'vue-hello-week',
             text: 'Vue Hello Week'
           }

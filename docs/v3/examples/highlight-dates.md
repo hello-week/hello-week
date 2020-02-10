@@ -32,7 +32,7 @@ new HelloWeek({
 ```
 
 <iframe
-    src="docs/v3/demos/05-highlights.html"
+    src="docs/v3/demos/highlights.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>
