@@ -6,19 +6,25 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
 import fs from 'fs';
+import path from 'path'
 
-const production = process.env.NODE_ENV === 'production';
-
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const NAME = IS_PRODUCTION ? 'hello-week.min' : 'hello-week'
 export default [
   {
     input: ['src/scripts/index.ts'],
-    output: {
-      file: production ? 'dist/hello-week.min.js' : 'dist/hello-week.js',
-      name: 'hello-week',
-      format: 'es'
-    },
+    output: [
+      {
+        file: path.resolve(`dist/${NAME}.js`),
+        format: 'es'
+      },
+      {
+        file: path.resolve(`dist/${NAME}.cjs.js`),
+        format: 'cjs'
+      }
+    ],
     plugins: [
-      !production && serve(),
+      !IS_PRODUCTION && serve(),
       scss({
         output: 'dist/hello.week.css'
       }),
@@ -28,7 +34,7 @@ export default [
       }),
       json(),
       commonjs(),
-      production && terser()
+      IS_PRODUCTION && terser()
     ]
   },
   {
@@ -44,7 +50,7 @@ export default [
       }),
       json(),
       commonjs(),
-      production && terser()
+      terser()
     ]
   }
 ];

@@ -4,7 +4,6 @@
     "target": "esnext",
     "module": "esnext",
     "sourceMap": false,
-    "declaration": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "noUnusedLocals": true,

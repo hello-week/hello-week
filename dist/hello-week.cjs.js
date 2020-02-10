@@ -1,3 +1,26 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) { return e; } else {
+    var n = {};
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      });
+    }
+    n['default'] = e;
+    return n;
+  }
+}
+
 const cssClasses = {
     CALENDAR: 'hello-week',
     DAY: 'day',
@@ -321,7 +344,7 @@ class HelloWeek {
         this.selector = selector;
         this.calendar = calendar;
         this.isRTL = this.props.rtl ? margins.RIGHT : margins.LEFT;
-        import(this.props.langFolder + this.props.lang + '.js')
+        new Promise(function (resolve) { resolve(_interopNamespace(require(this.props.langFolder + this.props.lang + '.js'))); })
             .then((data) => data.default)
             .then((lang) => {
             this.langs = lang;
@@ -699,5 +722,8 @@ class HelloWeek {
 const HelloWeek$1 = HelloWeek;
 window.HelloWeek = HelloWeek$1;
 
-export default HelloWeek;
-export { HelloWeek$1 as HelloWeek, h as createElement, h as el, render };
+exports.HelloWeek = HelloWeek$1;
+exports.createElement = h;
+exports.default = HelloWeek;
+exports.el = h;
+exports.render = render;
