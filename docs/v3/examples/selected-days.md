@@ -14,6 +14,8 @@ new HelloWeek({
 
 > You have multiple days selected, also need to have the option `multiplePick: true`.
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/selected-days.html"
     frameborder="no"

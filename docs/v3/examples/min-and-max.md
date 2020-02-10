@@ -24,6 +24,8 @@ const from = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/min-max.html"
     frameborder="no"

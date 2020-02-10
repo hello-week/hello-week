@@ -31,8 +31,10 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/05-highlights.html"
+    src="docs/v2/demos/highlights.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

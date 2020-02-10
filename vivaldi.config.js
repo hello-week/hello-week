@@ -125,8 +125,8 @@ const config = {
             text: 'Range'
           },
           {
-            path: 'examples/get-clicked-date.md',
-            slug: 'get-clicked-date',
+            path: 'examples/on-select.md',
+            slug: 'on-select',
             text: 'Get Clicked Date'
           },
           {

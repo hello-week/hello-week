@@ -14,6 +14,8 @@ const calendar = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/get-month-year.html"
     frameborder="no"

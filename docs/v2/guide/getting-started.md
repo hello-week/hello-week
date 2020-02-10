@@ -9,10 +9,10 @@ You'll first need to install Hello Week `core` package as well as any plugins.
 
 ```bash
 # Using npm
-npm install hello-week preact --D
+npm install hello-week --D
 
 # Using Yarn
-yarn add hello-week preact --D
+yarn add hello-week --D
 ```
 
 ## Download

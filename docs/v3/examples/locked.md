@@ -15,6 +15,8 @@ const calendar = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/locked.html"
     frameborder="no"

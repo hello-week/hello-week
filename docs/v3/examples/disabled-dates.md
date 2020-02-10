@@ -11,6 +11,8 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/disabled-dates.html"
     frameborder="no"

@@ -11,8 +11,10 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/02-disabled-days-week.html"
+    src="docs/v2/demos/disabled-days-week.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

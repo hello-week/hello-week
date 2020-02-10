@@ -14,8 +14,10 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/08-range.html"
+    src="docs/v2/demos/range.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

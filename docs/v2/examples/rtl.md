@@ -11,8 +11,10 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/11-rtl.html"
+    src="docs/v2/demos/rtl.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

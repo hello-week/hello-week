@@ -15,8 +15,10 @@ const calendar = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/07-locked.html"
+    src="docs/v2/demos/locked.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

@@ -24,8 +24,10 @@ const from = new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
-    src="docs/v2/demos/06-min-max.html"
+    src="docs/v2/demos/min-max.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

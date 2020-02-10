@@ -31,6 +31,8 @@ new HelloWeek({
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/highlights.html"
     frameborder="no"

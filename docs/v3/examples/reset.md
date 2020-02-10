@@ -19,6 +19,8 @@ document.querySelector('.btn').addEventListener('click', () => {
 });
 ```
 
+## Demonstration
+
 <iframe
     src="docs/v3/demos/reset.html"
     frameborder="no"

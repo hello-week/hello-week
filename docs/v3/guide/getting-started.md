@@ -9,10 +9,10 @@ You'll first need to install Hello Week `core` package as well as any plugins.
 
 ```bash
 # Using npm
-npm install hello-week preact --D
+npm install hello-week --D
 
 # Using Yarn
-yarn add hello-week preact --D
+yarn add hello-week --D
 ```
 
 ## Download
@@ -50,7 +50,7 @@ If you are using native **ES Modules**, there is also an ES Modules compatible b
 <div class="calendar"></div>
 
 <script type="module">
-  import { HelloWeek } from "hello-week.min.js";
+  import { HelloWeek } from "hello.week.min.esm.js";
   new Hello Week({
     selector: '.calendar'
   });
