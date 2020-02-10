@@ -1,11 +1,16 @@
 {
-   "compilerOptions":{
-      "target": "esnext",
-      "module": "esnext",
-      "sourceMap": false,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "allowJs": true,
-      "checkJs": true
-   }
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "esnext",
+    "module": "esnext",
+    "sourceMap": false,
+    "declaration": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": ["src/scripts/index.ts"]
 }

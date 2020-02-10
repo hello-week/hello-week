@@ -23,9 +23,15 @@ export const defaults: IProps = {
   locked: false,
   rtl: false,
   nav: ['◀', '▶'],
-  onLoad: () => {},
-  onClear: () => {},
-  onNavigation: () => {},
+  onLoad: () => {
+    /** callback */
+  },
+  onClear: () => {
+    /** callback */
+  },
+  onNavigation: () => {
+    /** callback */
+  },
   onSelect: (data: IDayOptions) => data,
   beforeCreateDay: (data: IDayOptions) => data
 };
