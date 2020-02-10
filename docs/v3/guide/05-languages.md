@@ -24,7 +24,8 @@ new HelloWeek({
 | 🇬🇧 English    | `en`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/en.js) |
 | 🇪🇸 Spanish    | `es`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/es.js) |
 | 🇮🇹 Italian    | `it`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/it.js) |
-| 🇵🇹 Portuguese | `pt`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/pt.js) |
+| 🇵🇹 Portuguese | `pt`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/pt.js) |v
+|    Occitan    | `oc`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/oc.js) |
 | 🇨🇳 Chinese    | `zh`   | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/zh.js) |
 
 ### Structure
