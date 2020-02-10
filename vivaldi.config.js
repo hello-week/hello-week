@@ -127,7 +127,7 @@ const config = {
           {
             path: 'examples/on-select.md',
             slug: 'on-select',
-            text: 'Get Clicked Date'
+            text: 'On Select'
           },
           {
             path: 'examples/reset.md',

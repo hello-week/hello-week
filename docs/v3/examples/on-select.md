@@ -1,4 +1,4 @@
-# Get Clicked Date
+# On Select
 
 This demonstrates how to get the clicked date or dates.
 

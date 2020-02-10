@@ -1,4 +1,3 @@
-import json from 'rollup-plugin-json';
 import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import resolve from '@rollup/plugin-node-resolve';
@@ -33,7 +32,6 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
-      json(),
       commonjs(),
       IS_PRODUCTION && terser()
     ]
@@ -49,7 +47,6 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
-      json(),
       commonjs(),
       terser()
     ]
