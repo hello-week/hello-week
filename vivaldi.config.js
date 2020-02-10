@@ -144,12 +144,17 @@ const config = {
     ],
     v3: [
       {
-        text: 'Guide',
+        text: 'Getting Started',
         children: [
           {
-            path: 'guide/getting-started.md',
-            slug: 'getting-started',
-            text: 'Getting Started'
+            path: 'guide/installation.md',
+            slug: 'installation',
+            text: 'Installation'
+          },
+          {
+            path: 'guide/introduction.md',
+            slug: 'introduction',
+            text: 'Introduction'
           },
           {
             path: 'guide/options.md',
