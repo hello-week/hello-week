@@ -32,13 +32,13 @@ yarn add hello-week
 
 ```html
 <div class="hello-week">
-    <div class="navigation">
-        <button class="prev">Prev</button>
-        <div class="period"></div>
-        <button class="next">Next</button>
-    </div>
-    <div class="week"></div>
-    <div class="month"></div>
+  <div class="navigation">
+    <button class="prev">Prev</button>
+    <div class="period"></div>
+    <button class="next">Next</button>
+  </div>
+  <div class="week"></div>
+  <div class="month"></div>
 </div>
 ```
 

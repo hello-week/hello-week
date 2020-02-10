@@ -6,7 +6,7 @@ const config = {
     notFound: '/docs/404.md',
     url: 'https://github.com/mauroreisvieira/hello-week/blob/master/'
   },
-  defaultVersion: 'v3',
+  defaultVersion: 'v2',
   versions: {
     v2: {
       name: '2.x',
