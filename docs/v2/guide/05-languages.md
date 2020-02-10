@@ -19,13 +19,14 @@ new HelloWeek({
 
 ### Support
 
-| Language      | Naming |
-| ------------- | ------ |
-| 🇬🇧 English    | `en`   |
-| 🇪🇸 Spanish    | `es`   |
-| 🇮🇹 Italian    | `it`   |
-| 🇵🇹 Portuguese | `pt`   |
-| 🇨🇳 Chinese    | `zh`   |
+| Language   | Naming |
+| ---------- | ------ |
+| English    | `en`   |
+| Spanish    | `es`   |
+| Italian    | `it`   |
+| Portuguese | `pt`   |
+| Occitan    | `oc`   |
+| Chinese    | `zh`   |
 
 ### Structure
 

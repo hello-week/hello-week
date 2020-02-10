@@ -232,9 +232,9 @@ const config = {
             text: 'Range'
           },
           {
-            path: 'examples/09-get-clicked-date.md',
-            slug: 'get-clicked-date',
-            text: 'Get Clicked Date'
+            path: 'examples/09-on-select.md',
+            slug: 'on-select',
+            text: 'On Select'
           },
           {
             path: 'examples/10-reset.md',

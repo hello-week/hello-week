@@ -26,7 +26,7 @@ The `calendar` can only be used inside of HelloWeek.
 - In case a range is set, all dates between the first and the last clicked date are returned
 
 <iframe
-    src="docs/v3/demos/09-get-clicked-date.html"
+    src="docs/v3/demos/09-on-select.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>
