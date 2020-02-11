@@ -9,7 +9,6 @@
   </head>
   <body>
     <main>
-      <button class="btn">Today is my day!</button>
       <div class="calendar default-theme"></div>
     </main>
 
@@ -23,29 +22,28 @@
         selector: '.calendar',
         langFolder: './langs/',
         todayHighlight: false,
-      });
-
-      document.querySelector('.btn').addEventListener('click', () => {
-        calendar.setDaysHighlight([
-          {
-            days: ['2020-02-07'],
-            events: [
-              {
-                title: 'Event 1'
-              },
-              {
-                title: 'Event 2'
-              }
-            ],
-            attributes: {
-              style: {
-                color: '#fff',
-                backgroundColor: '#04f'
+        onSelect: data => {
+          const { date } = data;
+          calendar.setDaysHighlight([
+            {
+              days: [date],
+              events: [
+                {
+                  title: 'Event 1'
+                },
+                {
+                  title: 'Event 2'
+                }
+              ],
+              attributes: {
+                style: {
+                  backgroundColor: '#04f'
+                }
               }
             }
-          }
-        ]);
-        calendar.update();
+          ]);
+          calendar.update();
+        }
       });
     </script>
   </body>

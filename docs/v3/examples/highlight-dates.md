@@ -5,27 +5,32 @@ Set day/days highlight, with different customizes.
 ## Usage
 
 ```js
-new HelloWeek({
+const calendar = new HelloWeek({
   selector: '.calendar',
-  daysHighlight: [
-    {
-      days: ['2020-02-07'],
-      events: [
-        {
-          title: 'Event 1'
-        },
-        {
-          title: 'Event 2'
-        }
-      ],
-      attributes: {
-        style: {
-          color: '#fff',
-          backgroundColor: '#04f'
+  langFolder: './langs/',
+  todayHighlight: false,
+  onSelect: data => {
+    const { date } = data;
+    calendar.setDaysHighlight([
+      {
+        days: [date],
+        events: [
+          {
+            title: 'Event 1'
+          },
+          {
+            title: 'Event 2'
+          }
+        ],
+        attributes: {
+          style: {
+            backgroundColor: '#04f'
+          }
         }
       }
-    }
-  ]
+    ]);
+    calendar.update();
+  }
 });
 ```
 
