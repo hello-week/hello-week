@@ -4,7 +4,7 @@ You can customization your own theme and make advanced changes to the design and
 
 Edit the code for a theme only if you know **HTML**, **CSS** and have a basic understanding of class who you need change, to avoid **repaint** and **reflow**.
 
-#### HTML Structure
+### HTML Structure
 
 ```html
 <div class="hello-week">
@@ -18,7 +18,7 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
 </div>
 ```
 
-#### CSS Structure
+### CSS Structure
 
 ```css
 .hello-week .navigation .prev {

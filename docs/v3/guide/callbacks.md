@@ -10,12 +10,12 @@ new HelloWeek({
 });
 ```
 
-### Properties
+## Properties
 
-| Property                                     | Value Type   | Description                                |
-| -------------------------------------------- | ------------ | ------------------------------------------ |
-| `onLoad() => void`                           | `attachable` | Dispatch immediately after initialization. |
-| `onNavigation() => void`                     | `attachable` | Dispatch after month change.               |
-| `onSelect() => void`                         | `attachable` | Dispatch on select the day.                |
-| `onClear() => void`                          | `attachable` | Dispatch on clear calendar.                |
-| `beforeCreateDay(data: IDayOptions) => void` | `attachable` | Dispatch before create day.                |
+| Property                               | Value Type   | Description                                 |
+| -------------------------------------- | ------------ | ------------------------------------------- |
+| `onLoad() => void`                     | `attachable` | Triggered immediately after initialization. |
+| `onNavigation() => void`               | `attachable` | Triggered when the user change month/year.  |
+| `onSelect() => void`                   | `attachable` | Triggered when the user clicks on a day.    |
+| `onClear() => void`                    | `attachable` | Triggered when the user clear calendar.     |
+| `dayRender(data: IDayOptions) => void` | `attachable` | A hook for modifying a day DOM              |

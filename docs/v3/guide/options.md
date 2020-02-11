@@ -21,7 +21,7 @@ new HelloWeek({
 | `weekShort`         | `boolean`            | `true`          | Sets the format of the week.                                                     |
 | `monthShort`        | `boolean`            | `false`         | Sets the format of the month.                                                    |
 | `multiplePick`      | `boolean`            | `false`         | Allows multiple days selection.                                                  |
-| `default`           | `boolean`            | `null`          | Define the start date in calendar.                                               |
+| `defaultDate`       | `boolean`            | `null`          | Define initial date displayed when the calendar first loads.                     |
 | `todayHighlight`    | `boolean`            | `true`          | Highlights the current date.                                                     |
 | `disablePastDays`   | `boolean`            | `false`         | Disable date before the current day.                                             |
 | `disableDaysOfWeek` | `array`              | `null`          | Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). |

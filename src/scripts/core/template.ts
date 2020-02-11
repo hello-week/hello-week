@@ -1,8 +1,8 @@
-import { IProps, ITemplate } from '../defs/index';
+import { IOptions, ITemplate } from '../defs/index';
 import { render, el, existElement, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
-export function template(options: IProps, args: any): ITemplate {
+export function template(options: IOptions, args: any): ITemplate {
   const self: any = {};
 
   if (!isDef(options.selector)) {
@@ -31,7 +31,7 @@ export function template(options: IProps, args: any): ITemplate {
 
   if (isDef(options.nav[0])) {
     self.calendar.prevMonth = render(el('div', { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
-    self.calendar.prevMonth.addEventListener('click', () => args.prev.cb());
+    self.calendar.prevMonth.addEventListener('click', () => args.prev());
   }
 
   self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
@@ -41,7 +41,7 @@ export function template(options: IProps, args: any): ITemplate {
 
   if (isDef(options.nav[1])) {
     self.calendar.nextMonth = render(el('div', { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
-    self.calendar.nextMonth.addEventListener('click', () => args.next.cb());
+    self.calendar.nextMonth.addEventListener('click', () => args.next());
   }
 
   self.calendar.week = existElement(cssClasses.WEEK, self.selector);

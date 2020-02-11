@@ -1,4 +1,4 @@
-export interface IProps {
+export interface IOptions {
   selector: string;
   langFolder: string;
   daysHighlight: any;
@@ -25,7 +25,7 @@ export interface IProps {
   onClear: () => void;
   onNavigation: () => void;
   onSelect: (data: any) => void;
-  beforeCreateDay: (data: IDayOptions) => IDayOptions;
+  dayRender: (data: IDayOptions) => IDayOptions;
 }
 
 export interface IDayOptions {

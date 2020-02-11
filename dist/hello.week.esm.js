@@ -63,7 +63,7 @@ const defaults = {
     onNavigation: () => {
     },
     onSelect: (data) => data,
-    beforeCreateDay: (data) => data
+    dayRender: (data) => data
 };
 
 function isDef(v) {
@@ -246,7 +246,7 @@ function template(options, args) {
     }
     if (isDef(options.nav[0])) {
         self.calendar.prevMonth = render(h('div', { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
-        self.calendar.prevMonth.addEventListener('click', () => args.prev.cb());
+        self.calendar.prevMonth.addEventListener('click', () => args.prev());
     }
     self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
     if (!isDef(self.calendar.period)) {
@@ -254,7 +254,7 @@ function template(options, args) {
     }
     if (isDef(options.nav[1])) {
         self.calendar.nextMonth = render(h('div', { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
-        self.calendar.nextMonth.addEventListener('click', () => args.next.cb());
+        self.calendar.nextMonth.addEventListener('click', () => args.next());
     }
     self.calendar.week = existElement(cssClasses.WEEK, self.selector);
     if (!isDef(self.calendar.week)) {
@@ -303,25 +303,21 @@ function setMaxDate(dt) {
 }
 
 class HelloWeek {
-    constructor(props) {
+    constructor(options) {
         this.todayDate = toDate(new Date());
         this.date = new Date();
         this.intervalRange = {};
         this.daysSelected = [];
-        this.props = extend(extend({}, defaults), props);
-        this.prevProps = extend(extend({}, defaults), props);
-        const { calendar, selector } = template(this.props, {
-            prev: {
-                cb: () => this.prev()
-            },
-            next: {
-                cb: () => this.next()
-            }
+        this.options = extend(extend({}, defaults), options);
+        this.prevOptions = extend(extend({}, defaults), options);
+        const { calendar, selector } = template(this.options, {
+            prev: this.prev(),
+            next: this.next()
         });
         this.selector = selector;
         this.calendar = calendar;
-        this.isRTL = this.props.rtl ? margins.RIGHT : margins.LEFT;
-        import(this.props.langFolder + this.props.lang + '.js')
+        this.isRTL = this.options.rtl ? margins.RIGHT : margins.LEFT;
+        import(this.options.langFolder + this.options.lang + '.js')
             .then((data) => data.default)
             .then((lang) => {
             this.langs = lang;
@@ -332,31 +328,37 @@ class HelloWeek {
         this.removeStatesClass();
         this.selector.remove();
     }
-    prev(callback) {
+    prev() {
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.update();
-        this.props.onNavigation();
-        if (callback) {
-            callback();
-        }
+        this.options.onNavigation();
     }
-    next(callback) {
+    next() {
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.update();
-        this.props.onNavigation();
-        if (callback) {
-            callback();
-        }
+        this.options.onNavigation();
+    }
+    prevYear() {
+        const prevYear = this.date.getFullYear() - 1;
+        this.date.setFullYear(prevYear);
+        this.update();
+        this.options.onNavigation();
+    }
+    nextYear() {
+        const nextYear = this.date.getFullYear() + 1;
+        this.date.setFullYear(nextYear);
+        this.update();
+        this.options.onNavigation();
     }
     update() {
         this.clearCalendar();
         this.mount();
     }
-    reset(props, callback) {
+    reset(options, callback) {
         this.clearCalendar();
-        this.props = extend(this.prevProps, props);
+        this.options = extend(this.prevOptions, options);
         this.willMount(callback);
     }
     goToDate(date = this.todayDate) {
@@ -367,7 +369,7 @@ class HelloWeek {
     getDaySelected() {
         return this.daysSelected
             .sort((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
-            .map((day) => formatDate(day, this.langs, this.props.format));
+            .map((day) => formatDate(day, this.langs, this.options.format));
     }
     getLastDaySelected() {
         return this.lastSelectedDay;
@@ -385,55 +387,55 @@ class HelloWeek {
         this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
     }
     setMultiplePick(state) {
-        this.props.multiplePick = state;
+        this.options.multiplePick = state;
     }
     setDisablePastDays(state) {
-        this.props.disablePastDays = state;
+        this.options.disablePastDays = state;
     }
     setTodayHighlight(state) {
-        this.props.todayHighlight = state;
+        this.options.todayHighlight = state;
     }
     setRange(value) {
-        if (isArray(this.props.range)) {
-            this.intervalRange.begin = this.props.range[0];
-            this.intervalRange.end = this.props.range[1];
+        if (isArray(this.options.range)) {
+            this.intervalRange.begin = this.options.range[0];
+            this.intervalRange.end = this.options.range[1];
         }
         else {
-            this.props.range = value;
+            this.options.range = value;
         }
     }
     setLocked(state) {
-        this.props.locked = state;
+        this.options.locked = state;
     }
     setMinDate(date) {
-        this.props.minDate = setMinDate(date);
+        this.options.minDate = setMinDate(date);
     }
     setMaxDate(date) {
-        this.props.maxDate = setMaxDate(date);
+        this.options.maxDate = setMaxDate(date);
     }
     willMount(callback) {
-        this.daysHighlight = this.props.daysHighlight ? this.props.daysHighlight : [];
-        this.daysSelected = this.props.daysSelected ? this.props.daysSelected : [];
-        if (this.daysSelected.length && !this.props.multiplePick) {
+        this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
+        this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
+        if (this.daysSelected.length && !this.options.multiplePick) {
             throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
         }
-        if (this.props.defaultDate) {
-            this.date = setTimeZone(this.props.defaultDate, this.props.timezoneOffset);
-            this.defaultDate = setTimeZone(this.props.defaultDate, this.props.timezoneOffset);
+        if (this.options.defaultDate) {
+            this.date = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
+            this.defaultDate = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
             this.defaultDate.setDate(this.defaultDate.getDate());
         }
         this.date.setDate(1);
-        if (this.props.minDate) {
-            this.setMinDate(this.props.minDate);
+        if (this.options.minDate) {
+            this.setMinDate(this.options.minDate);
         }
-        if (this.props.maxDate) {
-            this.setMaxDate(this.props.maxDate);
+        if (this.options.maxDate) {
+            this.setMaxDate(this.options.maxDate);
         }
-        if (this.props.range) {
-            this.setRange(this.props.range);
+        if (this.options.range) {
+            this.setRange(this.options.range);
         }
         this.mount();
-        this.props.onLoad();
+        this.options.onLoad();
         if (callback) {
             callback();
         }
@@ -442,7 +444,7 @@ class HelloWeek {
         this.daysOfMonth = this.selector.querySelectorAll('.' + cssClasses.MONTH + ' .' + cssClasses.DAY);
         for (const i of Object.keys(this.daysOfMonth)) {
             this.handleClickInteraction(this.daysOfMonth[i], callback);
-            if (this.props.range) {
+            if (this.options.range) {
                 this.handleMouseInteraction(this.daysOfMonth[i]);
             }
         }
@@ -454,8 +456,8 @@ class HelloWeek {
                 return;
             }
             this.lastSelectedDay = this.days[index].date;
-            if (!this.props.range) {
-                if (this.props.multiplePick) {
+            if (!this.options.range) {
+                if (this.options.multiplePick) {
                     if (this.days[index].date) {
                         this.daysSelected = this.daysSelected.filter((day) => formatDateToCompare(day) !== formatDateToCompare(this.lastSelectedDay));
                     }
@@ -473,7 +475,7 @@ class HelloWeek {
             }
             toggleClass(event.target, cssStates.IS_SELECTED);
             this.days[index].isSelected = !this.days[index].isSelected;
-            if (this.props.range) {
+            if (this.options.range) {
                 if (this.intervalRange.begin && this.intervalRange.end) {
                     this.intervalRange = {};
                     this.removeStatesClass();
@@ -492,7 +494,7 @@ class HelloWeek {
                 }
                 addClass(event.target, cssStates.IS_SELECTED);
             }
-            this.props.onSelect(this.days[index]);
+            this.options.onSelect(this.days[index]);
             if (callback) {
                 callback(this.days[index]);
             }
@@ -556,18 +558,18 @@ class HelloWeek {
             dayOptions.attributes.class.push(cssStates.IS_WEEKEND);
             dayOptions.isWeekend = true;
         }
-        if (this.props.locked ||
-            (this.props.disableDaysOfWeek && this.props.disableDaysOfWeek.includes(day)) ||
-            (this.props.disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
-            (this.props.minDate && isSameOrAfter(this.props.minDate, dayOptions.date)) ||
-            (this.props.maxDate && isSameOrBefore(this.props.maxDate, dayOptions.date))) {
+        if (this.options.locked ||
+            (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
+            (this.options.disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
+            (this.options.minDate && isSameOrAfter(this.options.minDate, dayOptions.date)) ||
+            (this.options.maxDate && isSameOrBefore(this.options.maxDate, dayOptions.date))) {
             dayOptions.attributes.class.push(cssStates.IS_DISABLED);
             dayOptions.locked = true;
         }
-        if (this.props.disableDates) {
+        if (this.options.disableDates) {
             this.disabledDays(dayOptions);
         }
-        if (this.props.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
+        if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
             dayOptions.attributes.class.push(cssStates.IS_TODAY);
             dayOptions.isToday = true;
         }
@@ -591,13 +593,13 @@ class HelloWeek {
             this.highlightDays(dayOptions);
         }
         if (dayOptions.day === 1) {
-            if (this.props.weekStart === daysWeek.SUNDAY) {
+            if (this.options.weekStart === daysWeek.SUNDAY) {
                 dayOptions.attributes.style[this.isRTL] = day * (100 / Object.keys(daysWeek).length) + '%';
             }
             else {
                 if (day === daysWeek.SUNDAY) {
                     dayOptions.attributes.style[this.isRTL] =
-                        (Object.keys(daysWeek).length - this.props.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
+                        (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
                 }
                 else {
                     dayOptions.attributes.style[this.isRTL] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
@@ -605,13 +607,13 @@ class HelloWeek {
             }
         }
         dayOptions.node = h('div', dayOptions.attributes, dayOptions.day.toString());
-        dayOptions = this.props.beforeCreateDay(dayOptions);
+        dayOptions = this.options.dayRender(dayOptions);
         dayOptions.element = render(dayOptions.node, this.calendar.month);
         this.days[dayOptions.day] = dayOptions;
     }
     disabledDays(dayOptions) {
-        if (isArray(this.props.disableDates[0])) {
-            this.props.disableDates.map((date) => {
+        if (isArray(this.options.disableDates[0])) {
+            this.options.disableDates.map((date) => {
                 if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
@@ -619,7 +621,7 @@ class HelloWeek {
             });
         }
         else {
-            this.props.disableDates.map((date) => {
+            this.options.disableDates.map((date) => {
                 if (isSame(dayOptions.date, date)) {
                     dayOptions.attributes.class.push(cssStates.IS_DISABLED);
                     dayOptions.locked = true;
@@ -660,10 +662,10 @@ class HelloWeek {
         dayOptions.isHighlight = true;
     }
     monthsAsString(monthIndex) {
-        return this.props.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+        return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
     }
     weekAsString(weekIndex) {
-        return this.props.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+        return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
     }
     mount() {
         if (this.calendar.period) {
@@ -671,10 +673,10 @@ class HelloWeek {
         }
         const listDays = [];
         this.calendar.week.textContent = '';
-        for (let i = this.props.weekStart; i < this.langs.daysShort.length; i++) {
+        for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
             listDays.push(i);
         }
-        for (let i = 0; i < this.props.weekStart; i++) {
+        for (let i = 0; i < this.options.weekStart; i++) {
             listDays.push(i);
         }
         for (const day of listDays) {

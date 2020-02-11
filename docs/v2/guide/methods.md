@@ -9,7 +9,7 @@ const calendar = new HelloWeek();
 calendar.getDays();
 ```
 
-### Public API
+## Public API
 
 | Property                                    | Value Type    | Description                                                                               |
 | ------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------- |

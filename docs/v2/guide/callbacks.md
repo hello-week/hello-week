@@ -10,7 +10,7 @@ new HelloWeek({
 });
 ```
 
-### Properties
+## Properties
 
 | Property       | Value Type   | Description                                |
 | -------------- | ------------ | ------------------------------------------ |

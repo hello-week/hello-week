@@ -37,12 +37,12 @@ const config = {
   sideNav: {
     v2: [
       {
-        text: 'Guide',
+        text: 'Getting Started',
         children: [
           {
-            path: 'guide/getting-started.md',
-            slug: 'getting-started',
-            text: 'Getting Started'
+            path: 'guide/installation.md',
+            slug: 'installation',
+            text: 'Installation'
           },
           {
             path: 'guide/options.md',
@@ -189,6 +189,16 @@ const config = {
         ]
       },
       {
+        text: 'Misc',
+        children: [
+          {
+            path: 'misc/api.md',
+            slug: 'api-reference',
+            text: 'API Reference'
+          }
+        ]
+      },
+      {
         text: 'Examples',
         children: [
           {
@@ -252,9 +262,9 @@ const config = {
             text: 'RTL'
           },
           {
-            path: 'examples/before-create-day.md',
-            slug: 'before-create-day',
-            text: 'Before Create Day'
+            path: 'examples/day-render.md',
+            slug: 'day-render',
+            text: 'Day Render'
           }
         ]
       },

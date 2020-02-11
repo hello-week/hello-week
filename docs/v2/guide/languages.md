@@ -17,7 +17,7 @@ new HelloWeek({
 });
 ```
 
-### Support
+## Support
 
 | Language   | Naming |
 | ---------- | ------ |

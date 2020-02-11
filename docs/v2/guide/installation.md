@@ -1,8 +1,8 @@
-# Getting Started
+# Installation
 
-Welcome to the Hello Week documentation!
+There are a few different ways to install the Hello Week library.
 
-## Installation
+## Package Manager
 
 Hello Week is available on [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
 You'll first need to install Hello Week `core` package as well as any plugins.

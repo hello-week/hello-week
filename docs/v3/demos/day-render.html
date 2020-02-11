@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Before Create Day | Hello Week</title>
+    <title>Day Render | Hello Week</title>
     <link href="../../../static/styles/main.css" rel="stylesheet" />
     <link href="../../../dist/hello.week.css" rel="stylesheet" />
     <link href="../../../dist/default.theme.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       import { HelloWeek, el } from '../../../dist/hello.week.min.esm.js';
       new HelloWeek({
         selector: '.calendar',
-        beforeCreateDay: data => {
+        dayRender: data => {
           data.node = el('div', data.attributes, el('span', {}, data.day.toString()));
           return data;
         }

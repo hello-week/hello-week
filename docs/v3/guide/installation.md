@@ -3,6 +3,7 @@
 There are a few different ways to install the Hello Week library.
 
 ## Package Manager
+
 Hello Week is available on [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
 You'll first need to install Hello Week `core` package as well as any plugins.
 
@@ -36,7 +37,7 @@ In the **dist/** [directory of the NPM package](https://cdn.jsdelivr.net/npm/hel
 - **[ES Module](http://exploringjs.com/es6/ch_modules.html)**: Starting in Hello Week 3.0.0 provides two ES Modules (ESM) builds:
 
   - ESM for bundlers: intended for use with modern bundlers like [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org/).
-  Format designed to be statically analyzable so the bundlers can take advantage of that to perform "tree-shaking" and eliminate unused code from your final bundle.
+    Format designed to be statically analyzable so the bundlers can take advantage of that to perform "tree-shaking" and eliminate unused code from your final bundle.
 
   - ESM for browsers: intended for direct imports in modern browsers via `<script type="module">`.
 

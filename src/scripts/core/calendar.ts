@@ -15,11 +15,11 @@ import { template } from './template';
 import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
-import { IProps, IDayOptions, ILangs, ICalendarTemplate } from '../defs/index';
+import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../defs/index';
 
 export class HelloWeek {
-  private readonly prevProps: IProps;
-  private props: IProps;
+  private readonly prevOptions: IOptions;
+  private options: IOptions;
   private langs: ILangs;
   private selector: HTMLElement;
   private daysOfMonth: NodeListOf<Element>;
@@ -34,23 +34,19 @@ export class HelloWeek {
   private daysSelected: any = [];
   private lastSelectedDay: Date | string;
 
-  constructor(props: IProps) {
-    this.props = extend(extend({}, defaults), props);
-    this.prevProps = extend(extend({}, defaults), props);
-    const { calendar, selector } = template(this.props, {
-      prev: {
-        cb: () => this.prev()
-      },
-      next: {
-        cb: () => this.next()
-      }
+  constructor(options: IOptions) {
+    this.options = extend(extend({}, defaults), options);
+    this.prevOptions = extend(extend({}, defaults), options);
+    const { calendar, selector } = template(this.options, {
+      prev: this.prev(),
+      next: this.next()
     });
 
     this.selector = selector;
     this.calendar = calendar;
-    this.isRTL = this.props.rtl ? margins.RIGHT : margins.LEFT;
+    this.isRTL = this.options.rtl ? margins.RIGHT : margins.LEFT;
 
-    import(this.props.langFolder + this.props.lang + '.js')
+    import(this.options.langFolder + this.options.lang + '.js')
       .then((data: any) => data.default)
       .then((lang: ILangs) => {
         this.langs = lang;
@@ -64,31 +60,47 @@ export class HelloWeek {
   }
 
   /**
-   * Change the month to the previous, also you can send a callback function like a parameter.
+   *  Moves the calendar one month back.
    */
-  prev(callback?: () => void): void {
+  prev(): void {
     const prevMonth = this.date.getMonth() - 1;
     this.date.setMonth(prevMonth);
     this.update();
 
-    this.props.onNavigation();
-    if (callback) {
-      callback();
-    }
+    this.options.onNavigation();
   }
 
   /**
-   * Change the month to the next, also you can send a callback function like a parameter.
+   *  Moves the calendar one month forward.
    */
-  next(callback?: () => void): void {
+  next(): void {
     const nextMonth = this.date.getMonth() + 1;
     this.date.setMonth(nextMonth);
     this.update();
 
-    this.props.onNavigation();
-    if (callback) {
-      callback();
-    }
+    this.options.onNavigation();
+  }
+
+  /**
+   *  Moves the calendar one year back.
+   */
+  prevYear(): void {
+    const prevYear = this.date.getFullYear() - 1;
+    this.date.setFullYear(prevYear);
+    this.update();
+
+    this.options.onNavigation();
+  }
+
+  /**
+   *  Moves the calendar one year forward.
+   */
+  nextYear(): void {
+    const nextYear = this.date.getFullYear() + 1;
+    this.date.setFullYear(nextYear);
+    this.update();
+
+    this.options.onNavigation();
   }
 
   /**
@@ -102,9 +114,9 @@ export class HelloWeek {
   /**
    * Reset calendar
    */
-  reset(props: IProps, callback?: () => void): void {
+  reset(options: IOptions, callback?: () => void): void {
     this.clearCalendar();
-    this.props = extend(this.prevProps, props);
+    this.options = extend(this.prevOptions, options);
     this.willMount(callback);
   }
 
@@ -123,7 +135,7 @@ export class HelloWeek {
   getDaySelected(): any {
     return this.daysSelected
       .sort((a: string, b: string) => formatDateToCompare(a) - formatDateToCompare(b))
-      .map((day: number) => formatDate(day, this.langs, this.props.format));
+      .map((day: number) => formatDate(day, this.langs, this.options.format));
   }
 
   /**
@@ -165,32 +177,32 @@ export class HelloWeek {
    * Sets calendar with multiple pick.
    */
   setMultiplePick(state: boolean) {
-    this.props.multiplePick = state;
+    this.options.multiplePick = state;
   }
 
   /**
    * Sets calendar with disable past days.
    */
   setDisablePastDays(state: boolean) {
-    this.props.disablePastDays = state;
+    this.options.disablePastDays = state;
   }
 
   /**
    * Sets calendar with today highlight.
    */
   setTodayHighlight(state: boolean) {
-    this.props.todayHighlight = state;
+    this.options.todayHighlight = state;
   }
 
   /**
    * Sets calendar range.
    */
   setRange(value: boolean | [string | number]) {
-    if (isArray(this.props.range)) {
-      this.intervalRange.begin = this.props.range[0];
-      this.intervalRange.end = this.props.range[1];
+    if (isArray(this.options.range)) {
+      this.intervalRange.begin = this.options.range[0];
+      this.intervalRange.end = this.options.range[1];
     } else {
-      this.props.range = value;
+      this.options.range = value;
     }
   }
 
@@ -198,52 +210,52 @@ export class HelloWeek {
    * Sets calendar locked.
    */
   setLocked(state: boolean) {
-    this.props.locked = state;
+    this.options.locked = state;
   }
 
   /**
    * Set min date.
    */
   setMinDate(date: number | string) {
-    this.props.minDate = setMinDate(date);
+    this.options.minDate = setMinDate(date);
   }
 
   /**
    * Set max date.
    */
   setMaxDate(date: number | string) {
-    this.props.maxDate = setMaxDate(date);
+    this.options.maxDate = setMaxDate(date);
   }
 
   private willMount(callback?: () => void) {
-    this.daysHighlight = this.props.daysHighlight ? this.props.daysHighlight : [];
-    this.daysSelected = this.props.daysSelected ? this.props.daysSelected : [];
+    this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
+    this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
 
-    if (this.daysSelected.length && !this.props.multiplePick) {
+    if (this.daysSelected.length && !this.options.multiplePick) {
       throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
     }
 
-    if (this.props.defaultDate) {
-      this.date = setTimeZone(this.props.defaultDate, this.props.timezoneOffset);
-      this.defaultDate = setTimeZone(this.props.defaultDate, this.props.timezoneOffset);
+    if (this.options.defaultDate) {
+      this.date = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
+      this.defaultDate = setTimeZone(this.options.defaultDate, this.options.timezoneOffset);
       this.defaultDate.setDate(this.defaultDate.getDate());
     }
     this.date.setDate(1);
 
-    if (this.props.minDate) {
-      this.setMinDate(this.props.minDate);
+    if (this.options.minDate) {
+      this.setMinDate(this.options.minDate);
     }
 
-    if (this.props.maxDate) {
-      this.setMaxDate(this.props.maxDate);
+    if (this.options.maxDate) {
+      this.setMaxDate(this.options.maxDate);
     }
 
-    if (this.props.range) {
-      this.setRange(this.props.range);
+    if (this.options.range) {
+      this.setRange(this.options.range);
     }
 
     this.mount();
-    this.props.onLoad();
+    this.options.onLoad();
     if (callback) {
       callback();
     }
@@ -253,7 +265,7 @@ export class HelloWeek {
     this.daysOfMonth = this.selector.querySelectorAll('.' + cssClasses.MONTH + ' .' + cssClasses.DAY);
     for (const i of Object.keys(this.daysOfMonth)) {
       this.handleClickInteraction(this.daysOfMonth[i], callback);
-      if (this.props.range) {
+      if (this.options.range) {
         this.handleMouseInteraction(this.daysOfMonth[i]);
       }
     }
@@ -267,8 +279,8 @@ export class HelloWeek {
       }
 
       this.lastSelectedDay = this.days[index].date;
-      if (!this.props.range) {
-        if (this.props.multiplePick) {
+      if (!this.options.range) {
+        if (this.options.multiplePick) {
           if (this.days[index].date) {
             this.daysSelected = this.daysSelected.filter(
               (day: Date) => formatDateToCompare(day) !== formatDateToCompare(this.lastSelectedDay)
@@ -288,7 +300,7 @@ export class HelloWeek {
 
       toggleClass(event.target, cssStates.IS_SELECTED);
       this.days[index].isSelected = !this.days[index].isSelected;
-      if (this.props.range) {
+      if (this.options.range) {
         if (this.intervalRange.begin && this.intervalRange.end) {
           this.intervalRange = {};
           this.removeStatesClass();
@@ -309,7 +321,7 @@ export class HelloWeek {
 
         addClass(event.target, cssStates.IS_SELECTED);
       }
-      this.props.onSelect(this.days[index]);
+      this.options.onSelect(this.days[index]);
       if (callback) {
         callback(this.days[index]);
       }
@@ -383,21 +395,21 @@ export class HelloWeek {
     }
 
     if (
-      this.props.locked ||
-      (this.props.disableDaysOfWeek && this.props.disableDaysOfWeek.includes(day)) ||
-      (this.props.disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
-      (this.props.minDate && isSameOrAfter(this.props.minDate, dayOptions.date)) ||
-      (this.props.maxDate && isSameOrBefore(this.props.maxDate, dayOptions.date))
+      this.options.locked ||
+      (this.options.disableDaysOfWeek && this.options.disableDaysOfWeek.includes(day)) ||
+      (this.options.disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
+      (this.options.minDate && isSameOrAfter(this.options.minDate, dayOptions.date)) ||
+      (this.options.maxDate && isSameOrBefore(this.options.maxDate, dayOptions.date))
     ) {
       dayOptions.attributes.class.push(cssStates.IS_DISABLED);
       dayOptions.locked = true;
     }
 
-    if (this.props.disableDates) {
+    if (this.options.disableDates) {
       this.disabledDays(dayOptions);
     }
 
-    if (this.props.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
+    if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
       dayOptions.attributes.class.push(cssStates.IS_TODAY);
       dayOptions.isToday = true;
     }
@@ -427,12 +439,12 @@ export class HelloWeek {
     }
 
     if (dayOptions.day === 1) {
-      if (this.props.weekStart === daysWeek.SUNDAY) {
+      if (this.options.weekStart === daysWeek.SUNDAY) {
         dayOptions.attributes.style[this.isRTL] = day * (100 / Object.keys(daysWeek).length) + '%';
       } else {
         if (day === daysWeek.SUNDAY) {
           dayOptions.attributes.style[this.isRTL] =
-            (Object.keys(daysWeek).length - this.props.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
+            (Object.keys(daysWeek).length - this.options.weekStart) * (100 / Object.keys(daysWeek).length) + '%';
         } else {
           dayOptions.attributes.style[this.isRTL] = (day - 1) * (100 / Object.keys(daysWeek).length) + '%';
         }
@@ -440,21 +452,21 @@ export class HelloWeek {
     }
 
     dayOptions.node = el('div', dayOptions.attributes, dayOptions.day.toString());
-    dayOptions = this.props.beforeCreateDay(dayOptions);
+    dayOptions = this.options.dayRender(dayOptions);
     dayOptions.element = render(dayOptions.node, this.calendar.month);
     this.days[dayOptions.day] = dayOptions;
   }
 
   private disabledDays(dayOptions: any): void {
-    if (isArray(this.props.disableDates[0])) {
-      this.props.disableDates.map((date: any) => {
+    if (isArray(this.options.disableDates[0])) {
+      this.options.disableDates.map((date: any) => {
         if (isSameOrAfter(dayOptions.date, date[0]) && isSameOrBefore(dayOptions.date, date[1])) {
           dayOptions.attributes.class.push(cssStates.IS_DISABLED);
           dayOptions.locked = true;
         }
       });
     } else {
-      this.props.disableDates.map((date: any) => {
+      this.options.disableDates.map((date: any) => {
         if (isSame(dayOptions.date, date)) {
           dayOptions.attributes.class.push(cssStates.IS_DISABLED);
           dayOptions.locked = true;
@@ -496,11 +508,11 @@ export class HelloWeek {
   }
 
   private monthsAsString(monthIndex: number): any {
-    return this.props.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+    return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
   }
 
   private weekAsString(weekIndex: number): any {
-    return this.props.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+    return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
   }
 
   private mount(): void {
@@ -510,11 +522,11 @@ export class HelloWeek {
 
     const listDays: number[] = [];
     this.calendar.week.textContent = '';
-    for (let i = this.props.weekStart; i < this.langs.daysShort.length; i++) {
+    for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
       listDays.push(i);
     }
 
-    for (let i = 0; i < this.props.weekStart; i++) {
+    for (let i = 0; i < this.options.weekStart; i++) {
       listDays.push(i);
     }
 

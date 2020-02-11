@@ -1,6 +1,6 @@
-import { IProps, IDayOptions } from '../defs/index';
+import { IOptions, IDayOptions } from '../defs/index';
 
-export const defaults: IProps = {
+export const defaults: IOptions = {
   selector: '.hello-week',
   lang: 'en',
   langFolder: './langs/',
@@ -33,5 +33,5 @@ export const defaults: IProps = {
     /** callback */
   },
   onSelect: (data: IDayOptions) => data,
-  beforeCreateDay: (data: IDayOptions) => data
+  dayRender: (data: IDayOptions) => data
 };
