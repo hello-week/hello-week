@@ -9,17 +9,19 @@ new HelloWeek({
   selector: '.calendar',
   daysHighlight: [
     {
-      days: [
-        ['2020-03-02', '2020-03-09'],
-        ['2020-04-16', '2020-04-29']
+      days: ['2020-02-07'],
+      events: [
+        {
+          title: 'Event 1'
+        },
+        {
+          title: 'Event 2'
+        }
       ],
       attributes: {
         style: {
           color: '#fff',
-          backgroundColor: '#9C27B0'
-        },
-        data: {
-          title: 'Summer Holidays'
+          backgroundColor: '#04f'
         }
       }
     }

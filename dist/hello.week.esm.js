@@ -574,9 +574,11 @@ class HelloWeek {
         if (this.options.disableDates) {
             this.disabledDays(dayOptions);
         }
-        if (this.options.todayHighlight && isSame(this.todayDate, dayOptions.date)) {
-            dayOptions.attributes.class.push(cssStates.IS_TODAY);
+        if (isSame(this.todayDate, dayOptions.date)) {
             dayOptions.isToday = true;
+            if (this.options.todayHighlight) {
+                dayOptions.attributes.class.push(cssStates.IS_TODAY);
+            }
         }
         this.daysSelected.find((daySelected) => {
             if (isSame(daySelected, dayOptions.date)) {

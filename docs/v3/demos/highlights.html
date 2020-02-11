@@ -23,38 +23,6 @@
         selector: '.calendar',
         langFolder: './langs/',
         todayHighlight: false,
-        daysHighlight: [
-          {
-            days: [
-              ['2020-03-02', '2020-03-09'],
-              ['2020-04-16', '2020-04-29']
-            ],
-            attributes: {
-              style: {
-                color: '#fff',
-                backgroundColor: '#9C27B0'
-              },
-              data: {
-                title: 'Summer Holidays'
-              }
-            }
-          },
-          {
-            days: ['2020-12-18'],
-            attributes: {
-              style: {
-                color: '#fff',
-                backgroundColor: '#E91E63'
-              },
-              data: {
-                title: 'Mom Birthday'
-              }
-            }
-          }
-        ],
-        onSelect: data => {
-          console.log(data);
-        }
       });
 
       document.querySelector('.btn').addEventListener('click', () => {
