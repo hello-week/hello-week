@@ -550,6 +550,7 @@ class HelloWeek {
             isRange: false,
             isSelected: false,
             isHighlight: false,
+            events: undefined,
             attributes: {
                 class: [cssClasses.DAY],
                 style: {}

@@ -9,23 +9,19 @@ new HelloWeek({
   selector: '.calendar',
   daysHighlight: [
     {
-      days: ['2020-03-22'],
-      backgroundColor: '#f08080',
-      title: 'Dad Birthday'
-    },
-    {
-      days: ['2020-12-18'],
-      backgroundColor: '#f08080',
-      title: 'Mom Birthday'
-    },
-    {
       days: [
-        ['2020-06-01', '2020-06-14'],
-        ['2020-08-16', '2020-04-29']
+        ['2020-03-02', '2020-03-09'],
+        ['2020-04-16', '2020-04-29']
       ],
-      backgroundColor: '#6495ed',
-      color: '#fff',
-      title: 'Summer Holidays'
+      attributes: {
+        style: {
+          color: '#fff',
+          backgroundColor: '#9C27B0'
+        },
+        data: {
+          title: 'Summer Holidays'
+        }
+      }
     }
   ]
 });

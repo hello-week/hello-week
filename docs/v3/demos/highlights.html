@@ -51,15 +51,24 @@
               }
             }
           }
-        ]
+        ],
+        onSelect: data => {
+          console.log(data);
+        }
       });
 
       document.querySelector('.btn').addEventListener('click', () => {
         calendar.setDaysHighlight([
           {
             days: ['2020-02-07'],
-            title: "It's my day!",
-            name: 'Calendar 2',
+            events: [
+              {
+                title: 'Event 1'
+              },
+              {
+                title: 'Event 2'
+              }
+            ],
             attributes: {
               style: {
                 color: '#fff',

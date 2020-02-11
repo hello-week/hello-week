@@ -24,7 +24,7 @@ export interface IOptions {
   onLoad: () => void;
   onClear: () => void;
   onNavigation: () => void;
-  onSelect: (data: any) => void;
+  onSelect: (data: IDayOptions) => IDayOptions;
   dayRender: (data: IDayOptions) => IDayOptions;
 }
 
@@ -37,6 +37,7 @@ export interface IDayOptions {
   isRange: boolean;
   isSelected: boolean;
   isHighlight: boolean;
+  events: any;
   attributes: any;
   node: Node | undefined;
   element: HTMLElement | undefined;

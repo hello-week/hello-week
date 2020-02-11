@@ -17,5 +17,5 @@ new HelloWeek({
 | `onLoad() => void`                     | `attachable` | Triggered immediately after initialization. |
 | `onNavigation() => void`               | `attachable` | Triggered when the user change month/year.  |
 | `onSelect() => void`                   | `attachable` | Triggered when the user clicks on a day.    |
-| `onClear() => void`                    | `attachable` | Triggered when the user clear calendar.     |
+| `onClear(data: IDayOptions) => void`   | `attachable` | Triggered when the user clear calendar.     |
 | `dayRender(data: IDayOptions) => void` | `attachable` | A hook for modifying a day DOM              |
