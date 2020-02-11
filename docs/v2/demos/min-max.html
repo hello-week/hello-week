@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Min & Max | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="./css/hello.week.min.css" rel="stylesheet" />
-    <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
+    <link href="./styles/demo.css" rel="stylesheet" />
   </head>
   <body>
     <main>
@@ -26,7 +24,7 @@
         langFolder: './langs/',
         todayHighlight: false,
         onSelect: () => {
-          from.setMinDate(to.getLastDaySelected());
+          from.setMinDate(to.getDaySelected());
           from.update();
         }
       });
@@ -36,7 +34,7 @@
         langFolder: './langs/',
         todayHighlight: false,
         onSelect: () => {
-          to.setMaxDate(from.getLastDaySelected());
+          to.setMaxDate(from.getDaySelected());
           to.update();
         }
       });

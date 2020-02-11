@@ -7,8 +7,8 @@ This demonstrates how to get the clicked date or dates.
 ```js
 const calendar = new HelloWeek({
   selector: '.calendar',
-  onSelect: () => {
-    console.log(calendar.getDays());
+  onSelect: data => {
+    console.log(data);
   }
 });
 ```

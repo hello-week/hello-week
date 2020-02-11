@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>On Select | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="./css/hello.week.min.css" rel="stylesheet" />
-    <link href="./css/hello.week.theme.min.css" rel="stylesheet" />
+    <link href="./styles/demo.css" rel="stylesheet" />
   </head>
   <body>
     <main>
@@ -14,11 +12,14 @@
 
     <script src="./hello.week.min.js"></script>
     <script>
-      new HelloWeek({
+      const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
         daysSelected: ['2020-01-10', '2020-02-12', '2020-12-13', '2020-12-25'],
-        multiplePick: true
+        multiplePick: true,
+        onSelect: () => {
+          console.log(calendar.getDays());
+        }
       });
     </script>
   </body>
