@@ -10,6 +10,5 @@
     "noUnusedParameters": true,
     "allowJs": true,
     "checkJs": true
-  },
-  "include": ["src/scripts/index.ts"]
+  }
 }

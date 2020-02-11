@@ -38,8 +38,12 @@ export class HelloWeek {
     this.options = extend(extend({}, defaults), options);
     this.prevOptions = extend(extend({}, defaults), options);
     const { calendar, selector } = template(this.options, {
-      prev: this.prev(),
-      next: this.next()
+      prev: {
+        cb: () => this.prev()
+      },
+      next: {
+        cb: () => this.next()
+      }
     });
 
     this.selector = selector;

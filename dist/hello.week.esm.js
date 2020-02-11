@@ -246,7 +246,7 @@ function template(options, args) {
     }
     if (isDef(options.nav[0])) {
         self.calendar.prevMonth = render(h('div', { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
-        self.calendar.prevMonth.addEventListener('click', () => args.prev());
+        self.calendar.prevMonth.addEventListener('click', () => args.prev.cb());
     }
     self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
     if (!isDef(self.calendar.period)) {
@@ -254,7 +254,7 @@ function template(options, args) {
     }
     if (isDef(options.nav[1])) {
         self.calendar.nextMonth = render(h('div', { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
-        self.calendar.nextMonth.addEventListener('click', () => args.next());
+        self.calendar.nextMonth.addEventListener('click', () => args.next.cb());
     }
     self.calendar.week = existElement(cssClasses.WEEK, self.selector);
     if (!isDef(self.calendar.week)) {
@@ -311,8 +311,12 @@ class HelloWeek {
         this.options = extend(extend({}, defaults), options);
         this.prevOptions = extend(extend({}, defaults), options);
         const { calendar, selector } = template(this.options, {
-            prev: this.prev(),
-            next: this.next()
+            prev: {
+                cb: () => this.prev()
+            },
+            next: {
+                cb: () => this.next()
+            }
         });
         this.selector = selector;
         this.calendar = calendar;

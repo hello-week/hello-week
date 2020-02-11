@@ -31,7 +31,7 @@ export function template(options: IOptions, args: any): ITemplate {
 
   if (isDef(options.nav[0])) {
     self.calendar.prevMonth = render(el('div', { class: cssClasses.PREV }, options.nav[0]), self.calendar.navigation);
-    self.calendar.prevMonth.addEventListener('click', () => args.prev());
+    self.calendar.prevMonth.addEventListener('click', () => args.prev.cb());
   }
 
   self.calendar.period = existElement(cssClasses.PERIOD, self.selector);
@@ -41,7 +41,7 @@ export function template(options: IOptions, args: any): ITemplate {
 
   if (isDef(options.nav[1])) {
     self.calendar.nextMonth = render(el('div', { class: cssClasses.NEXT }, options.nav[1]), self.calendar.navigation);
-    self.calendar.nextMonth.addEventListener('click', () => args.next());
+    self.calendar.nextMonth.addEventListener('click', () => args.next.cb());
   }
 
   self.calendar.week = existElement(cssClasses.WEEK, self.selector);
@@ -58,6 +58,5 @@ export function template(options: IOptions, args: any): ITemplate {
     addClass(self.calendar.week, cssClasses.RTL);
     addClass(self.calendar.month, cssClasses.RTL);
   }
-
   return self;
 }
