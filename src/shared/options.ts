@@ -1,4 +1,4 @@
-import { IOptions, IDayOptions } from '../defs/index';
+import { IOptions, IDayOptions } from '../interfaces/index';
 
 export const defaults: IOptions = {
   selector: '.hello-week',
@@ -32,6 +32,7 @@ export const defaults: IOptions = {
   onNavigation: () => {
     /** callback */
   },
+  onUpdate: (data: IOptions) => data,
   onSelect: (data: IDayOptions) => data,
   dayRender: (data: IDayOptions) => data
 };

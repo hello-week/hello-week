@@ -15,7 +15,7 @@ import { template } from './template';
 import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
-import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../defs/index';
+import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../interfaces/index';
 
 export class HelloWeek {
   private readonly prevOptions: IOptions;
@@ -111,6 +111,7 @@ export class HelloWeek {
    * Update and redraws the events for the current month.
    */
   update(): void {
+    this.options.onUpdate(this.options);
     this.clearCalendar();
     this.mount();
   }

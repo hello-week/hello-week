@@ -1,4 +1,4 @@
-import { ILangs } from '../scripts/defs/langs';
+import { ILangs } from '../interfaces/langs';
 
 const oc: ILangs = {
   days: ['Dg', 'Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds'],

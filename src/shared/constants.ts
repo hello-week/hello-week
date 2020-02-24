@@ -1,4 +1,4 @@
-import { ICssClasses, ICssStates, IDaysWeek, IRTL } from '../defs/index';
+import { ICssClasses, ICssStates, IDaysWeek, IRTL } from '../interfaces/index';
 
 export const cssClasses: ICssClasses = {
   CALENDAR: 'hello-week',

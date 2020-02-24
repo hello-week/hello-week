@@ -1,4 +1,4 @@
-import { IOptions, ITemplate } from '../defs/index';
+import { IOptions, ITemplate } from '../interfaces/index';
 import { render, el, existElement, isString, isDef, addClass } from './../util/index';
 import { cssClasses } from './../shared/constants';
 

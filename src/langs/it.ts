@@ -1,4 +1,4 @@
-import { ILangs } from '../scripts/defs/langs';
+import { ILangs } from '../interfaces/langs';
 
 const it: ILangs = {
   days: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
