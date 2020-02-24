@@ -1,41 +1,38 @@
 import { extend } from '../util/index';
+export default function createStore(state) {
+  let listeners = [];
+  state = state || {};
 
-export default class Store {
-  private listeners: any;
-  private state: any;
-  constructor(state) {
-    this.listeners = [];
-    this.state = state || {};
-  }
-
-  subscribe(listener) {
-    this.listeners.push(listener);
-    return () => {
-      this.unsubscribe(listener);
-    };
-  }
-
-  unsubscribe(listener) {
+  function unsubscribe(listener) {
     const out = [];
-    for (const i of this.listeners.length) {
-      if (this.listeners[i] === listener) {
+    for (const i of listeners) {
+      if (listeners[i] === listener) {
         listener = null;
       } else {
-        out.push(this.listeners[i]);
+        out.push(listeners[i]);
       }
     }
-    this.listeners = out;
+    listeners = out;
   }
 
-  setState(state, action) {
-    this.state = extend(extend({}, this.state), state);
-    const currentListeners = this.listeners;
-    for (const i of currentListeners.length) {
-      currentListeners[i](this.state, action);
+  function setState(update: any) {
+    state = extend(extend({}, state), update);
+    const currentListeners = listeners;
+    for (const i of currentListeners) {
+      currentListeners[i](state);
     }
   }
-
-  getState() {
-    return this.state;
-  }
+  return {
+    setState,
+    subscribe(listener) {
+      listeners.push(listener);
+      return () => {
+        unsubscribe(listener);
+      };
+    },
+    unsubscribe,
+    getState() {
+      return state;
+    }
+  };
 }
