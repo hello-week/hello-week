@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "src/",
     "outDir": "dist/",
     "declarationDir": "types/",
     "declaration": true,
@@ -13,5 +14,6 @@
     "allowJs": true,
     "checkJs": true
   },
-  "exclude": ["node_modules", "lib", "types", "__tests__"]
+  "include": ["src/"],
+  "exclude": ["node_modules", "dist", "types", "__tests__"]
 }

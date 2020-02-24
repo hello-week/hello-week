@@ -32,6 +32,7 @@ export default [
   {
     input: ['src/index.ts'],
     output: outputConfigs,
+    exports: 'named', /** Disable warning for default imports */
     plugins: [
       !IS_PRODUCTION && serve(),
       scss({

@@ -26,7 +26,10 @@
   ],
   "main": "./dist/hello.week.min.js",
   "module": "./dist/hello.week.min.esm.js",
-  "types": "./src/index.d.ts",
+  "types": "./types/src/index.d.ts",
+  "tsd": {
+    "directory": "types"
+  },
   "scripts": {
     "dev": "rollup -c -w",
     "build": "yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",
