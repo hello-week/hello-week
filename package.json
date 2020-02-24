@@ -54,6 +54,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-scss": "^1.0.2",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^4.0.4",

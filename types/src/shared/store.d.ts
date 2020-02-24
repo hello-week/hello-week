@@ -1,9 +1,6 @@
-export default class Store {
-    private listeners;
-    private state;
-    constructor(state: any);
+export declare function createStore(state: any): {
+    setState: (update: any) => void;
     subscribe(listener: any): () => void;
-    unsubscribe(listener: any): void;
-    setState(state: any, action: any): void;
+    unsubscribe: (listener: any) => void;
     getState(): any;
-}
+};

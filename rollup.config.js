@@ -1,5 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
+import filesize from 'rollup-plugin-filesize';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
@@ -42,8 +43,10 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
+      filesize(),
       commonjs(),
-      IS_PRODUCTION && terser()
+      IS_PRODUCTION &&
+        terser()
     ]
   },
   {
@@ -59,6 +62,7 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
+      filesize(),
       commonjs(),
       terser()
     ]

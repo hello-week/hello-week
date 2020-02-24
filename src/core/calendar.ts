@@ -1,4 +1,4 @@
-import { cssClasses, cssStates, daysWeek, margins, defaults, createStore } from '../shared/index';
+import { cssClasses, cssStates, daysWeek, margins, defaults } from '../shared/index';
 import {
   extend,
   getIndexForEventTarget,
