@@ -162,6 +162,11 @@ const config = {
             text: 'Options'
           },
           {
+            path: 'guide/lifecycle.md',
+            slug: 'lifecycle',
+            text: 'Lifecycle'
+          },
+          {
             path: 'guide/callbacks.md',
             slug: 'callbacks',
             text: 'Callbacks'
