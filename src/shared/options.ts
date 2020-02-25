@@ -32,7 +32,6 @@ export const defaults: IOptions = {
   onNavigation: () => {
     /** callback */
   },
-  onUpdate: (data: IOptions) => data,
   onSelect: (data: IDayOptions) => data,
-  dayRender: (data: IDayOptions) => data
+  beforeCreate: (data: IDayOptions) => data
 };

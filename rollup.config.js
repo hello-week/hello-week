@@ -44,7 +44,7 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
-      filesize(),
+      IS_PRODUCTION && filesize(),
       commonjs(),
       IS_PRODUCTION &&
         terser()
@@ -63,7 +63,7 @@ export default [
       resolve({
         mainFields: ['jsnext', 'main', 'browser']
       }),
-      filesize(),
+      IS_PRODUCTION && filesize(),
       commonjs(),
       terser()
     ]

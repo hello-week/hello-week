@@ -1,38 +1,13 @@
-import { extend } from '../util/index';
-export function createStore(state) {
-  let listeners = [];
-  state = state || {};
+import { IOptions } from '../interfaces/index';
+import { defaults } from '../shared/index';
+import { createStore } from '../store/index';
 
-  function unsubscribe(listener) {
-    const out = [];
-    for (const i of listeners) {
-      if (listeners[i] === listener) {
-        listener = null;
-      } else {
-        out.push(listeners[i]);
-      }
-    }
-    listeners = out;
-  }
-
-  function setState(update: any) {
-    state = extend(extend({}, state), update);
-    const currentListeners = listeners;
-    for (const i of currentListeners) {
-      currentListeners[i](state);
-    }
-  }
-  return {
-    setState,
-    subscribe(listener) {
-      listeners.push(listener);
-      return () => {
-        unsubscribe(listener);
-      };
+export const useOptions = {
+    store: createStore(defaults),
+    set(options: IOptions) {
+        this.store.setState(options);
     },
-    unsubscribe,
-    getState() {
-      return state;
+    get() {
+        return this.store.getState();
     }
-  };
 }

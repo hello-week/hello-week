@@ -7,7 +7,7 @@ A hook for modifying a day DOM.
 ```js
 new HelloWeek({
   selector: '.calendar',
-  dayRender: data => {
+  beforeCreate: data => {
     data.node = el('div', data.attributes, el('span', {}, data.day.toString()));
     return data;
   }

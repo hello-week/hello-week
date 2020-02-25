@@ -1,7 +1,7 @@
 import { el } from './../util/index';
 import { IOptions } from '../interfaces/index';
 export declare class HelloWeek {
-    private readonly prevOptions;
+    private readonly initOptions;
     private options;
     private langs;
     private selector;
@@ -23,7 +23,7 @@ export declare class HelloWeek {
     prevYear(): void;
     nextYear(): void;
     update(): void;
-    reset(options: IOptions, callback?: () => void): void;
+    reset(options: IOptions): void;
     goToDate(date?: string): void;
     getDaySelected(): any;
     getLastDaySelected(): Date | string;
@@ -38,7 +38,8 @@ export declare class HelloWeek {
     setLocked(state: boolean): void;
     setMinDate(date: number | string): void;
     setMaxDate(date: number | string): void;
-    private willMount;
+    private beforeMount;
+    private mounted;
     private selectDay;
     private handleClickInteraction;
     private handleMouseInteraction;

@@ -24,9 +24,8 @@ export interface IOptions {
   onLoad: () => void;
   onClear: () => void;
   onNavigation: () => void;
-  onUpdate: (options: IOptions) => IOptions;
   onSelect: (data: IDayOptions) => IDayOptions;
-  dayRender: (data: IDayOptions) => IDayOptions;
+  beforeCreate: (data: IDayOptions) => IDayOptions;
 }
 
 export interface IDayOptions {

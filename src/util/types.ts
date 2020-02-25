@@ -1,13 +1,13 @@
-export function isDef(v: any): boolean {
-  return v !== undefined && v !== null;
+export function isDef(val: any): boolean {
+  return val !== undefined && val !== null;
 }
 
-export function isTrue(v: any): boolean {
-  return v === true;
+export function isTrue(val: boolean): boolean {
+  return val === true;
 }
 
-export function isFalse(v: any): boolean {
-  return v === false;
+export function isFalse(val: boolean): boolean {
+  return val === false;
 }
 
 export function isObject(obj: any): boolean {

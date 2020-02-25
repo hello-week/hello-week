@@ -75,7 +75,7 @@ new HelloWeek({
   onClear: () => {},
   onNavigation: () => {},
   onSelect: (data: IDayOptions) => IDayOptions;
-  dayRender: (data: IDayOptions) => IDayOptions;
+  beforeCreate: (data: IDayOptions) => IDayOptions;
 });
 ```
 
@@ -84,7 +84,7 @@ new HelloWeek({
 +   timezoneOffset: new Date().getTimezoneOffset(),
 -   onSelect: () => {}
 +   onSelect: (data: IDayOptions) => data
-+   dayRender: (data: IDayOptions) => data
++   beforeCreate: (data: IDayOptions) => data
 });
 ```
 
