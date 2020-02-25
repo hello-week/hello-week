@@ -7,12 +7,15 @@ Method reset calendar to initial value.
 ```js
 const calendar = new HelloWeek({
   selector: '.calendar',
-  minDate: '2019-03-10',
-  maxDate: '2019-03-28'
+  langFolder: './langs/',
+  todayHighlight: true,
+  minDate: '2020-10-10',
+  maxDate: '2021-03-28'
 });
 
 document.querySelector('.btn').addEventListener('click', () => {
-  calendar.reset({
+  calendar.setOptions({
+    todayHighlight: false,
     minDate: false,
     maxDate: false
   });

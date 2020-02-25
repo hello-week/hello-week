@@ -1,7 +1,6 @@
 import { el } from './../util/index';
 import { IOptions } from '../interfaces/index';
 export declare class HelloWeek {
-    private readonly initOptions;
     private options;
     private langs;
     private selector;
@@ -23,23 +22,19 @@ export declare class HelloWeek {
     prevYear(): void;
     nextYear(): void;
     update(): void;
-    reset(options: IOptions): void;
     goToDate(date?: string): void;
     getDaySelected(): any;
     getLastDaySelected(): Date | string;
     getDaysHighlight(): string;
     getMonth(): number;
     getYear(): number;
+    setOptions(options?: Partial<IOptions>, callback?: (data: IOptions) => IOptions): void;
     setDaysHighlight(daysHighlight: any): void;
-    setMultiplePick(state: boolean): void;
-    setDisablePastDays(state: boolean): void;
-    setTodayHighlight(state: boolean): void;
-    setRange(value: boolean | [string | number]): void;
-    setLocked(state: boolean): void;
+    setIntervalRange(range: boolean | [string | number]): void;
     setMinDate(date: number | string): void;
     setMaxDate(date: number | string): void;
+    private beforeCreate;
     private beforeMount;
-    private mounted;
     private selectDay;
     private handleClickInteraction;
     private handleMouseInteraction;
@@ -51,7 +46,7 @@ export declare class HelloWeek {
     private computedAttributes;
     private monthsAsString;
     private weekAsString;
-    private mount;
+    private mounted;
     private clearCalendar;
     private removeStatesClass;
 }

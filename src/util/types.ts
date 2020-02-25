@@ -18,6 +18,10 @@ export function isArray(obj: any): boolean {
   return obj !== null && Array.isArray(obj);
 }
 
+export function isFuncation(func: any): boolean {
+  return typeof func === 'function';
+}
+
 export function isString(val: string): boolean {
   return typeof val === 'string';
 }

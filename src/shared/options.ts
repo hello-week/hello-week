@@ -33,5 +33,5 @@ export const defaults: IOptions = {
     /** callback */
   },
   onSelect: (data: IDayOptions) => data,
-  beforeCreate: (data: IDayOptions) => data
+  beforeCreateDay: (data: IDayOptions) => data
 };

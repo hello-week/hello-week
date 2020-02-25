@@ -3,6 +3,8 @@ import {
   extend,
   getIndexForEventTarget,
   isArray,
+  isObject,
+  isFuncation,
   el,
   render,
   addClass,
@@ -14,12 +16,11 @@ import { template } from './template';
 import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
-import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../interfaces/index';
+import { IOptions, IDayOptions, ILangs, ICalendarTemplate, IStoreOptions, IStoreLangs } from '../interfaces/index';
 
 export class HelloWeek {
-  private readonly initOptions: IOptions;
-  private options: any;
-  private langs: any;
+  private options: IStoreOptions;
+  private langs: IStoreLangs;
   private selector: HTMLElement;
   private daysOfMonth: NodeListOf<Element>;
   private todayDate: string = toDate(new Date());
@@ -37,9 +38,8 @@ export class HelloWeek {
     this.langs = useLangs;
     this.options = useOptions;
     this.options.set(options);
-    this.initOptions = this.options.get();
 
-    const { calendar, selector } = template(this.initOptions, {
+    const { calendar, selector } = template(this.options.get(), {
       prev: {
         cb: () => this.prev()
       },
@@ -50,7 +50,7 @@ export class HelloWeek {
 
     this.selector = selector;
     this.calendar = calendar;
-    this.beforeMount();
+    this.beforeCreate();
   }
 
   destroy(): void {
@@ -111,16 +111,7 @@ export class HelloWeek {
    */
   update(): void {
     this.clearCalendar();
-    this.mount();
-  }
-
-  /**
-   * Reset calendar
-   */
-  reset(options: IOptions): void {
-    this.clearCalendar();
-    this.options.get(extend(this.initOptions, options));
-    this.mounted();
+    this.beforeCreate();
   }
 
   /**
@@ -170,6 +161,18 @@ export class HelloWeek {
     return this.date.getFullYear();
   }
 
+  setOptions(options?: Partial<IOptions>, callback?: (data: IOptions) => IOptions): void {
+    if (isObject(options)) {
+      this.options.set(options);
+    }
+
+    if (isFuncation(callback)) {
+      this.options.set(callback(this.options.get()));
+    }
+
+    this.update();
+  }
+
   /**
    * Set highlight dates,
    */
@@ -178,44 +181,13 @@ export class HelloWeek {
   }
 
   /**
-   * Sets calendar with multiple pick.
-   */
-  setMultiplePick(state: boolean) {
-    this.options.set({ multiplePick: state });
-  }
-
-  /**
-   * Sets calendar with disable past days.
-   */
-  setDisablePastDays(state: boolean) {
-    this.options.set({ disabledPastDays: state });
-  }
-
-  /**
-   * Sets calendar with today highlight.
-   */
-  setTodayHighlight(state: boolean) {
-    this.options.set({ todayHighlight: state });
-  }
-
-  /**
    * Sets calendar range.
    */
-  setRange(value: boolean | [string | number]) {
-    const { range } = this.options.get();
+  setIntervalRange(range: boolean | [string | number]) {
     if (isArray(range)) {
       this.intervalRange.begin = range[0];
       this.intervalRange.end = range[1];
-    } else {
-      this.options.set({ range: value });
     }
-  }
-
-  /**
-   * Sets calendar locked.
-   */
-  setLocked(state: boolean) {
-    this.options.set({ locked: state });
   }
 
   /**
@@ -232,7 +204,7 @@ export class HelloWeek {
     this.options.set({ maxDate: setMaxDate(date) });
   }
 
-  private beforeMount() {
+  private beforeCreate() {
     const { rtl, langFolder, lang } = this.options.get();
     this.isRTL = rtl ? margins.RIGHT : margins.LEFT;
 
@@ -240,11 +212,11 @@ export class HelloWeek {
       .then((data: any) => data.default)
       .then((data: ILangs) => {
         this.langs.set(data);
-        this.mounted();
+        this.beforeMount();
       });
   }
 
-  private mounted() {
+  private beforeMount() {
     const {
       daysHighlight,
       daysSelected,
@@ -279,10 +251,10 @@ export class HelloWeek {
     }
 
     if (range) {
-      this.setRange(range);
+      this.setIntervalRange(range);
     }
 
-    this.mount();
+    this.mounted();
     onLoad();
   }
 
@@ -417,13 +389,13 @@ export class HelloWeek {
     const {
       locked,
       disableDaysOfWeek,
-      disabledPastDays,
+      disablePastDays,
       minDate,
       maxDate,
       disableDates,
       todayHighlight,
       weekStart,
-      beforeCreate
+      beforeCreateDay
     } = this.options.get();
     this.days = this.days || {};
 
@@ -435,7 +407,7 @@ export class HelloWeek {
     if (
       locked ||
       (disableDaysOfWeek && disableDaysOfWeek.includes(day)) ||
-      (disabledPastDays && isSameOrBefore(this.date, this.defaultDate)) ||
+      (disablePastDays && isSameOrBefore(this.date, this.defaultDate)) ||
       (minDate && isSameOrAfter(minDate, dayOptions.date)) ||
       (maxDate && isSameOrBefore(maxDate, dayOptions.date))
     ) {
@@ -492,7 +464,7 @@ export class HelloWeek {
     }
 
     dayOptions.node = el('div', dayOptions.attributes, dayOptions.day.toString());
-    dayOptions = beforeCreate(dayOptions);
+    dayOptions = beforeCreateDay(dayOptions);
     dayOptions.element = render(dayOptions.node, this.calendar.month);
     this.days[dayOptions.day] = dayOptions;
   }
@@ -560,7 +532,7 @@ export class HelloWeek {
     return weekShort ? daysShort[weekIndex] : days[weekIndex];
   }
 
-  private mount(): void {
+  private mounted(): void {
     if (this.calendar.period) {
       this.calendar.period.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
     }

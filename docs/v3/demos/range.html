@@ -14,10 +14,10 @@
 
     <script type="module">
       import { HelloWeek } from '../../../dist/hello.week.esm.js';
-      new HelloWeek({
+      const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
-        range: ['2020-01-10', '2020-01-24'],
+        range: ['2020-02-10', '2020-02-24'],
         todayHighlight: false
       });
     </script>

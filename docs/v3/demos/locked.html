@@ -9,7 +9,7 @@
   </head>
   <body>
     <main>
-      <button class="btn">Unlock</button>
+      <button class="btn">Toggle Locked</button>
       <div class="calendar default-theme"></div>
     </main>
 
@@ -22,8 +22,12 @@
       });
 
       document.querySelector('.btn').addEventListener('click', () => {
-        calendar.setLocked(false);
-        calendar.update();
+          calendar.setOptions({}, prevOption => {
+          return {
+            ...prevOption,
+            locked: !prevOption.locked
+          };
+        });
       });
     </script>
   </body>
