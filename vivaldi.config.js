@@ -262,9 +262,9 @@ const config = {
             text: 'RTL'
           },
           {
-            path: 'examples/day-render.md',
-            slug: 'day-render',
-            text: 'Day Render'
+            path: 'examples/before-create-day.md',
+            slug: 'before-create-day',
+            text: 'Before Create Day'
           }
         ]
       },

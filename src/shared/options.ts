@@ -23,10 +23,10 @@ export const defaults: IOptions = {
   locked: false,
   rtl: false,
   nav: ['◀', '▶'],
-  onLoad: () => {
+  beforeLoad: () => {
     /** callback */
   },
-  onClear: () => {
+  onLoad: () => {
     /** callback */
   },
   onNavigation: () => {

@@ -17,8 +17,11 @@
       const calendar = new HelloWeek({
         selector: '.calendar',
         langFolder: './langs/',
-        range: ['2020-02-10', '2020-02-24'],
-        todayHighlight: false
+        range: true,
+        todayHighlight: false,
+        beforeLoad: () => {
+          calendar.setIntervalRange(['2020-02-10', '2020-02-24']);
+        }
       });
     </script>
   </body>

@@ -176,17 +176,19 @@ export class HelloWeek {
   /**
    * Set highlight dates,
    */
-  setDaysHighlight(daysHighlight: any): void {
+  setDaysHighlight(daysHighlight: [number]): void {
     this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
   }
 
   /**
-   * Sets calendar range.
+   * Sets interval of dates.
    */
-  setIntervalRange(range: boolean | [string | number]) {
-    if (isArray(range)) {
-      this.intervalRange.begin = range[0];
-      this.intervalRange.end = range[1];
+  setIntervalRange(value: string[] | number[]) {
+    const { range } = this.options.get();
+
+    if (range && value && isArray(value)) {
+      const [begin, end] = value;
+      this.intervalRange = { begin, end };
     }
   }
 
@@ -220,20 +222,18 @@ export class HelloWeek {
     const {
       daysHighlight,
       daysSelected,
-      multiplePick,
       defaultDate,
       timezoneOffset,
       minDate,
       maxDate,
-      range,
+      beforeLoad,
       onLoad
     } = this.options.get();
+
     this.daysHighlight = daysHighlight ? daysHighlight : [];
     this.daysSelected = daysSelected ? daysSelected : [];
 
-    if (this.daysSelected.length && !multiplePick) {
-      throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
-    }
+    beforeLoad();
 
     if (defaultDate) {
       this.date = setTimeZone(defaultDate, timezoneOffset);
@@ -248,10 +248,6 @@ export class HelloWeek {
 
     if (maxDate) {
       this.setMaxDate(maxDate);
-    }
-
-    if (range) {
-      this.setIntervalRange(range);
     }
 
     this.mounted();

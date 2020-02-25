@@ -1,4 +1,4 @@
-# Day Render
+# Before Create Day
 
 A hook for modifying a day DOM.
 
@@ -17,7 +17,7 @@ new HelloWeek({
 ## Demonstration
 
 <iframe
-    src="docs/v3/demos/day-render.html"
+    src="docs/v3/demos/before-create-day.html"
     frameborder="no"
     allowfullscreen="allowfullscreen">
 </iframe>

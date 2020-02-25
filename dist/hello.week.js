@@ -59,9 +59,9 @@
       locked: false,
       rtl: false,
       nav: ['◀', '▶'],
-      onLoad: () => {
+      beforeLoad: () => {
       },
-      onClear: () => {
+      onLoad: () => {
       },
       onNavigation: () => {
       },
@@ -458,10 +458,11 @@
       setDaysHighlight(daysHighlight) {
           this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
       }
-      setIntervalRange(range) {
-          if (isArray(range)) {
-              this.intervalRange.begin = range[0];
-              this.intervalRange.end = range[1];
+      setIntervalRange(value) {
+          const { range } = this.options.get();
+          if (range && value && isArray(value)) {
+              const [begin, end] = value;
+              this.intervalRange = { begin, end };
           }
       }
       setMinDate(date) {
@@ -481,12 +482,10 @@
           });
       }
       beforeMount() {
-          const { daysHighlight, daysSelected, multiplePick, defaultDate, timezoneOffset, minDate, maxDate, range, onLoad } = this.options.get();
+          const { daysHighlight, daysSelected, defaultDate, timezoneOffset, minDate, maxDate, beforeLoad, onLoad } = this.options.get();
           this.daysHighlight = daysHighlight ? daysHighlight : [];
           this.daysSelected = daysSelected ? daysSelected : [];
-          if (this.daysSelected.length && !multiplePick) {
-              throw new Error(`There are ${this.daysSelected.length} dates selected, but the multiplePick option is FALSE!`);
-          }
+          beforeLoad();
           if (defaultDate) {
               this.date = setTimeZone(defaultDate, timezoneOffset);
               this.defaultDate = setTimeZone(defaultDate, timezoneOffset);
@@ -498,9 +497,6 @@
           }
           if (maxDate) {
               this.setMaxDate(maxDate);
-          }
-          if (range) {
-              this.setIntervalRange(range);
           }
           this.mounted();
           onLoad();

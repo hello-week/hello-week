@@ -71,20 +71,22 @@ new HelloWeek({
   rtl: false,
   nav: ['◀', '▶'],
   timezoneOffset: new Date().getTimezoneOffset(),
-  onLoad: () => {},
-  onClear: () => {},
-  onNavigation: () => {},
+  onLoad: () => void;
+  onNavigation: () => void;
   onSelect: (data: IDayOptions) => IDayOptions;
-  beforeCreate: (data: IDayOptions) => IDayOptions;
+  beforeLoad: () => void;
+  beforeCreateDay: (data: IDayOptions) => IDayOptions;
 });
 ```
 
 ```diff
 new HelloWeek({
 +   timezoneOffset: new Date().getTimezoneOffset(),
+-   onClear: () => {}
 -   onSelect: () => {}
 +   onSelect: (data: IDayOptions) => data
-+   beforeCreate: (data: IDayOptions) => data
++   beforeLoad: () => {}
++   beforeCreateDay: (data: IDayOptions) => data
 });
 ```
 

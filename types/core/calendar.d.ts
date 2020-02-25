@@ -29,8 +29,8 @@ export declare class HelloWeek {
     getMonth(): number;
     getYear(): number;
     setOptions(options?: Partial<IOptions>, callback?: (data: IOptions) => IOptions): void;
-    setDaysHighlight(daysHighlight: any): void;
-    setIntervalRange(range: boolean | [string | number]): void;
+    setDaysHighlight(daysHighlight: [number]): void;
+    setIntervalRange(value: string[] | number[]): void;
     setMinDate(date: number | string): void;
     setMaxDate(date: number | string): void;
     private beforeCreate;

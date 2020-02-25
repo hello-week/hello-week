@@ -16,15 +16,15 @@ export interface IOptions {
   disableDaysOfWeek: any;
   disableDates: any;
   disablePastDays: boolean;
-  range: boolean | [string | number];
+  range: boolean;
   locked: boolean;
   rtl: boolean;
   nav: ['◀', '▶'];
   timezoneOffset?: number;
   onLoad: () => void;
-  onClear: () => void;
   onNavigation: () => void;
   onSelect: (data: IDayOptions) => IDayOptions;
+  beforeLoad: () => void;
   beforeCreateDay: (data: IDayOptions) => IDayOptions;
 }
 
