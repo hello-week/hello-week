@@ -1,4 +1,4 @@
-import { defaults } from './../shared/options';
+import { useOptions, useLangs } from '../shared/index';
 import { isDef } from '../util/index';
 
 export function toDate(date: Date, timezoneOffset?: number) {
@@ -12,18 +12,19 @@ export function defaultFormat(day: number, month: number, year: number): string 
 
 export function formatDate(
   date: Date | string | number,
-  langs: any,
   formats?: string,
   timezoneOffset?: number
 ): string {
+  const { format } = useOptions.get();
+  const { months, monthsShort } = useLangs.get();
   const dt = setTimeZone(date, timezoneOffset);
-  formats = formats ? formats : defaults.format;
+  formats = formats ? formats : format;
   formats = formats.replace('dd', dt.getDate().toString());
   formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
   formats = formats.replace('mm', (dt.getMonth() + 1).toString());
-  formats = formats.replace('MMM', langs.months[dt.getMonth()]);
+  formats = formats.replace('MMM', months[dt.getMonth()]);
   formats = formats.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
-  formats = formats.replace('mmm', langs.monthsShort[dt.getMonth()]);
+  formats = formats.replace('mmm', monthsShort[dt.getMonth()]);
   formats = formats.replace('yyyy', dt.getFullYear().toString());
   formats = formats.replace('YYYY', dt.getFullYear().toString());
   formats = formats.replace(

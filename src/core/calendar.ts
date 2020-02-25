@@ -1,4 +1,4 @@
-import { cssClasses, cssStates, daysWeek, margins, useOptions } from '../shared/index';
+import { cssClasses, cssStates, daysWeek, margins, useOptions, useLangs } from '../shared/index';
 import {
   extend,
   getIndexForEventTarget,
@@ -19,7 +19,7 @@ import { IOptions, IDayOptions, ILangs, ICalendarTemplate } from '../interfaces/
 export class HelloWeek {
   private readonly initOptions: IOptions;
   private options: any;
-  private langs: ILangs;
+  private langs: any;
   private selector: HTMLElement;
   private daysOfMonth: NodeListOf<Element>;
   private todayDate: string = toDate(new Date());
@@ -34,6 +34,7 @@ export class HelloWeek {
   private lastSelectedDay: Date | string;
 
   constructor(options: IOptions) {
+    this.langs = useLangs;
     this.options = useOptions;
     this.options.set(options);
     this.initOptions = this.options.get();
@@ -138,7 +139,7 @@ export class HelloWeek {
     const { format } = this.options.get();
     return this.daysSelected
       .sort((a: string, b: string) => formatDateToCompare(a) - formatDateToCompare(b))
-      .map((day: number) => formatDate(day, this.langs, format));
+      .map((day: number) => formatDate(day, format));
   }
 
   /**
@@ -238,7 +239,7 @@ export class HelloWeek {
     import(langFolder + lang + '.js')
       .then((data: any) => data.default)
       .then((data: ILangs) => {
-        this.langs = data;
+        this.langs.set(data);
         this.mounted();
       });
   }
@@ -333,7 +334,7 @@ export class HelloWeek {
         }
         if (this.intervalRange.begin && !this.intervalRange.end) {
           this.intervalRange.end = this.days[index].date;
-          this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end, this.langs);
+          this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
           addClass(event.target, cssStates.IS_END_RANGE);
           if (this.intervalRange.begin > this.intervalRange.end) {
             this.intervalRange = {};
@@ -549,12 +550,14 @@ export class HelloWeek {
 
   private monthsAsString(monthIndex: number): any {
     const { monthShort } = this.options.get();
-    return monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+    const { monthsShort, months } = this.langs.get();
+    return monthShort ? monthsShort[monthIndex] : months[monthIndex];
   }
 
   private weekAsString(weekIndex: number): any {
     const { weekShort } = this.options.get();
-    return weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+    const { daysShort, days } = this.langs.get();
+    return weekShort ? daysShort[weekIndex] : days[weekIndex];
   }
 
   private mount(): void {
@@ -564,8 +567,9 @@ export class HelloWeek {
 
     const listDays: number[] = [];
     const { weekStart } = this.options.get();
+    const { daysShort } = this.langs.get();
     this.calendar.week.textContent = '';
-    for (let i = weekStart; i < this.langs.daysShort.length; i++) {
+    for (let i = weekStart; i < daysShort.length; i++) {
       listDays.push(i);
     }
 

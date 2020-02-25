@@ -208,6 +208,15 @@ const useOptions = {
         return this.store.getState();
     }
 };
+const useLangs = {
+    store: createStore(defaults),
+    set(options) {
+        this.store.setState(options);
+    },
+    get() {
+        return this.store.getState();
+    }
+};
 
 function toDate(date, timezoneOffset) {
     const dt = setTimeZone(date, timezoneOffset);
@@ -216,15 +225,17 @@ function toDate(date, timezoneOffset) {
 function defaultFormat(day, month, year) {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
-function formatDate(date, langs, formats, timezoneOffset) {
+function formatDate(date, formats, timezoneOffset) {
+    const { format } = useOptions.get();
+    const { months, monthsShort } = useLangs.get();
     const dt = setTimeZone(date, timezoneOffset);
-    formats = formats ? formats : defaults.format;
+    formats = formats ? formats : format;
     formats = formats.replace('dd', dt.getDate().toString());
     formats = formats.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
     formats = formats.replace('mm', (dt.getMonth() + 1).toString());
-    formats = formats.replace('MMM', langs.months[dt.getMonth()]);
+    formats = formats.replace('MMM', months[dt.getMonth()]);
     formats = formats.replace('MM', (dt.getMonth() + 1 > 9 ? dt.getMonth() + 1 : '0' + (dt.getMonth() + 1)).toString());
-    formats = formats.replace('mmm', langs.monthsShort[dt.getMonth()]);
+    formats = formats.replace('mmm', monthsShort[dt.getMonth()]);
     formats = formats.replace('yyyy', dt.getFullYear().toString());
     formats = formats.replace('YYYY', dt.getFullYear().toString());
     formats = formats.replace('YY', dt
@@ -318,7 +329,7 @@ function template(options, args) {
     return self;
 }
 
-function getIntervalOfDates(startDate, endDate, langs) {
+function getIntervalOfDates(startDate, endDate) {
     const dates = [];
     let currentDate = startDate;
     const addDays = function (days) {
@@ -327,7 +338,7 @@ function getIntervalOfDates(startDate, endDate, langs) {
         return dt.getTime();
     };
     while (currentDate <= endDate) {
-        dates.push(formatDate(currentDate, langs));
+        dates.push(formatDate(currentDate));
         currentDate = addDays.call(currentDate, 1);
     }
     return dates;
@@ -355,6 +366,7 @@ class HelloWeek {
         this.date = new Date();
         this.intervalRange = {};
         this.daysSelected = [];
+        this.langs = useLangs;
         this.options = useOptions;
         this.options.set(options);
         this.initOptions = this.options.get();
@@ -420,7 +432,7 @@ class HelloWeek {
         const { format } = this.options.get();
         return this.daysSelected
             .sort((a, b) => formatDateToCompare(a) - formatDateToCompare(b))
-            .map((day) => formatDate(day, this.langs, format));
+            .map((day) => formatDate(day, format));
     }
     getLastDaySelected() {
         return this.lastSelectedDay;
@@ -471,7 +483,7 @@ class HelloWeek {
         import(langFolder + lang + '.js')
             .then((data) => data.default)
             .then((data) => {
-            this.langs = data;
+            this.langs.set(data);
             this.mounted();
         });
     }
@@ -544,7 +556,7 @@ class HelloWeek {
                 }
                 if (this.intervalRange.begin && !this.intervalRange.end) {
                     this.intervalRange.end = this.days[index].date;
-                    this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end, this.langs);
+                    this.daysSelected = getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
                     addClass(event.target, cssStates.IS_END_RANGE);
                     if (this.intervalRange.begin > this.intervalRange.end) {
                         this.intervalRange = {};
@@ -730,11 +742,13 @@ class HelloWeek {
     }
     monthsAsString(monthIndex) {
         const { monthShort } = this.options.get();
-        return monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+        const { monthsShort, months } = this.langs.get();
+        return monthShort ? monthsShort[monthIndex] : months[monthIndex];
     }
     weekAsString(weekIndex) {
         const { weekShort } = this.options.get();
-        return weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+        const { daysShort, days } = this.langs.get();
+        return weekShort ? daysShort[weekIndex] : days[weekIndex];
     }
     mount() {
         if (this.calendar.period) {
@@ -742,8 +756,9 @@ class HelloWeek {
         }
         const listDays = [];
         const { weekStart } = this.options.get();
+        const { daysShort } = this.langs.get();
         this.calendar.week.textContent = '';
-        for (let i = weekStart; i < this.langs.daysShort.length; i++) {
+        for (let i = weekStart; i < daysShort.length; i++) {
             listDays.push(i);
         }
         for (let i = 0; i < weekStart; i++) {

@@ -1,6 +1,6 @@
 import { formatDate } from './format';
 
-export function getIntervalOfDates(startDate: number, endDate: number, langs: any) {
+export function getIntervalOfDates(startDate: number, endDate: number) {
   const dates = [];
   let currentDate = startDate;
   const addDays = function(this: any, days: any) {
@@ -9,7 +9,7 @@ export function getIntervalOfDates(startDate: number, endDate: number, langs: an
     return dt.getTime();
   };
   while (currentDate <= endDate) {
-    dates.push(formatDate(currentDate, langs));
+    dates.push(formatDate(currentDate));
     currentDate = addDays.call(currentDate, 1);
   }
   return dates;
