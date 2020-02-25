@@ -1,23 +1,23 @@
-import { IOptions, ILangs } from '../interfaces/index';
+import { IStoreOptions, IStoreLangs } from '../interfaces/index';
 import { defaults } from '../shared/index';
 import { createStore } from '../store/index';
 
-export const useOptions = {
+export const useOptions: IStoreOptions = {
     store: createStore(defaults),
-    set(options: IOptions) {
+    set(options) {
         this.store.setState(options);
     },
-    get(): IOptions {
+    get() {
         return this.store.getState();
     }
 }
 
-export const useLangs = {
+export const useLangs: IStoreLangs = {
     store: createStore(defaults),
-    set(options: ILangs) {
+    set(options) {
         this.store.setState(options);
     },
-    get(): ILangs {
+    get() {
         return this.store.getState();
     }
 }
