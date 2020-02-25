@@ -418,7 +418,7 @@ class HelloWeek {
     }
     update() {
         this.clearCalendar();
-        this.beforeCreate();
+        this.mounted();
     }
     goToDate(date = this.todayDate) {
         this.date = new Date(date);
@@ -554,6 +554,7 @@ class HelloWeek {
                 }
                 addClass(event.target, cssStates.IS_SELECTED);
             }
+            console.log(this.days[index]);
             onSelect(this.days[index]);
             if (callback) {
                 callback(this.days[index]);

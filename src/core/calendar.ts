@@ -111,7 +111,7 @@ export class HelloWeek {
    */
   update(): void {
     this.clearCalendar();
-    this.beforeCreate();
+    this.mounted();
   }
 
   /**
@@ -316,6 +316,7 @@ export class HelloWeek {
 
         addClass(event.target, cssStates.IS_SELECTED);
       }
+      console.log(this.days[index]);
       onSelect(this.days[index]);
       if (callback) {
         callback(this.days[index]);
