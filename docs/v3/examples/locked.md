@@ -6,18 +6,18 @@ Locks all days in calendar.
 
 ```js
 const calendar = new HelloWeek({
-  selector: '.calendar',
-  langFolder: './langs/',
-  locked: true
+    selector: '.calendar',
+    langFolder: './langs/',
+    locked: true,
 });
 
 document.querySelector('.btn').addEventListener('click', () => {
-  calendar.setOptions({}, prevOption => {
-    return {
-      ...prevOption,
-      locked: !prevOption.locked
-    };
-  });
+    calendar.setOptions({}, prevOption => {
+        return {
+            ...prevOption,
+            locked: !prevOption.locked,
+        };
+    });
 });
 ```
 

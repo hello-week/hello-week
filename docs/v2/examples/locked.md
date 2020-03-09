@@ -6,12 +6,12 @@ Locks all days in calendar.
 
 ```js
 const calendar = new HelloWeek({
-  selector: '.calendar',
-  locked: true,
-  onNavigation: () => {
-    calendar.setLocked(false);
-    calendar.update();
-  }
+    selector: '.calendar',
+    locked: true,
+    onNavigation: () => {
+        calendar.setLocked(false);
+        calendar.update();
+    },
 });
 ```
 

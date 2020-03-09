@@ -31,15 +31,15 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 
 In the **dist/** [directory of the NPM package](https://cdn.jsdelivr.net/npm/hello-week/dist/) you will find many different builds of Hello Week.
 
-- **[UMD](https://github.com/umdjs/umd)**: UMD builds can be used directly in the browser via a `<script>` tag.
-  The default file from [jsDelivr CDN](https://cdn.jsdelivr.net/npm/hello-week/) is the Runtime + Compiler UMD build (`hello-week.js`).
+-   **[UMD](https://github.com/umdjs/umd)**: UMD builds can be used directly in the browser via a `<script>` tag.
+    The default file from [jsDelivr CDN](https://cdn.jsdelivr.net/npm/hello-week/) is the Runtime + Compiler UMD build (`hello-week.js`).
 
-- **[ES Module](http://exploringjs.com/es6/ch_modules.html)**: Starting in Hello Week 3.0.0 provides two ES Modules (ESM) builds:
+-   **[ES Module](http://exploringjs.com/es6/ch_modules.html)**: Starting in Hello Week 3.0.0 provides two ES Modules (ESM) builds:
 
-  - ESM for bundlers: intended for use with modern bundlers like [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org/).
-    Format designed to be statically analyzable so the bundlers can take advantage of that to perform "tree-shaking" and eliminate unused code from your final bundle.
+    -   ESM for bundlers: intended for use with modern bundlers like [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org/).
+        Format designed to be statically analyzable so the bundlers can take advantage of that to perform "tree-shaking" and eliminate unused code from your final bundle.
 
-  - ESM for browsers: intended for direct imports in modern browsers via `<script type="module">`.
+    -   ESM for browsers: intended for direct imports in modern browsers via `<script type="module">`.
 
 For production, we recommend linking to a specific version number and build to avoid unexpected breakage from newer versions:
 
@@ -51,6 +51,6 @@ If you are using native **ES Modules**, there is also an ES Modules compatible b
 
 ```html
 <script type="module">
-  import HelloWeek from 'https://cdn.jsdelivr.net/npm/hello-week@3.0.0/dist/hello.week.min.es.js';
+    import HelloWeek from 'https://cdn.jsdelivr.net/npm/hello-week@3.0.0/dist/hello.week.min.es.js';
 </script>
 ```

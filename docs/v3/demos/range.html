@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Range | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="../../../dist/hello.week.css" rel="stylesheet" />
-    <link href="../../../dist/default.theme.css" rel="stylesheet" />
-  </head>
-  <body>
-    <main>
-      <div class="calendar default-theme"></div>
-    </main>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Range | Hello Week</title>
+        <link href="../../../static/styles/main.css" rel="stylesheet" />
+        <link href="../../../dist/hello.week.css" rel="stylesheet" />
+        <link href="../../../dist/default.theme.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <div class="calendar default-theme"></div>
+        </main>
 
-    <script type="module">
-      import { HelloWeek } from '../../../dist/hello.week.esm.js';
-      const calendar = new HelloWeek({
-        selector: '.calendar',
-        langFolder: './langs/',
-        range: true,
-        todayHighlight: false,
-        beforeLoad: () => {
-          calendar.setIntervalRange(['2020-02-10', '2020-02-24']);
-        }
-      });
-    </script>
-  </body>
+        <script type="module">
+            import { HelloWeek } from '../../../dist/hello.week.esm.js';
+            const calendar = new HelloWeek({
+                selector: '.calendar',
+                langFolder: './langs/',
+                range: true,
+                todayHighlight: false,
+                beforeLoad: () => {
+                    calendar.setIntervalRange(['2020-02-10', '2020-02-24']);
+                },
+            });
+        </script>
+    </body>
 </html>

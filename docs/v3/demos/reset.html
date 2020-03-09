@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Reset | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="../../../dist/hello.week.css" rel="stylesheet" />
-    <link href="../../../dist/default.theme.css" rel="stylesheet" />
-  </head>
-  <body>
-    <main>
-      <button class="btn">Reset</button>
-      <div class="calendar default-theme"></div>
-    </main>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Reset | Hello Week</title>
+        <link href="../../../static/styles/main.css" rel="stylesheet" />
+        <link href="../../../dist/hello.week.css" rel="stylesheet" />
+        <link href="../../../dist/default.theme.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <button class="btn">Reset</button>
+            <div class="calendar default-theme"></div>
+        </main>
 
-    <script type="module">
-      import { HelloWeek } from '../../../dist/hello.week.esm.js';
-      const calendar = new HelloWeek({
-        selector: '.calendar',
-        langFolder: './langs/',
-        todayHighlight: true,
-        minDate: '2020-10-10',
-        maxDate: '2021-03-28'
-      });
+        <script type="module">
+            import { HelloWeek } from '../../../dist/hello.week.esm.js';
+            const calendar = new HelloWeek({
+                selector: '.calendar',
+                langFolder: './langs/',
+                todayHighlight: true,
+                minDate: '2020-10-10',
+                maxDate: '2021-03-28',
+            });
 
-      document.querySelector('.btn').addEventListener('click', () => {
-        calendar.setOptions({
-          todayHighlight: false,
-          minDate: false,
-          maxDate: false
-        });
-      });
-    </script>
-  </body>
+            document.querySelector('.btn').addEventListener('click', () => {
+                calendar.setOptions({
+                    todayHighlight: false,
+                    minDate: false,
+                    maxDate: false,
+                });
+            });
+        </script>
+    </body>
 </html>

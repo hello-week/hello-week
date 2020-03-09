@@ -6,11 +6,15 @@ A hook for modifying a day DOM.
 
 ```js
 new HelloWeek({
-  selector: '.calendar',
-  beforeCreateDay: data => {
-    data.node = el('div', data.attributes, el('span', {}, data.day.toString()));
-    return data;
-  }
+    selector: '.calendar',
+    beforeCreateDay: data => {
+        data.node = el(
+            'div',
+            data.attributes,
+            el('span', {}, data.day.toString())
+        );
+        return data;
+    },
 });
 ```
 
