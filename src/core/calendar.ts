@@ -74,6 +74,7 @@ export class HelloWeek {
 
     /**
      *  Moves the calendar one month back.
+     *  @return void
      */
     prev(): void {
         const { onNavigation } = this.options.get();
@@ -86,6 +87,7 @@ export class HelloWeek {
 
     /**
      *  Moves the calendar one month forward.
+     *  @return void
      */
     next(): void {
         const { onNavigation } = this.options.get();
@@ -98,6 +100,7 @@ export class HelloWeek {
 
     /**
      *  Moves the calendar one year back.
+     * @return {void}
      */
     prevYear(): void {
         const { onNavigation } = this.options.get();
@@ -110,6 +113,7 @@ export class HelloWeek {
 
     /**
      *  Moves the calendar one year forward.
+     * @return {void}
      */
     nextYear(): void {
         const { onNavigation } = this.options.get();
@@ -122,6 +126,7 @@ export class HelloWeek {
 
     /**
      * Update and redraws the events for the current month.
+     * @return {void}
      */
     update(): void {
         this.clearCalendar();
@@ -129,7 +134,9 @@ export class HelloWeek {
     }
 
     /**
-     * Move the calendar to arbitrary day.
+     *  Move the calendar to arbitrary day
+     * @param {string = this.todayDate} date
+     * @return {void}
      */
     goToDate(date: string = this.todayDate): void {
         this.date = new Date(date);
@@ -139,6 +146,7 @@ export class HelloWeek {
 
     /**
      * Returns the selected days with the format specified.
+     * @return {any}
      */
     getDaySelected(): any {
         const { format } = this.options.get();
@@ -152,6 +160,7 @@ export class HelloWeek {
 
     /**
      * Gets last day selected.
+     * @return {Date} lastSelectedDay
      */
     getLastDaySelected(): Date | string {
         return this.lastSelectedDay;
@@ -159,6 +168,7 @@ export class HelloWeek {
 
     /**
      * Returns the highlight dates.
+     * @return {string}
      */
     getDaysHighlight(): string {
         return this.daysHighlight;
@@ -166,6 +176,7 @@ export class HelloWeek {
 
     /**
      * Returns the current month selected.
+     * @return {number}
      */
     getMonth(): number {
         return this.date.getMonth() + 1;
@@ -173,11 +184,17 @@ export class HelloWeek {
 
     /**
      * Returns the current year selected.
+     * @return {number}
      */
     getYear(): number {
         return this.date.getFullYear();
     }
 
+    /**
+     * Set new options
+     * @param {Partial<IOptions>} options
+     * @param {IOptions) => IOptions}    callback
+     */
     setOptions(
         options?: Partial<IOptions>,
         callback?: (data: IOptions) => IOptions
@@ -194,7 +211,8 @@ export class HelloWeek {
     }
 
     /**
-     * Set highlight dates,
+     * Set days highlight.
+     * @param {[number]} daysHighlight
      */
     setDaysHighlight(daysHighlight: [number]): void {
         this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
@@ -202,6 +220,7 @@ export class HelloWeek {
 
     /**
      * Sets interval of dates.
+     * @param {string[] | number[]} value
      */
     setIntervalRange(value: string[] | number[]) {
         const { range } = this.options.get();
@@ -214,6 +233,7 @@ export class HelloWeek {
 
     /**
      * Set min date.
+     * @param {number | string} date
      */
     setMinDate(date: number | string) {
         this.options.set({ minDate: setMinDate(date) });
@@ -221,6 +241,7 @@ export class HelloWeek {
 
     /**
      * Set max date.
+     * @param {number | string} date
      */
     setMaxDate(date: number | string) {
         this.options.set({ maxDate: setMaxDate(date) });
@@ -349,7 +370,7 @@ export class HelloWeek {
 
                 addClass(event.target, cssStates.IS_SELECTED);
             }
-            console.log(this.days[index]);
+
             onSelect(this.days[index]);
             if (callback) {
                 callback(this.days[index]);
