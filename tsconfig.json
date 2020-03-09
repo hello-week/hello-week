@@ -1,19 +1,18 @@
 {
-  "compilerOptions": {
-    "rootDir": "src/",
-    "outDir": "dist/",
-    "declarationDir": "types/",
-    "declaration": true,
-    "target": "esnext",
-    "module": "esnext",
-    "sourceMap": false,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowJs": true,
-    "checkJs": true
-  },
-  "include": ["src/"],
-  "exclude": ["node_modules", "dist", "types", "__tests__"]
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

@@ -1,0 +1,9 @@
+body {
+  font-size: 14px !important;
+}
+
+.home img[alt="Hello Week"] {
+    display: flex;
+    max-width: 320px;
+    margin: auto;
+}
