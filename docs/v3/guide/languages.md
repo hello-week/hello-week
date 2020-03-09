@@ -19,8 +19,8 @@ new HelloWeek({
 
 ## Support
 
-| Language   | Naming | Size        | File                                                                                      |
-| ---------- | ------ | ----------- | ----------------------------------------------------------------------------------------- |
+| Language   | Naming | Size  | File                                                                                      |
+| ---------- | ------ | ----- | ----------------------------------------------------------------------------------------- |
 | English    | `en`   | ~317b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/en.js) |
 | Spanish    | `es`   | ~320b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/es.js) |
 | Italian    | `it`   | ~326b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/it.js) |

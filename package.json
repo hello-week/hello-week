@@ -16,20 +16,20 @@
     "homepage": "https://github.com/maurovieirareis/hello-week"
   },
   "license": "MIT",
-  "author": {
-    "name": "Mauro Reis Vieira ",
-    "email": "mauroreisvieira@gmail.com",
-    "url": "http://mauroreisvieira.com/"
-  },
+  "authors": [
+    "Mauro Reis Vieira <mauroreisvieira@gmail.com>"
+  ],
   "ignore": [
     "node_modules"
   ],
-  "main": "./dist/hello.week.min.js",
-  "module": "./dist/hello.week.min.esm.js",
-  "types": "./types/src/index.d.ts",
-  "tsd": {
-    "directory": "types"
-  },
+  "main": "dist/hello.week.min.js",
+  "module": "dist/hello.week.min.esm.js",
+  "cjs:main": "dist/hello.week.min.cjs.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist/**/*.js",
+    "dist/*.css"
+  ],
   "scripts": {
     "dev": "rollup -c -w",
     "build": "yarn run lint &&  yarn run prettier && rollup -c --environment NODE_ENV:production",

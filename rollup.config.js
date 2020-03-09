@@ -12,6 +12,7 @@ import rimraf from 'rimraf';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const NAME = IS_PRODUCTION ? 'hello.week.min' : 'hello.week';
 
+const entryFile = 'src/index.ts';
 const outputConfigs = [
   {
     file: path.resolve(`dist/${NAME}.cjs.js`),
@@ -30,9 +31,8 @@ const outputConfigs = [
 rimraf.sync('types');
 export default [
   {
-    input: ['src/index.ts'],
+    input: entryFile,
     output: outputConfigs,
-    exports: 'named', /** Disable warning for default imports */
     plugins: [
       !IS_PRODUCTION && serve(),
       scss({
@@ -46,8 +46,7 @@ export default [
       }),
       IS_PRODUCTION && filesize(),
       commonjs(),
-      IS_PRODUCTION &&
-        terser()
+      IS_PRODUCTION && terser()
     ]
   },
   {
