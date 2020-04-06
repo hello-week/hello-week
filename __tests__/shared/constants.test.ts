@@ -1,4 +1,4 @@
-import { cssClasses, cssStates, daysWeek, margins } from '../../src/scripts/shared/constants';
+import { cssClasses, cssStates, daysWeek, margins } from '../../src/shared/constants';
 
 it('cssClasses should be a object', () => {
   expect(typeof cssClasses).toBe('object');
