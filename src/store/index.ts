@@ -1,5 +1,5 @@
 import { extend } from '../util/index';
-export function createStore(state) {
+export function createStore(state?: any) {
     let listeners = [];
     state = state || {};
 

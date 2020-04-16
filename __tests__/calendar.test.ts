@@ -1,8 +1,9 @@
-import { HelloWeek } from '../../src/core/calendar';
+import { HelloWeek } from '../src/core/calendar';
 
-jest.mock('../../src/core/calendar');
+jest.mock('../src/core/calendar');
 
-let instance, fixture, element;
+let fixture;
+let element;
 
 const getFixture = () => {
     const container = document.createElement('div');
@@ -20,7 +21,6 @@ const setupTest = () => {
 };
 
 const clearTest = () => {
-    if (instance) instance.destroy();
     document.body.removeChild(fixture);
 };
 
@@ -32,11 +32,5 @@ describe('Calendar', () => {
     it('should be able to call new() on HelloWeek', () => {
         const calendar = new HelloWeek(element);
         expect(calendar).toBeTruthy();
-    });
-
-    it('check if called a method getMonth() on the class instance', () => {
-        const calendar = new HelloWeek(element);
-        calendar.getMonth();
-        expect(calendar.getMonth()).toHaveBeenCalledTimes(1);
     });
 });
