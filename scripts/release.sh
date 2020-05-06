@@ -17,7 +17,6 @@ then
   # changelog
   yarn run changelog
 
-  npm run changelog
   echo "Please check the git history and the changelog and press enter"
   read OKAY
 
