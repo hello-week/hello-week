@@ -8,23 +8,28 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Releasing v$VERSION ..."
-  npm test
+  yarn run test
 
-  # commit
-  VERSION=$VERSION npm run build
-  git add dist
-  git commit -m "build: bundle $VERSION"
-  npm version $VERSION --message "chore(release): %s"
+  yarn run build
+  # generate the version so that the changelog can be generated too
+  yarn version --no-git-tag-version --no-commit-hooks --new-version $VERSION
 
   # changelog
+  yarn run changelog
+
   npm run changelog
   echo "Please check the git history and the changelog and press enter"
   read OKAY
-  git add CHANGELOG.md
-  git commit -m "chore(changelog): $VERSION"
+
+  # commit and tag
+  git add CHANGELOG.md package.json
+  git commit -m "chore(release): v$VERSION"
+  git tag "v$VERSION"
+
+  # commit
+  yarn publish --tag next --new-version "$VERSION" --no-commit-hooks --no-git-tag-version
 
   # publish
   git push origin refs/tags/v$VERSION
   git push
-  npm publish
 fi
