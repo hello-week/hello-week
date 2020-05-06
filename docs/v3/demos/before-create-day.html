@@ -16,7 +16,7 @@
             import { HelloWeek, el } from '../../../dist/hello.week.esm.js';
             new HelloWeek({
                 selector: '.calendar',
-                beforeCreateDay: data => {
+                beforeCreateDay: (data) => {
                     return {
                         ...data,
                         ...{

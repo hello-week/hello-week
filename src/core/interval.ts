@@ -3,7 +3,7 @@ import { formatDate } from './format';
 export function getIntervalOfDates(startDate: number, endDate: number) {
     const dates = [];
     let currentDate = startDate;
-    const addDays = function(this: any, days: any) {
+    const addDays = function (this: any, days: any) {
         const dt = new Date(this.valueOf());
         dt.setDate(dt.getDate() + days);
         return dt.getTime();

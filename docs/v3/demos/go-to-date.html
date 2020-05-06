@@ -35,10 +35,14 @@
             });
 
             const dt = new Date();
-            document.querySelector('#month').addEventListener('change', evt => {
-                calendar.goToDate(`${dt.getFullYear()}-${evt.target.value}-01`);
-                calendar.update();
-            });
+            document
+                .querySelector('#month')
+                .addEventListener('change', (evt) => {
+                    calendar.goToDate(
+                        `${dt.getFullYear()}-${evt.target.value}-01`
+                    );
+                    calendar.update();
+                });
         </script>
     </body>
 </html>

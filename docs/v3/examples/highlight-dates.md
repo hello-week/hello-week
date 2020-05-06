@@ -9,7 +9,7 @@ const calendar = new HelloWeek({
     selector: '.calendar',
     langFolder: './langs/',
     todayHighlight: false,
-    onSelect: data => {
+    onSelect: (data) => {
         const { date } = data;
         calendar.setDaysHighlight([
             {

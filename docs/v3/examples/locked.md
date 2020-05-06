@@ -12,7 +12,7 @@ const calendar = new HelloWeek({
 });
 
 document.querySelector('.btn').addEventListener('click', () => {
-    calendar.setOptions({}, prevOption => {
+    calendar.setOptions({}, (prevOption) => {
         return {
             ...prevOption,
             locked: !prevOption.locked,

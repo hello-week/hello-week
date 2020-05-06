@@ -40,20 +40,8 @@ export function formatDate(
     formats = formats.replace('mmm', monthsShort[dt.getMonth()]);
     formats = formats.replace('yyyy', dt.getFullYear().toString());
     formats = formats.replace('YYYY', dt.getFullYear().toString());
-    formats = formats.replace(
-        'YY',
-        dt
-            .getFullYear()
-            .toString()
-            .substring(2)
-    );
-    formats = formats.replace(
-        'yy',
-        dt
-            .getFullYear()
-            .toString()
-            .substring(2)
-    );
+    formats = formats.replace('YY', dt.getFullYear().toString().substring(2));
+    formats = formats.replace('yy', dt.getFullYear().toString().substring(2));
     return formats;
 }
 
