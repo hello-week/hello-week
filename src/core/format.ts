@@ -1,9 +1,14 @@
 import { useOptions, useLangs } from '../shared/index';
 import { isDef } from '../util/index';
 
-export function toDate(date: Date, timezoneOffset?: number) {
-    const dt = setTimeZone(date, timezoneOffset);
-    return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
+export function setTimeZone(
+    date?: number | string | Date,
+    timezoneOffset?: number
+) {
+    const dt = isDef(date) ? new Date(date) : new Date();
+    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
+    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
+    return dt;
 }
 
 export function defaultFormat(
@@ -12,6 +17,11 @@ export function defaultFormat(
     year: number
 ): string {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
+}
+
+export function toDate(date: Date, timezoneOffset?: number) {
+    const dt = setTimeZone(date, timezoneOffset);
+    return defaultFormat(dt.getDate(), dt.getMonth(), dt.getFullYear());
 }
 
 export function formatDate(
@@ -43,16 +53,6 @@ export function formatDate(
     formats = formats.replace('YY', dt.getFullYear().toString().substring(2));
     formats = formats.replace('yy', dt.getFullYear().toString().substring(2));
     return formats;
-}
-
-export function setTimeZone(
-    date?: number | string | Date,
-    timezoneOffset?: number
-) {
-    const dt = isDef(date) ? new Date(date) : new Date();
-    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
-    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
-    return dt;
 }
 
 export function formatDateToCompare(date?: number | string | Date): number {

@@ -1,6 +1,6 @@
-import { ICssClasses, ICssStates, IDaysWeek, IRTL } from '../interfaces/index';
+import { CssClasses, CssStates, DaysWeek, RTL } from '../interfaces/index';
 
-export const cssClasses: ICssClasses = {
+export const cssClasses: CssClasses = {
     CALENDAR: 'hello-week',
     DAY: 'day',
     MONTH: 'month',
@@ -12,7 +12,7 @@ export const cssClasses: ICssClasses = {
     WEEK: 'week',
 };
 
-export const cssStates: ICssStates = {
+export const cssStates: CssStates = {
     IS_BEGIN_RANGE: 'is-begin-range',
     IS_DISABLED: 'is-disabled',
     IS_END_RANGE: 'is-end-range',
@@ -23,7 +23,7 @@ export const cssStates: ICssStates = {
     IS_WEEKEND: 'is-weekend',
 };
 
-export const daysWeek: IDaysWeek = {
+export const daysWeek: DaysWeek = {
     FRIDAY: 5,
     MONDAY: 1,
     SATURDAY: 6,
@@ -33,7 +33,7 @@ export const daysWeek: IDaysWeek = {
     WEDNESDAY: 3,
 };
 
-export const margins: IRTL = {
+export const margins: RTL = {
     RIGHT: 'margin-right',
     LEFT: 'margin-left',
 };

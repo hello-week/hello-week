@@ -1,6 +1,6 @@
-import { ILangs } from '../interfaces/langs';
+import { Langs } from '../interfaces/langs';
 
-export const it: ILangs = {
+export const it: Langs = {
     days: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
     daysShort: ['Do', 'Lu', 'MA', 'Me', 'Gi', 'Ve', 'Sa'],
     months: [

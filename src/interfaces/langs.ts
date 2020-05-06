@@ -1,4 +1,4 @@
-export interface ILangs {
+export interface Langs {
     days: [string, string, string, string, string, string, string];
     daysShort: [string, string, string, string, string, string, string];
     months: [

@@ -1,6 +1,6 @@
-import { ILangs } from '../interfaces/langs';
+import { Langs } from '../interfaces/langs';
 
-export const zh: ILangs = {
+export const zh: Langs = {
     days: [
         '星期天',
         '星期一',

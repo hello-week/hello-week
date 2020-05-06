@@ -1,4 +1,4 @@
-export interface ICalendarTemplate {
+export interface CalendarTemplate {
     navigation: HTMLElement;
     prevMonth: HTMLElement;
     period: HTMLElement;
@@ -7,7 +7,7 @@ export interface ICalendarTemplate {
     month: HTMLElement;
 }
 
-export interface ITemplate {
+export interface Template {
     selector: HTMLElement;
-    calendar: ICalendarTemplate;
+    calendar: CalendarTemplate;
 }

@@ -1,6 +1,6 @@
-import { IOptions, IDayOptions } from '../interfaces/index';
+import { Options, DayOptions } from '../interfaces/index';
 
-export const defaults: IOptions = {
+export const defaults: Options = {
     selector: '.hello-week',
     lang: 'en',
     langFolder: './langs/',
@@ -32,6 +32,6 @@ export const defaults: IOptions = {
     onNavigation: () => {
         /** callback */
     },
-    onSelect: (data: IDayOptions) => data,
-    beforeCreateDay: (data: IDayOptions) => data,
+    onSelect: (data: DayOptions) => data,
+    beforeCreateDay: (data: DayOptions) => data,
 };

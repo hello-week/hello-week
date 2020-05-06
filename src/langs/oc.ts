@@ -1,6 +1,6 @@
-import { ILangs } from '../interfaces/langs';
+import { Langs } from '../interfaces/langs';
 
-export const oc: ILangs = {
+export const oc: Langs = {
     days: ['Dg', 'Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds'],
     daysShort: ['Dg', 'Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds'],
     months: [

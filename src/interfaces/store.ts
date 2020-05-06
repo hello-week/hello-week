@@ -1,13 +1,13 @@
-import { IOptions, ILangs } from './index';
+import { Options, Langs } from './index';
 
-export interface IStoreOptions {
+export interface StoreOptions {
     store: any;
-    set: (data: Partial<IOptions>) => void;
-    get: () => IOptions;
+    set: (data: Partial<Options>) => void;
+    get: () => Options;
 }
 
-export interface IStoreLangs {
+export interface StoreLangs {
     store: any;
-    set: (data: Partial<ILangs>) => void;
-    get: () => ILangs;
+    set: (data: Partial<Langs>) => void;
+    get: () => Langs;
 }

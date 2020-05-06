@@ -1,4 +1,4 @@
-import { IOptions, ITemplate } from '../interfaces/index';
+import { Options, Template } from '../interfaces/index';
 import {
     render,
     el,
@@ -9,7 +9,7 @@ import {
 } from './../util/index';
 import { cssClasses } from './../shared/constants';
 
-export function template(options: IOptions, args: any): ITemplate {
+export function template(options: Options, args: any): Template {
     const self: any = {};
 
     if (!isDef(options.selector)) {

@@ -24,31 +24,31 @@ import { getIntervalOfDates } from './interval';
 import { setMinDate, setMaxDate } from './min-max';
 import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
 import {
-    IOptions,
-    IDayOptions,
-    ILangs,
-    ICalendarTemplate,
-    IStoreOptions,
-    IStoreLangs,
+    Options,
+    DayOptions,
+    Langs,
+    CalendarTemplate,
+    StoreOptions,
+    StoreLangs,
 } from '../interfaces/index';
 
 export class HelloWeek {
-    private options: IStoreOptions;
-    private langs: IStoreLangs;
+    private options: StoreOptions;
+    private langs: StoreLangs;
     private selector: HTMLElement;
     private daysOfMonth: NodeListOf<Element>;
     private todayDate: string = toDate(new Date());
     private date: Date = new Date();
     private defaultDate?: Date;
-    private calendar: ICalendarTemplate;
-    private days: { [day: number]: IDayOptions };
+    private calendar: CalendarTemplate;
+    private days: { [day: number]: DayOptions };
     private isRTL: string;
     private daysHighlight: any;
     private intervalRange: any = {};
     private daysSelected: any = [];
     private lastSelectedDay: Date | string;
 
-    constructor(options: IOptions) {
+    constructor(options: Options) {
         this.langs = useLangs;
         this.options = useOptions;
         this.options.set(options);
@@ -192,12 +192,12 @@ export class HelloWeek {
 
     /**
      * Set new options
-     * @param {Partial<IOptions>} options
-     * @param {IOptions) => IOptions}    callback
+     * @param {Partial<Options>} options
+     * @param {Options) => Options}    callback
      */
     setOptions(
-        options?: Partial<IOptions>,
-        callback?: (data: IOptions) => IOptions
+        options?: Partial<Options>,
+        callback?: (data: Options) => Options
     ): void {
         if (isObject(options)) {
             this.options.set(options);
@@ -253,7 +253,7 @@ export class HelloWeek {
 
         import(langFolder + lang + '.js')
             .then((data: any) => data.default)
-            .then((data: ILangs) => {
+            .then((data: Langs) => {
                 this.langs.set(data);
                 this.beforeMount();
             });
@@ -442,7 +442,7 @@ export class HelloWeek {
     private createDay(date: Date): void {
         const num = date.getDate();
         const day = date.getDay();
-        let dayOptions: IDayOptions = {
+        let dayOptions: DayOptions = {
             day: num,
             date: toDate(date),
             isWeekend: false,
@@ -600,7 +600,8 @@ export class HelloWeek {
     }
 
     private computedAttributes(day: any, dayOptions: any) {
-        const { attributes, days, ...rest } = this.daysHighlight[day];
+        const { attributes, ...rest } = this.daysHighlight[day];
+        delete rest.days;
         dayOptions = extend(dayOptions, rest);
         for (const key in attributes) {
             if (dayOptions.attributes[key] && attributes[key]) {

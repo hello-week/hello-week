@@ -24,39 +24,3 @@ it('should update state in-place', () => {
     store.setState({ c: undefined });
     expect(store.getState()).toMatchObject({ a: 'x', c: undefined });
 });
-
-it('should invoke subscriptions', () => {
-    const store = createStore();
-
-    const sub1 = jest.fn();
-    const sub2 = jest.fn();
-
-    const rval = store.subscribe(sub1);
-    expect(rval).toBeInstanceOf(Function);
-
-    store.setState({ a: 'b' });
-    expect(sub1).toBeCalledWith(store.getState());
-
-    store.subscribe(sub2);
-    store.setState({ c: 'd' });
-
-    expect(sub1).toHaveBeenCalledTimes(2);
-    expect(sub1).toHaveBeenLastCalledWith(store.getState());
-    expect(sub2).toBeCalledWith(store.getState());
-});
-
-it('should unsubscribe', () => {
-    const store = createStore();
-
-    const sub1 = jest.fn();
-    store.subscribe(sub1);
-
-    store.setState({ a: 'b' });
-    expect(sub1).toBeCalled();
-
-    sub1.mockClear();
-
-    store.unsubscribe(sub1);
-    store.setState({ e: 'f' });
-    expect(sub1).not.toBeCalled();
-});

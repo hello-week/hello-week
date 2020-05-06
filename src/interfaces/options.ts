@@ -1,4 +1,4 @@
-export interface IOptions {
+export interface Options {
     selector: string;
     lang: string;
     langFolder: string;
@@ -23,12 +23,12 @@ export interface IOptions {
     timezoneOffset?: number;
     onLoad: () => void;
     onNavigation: () => void;
-    onSelect: (data: IDayOptions) => IDayOptions;
+    onSelect: (data: DayOptions) => DayOptions;
     beforeLoad: () => void;
-    beforeCreateDay: (data: IDayOptions) => IDayOptions;
+    beforeCreateDay: (data: DayOptions) => DayOptions;
 }
 
-export interface IDayOptions {
+export interface DayOptions {
     day: number;
     date: Date | string;
     isWeekend: boolean;
@@ -43,7 +43,7 @@ export interface IDayOptions {
     element: HTMLElement | undefined;
 }
 
-export interface ICssClasses {
+export interface CssClasses {
     CALENDAR: string;
     DAY: string;
     MONTH: string;
@@ -55,7 +55,7 @@ export interface ICssClasses {
     WEEK: string;
 }
 
-export interface ICssStates {
+export interface CssStates {
     IS_BEGIN_RANGE: string;
     IS_END_RANGE: string;
     IS_RANGE: string;
@@ -66,7 +66,7 @@ export interface ICssStates {
     IS_WEEKEND: string;
 }
 
-export interface IDaysWeek {
+export interface DaysWeek {
     FRIDAY: number;
     MONDAY: number;
     SATURDAY: number;
@@ -76,7 +76,7 @@ export interface IDaysWeek {
     WEDNESDAY: number;
 }
 
-export interface IRTL {
+export interface RTL {
     RIGHT: string;
     LEFT: string;
 }
