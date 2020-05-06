@@ -18,13 +18,13 @@ const calendar = new HelloWeek({
                     {
                         title: 'Event 1',
                     },
-                    {
-                        title: 'Event 2',
-                    },
                 ],
                 attributes: {
                     style: {
-                        backgroundColor: '#04f',
+                      backgroundColor: '#04f',
+                    },
+                    data: {
+                      title: 'Event 1'
                     },
                 },
             },

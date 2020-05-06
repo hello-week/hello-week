@@ -1,6 +1,6 @@
 import { Langs } from '../interfaces/langs';
 
-export const zh: Langs = {
+const zh: Langs = {
     days: [
         '星期天',
         '星期一',
@@ -40,3 +40,5 @@ export const zh: Langs = {
         '十二月',
     ],
 };
+
+export default zh;

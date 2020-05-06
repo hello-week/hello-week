@@ -1,6 +1,6 @@
 import { Langs } from '../interfaces/langs';
 
-export const es: Langs = {
+const es: Langs = {
     days: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
     daysShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
     months: [
@@ -32,3 +32,5 @@ export const es: Langs = {
         'Dic',
     ],
 };
+
+export default es;

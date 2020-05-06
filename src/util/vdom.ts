@@ -3,7 +3,7 @@ import { setAttr, addClass } from './dom';
 
 function dataProps(vnode, node, name) {
     for (const prop of Object.keys(vnode.attributes[name])) {
-        setAttr(node, `data-${name}`, vnode.attributes[name][prop]);
+        setAttr(node, `data-${prop}`, vnode.attributes[name][prop]);
     }
 }
 

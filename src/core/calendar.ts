@@ -26,7 +26,6 @@ import { toDate, setTimeZone, formatDate, formatDateToCompare } from './format';
 import {
     Options,
     DayOptions,
-    Langs,
     CalendarTemplate,
     StoreOptions,
     StoreLangs,
@@ -216,6 +215,7 @@ export class HelloWeek {
      */
     setDaysHighlight(daysHighlight: [number]): void {
         this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
+        this.update();
     }
 
     /**
@@ -250,13 +250,12 @@ export class HelloWeek {
     private beforeCreate() {
         const { rtl, langFolder, lang } = this.options.get();
         this.isRTL = rtl ? margins.RIGHT : margins.LEFT;
-
         import(langFolder + lang + '.js')
-            .then((data: any) => data.default)
-            .then((data: Langs) => {
-                this.langs.set(data);
-                this.beforeMount();
-            });
+            .then((data: any) => data)
+            .then((data: any) => {
+                this.langs.set(data.default);
+            })
+            .then(() => this.beforeMount());
     }
 
     private beforeMount() {
@@ -270,7 +269,6 @@ export class HelloWeek {
             beforeLoad,
             onLoad,
         } = this.options.get();
-
         this.daysHighlight = daysHighlight ? daysHighlight : [];
         this.daysSelected = daysSelected ? daysSelected : [];
 

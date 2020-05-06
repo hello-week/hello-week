@@ -14,9 +14,6 @@
 
         <script type="module">
             import { HelloWeek } from '../../../dist/hello.week.esm.js';
-            const dt = new Date();
-            let month = dt.getMonth();
-            let year = dt.getFullYear();
 
             const calendar = new HelloWeek({
                 selector: '.calendar',
@@ -30,15 +27,15 @@
                             events: [
                                 {
                                     title: 'Event 1',
-                                },
-                                {
-                                    title: 'Event 2',
-                                },
+                                }
                             ],
                             attributes: {
                                 style: {
                                     backgroundColor: '#04f',
                                 },
+                                data: {
+                                  title: 'Event 1'
+                                }
                             },
                         },
                     ]);

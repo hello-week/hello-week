@@ -13,7 +13,7 @@ export const useOptions: StoreOptions = {
 };
 
 export const useLangs: StoreLangs = {
-    store: createStore(defaults),
+    store: createStore({}),
     set(options) {
         this.store.setState(options);
     },
