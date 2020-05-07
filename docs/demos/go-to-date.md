@@ -25,7 +25,7 @@ Displays the calendar in right-to-left mode.
 ```js
 var calendar = new HelloWeek({
     onLoad: () => {
-        calendar.goToDate('2019-06-01');
+        calendar.goToDate('2020-06-01');
     }
 });
 

@@ -11,7 +11,6 @@ Set disabled specific day/days.
 #### Javascript Initialization
 ```js
 new HelloWeek({
-    disableDates: [["2019-03-02", "2019-03-12"]]
+    disableDates: [["2020-03-02", "2020-03-12"]]
 });
 ```
-

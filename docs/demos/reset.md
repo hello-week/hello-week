@@ -12,8 +12,8 @@ Method reset calendar to initial value.
 #### Javascript Initialization
 ```js
 var calendar = new HelloWeek({
-    minDate: '2019-03-10',
-    maxDate: '2019-03-28',
+    minDate: '2020-03-10',
+    maxDate: '2020-03-28',
     onNavigation: () => {
         console.log('You change the month!');
     }
