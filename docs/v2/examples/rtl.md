@@ -6,8 +6,8 @@ Displays the calendar in right-to-left mode.
 
 ```js
 new HelloWeek({
-  selector: '.calendar',
-  rtl: true
+    selector: '.calendar',
+    rtl: true,
 });
 ```
 

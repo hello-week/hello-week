@@ -8,13 +8,13 @@ Edit the code for a theme only if you know **HTML**, **CSS** and have a basic un
 
 ```html
 <div class="hello-week">
-  <div class="navigation">
-    <button class="prev">Prev</button>
-    <div class="period"></div>
-    <button class="next">Next</button>
-  </div>
-  <div class="week"></div>
-  <div class="month"></div>
+    <div class="navigation">
+        <button class="prev">Prev</button>
+        <div class="period"></div>
+        <button class="next">Next</button>
+    </div>
+    <div class="week"></div>
+    <div class="month"></div>
 </div>
 ```
 

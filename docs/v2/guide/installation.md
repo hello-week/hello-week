@@ -37,9 +37,9 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 
 <script type="text/javascript" src="hello.week.min.js"></script>
 <script>
-  new Hello Week({
-    selector: '.calendar'
-  });
+    new Hello Week({
+      selector: '.calendar'
+    });
 </script>
 ```
 

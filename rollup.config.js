@@ -12,60 +12,59 @@ import rimraf from 'rimraf';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const NAME = IS_PRODUCTION ? 'hello.week.min' : 'hello.week';
 
+const entryFile = 'src/index.ts';
 const outputConfigs = [
-  {
-    file: path.resolve(`dist/${NAME}.cjs.js`),
-    format: 'cjs'
-  },
-  {
-    file: path.resolve(`dist/${NAME}.js`),
-    format: 'iife'
-  },
-  {
-    file: path.resolve(`dist/${NAME}.esm.js`),
-    format: 'esm'
-  }
+    {
+        file: path.resolve(`dist/${NAME}.cjs.js`),
+        format: 'cjs',
+    },
+    {
+        file: path.resolve(`dist/${NAME}.js`),
+        format: 'iife',
+    },
+    {
+        file: path.resolve(`dist/${NAME}.esm.js`),
+        format: 'esm',
+    },
 ];
 
 rimraf.sync('types');
 export default [
-  {
-    input: ['src/index.ts'],
-    output: outputConfigs,
-    exports: 'named', /** Disable warning for default imports */
-    plugins: [
-      !IS_PRODUCTION && serve(),
-      scss({
-        output: 'dist/hello.week.css'
-      }),
-      typescript({
-        useTsconfigDeclarationDir: true
-      }),
-      resolve({
-        mainFields: ['jsnext', 'main', 'browser']
-      }),
-      IS_PRODUCTION && filesize(),
-      commonjs(),
-      IS_PRODUCTION &&
-        terser()
-    ]
-  },
-  {
-    input: fs.readdirSync('src/langs').map(e => 'src/langs/' + e),
-    output: {
-      dir: 'dist/langs/',
-      format: 'es'
+    {
+        input: entryFile,
+        output: outputConfigs,
+        plugins: [
+            !IS_PRODUCTION && serve(),
+            scss({
+                output: 'dist/hello.week.css',
+            }),
+            typescript({
+                useTsconfigDeclarationDir: true,
+            }),
+            resolve({
+                mainFields: ['jsnext', 'main', 'browser'],
+            }),
+            IS_PRODUCTION && filesize(),
+            commonjs(),
+            IS_PRODUCTION && terser(),
+        ],
     },
-    plugins: [
-      typescript({
-        useTsconfigDeclarationDir: true
-      }),
-      resolve({
-        mainFields: ['jsnext', 'main', 'browser']
-      }),
-      IS_PRODUCTION && filesize(),
-      commonjs(),
-      terser()
-    ]
-  }
+    {
+        input: fs.readdirSync('src/langs').map(e => 'src/langs/' + e),
+        output: {
+            dir: 'dist/langs/',
+            format: 'es',
+        },
+        plugins: [
+            typescript({
+                useTsconfigDeclarationDir: true,
+            }),
+            resolve({
+                mainFields: ['jsnext', 'main', 'browser'],
+            }),
+            IS_PRODUCTION && filesize(),
+            commonjs(),
+            terser(),
+        ],
+    },
 ];

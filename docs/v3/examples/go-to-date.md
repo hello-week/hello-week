@@ -6,10 +6,10 @@ Move the calendar to specific date.
 
 ```js
 const calendar = new HelloWeek({
-  selector: '.calendar',
-  onLoad: () => {
-    calendar.goToDate('2030-06-01');
-  }
+    selector: '.calendar',
+    onLoad: () => {
+        calendar.goToDate('2030-06-01');
+    },
 });
 ```
 

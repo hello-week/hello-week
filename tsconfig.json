@@ -12,7 +12,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "esModuleInterop": true
   },
   "include": ["src/"],
   "exclude": ["node_modules", "dist", "types", "__tests__"]

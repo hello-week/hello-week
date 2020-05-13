@@ -6,7 +6,7 @@ This gives you the ability to listen for any changes and perform your own action
 
 ```js
 new HelloWeek({
-  onSelect: () => {}
+    onSelect: () => {},
 });
 ```
 

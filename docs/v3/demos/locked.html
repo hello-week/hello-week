@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Locked | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="../../../dist/hello.week.css" rel="stylesheet" />
-    <link href="../../../dist/default.theme.css" rel="stylesheet" />
-  </head>
-  <body>
-    <main>
-      <button class="btn">Toggle Locked</button>
-      <div class="calendar default-theme"></div>
-    </main>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Locked | Hello Week</title>
+        <link href="../../../static/styles/main.css" rel="stylesheet" />
+        <link href="../../../dist/hello.week.css" rel="stylesheet" />
+        <link href="../../../dist/default.theme.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <button class="btn">Toggle Locked</button>
+            <div class="calendar default-theme"></div>
+        </main>
 
-    <script type="module">
-      import { HelloWeek } from '../../../dist/hello.week.esm.js';
-      const calendar = new HelloWeek({
-        selector: '.calendar',
-        langFolder: './langs/',
-        locked: true
-      });
+        <script type="module">
+            import { HelloWeek } from '../../../dist/hello.week.esm.js';
+            const calendar = new HelloWeek({
+                selector: '.calendar',
+                langFolder: './langs/',
+                locked: true,
+            });
 
-      document.querySelector('.btn').addEventListener('click', () => {
-        calendar.setOptions({}, prevOption => {
-          return {
-            ...prevOption,
-            locked: !prevOption.locked
-          };
-        });
-      });
-    </script>
-  </body>
+            document.querySelector('.btn').addEventListener('click', () => {
+                calendar.setOptions({}, (prevOption) => {
+                    return {
+                        ...prevOption,
+                        locked: !prevOption.locked,
+                    };
+                });
+            });
+        </script>
+    </body>
 </html>

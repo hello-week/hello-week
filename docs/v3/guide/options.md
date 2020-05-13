@@ -6,7 +6,7 @@ Hello Week comes with a few (optional) settings that you can change by passing a
 
 ```js
 new HelloWeek({
-  selector: '#calendar'
+    selector: '#calendar',
 });
 ```
 

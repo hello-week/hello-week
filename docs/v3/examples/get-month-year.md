@@ -6,11 +6,11 @@ Get month or year.
 
 ```js
 const calendar = new HelloWeek({
-  selector: '.calendar',
-  onNavigation: () => {
-    console.log('Current Month: ', calendar.getMonth());
-    console.log('Current Year: ', calendar.getYear());
-  }
+    selector: '.calendar',
+    onNavigation: () => {
+        console.log('Current Month: ', calendar.getMonth());
+        console.log('Current Year: ', calendar.getYear());
+    },
 });
 ```
 

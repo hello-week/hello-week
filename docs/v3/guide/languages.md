@@ -13,14 +13,14 @@ and if you changed the directory you only need to indicate the `langFolder` in H
 
 ```js
 new HelloWeek({
-  lang: 'pt'
+    lang: 'pt',
 });
 ```
 
 ## Support
 
-| Language   | Naming | Size        | File                                                                                      |
-| ---------- | ------ | ----------- | ----------------------------------------------------------------------------------------- |
+| Language   | Naming | Size  | File                                                                                      |
+| ---------- | ------ | ----- | ----------------------------------------------------------------------------------------- |
 | English    | `en`   | ~317b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/en.js) |
 | Spanish    | `es`   | ~320b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/es.js) |
 | Italian    | `it`   | ~326b | [(View File)](https://github.com/mauroreisvieira/hello-week/blob/master/dist/langs/it.js) |
@@ -32,22 +32,35 @@ new HelloWeek({
 
 ```js
 module.exports = {
-  days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  daysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-  months: [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ],
-  monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    daysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ],
+    monthsShort: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+    ],
 };
 ```

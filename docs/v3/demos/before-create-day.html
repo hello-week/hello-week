@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Before Create Day | Hello Week</title>
-    <link href="../../../static/styles/main.css" rel="stylesheet" />
-    <link href="../../../dist/hello.week.css" rel="stylesheet" />
-    <link href="../../../dist/default.theme.css" rel="stylesheet" />
-  </head>
-  <body>
-    <main>
-      <div class="calendar default-theme"></div>
-    </main>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Before Create Day | Hello Week</title>
+        <link href="../../../static/styles/main.css" rel="stylesheet" />
+        <link href="../../../dist/hello.week.css" rel="stylesheet" />
+        <link href="../../../dist/default.theme.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <div class="calendar default-theme"></div>
+        </main>
 
-    <script type="module">
-      import { HelloWeek, el } from '../../../dist/hello.week.esm.js';
-      new HelloWeek({
-        selector: '.calendar',
-        beforeCreateDay: data => {
-          data.node = el('div', data.attributes, el('span', {}, data.day.toString()));
-          return data;
-        }
-      });
-    </script>
-  </body>
+        <script type="module">
+            import { HelloWeek, el } from '../../../dist/hello.week.esm.js';
+            new HelloWeek({
+                selector: '.calendar',
+                beforeCreateDay: (data) => {
+                    return {
+                        ...data,
+                        ...{
+                            node: el(
+                                'div',
+                                data.attributes,
+                                el('span', {}, data.day.toString())
+                            ),
+                        },
+                    };
+                },
+            });
+        </script>
+    </body>
 </html>

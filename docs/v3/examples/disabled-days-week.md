@@ -6,8 +6,8 @@ Set disabled specific days of week.
 
 ```js
 new HelloWeek({
-  selector: '.calendar',
-  disableDaysOfWeek: [0, 1] // disabling weekends
+    selector: '.calendar',
+    disableDaysOfWeek: [0, 1], // disabling weekends
 });
 ```
 

@@ -6,31 +6,31 @@ Set day/days highlight, with different customizes.
 
 ```js
 const calendar = new HelloWeek({
-  selector: '.calendar',
-  langFolder: './langs/',
-  todayHighlight: false,
-  onSelect: data => {
-    const { date } = data;
-    calendar.setDaysHighlight([
-      {
-        days: [date],
-        events: [
-          {
-            title: 'Event 1'
-          },
-          {
-            title: 'Event 2'
-          }
-        ],
-        attributes: {
-          style: {
-            backgroundColor: '#04f'
-          }
-        }
-      }
-    ]);
-    calendar.update();
-  }
+    selector: '.calendar',
+    langFolder: './langs/',
+    todayHighlight: false,
+    onSelect: (data) => {
+        const { date } = data;
+        calendar.setDaysHighlight([
+            {
+                days: [date],
+                events: [
+                    {
+                        title: 'Event 1',
+                    },
+                ],
+                attributes: {
+                    style: {
+                        backgroundColor: '#04f',
+                    },
+                    data: {
+                        title: 'Event 1',
+                    },
+                },
+            },
+        ]);
+        calendar.update();
+    },
 });
 ```
 

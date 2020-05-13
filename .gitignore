@@ -11,6 +11,9 @@ Thumbs.db
 # Generated folders
 node_modules/
 .rpt2_cache
+dist/
+types/
+coverage
 
 # Generated files
 package-lock.json
