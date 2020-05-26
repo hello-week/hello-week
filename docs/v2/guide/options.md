@@ -24,7 +24,7 @@ new HelloWeek({
 | `default`           | `boolean`            | `null`          | Define the start date in calendar.                                               |
 | `todayHighlight`    | `boolean`            | `true`          | Highlights the current date.                                                     |
 | `disablePastDays`   | `boolean`            | `false`         | Disable date before the current day.                                             |
-| `disableDaysOfWeek` | `array`              | `null`          | Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). |
+| `disabledDaysOfWeek` | `array`              | `null`          | Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). |
 | `disableDates`      | `array`              | `null`          | Array of date strings or a single date string to make days disabled.             |
 | `daysHighlight`     | `array`              | `null`          | Array of date strings or a single date string to make days with highlight.       |
 | `daysSelected`      | `array`              | `null`          | Array of strings with day/days to make selected.                                 |
