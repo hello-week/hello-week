@@ -22,8 +22,12 @@
                         ...{
                             node: el(
                                 'div',
-                                data.attributes,
-                                el('span', {}, data.day.toString())
+                                data.node.attributes,
+                                el(
+                                    'span',
+                                    { style: { pointerEvents: 'none' } },
+                                    data.day.toString()
+                                )
                             ),
                         },
                     };
