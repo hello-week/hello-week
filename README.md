@@ -9,18 +9,18 @@
 #### Installation
 
 ```bash
-# Using NPM
-npm install hello-week --D
+npm install hello-week --save
+```
 
-# Using Yarn
+```bash
 yarn add hello-week
 ```
 
 #### Including files:
 
 ```html
-<link rel="stylesheet" type="text/css" href="hello.week.css" />
-<link rel="stylesheet" type="text/css" href="default.theme.css" />
+<link rel="stylesheet" type="text/css" href="hello.week.min.css" />
+<link rel="stylesheet" type="text/css" href="hello.week.theme.min.css" />
 
 <script type="text/javascript" src="hello.week.min.js"></script>
 <script>
@@ -32,13 +32,13 @@ yarn add hello-week
 
 ```html
 <div class="hello-week">
-  <div class="navigation">
-    <button class="prev">Prev</button>
-    <div class="period"></div>
-    <button class="next">Next</button>
-  </div>
-  <div class="week"></div>
-  <div class="month"></div>
+    <div class="navigation">
+        <button class="prev">Prev</button>
+        <div class="period"></div>
+        <button class="next">Next</button>
+    </div>
+    <div class="week"></div>
+    <div class="month"></div>
 </div>
 ```
 
@@ -49,50 +49,38 @@ Default values are presented below.
 
 ```js
 new HelloWeek({
-  selector: '.hello-week',
-  lang: 'en',
-  langFolder: './langs/',
-  format: 'DD/MM/YYYY',
-  defaultDate: null,
-  todayHighlight: true,
-  weekStart: 0,
-  monthShort: false,
-  weekShort: true,
-  minDate: null,
-  maxDate: null,
-  daysSelected: null,
-  daysHighlight: null,
-  multiplePick: false,
-  disableDaysOfWeek: null,
-  disableDates: null,
-  disablePastDays: false,
-  range: false,
-  locked: false,
-  rtl: false,
-  nav: ['◀', '▶'],
-  timezoneOffset: new Date().getTimezoneOffset(),
-  onLoad: () => void;
-  onNavigation: () => void;
-  onSelect: (data: IDayOptions) => IDayOptions;
-  beforeLoad: () => void;
-  beforeCreateDay: (data: IDayOptions) => IDayOptions;
+    selector: '.hello-week',
+    lang: 'en',
+    langFolder: './dist/langs/',
+    format: 'DD/MM/YYYY',
+    weekShort: true,
+    monthShort: false,
+    multiplePick: false,
+    defaultDate: null,
+    todayHighlight: true,
+    disablePastDays: false,
+    disabledDaysOfWeek: null,
+    disableDates: null,
+    weekStart: 0, // week start on Sunday
+    daysHighlight: null,
+    daysSelected: null,
+    range: false,
+    rtl: false,
+    locked: false,
+    minDate: null,
+    maxDate: null,
+    nav: ['◀', '▶'],
+    onLoad: () => { /** callback function */ },
+    onChange: () => { /** callback function */ },
+    onSelect: () => { /** callback function */ },
+    onClear: () => { /** callback function */ }
 });
 ```
 
-```diff
-new HelloWeek({
-+   timezoneOffset: new Date().getTimezoneOffset(),
--   onClear: () => {}
--   onSelect: () => {}
-+   onSelect: (data: IDayOptions) => data
-+   beforeLoad: () => {}
-+   beforeCreateDay: (data: IDayOptions) => data
-});
-```
 
 ### Useful links
 
-- [Examples](https://hello-week.now.sh/#/)
+- [Demos](https://mauroreisvieira.github.io/hello-week/)
 - [Changelog](CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)
 
