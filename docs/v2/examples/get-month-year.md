@@ -8,8 +8,8 @@ Get month or year.
 const calendar = new HelloWeek({
     selector: '.calendar',
     onNavigation: () => {
-        console.log('Current Month: ', calendar.getMonth());
-        console.log('Current Year: ', calendar.getYear());
+        console.log('Current Month: ', calendar.date.getMonth());
+        console.log('Current Year: ', calendar.date.getYear());
     },
 });
 ```
