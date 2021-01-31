@@ -272,16 +272,6 @@ const config = {
             text: 'Before Create Day'
           }
         ]
-      },
-      {
-        text: 'Integrations',
-        children: [
-          {
-            path: 'integrations/vue-hello-week.md',
-            slug: 'vue-hello-week',
-            text: 'Vue Hello Week'
-          }
-        ]
       }
     ]
   }
