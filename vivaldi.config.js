@@ -12,10 +12,6 @@ const config = {
       name: '2.10.2',
       path: 'docs/v2/'
     },
-    v3: {
-      name: '3.x',
-      path: 'docs/v3/'
-    }
   },
   navbar: {
     logoName: 'Hello Week',
