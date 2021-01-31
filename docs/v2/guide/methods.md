@@ -18,7 +18,6 @@ calendar.getDays();
 | `update()`                                  | `triggerable` | Update and redraws the events for the current month.                                      |
 | `reset(options: {}, callback?: () => void)` | `triggerable` | Reset calendar.                                                                           |
 | `destroy()`                                 | `triggerable` | Destroy the calendar and remove the instance from the target element.                     |
-| `goToday()`                                 | `triggerable` | Move the calendar to current day.                                                         |
 | `goToDate(date: string)`                    | `triggerable` | Move the calendar to arbitrary day.                                                       |
 | `getDays()`                                 | `triggerable` | Returns the selected days with the format specified.                                      |
 | `getDaysHighlight()`                        | `triggerable` | Returns the highlight dates.                                                              |
