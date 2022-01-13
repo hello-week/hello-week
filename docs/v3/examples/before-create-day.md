@@ -8,20 +8,20 @@ A hook for modifying a day DOM.
 new HelloWeek({
     selector: '.calendar',
     beforeCreateDay: (data) => {
-      return {
-          ...data,
-          ...{
-              node: el(
-                  'div',
-                  data.node.attributes,
-                  el(
-                      'span',
-                      { style: { pointerEvents: 'none' } },
-                      data.day.toString()
-                  )
-              ),
-          },
-      };
+        return {
+            ...data,
+            ...{
+                node: el(
+                    'div',
+                    data.node.attributes,
+                    el(
+                        'span',
+                        { style: { pointerEvents: 'none' } },
+                        data.day.toString()
+                    )
+                ),
+            },
+        };
     },
 });
 ```

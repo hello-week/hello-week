@@ -11,7 +11,7 @@ import {
     getIndexForEventTarget,
     isArray,
     isObject,
-    isFuncation,
+    isFunction,
     el,
     render,
     addClass,
@@ -202,7 +202,7 @@ export class HelloWeek {
             this.options.set(options);
         }
 
-        if (isFuncation(callback)) {
+        if (isFunction(callback)) {
             this.options.set(callback(this.options.get()));
         }
 

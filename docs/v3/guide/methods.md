@@ -12,12 +12,12 @@ calendar.getDays();
 ## Public API
 
 | Property                                                                           | Value Type    | Description                                                           |
-| ---------------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------- |
+| ---------------------------------------------------------------------------------- | ------------- | --------------------------------------------------------------------- | --- |
 | `prev()`                                                                           | `triggerable` | Moves the calendar one month back.                                    |
 | `next()`                                                                           | `triggerable` | Moves the calendar one month forward.                                 |
 | `prevYear()`                                                                       | `triggerable` | Moves the calendar back one year.                                     |
 | `nextYear()`                                                                       | `triggerable` | Moves the calendar forward one year.                                  |
-| `update()`                                                                         | `triggerable` | Update and redraws the events for the current month.                  |  |
+| `update()`                                                                         | `triggerable` | Update and redraws the events for the current month.                  |     |
 | `destroy()`                                                                        | `triggerable` | Destroy the calendar and remove the instance from the target element. |
 | `goToDate(date: string)`                                                           | `triggerable` | Move the calendar to arbitrary day.                                   |
 | `getDays()`                                                                        | `triggerable` | Returns the selected days with the format specified.                  |
