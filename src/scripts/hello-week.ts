@@ -35,6 +35,7 @@ export class HelloWeek {
     }
 
     constructor (options: any = {}) {
+        console.log('DEBUG');
         this.options = Utilities.extend(options);
         HelloWeek.initOptions = (<any>Object).assign({}, Utilities.extend(options));
         this.selector = typeof this.options.selector === 'string' ?

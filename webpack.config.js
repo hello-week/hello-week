@@ -1,10 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const extractSass = new ExtractTextPlugin({
-    filename: "../dist/[name].min.css",
-    disable: process.env.NODE_ENV === "development"
-});
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry : {
@@ -26,18 +21,26 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: extractSass.extract([ 'css-loader', 'sass-loader' ])
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
-            }
+                use: [
+                MiniCssExtractPlugin.loader,
+                {
+                    loader: "css-loader",
+                    options: {
+                        modules: true,
+                        sourceMap: true,
+                        importLoader: 2
+                    }
+                },
+                "sass-loader"
+                ]}
         ]
     },
     resolve: {
         extensions: [ '.tsx', '.ts', '.js']
     },
     plugins: [
-        extractSass
+        new MiniCssExtractPlugin({
+            filename: "../dist/[name].min.css",
+        })
     ]
 };
