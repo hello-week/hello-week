@@ -1,6 +1,6 @@
 {
     "name": "hello-week",
-    "version": "2.10.3",
+    "version": "2.11.0",
     "description": "Lightweight and simple calendar with no dependencies in pure JavaScript",
     "license": "MIT",
     "repository": "https://github.com/maurovieirareis/hello-week",
@@ -15,7 +15,6 @@
         "dev": "rollup -c -w",
         "build": "rollup -c --environment NODE_ENV:production",
         "lint:js": "eslint src/core/*.ts",
-        "lint:css": "stylelint src/**/*.scss",
         "changelog": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
         "release": "bash scripts/release.sh",
         "test": "echo \"Warning: no test specified\" && exit 0"
