@@ -3,7 +3,7 @@ import { addClass, creatHTMLElement, removeClass, setDataAttr, setStyle, toggleC
 import { extend } from '../utils/extend';
 import { formatDate, setToTimestamp, timestampToHuman } from '../utils/format';
 import { isArray, isNull, isString } from '../utils/is';
-import { checkUrl, getIndexForEventTarget, readFile } from '../utils/others';
+import { getIndexForEventTarget } from '../utils/others';
 import { CSS_CLASSES, CSS_STATES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
 export class HelloWeek {
@@ -48,7 +48,8 @@ export class HelloWeek {
     }
 
     constructor (options: Options) {
-        this.options = extend(options);
+        this.options =  Object.assign({}, extend(options));
+        console.log('ON TIME!', this.options);
         HelloWeek.initOptions = Object.assign({}, extend(options));
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
@@ -80,17 +81,12 @@ export class HelloWeek {
             addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
 
-        if (checkUrl(this.options.langFolder)) {
-            readFile(this.options.langFolder, (text: string) => {
-                this.langs = JSON.parse(text);
-                this.init();
-            });
-        } else {
-            readFile(this.options.langFolder + this.options.lang + '.json', (text: string) => {
-                this.langs = JSON.parse(text);
-                this.init();
-            });
-        }
+        import(this.options.langFolder + this.options.lang + '.js')
+            .then((data) => data)
+            .then((data) => {
+                this.langs = data.default;
+            })
+            .then(() => this.init());
     }
 
     public destroy(): void {
@@ -208,7 +204,6 @@ export class HelloWeek {
     }
 
     private init(callback?: CallbackFunction) {
-        console.log(this.options);
         this.daysHighlight = this.options.daysHighlight ? this.options.daysHighlight : [];
         this.daysSelected = this.options.daysSelected ? this.options.daysSelected : [];
 
@@ -567,12 +562,3 @@ export class HelloWeek {
     }
 }
 
-import { HelloWeek as MyHelloWeek } from './hello-week';
-// eslint-disable-next-line @typescript-eslint/no-namespace
-export namespace MyModule {
-    export const HelloWeek = MyHelloWeek;
-}
-
-(<any>window).HelloWeek = MyModule.HelloWeek;
-
-export default HelloWeek;

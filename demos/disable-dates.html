@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Week - Disabled Dates</title>
+    <link href="../dist/hello.week.css" rel="stylesheet">
+</head>
+<body>
+    <div class="hello-week"></div>
+    <script type="module">
+         import HelloWeek from '../dist/hello.week.min.esm.js';
+            new HelloWeek({
+                langFolder: './langs/',
+                disableDates: [['2020-03-02', '2020-03-12']],
+            });
+    </script>
+</body>
+</html>

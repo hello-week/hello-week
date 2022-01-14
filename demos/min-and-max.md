@@ -15,9 +15,9 @@ Restrict the range of selectable dates with the minDate and maxDate options. Set
 ```js
 const to = new HelloWeek({
     selector: '.to',
+    lang: 'pt',
     todayHighlight: false,
     onSelect: () => {
-        console.log('to', to.getDaySelected())
         from.setMinDate(to.getDaySelected());
         from.update();
     }
@@ -27,7 +27,6 @@ const from = new HelloWeek({
     selector: '.from',
     todayHighlight: false,
     onSelect: () => {
-        console.log('from', from.getDaySelected())
         to.setMaxDate(from.getDaySelected());
         to.update();
     }

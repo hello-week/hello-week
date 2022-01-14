@@ -2,12 +2,17 @@
     "compilerOptions": {
         "outDir": "./dist/",
         "moduleResolution": "node",
-        "module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
+        "lib": [
+            "es2016",
+            "dom"
+        ],
         "sourceMap": true,
-        "target": "es5"
+        "module": "ESNext",
+        "strict": false,
+        "target": "es6"
     },
     "include": [
         "src/**/*"

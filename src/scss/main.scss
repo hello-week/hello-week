@@ -1,10 +1,14 @@
-@import "variables";
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+}
 
 .hello-week {
   width: 100%;
   margin: 0 auto;
   user-select: none;
-  font-size: map-get($hw-typography-font-size, base);
+  font-size: map-get($typography-size, base);
 
   .navigation {
     display: flex;
@@ -15,19 +19,20 @@
 
   .prev,
   .next {
-    padding: $hw-baseline;
+    padding: $baseline;
     cursor: pointer;
   }
 
   .period {
     width: 100%;
-    font-size: map-get($hw-typography-font-size, period);
-    font-weight: map-get($hw-typography-font-weight, regular);
+    font-size: map-get($typography-size, period);
+    font-weight: map-get($typography-weight, regular);
     text-align: center;
   }
 
   .week {
     display: flex;
+    font-size: map-get($typography-size, week);
 
     &.rtl {
       flex-direction: row-reverse;
@@ -37,6 +42,7 @@
   .month {
     display: flex;
     flex-wrap: wrap;
+    padding: .4em 0;
     cursor: pointer;
 
     &.rtl {
@@ -49,8 +55,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: $hw-day-width;
-    padding: $hw-baseline;
-    transition: background-color $hw-transition;
+    width: calc(100% / 7);
+    padding: $baseline;
+    cursor: pointer;
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: $disabled;
+    }
   }
 }

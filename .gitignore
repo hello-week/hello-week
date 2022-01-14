@@ -18,4 +18,5 @@ yarn.lock
 yarn-error.log
 
 # Dist
-dist/css/*.js
+dist
+.parcel-cache
