@@ -49,7 +49,6 @@ export class HelloWeek {
 
     constructor (options: Options) {
         this.options =  Object.assign({}, extend(options));
-        console.log('ON TIME!', this.options);
         HelloWeek.initOptions = Object.assign({}, extend(options));
         this.selector = typeof this.options.selector === 'string' ? document.querySelector(this.options.selector) : this.options.selector;
 
@@ -81,6 +80,7 @@ export class HelloWeek {
             addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
 
+        console.log('this.options.langFolder', this.options.langFolder);
         import(this.options.langFolder + this.options.lang + '.js')
             .then((data) => data)
             .then((data) => {
@@ -190,14 +190,12 @@ export class HelloWeek {
     }
 
     public setMinDate(date: Date) {
-        console.log('setMinDate', date);
         this.options.minDate = new Date(date);
         this.options.minDate.setHours(0,0,0,0);
         this.options.minDate.setDate(this.options.minDate.getDate() - 1);
     }
 
     public setMaxDate(date: Date) {
-        console.log('setMaxDate', date);
         this.options.maxDate = new Date(date);
         this.options.maxDate.setHours(0,0,0,0);
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);

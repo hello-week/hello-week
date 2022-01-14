@@ -3,7 +3,7 @@ import { Options } from '../types';
 export const defaultOptions: Options = {
     selector: ".hello-week",
     lang: "en",
-    langFolder: "./dist/langs/",
+    langFolder: "../dist/langs/",
     format: "DD/MM/YYYY",
     monthShort: false,
     weekShort: true,
