@@ -1,3 +1,24 @@
+# [2.12.0-rc](https://github.com/maurovieirareis/hello-week/compare/v2.11.0...v2.12.0-rc) (2022-01-14)
+
+
+
+# [2.11.0](https://github.com/maurovieirareis/hello-week/compare/3.0.3-alpha...v2.11.0) (2022-01-14)
+
+
+### Bug Fixes
+
+* revert all changes to version 2.x ([cd8c09e](https://github.com/maurovieirareis/hello-week/commit/cd8c09eaef5bb177baf72ae0fe0958f8e60714b2))
+* update ([6784e34](https://github.com/maurovieirareis/hello-week/commit/6784e3456da6d7bb6d39ed0afe0e0954c1f629bf))
+* update all demos ([f7d338b](https://github.com/maurovieirareis/hello-week/commit/f7d338b906d3a26c9f92f318b55bb6257c97b494))
+* update jsdom ([b9b116d](https://github.com/maurovieirareis/hello-week/commit/b9b116d9646a1878ab7abeb0b3bc7ef5b2b4890a))
+
+
+### Features
+
+* dump version of dependencies ([d1e6a02](https://github.com/maurovieirareis/hello-week/commit/d1e6a02f4af3a1a4e5d6e2324f05a8b50699fb5e))
+
+
+
 # [2.11.0](https://github.com/maurovieirareis/hello-week/compare/3.0.3-alpha...2.11.0) (2022-01-14)
 
 
