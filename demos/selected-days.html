@@ -2,18 +2,20 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Hello Week - Disabled Dates</title>
+        <title>Hello Week - Selected Days</title>
         <link href="../dist/hello.week.css" rel="stylesheet" />
         <link rel="stylesheet" href="./styles.css" />
     </head>
     <body>
-        <h1>Disabled Dates</h1>
+        <h1>Selected Days</h1>
         <div class="hello-week"></div>
         <script type="module">
             import HelloWeek from '../dist/hello.week.min.esm.js';
             new HelloWeek({
-                disableDates: [['2020-03-02', '2020-03-12']],
+                daysSelected: ['2022-04-25', '2022-05-01', '2022-05-02', '2022-05-03'],
+                multiplePick: true,
             });
         </script>
     </body>
 </html>
+
