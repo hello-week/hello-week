@@ -9,16 +9,15 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Releasing v$VERSION ..."
 
-  yarn run test
-  yarn run lint:js
-  yarn run lint:scss
+  npm run test
+  npm run lint:js
 
-  yarn run build
+  npm run build
   # generate the version so that the changelog can be generated too
-  yarn version --no-git-tag-version --no-commit-hooks --new-version $VERSION
+  npm version --no-git-tag-version --no-commit-hooks --new-version $VERSION
 
   # changelog
-  yarn run changelog
+  npm run changelog
 
   echo "Please check the git history and the CHANGELOG and press enter"
   read OKAY
@@ -29,7 +28,7 @@ then
   git tag "v$VERSION"
 
   # commit
-  yarn publish --tag next --new-version "$VERSION" --no-commit-hooks --no-git-tag-version
+  npm publish --tag next --new-version "$VERSION" --no-commit-hooks --no-git-tag-version
 
   # publish
   git push origin refs/tags/v$VERSION
