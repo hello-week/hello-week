@@ -80,7 +80,6 @@ export class HelloWeek {
             addClass(this.calendar.month, HelloWeek.cssClasses.RTL);
         }
 
-        console.log('this.options.langFolder', this.options.langFolder);
         import(this.options.langFolder + this.options.lang + '.js')
             .then((data) => data)
             .then((data) => {
