@@ -8,9 +8,10 @@ This demonstrates how to retrieve the clicked date or dates.
     <div class="hello-week"></div>
 ```
 
-#### Javascript Initialization
+#### JavaScript Initialization
 ```js
 var calendar = new HelloWeek({
+    multiplePick: true,
     onSelect: () => {
         console.log(calendar.getDays());
         /** Add your code to handle the days here */

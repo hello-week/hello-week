@@ -1,7 +1,7 @@
 ## Go to Date
 
 #### Overview
-Displays the calendar in right-to-left mode.
+Move the calendar to arbitrary day.
 
 #### HTML Structure
 ```html
@@ -13,7 +13,7 @@ Displays the calendar in right-to-left mode.
             type="text"
             name="textfield-1"
             placeholder="Textfield"
-            value="2030-06-01"
+            value="01-06-2030"
             class="textfield__control"
         />
     </div>
@@ -21,12 +21,10 @@ Displays the calendar in right-to-left mode.
 <button class="btn btn--accent">Go to Date</button>
 ```
 
-#### Javascript Initialization
+#### JavaScript Initialization
 ```js
 var calendar = new HelloWeek({
-    onLoad: () => {
-        calendar.goToDate('2020-06-01');
-    }
+    defaultDate: '01-06-2025',
 });
 
 document.querySelector('.demo .btn').addEventListener('click', (evt) => {

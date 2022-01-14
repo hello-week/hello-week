@@ -11,13 +11,10 @@ because you have multiple days selected, also need to have the option `multipleP
     <div class="hello-week"></div>
 ```
 
-#### Javascript Initialization
+#### JavaScript Initialization
 ```js
 var calendar = new HelloWeek({
-    daysSelected: ['2020-04-25', '2020-05-01', '2020-05-02', '2020-05-03'],
+    daysSelected: ['2022-04-25', '2022-05-01', '2022-05-02', '2022-05-03'],
     multiplePick: true,
-    onSelect: () => {
-        console.log(calendar.getDays());
-    }
 });
 ```
