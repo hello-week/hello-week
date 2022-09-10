@@ -19,5 +19,7 @@ yarn-error.log
 
 # Dist
 dist
+coverage
 .parcel-cache
 .vercel
+

@@ -2,22 +2,17 @@
     "compilerOptions": {
         "outDir": "./dist/",
         "moduleResolution": "node",
+        "types": ["node", "jest"],
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "lib": [
-            "es2016",
-            "dom"
-        ],
         "sourceMap": true,
         "module": "ESNext",
         "strict": false,
-        "target": "es6"
+        "target": "es6",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2017", "dom"]
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }
