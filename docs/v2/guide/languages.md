@@ -13,7 +13,7 @@ and if you changed the directory you only need to indicate the `langFolder` in H
 
 ```js
 new HelloWeek({
-    lang: 'pt',
+    lang: 'en',
 });
 ```
 
@@ -22,6 +22,7 @@ new HelloWeek({
 | Language   | Naming |
 | ---------- | ------ |
 | English    | `en`   |
+| German     | `de`   |
 | Spanish    | `es`   |
 | Italian    | `it`   |
 | Portuguese | `pt`   |
