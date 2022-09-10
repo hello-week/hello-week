@@ -9,8 +9,9 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
+  - yarn lint
+  - yarn test
   - yarn build
-  - yarn demos:build
 node_js:
   - '8'
 before_install:
@@ -18,4 +19,4 @@ before_install:
   - export PATH=$HOME/.yarn/bin:$PATH
 branches:
   only:
-    - master
+    - main
