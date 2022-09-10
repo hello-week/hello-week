@@ -4,7 +4,7 @@ const config = {
     name: 'Github',
     homepage: '/docs/index.md',
     notFound: '/docs/404.md',
-    url: 'https://github.com/mauroreisvieira/hello-week/blob/master/'
+    url: 'https://github.com/mauroreisvieira/hello-week/blob/main'
   },
   defaultVersion: 'v2',
   versions: {
