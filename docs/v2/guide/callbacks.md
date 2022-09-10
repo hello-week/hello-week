@@ -12,9 +12,10 @@ new HelloWeek({
 
 ## Properties
 
-| Property       | Value Type   | Description                                |
-| -------------- | ------------ | ------------------------------------------ |
-| `onLoad`       | `attachable` | Dispatch immediately after initialization. |
-| `onNavigation` | `attachable` | Dispatch after month change.               |
-| `onSelect`     | `attachable` | Dispatch on select the day.                |
-| `onClear`      | `attachable` | Dispatch on clear calendar.                |
+| Property          | Value Type    | Description                                |
+| ----------------- | ------------- | ------------------------------------------ |
+| `onClear`         | `attachable;` | Dispatch on clear calendar.                |
+| `onLoad`          | `attachable`  | Dispatch immediately after initialization. |
+| `onSelect`        | `attachable`  | Dispatch on select the day.                |
+| `onNavigation`    | `attachable`  | Dispatch after month change.               |
+| `beforeCreateDay` | `DayOptions`  | Dispatch before create each day.           |

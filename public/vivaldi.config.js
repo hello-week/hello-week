@@ -121,6 +121,11 @@ const config = {
             text: 'Range'
           },
           {
+            path: 'examples/rtl.md',
+            slug: 'rtl',
+            text: 'RTL'
+          },
+          {
             path: 'examples/on-select.md',
             slug: 'on-select',
             text: 'On Select'
@@ -130,146 +135,19 @@ const config = {
             slug: 'reset',
             text: 'Reset'
           },
+        ]
+      },
+      {
+        text: 'Advanced',
+        children: [
           {
-            path: 'examples/rtl.md',
-            slug: 'rtl',
-            text: 'RTL'
-          }
+            path: 'advanced/api-reference.md',
+            slug: 'api-reference',
+            text: 'API Reference'
+          },
         ]
       }
     ],
-    v3: [
-      {
-        text: 'Getting Started',
-        children: [
-          {
-            path: 'guide/installation.md',
-            slug: 'installation',
-            text: 'Installation'
-          },
-          {
-            path: 'guide/introduction.md',
-            slug: 'introduction',
-            text: 'Introduction'
-          },
-          {
-            path: 'guide/options.md',
-            slug: 'options',
-            text: 'Options'
-          },
-          {
-            path: 'guide/lifecycle.md',
-            slug: 'lifecycle',
-            text: 'Lifecycle'
-          },
-          {
-            path: 'guide/callbacks.md',
-            slug: 'callbacks',
-            text: 'Callbacks'
-          },
-          {
-            path: 'guide/methods.md',
-            slug: 'methods',
-            text: 'Methods'
-          },
-          {
-            path: 'guide/format.md',
-            slug: 'format',
-            text: 'Format'
-          },
-          {
-            path: 'guide/languages.md',
-            slug: 'languages',
-            text: 'Languages'
-          },
-          {
-            path: 'guide/customization.md',
-            slug: 'customization',
-            text: 'Customization'
-          }
-        ]
-      },
-      {
-        text: 'Misc',
-        children: [
-          {
-            path: 'misc/api.md',
-            slug: 'api-reference',
-            text: 'API Reference'
-          }
-        ]
-      },
-      {
-        text: 'Examples',
-        children: [
-          {
-            path: 'examples/selected-days.md',
-            slug: 'selected-days',
-            text: 'Selected Days'
-          },
-          {
-            path: 'examples/disabled-dates.md',
-            slug: 'disabled-dates',
-            text: 'Disabled Dates'
-          },
-          {
-            path: 'examples/disabled-days-week.md',
-            slug: 'disabled-days-week',
-            text: 'Disabled Days of Week'
-          },
-          {
-            path: 'examples/get-month-year.md',
-            slug: 'get-month-year',
-            text: 'Get Month & Year'
-          },
-          {
-            path: 'examples/go-to-date.md',
-            slug: 'go-to-date',
-            text: 'Go to Date'
-          },
-          {
-            path: 'examples/highlight-dates.md',
-            slug: 'highlight-dates',
-            text: 'Highlight Dates'
-          },
-          {
-            path: 'examples/min-and-max.md',
-            slug: 'min-and-max',
-            text: 'Min & Max'
-          },
-          {
-            path: 'examples/locked.md',
-            slug: 'locked',
-            text: 'Locked'
-          },
-          {
-            path: 'examples/range.md',
-            slug: 'range',
-            text: 'Range'
-          },
-          {
-            path: 'examples/on-select.md',
-            slug: 'on-select',
-            text: 'On Select'
-          },
-          {
-            path: 'examples/reset.md',
-            slug: 'reset',
-            text: 'Reset'
-          },
-          {
-            path: 'examples/rtl.md',
-            slug: 'rtl',
-            text: 'RTL'
-          },
-          {
-            path: 'examples/before-create-day.md',
-            slug: 'before-create-day',
-            text: 'Before Create Day'
-          }
-        ]
-      }
-    ]
   }
 };
 Object.defineProperty(window, 'VIVALDI', { value: config, writable: false });

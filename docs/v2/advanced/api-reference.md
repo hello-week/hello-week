@@ -1,5 +1,8 @@
-export type CallbackFunction = (...args: string[]) => void;
+# API Reference
 
+## Calendar Options
+
+```ts
 export type CalendarOptions = {
     navigation: HTMLElement | Element;
     period: Element;
@@ -8,7 +11,11 @@ export type CalendarOptions = {
     week: Element;
     month: Element;
 };
+```
 
+## Day Options
+
+```ts
 export type DayOptions = {
     day: number;
     element: Element;
@@ -18,18 +25,12 @@ export type DayOptions = {
     isWeekend: boolean;
     locked: boolean;
     timestamp: number;
-    title?: string;
 };
+```
 
-export type DaysHighlight = {
-    days: string[] | [string, string];
-    title?: string;
-    color?: string;
-    backgroundColor?: string;
-};
+## Options
 
-export type IntervalRange = { begin: number; end: number };
-
+```ts
 export interface Options {
     selector?: string;
     lang?: string;
@@ -59,42 +60,32 @@ export interface Options {
     onSelect?: () => void;
     beforeCreateDay?: (data: DayOptions) => DayOptions;
 }
+````
 
-export interface CssClasses {
-    CALENDAR: string;
-    DAY: string;
-    MONTH: string;
-    NAVIGATION: string;
-    NEXT: string;
-    PERIOD: string;
-    PREV: string;
-    RTL: string;
-    WEEK: string;
-}
+## Days Highlight
 
-export interface CssStates {
-    IS_HIGHLIGHT: string;
-    IS_SELECTED: string;
-    IS_BEGIN_RANGE: string;
-    IS_END_RANGE: string;
-    IS_DISABLED: string;
-    IS_TODAY: string;
-    IS_WEEKEND: string;
-}
+```ts
+export type DaysHighlight = {
+    days: string[] | [string, string];
+    title?: string;
+    color?: string;
+    backgroundColor?: string;
+};
+```
 
-export interface DaysWeek {
-    FRIDAY: number;
-    MONDAY: number;
-    SATURDAY: number;
-    SUNDAY: number;
-    THURSDAY: number;
-    TUESDAY: number;
-    WEDNESDAY: number;
-}
+## Range
 
+```ts
+export type IntervalRange = { begin: number; end: number };
+```
+
+## Languages
+
+```ts
 export interface Langs {
     days: string[];
     daysShort: string[];
     months: string[];
     monthsShort: string[];
 }
+```
