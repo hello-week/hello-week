@@ -18,6 +18,6 @@ yarn.lock
 yarn-error.log
 
 # Dist
-dist/
+dist
 .parcel-cache
 .vercel
