@@ -1,12 +1,12 @@
-export function creatHTMLElement(
+export function createHTMLElement(
     el: HTMLElement,
     className: string,
     parentElement: HTMLElement | Element,
     textNode: string = null
 ) {
-    let elem = el.querySelector("." + className);
+    let elem = el.querySelector('.' + className);
     if (!elem) {
-        elem = document.createElement("div");
+        elem = document.createElement('div');
         elem.classList.add(className);
         if (textNode !== null) {
             const text = document.createTextNode(textNode);

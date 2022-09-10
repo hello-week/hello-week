@@ -1,10 +1,10 @@
 import { Options } from '../types';
 
 export const defaultOptions: Options = {
-    selector: ".hello-week",
-    lang: "en",
-    langFolder: "../dist/langs/",
-    format: "DD/MM/YYYY",
+    selector: '.hello-week',
+    lang: 'en',
+    langFolder: '../dist/langs/',
+    format: 'DD/MM/YYYY',
     monthShort: false,
     weekShort: true,
     defaultDate: null,
@@ -22,9 +22,17 @@ export const defaultOptions: Options = {
     range: false,
     locked: false,
     rtl: false,
-    nav: ["◀", "▶"],
-    onLoad: () => { /** callback function */ },
-    onNavigation: () => { /** callback function */ },
-    onSelect: () => { /** callback function */ },
-    onClear: () => { /** callback function */ }
-}
+    nav: ['◀', '▶'],
+    onLoad: () => {
+        /** callback function */
+    },
+    onNavigation: () => {
+        /** callback function */
+    },
+    onSelect: () => {
+        /** callback function */
+    },
+    onClear: () => {
+        /** callback function */
+    },
+};

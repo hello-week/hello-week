@@ -1,14 +1,14 @@
 $baseline: 1em !default;
-$disabled: .3 !default;
+$disabled: 0.3 !default;
 
 $typography-weight: (
-  light: 300,
-  regular: 400,
-  bold: 700
+    light: 300,
+    regular: 400,
+    bold: 700
 ) !default;
 
 $typography-size: (
-  base: 1em,
-  period: 1.2em,
-  week: .9em
+    base: 1em,
+    period: 1.2em,
+    week: 0.9em
 ) !default;

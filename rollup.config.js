@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import serve from 'rollup-plugin-serve';
+import copy from 'rollup-plugin-copy';
 import fs from 'fs';
 import path from 'path';
 import rimraf from 'rimraf';
@@ -51,7 +52,7 @@ export default [
         ],
     },
     {
-        input: fs.readdirSync('src/langs').map(e => 'src/langs/' + e),
+        input: fs.readdirSync('src/langs').map((e) => 'src/langs/' + e),
         output: {
             dir: 'dist/langs/',
             format: 'es',
@@ -66,6 +67,16 @@ export default [
             IS_PRODUCTION && filesize(),
             commonjs(),
             terser(),
+            copy({
+                targets: [{ src: 'dist/langs', dest: 'docs/v2/demos/scripts' }],
+                targets: [
+                    {
+                        src: 'dist/hello.week.esm.js',
+                        dest: 'docs/v2/demos/scripts',
+                        rename: 'hello.week.min.js',
+                    },
+                ],
+            }),
         ],
     },
 ];

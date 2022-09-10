@@ -11,7 +11,8 @@
         </main>
 
         <script src="./hello.week.min.js"></script>
-        <script>
+        <script type="module">
+            import HelloWeek from './scripts/hello.week.min.js';
             const dt = new Date();
             let month = dt.getMonth();
             let year = dt.getFullYear();

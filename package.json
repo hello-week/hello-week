@@ -40,6 +40,7 @@
         "rimraf": "^3.0.2",
         "rollup": "^2.79.0",
         "rollup-plugin-commonjs": "^10.0.1",
+        "rollup-plugin-copy": "^3.4.0",
         "rollup-plugin-filesize": "^9.1.2",
         "rollup-plugin-scss": "^3.0.0",
         "rollup-plugin-serve": "^2.0.1",

@@ -1,13 +1,13 @@
 export type CallbackFunction = (...args: string[]) => void;
 
 export type CalendarOptions = {
-    navigation: HTMLElement | Element,
-    period: Element,
-    prevMonth: Element,
-    nextMonth: Element,
-    week: Element,
-    month: Element,
-}
+    navigation: HTMLElement | Element;
+    period: Element;
+    prevMonth: Element;
+    nextMonth: Element;
+    week: Element;
+    month: Element;
+};
 
 export type DayOptions = {
     day: number;
@@ -19,7 +19,7 @@ export type DayOptions = {
     locked: boolean;
     timestamp: number;
     title?: string;
-}
+};
 
 export type DaysHighlight = {
     days: string[] | [string, string];
@@ -28,28 +28,27 @@ export type DaysHighlight = {
     backgroundColor?: string;
 };
 
-export type IntervalRange = { begin: number; end: number; };
-
+export type IntervalRange = { begin: number; end: number };
 
 export interface Options {
-    selector?: string,
-    lang?: string,
-    langFolder?: string,
-    format?: string,
+    selector?: string;
+    lang?: string;
+    langFolder?: string;
+    format?: string;
     monthShort?: boolean;
-    weekShort?: boolean,
-    defaultDate?: null,
-    minDate?: Date,
-    maxDate?: Date,
-    disabledDaysOfWeek?: number[],
-    disableDates?: string[] | [string, string][],
+    weekShort?: boolean;
+    defaultDate?: null;
+    minDate?: Date;
+    maxDate?: Date;
+    disabledDaysOfWeek?: number[];
+    disableDates?: string[] | [string, string][];
     weekStart?: number;
-    timezoneOffset?: number,
-    daysSelected?: string[],
-    daysHighlight?: DaysHighlight[],
+    timezoneOffset?: number;
+    daysSelected?: string[];
+    daysHighlight?: DaysHighlight[];
     multiplePick?: boolean;
     disablePastDays?: boolean;
-    todayHighlight?: boolean,
+    todayHighlight?: boolean;
     range?: boolean;
     locked?: boolean;
     rtl?: boolean;
