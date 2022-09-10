@@ -53,10 +53,11 @@ export interface Options {
     locked?: boolean;
     rtl?: boolean;
     nav?: string[];
-    onLoad?: () => void;
-    onNavigation?: () => void;
-    onSelect?: () => void;
     onClear?: () => void;
+    onLoad: () => void;
+    onNavigation: () => void;
+    onSelect: () => void;
+    beforeCreateDay: (data: DayOptions) => DayOptions;
 }
 
 export interface CssClasses {

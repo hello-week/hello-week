@@ -1,4 +1,4 @@
-import { Options } from '../types';
+import { Options, DayOptions } from '../types';
 
 export const defaultOptions: Options = {
     selector: '.hello-week',
@@ -23,16 +23,17 @@ export const defaultOptions: Options = {
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
+    onClear: () => {
+        /** callback */
+    },
     onLoad: () => {
-        /** callback function */
+        /** callback */
     },
     onNavigation: () => {
-        /** callback function */
+        /** callback */
     },
     onSelect: () => {
-        /** callback function */
+        /** callback */
     },
-    onClear: () => {
-        /** callback function */
-    },
+    beforeCreateDay: (data: DayOptions) => data,
 };

@@ -1,3 +1,7 @@
+export function isString(val: unknown): boolean {
+    return typeof val === 'string';
+}
+
 export function isDef(val: unknown): boolean {
     return val !== undefined && val !== null;
 }
@@ -26,6 +30,3 @@ export function isFunction(func: unknown): boolean {
     return typeof func === 'function';
 }
 
-export function isString(val: unknown): boolean {
-    return typeof val === 'string';
-}

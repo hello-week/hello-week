@@ -1,11 +1,9 @@
 ![Hello Week](public/images/helloweek.png)
 
-
 [![GitHub Tag](https://img.shields.io/github/release/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/releases)
 [![npm](https://img.shields.io/npm/dt/hello-week.svg?style=for-the-badge)](https://www.npmjs.com/package/hello-week)
 [![GitHub issues](https://img.shields.io/github/issues/mauroreisvieira/hello-week.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://github.com/mauroreisvieira/hello-week/blob/master/LICENSE)
-
 
 ## Quick start
 
@@ -27,7 +25,7 @@ yarn add hello-week
 
 <script type="text/javascript" src="hello.week.min.js"></script>
 <script>
-  new HelloWeek();
+    new HelloWeek();
 </script>
 ```
 
@@ -73,28 +71,35 @@ new HelloWeek({
     minDate: null,
     maxDate: null,
     nav: ['◀', '▶'],
-    onLoad: () => { /** callback function */ },
-    onChange: () => { /** callback function */ },
-    onSelect: () => { /** callback function */ },
-    onClear: () => { /** callback function */ }
+    onLoad: () => {
+        /** callback function */
+    },
+    onChange: () => {
+        /** callback function */
+    },
+    onSelect: () => {
+        /** callback function */
+    },
+    onClear: () => {
+        /** callback function */
+    },
 });
 ```
 
-
 ### Useful links
 
-- [Demos](https://mauroreisvieira.github.io/hello-week/)
-- [Changelog](CHANGELOG.md)
-- [Contributing](CONTRIBUTING.md)
+-   [Demos](https://hello-week.com/#/)
+-   [Changelog](CHANGELOG.md)
+-   [Contributing](CONTRIBUTING.md)
 
 ### Supported Browsers:
 
-- Chrome 49
-- Firefox 31
-- Opera 36
-- Safari 9.3
-- Edge 17
-- iOS Safari 6.0
+-   Chrome 49
+-   Firefox 31
+-   Opera 36
+-   Safari 9.3
+-   Edge 17
+-   iOS Safari 6.0
 
 ### License
 

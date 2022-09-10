@@ -482,7 +482,7 @@ export class HelloWeek {
         const num = date.getDate();
         const day = date.getDay();
         const newDay = document.createElement('div');
-        const dayOptions: DayOptions = {
+        let dayOptions: DayOptions = {
             day: num,
             timestamp: setToTimestamp(
                 formatDate(date.getDate(), date.getMonth(), date.getFullYear())
@@ -591,6 +591,7 @@ export class HelloWeek {
         }
 
         dayOptions.element = newDay;
+        dayOptions =  this.options.beforeCreateDay(dayOptions);
         this.days[dayOptions.day] = dayOptions;
     }
 
