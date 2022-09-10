@@ -5,6 +5,7 @@
         "types": ["node", "jest"],
         "noImplicitAny": true,
         "removeComments": true,
+        "esModuleInterop": true,
         "preserveConstEnums": true,
         "sourceMap": true,
         "module": "ESNext",

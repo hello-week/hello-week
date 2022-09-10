@@ -18,7 +18,7 @@ import {
 import { extend } from '../utils/extend';
 import { formatDate, setToTimestamp, timestampToHuman } from '../utils/format';
 import { isArray, isNull, isString } from '../utils/is';
-import { getIndexForEventTarget } from '../utils/others';
+import { getIndexForEventTarget } from '../utils/array';
 import { CSS_CLASSES, CSS_STATES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
 export class HelloWeek {
