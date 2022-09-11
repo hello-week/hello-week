@@ -11,6 +11,7 @@
     "main": "dist/hello.week.min.js",
     "module": "dist/hello.week.min.esm.js",
     "cjs:main": "dist/hello.week.min.cjs.js",
+    "types": "dist/dts/core/hello-week.d.ts",
     "scripts": {
         "dev": "rollup -c -w",
         "build": "rollup -c --environment NODE_ENV:production",

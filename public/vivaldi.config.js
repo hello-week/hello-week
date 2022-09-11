@@ -135,6 +135,11 @@ const config = {
             slug: 'reset',
             text: 'Reset'
           },
+          {
+            path: 'examples/before-create-day.md',
+            slug: 'before-create-day',
+            text: 'Before Create Day'
+          },
         ]
       },
       {
@@ -144,6 +149,16 @@ const config = {
             path: 'advanced/api-reference.md',
             slug: 'api-reference',
             text: 'API Reference'
+          },
+        ]
+      },
+      {
+        text: 'Integrations',
+        children: [
+          {
+            path: 'integrations/vue.md',
+            slug: 'vue',
+            text: 'Vue'
           },
         ]
       }

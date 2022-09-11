@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Before Create Day | Hello Week</title>
+        <link href="./styles/demo.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <div class="calendar"></div>
+        </main>
+
+        <script type="module">
+            import HelloWeek from './scripts/hello.week.min.js';
+            new HelloWeek({
+                selector: '.calendar',
+                langFolder: '../scripts/langs/',
+                beforeCreateDay: (data) => {
+                    console.log("data", data);
+                    return data;
+                },
+            });
+        </script>
+    </body>
+</html>

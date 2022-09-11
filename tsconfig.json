@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
         "moduleResolution": "node",
         "types": ["node", "jest"],
         "noImplicitAny": true,
@@ -8,12 +7,16 @@
         "esModuleInterop": true,
         "preserveConstEnums": true,
         "sourceMap": true,
+        "composite": true,
+        "outDir": "dist",
+        "declaration": true,
+        "declarationDir": "dist/dts",
         "module": "ESNext",
-        "strict": false,
+        "strict": false, // change in the future
         "target": "es6",
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2017", "dom"]
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "src/tests"]
 }

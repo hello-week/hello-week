@@ -42,6 +42,8 @@ export default [
             }),
             typescript({
                 useTsconfigDeclarationDir: true,
+                rollupCommonJSResolveHack: false,
+                clean: true,
             }),
             resolve({
                 mainFields: ['jsnext', 'main', 'browser'],
