@@ -5,7 +5,7 @@ There are a few different ways to install the Hello Week library.
 ## Package Manager
 
 Hello Week is available on [NPM](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/).
-You'll first need to install Hello Week `core` package as well as any plugins.
+You'll first need to install Hello Week package.
 
 ```bash
 # Using npm
@@ -35,9 +35,9 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 
 <div class="calendar"></div>
 
-<script type="text/javascript" src="hello.week.min.js"></script>
-<script>
-    new Hello Week({
+<script type="module">
+    import HelloWeek from 'hello.week.min.js';
+    new HelloWeek({
       selector: '.calendar'
     });
 </script>
@@ -49,3 +49,4 @@ Below is the list of frequently asked questions.
 If you think a common question is missing from the list, please create an issue here.
 
 **1.** How is Hello Week different to other tools?
+__TODO__

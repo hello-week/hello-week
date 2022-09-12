@@ -2,12 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Reset | Hello Week</title>
+        <title>Before Create Day | Hello Week</title>
         <link href="./styles/demo.css" rel="stylesheet" />
     </head>
     <body>
         <main>
-            <button class="btn">Reset</button>
             <div class="calendar"></div>
         </main>
 
@@ -15,17 +14,10 @@
             import HelloWeek from './scripts/hello.week.min.js';
             const calendar = new HelloWeek({
                 selector: '.calendar',
-                defaultDate: '2020-01-01',
                 langFolder: './langs/',
-                minDate: '2020-01-10',
-                maxDate: '2020-03-28',
-            });
-
-            document.querySelector('.btn').addEventListener('click', () => {
-                calendar.reset({
-                    minDate: false,
-                    maxDate: false,
-                });
+                beforeCreateDay: (day) => {
+                    return day;
+                },
             });
         </script>
     </body>
