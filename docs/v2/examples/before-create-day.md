@@ -6,11 +6,27 @@ Callback will be executed before create each day, also allow consumer to manipul
 
 ```js
 const calendar = new HelloWeek({
-    selector: '.calendar',
-    beforeCreateDay: (day) => {
-        console.log(day);
-        return day;
-    },
+  selector: '.calendar',
+  beforeCreateDay: (node) => {
+      const span = document.createElement('span');
+
+      Object.assign(span.style, {
+          position: 'absolute',
+          top: "8px",
+          width: '5px',
+          height: '5px',
+          backgroundColor: '#5a67d8',
+          borderRadius: "50%",
+      });
+
+      return {
+          ...node,
+          element:
+              node.day % 2 === 0 && !node.isWeekend
+                  ? node.element.appendChild(span)
+                  : node.element,
+      };
+  },
 });
 ```
 
