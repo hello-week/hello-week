@@ -58,31 +58,25 @@ new HelloWeek({
     monthShort: false,
     multiplePick: false,
     defaultDate: null,
-    todayHighlight: true,
-    disablePastDays: false,
+    minDate: null,
+    maxDate: null,
     disabledDaysOfWeek: null,
     disableDates: null,
     weekStart: 0, // week start on Sunday
-    daysHighlight: null,
+    timezoneOffset: new Date().getTimezoneOffset(),
     daysSelected: null,
+    daysHighlight: null,
+    disablePastDays: false,
+    todayHighlight: true,
     range: false,
-    rtl: false,
     locked: false,
-    minDate: null,
-    maxDate: null,
+    rtl: false,
     nav: ['◀', '▶'],
-    onLoad: () => {
-        /** callback function */
-    },
-    onChange: () => {
-        /** callback function */
-    },
-    onSelect: () => {
-        /** callback function */
-    },
-    onClear: () => {
-        /** callback function */
-    },
+    onClear: () => {},
+    onLoad: () => {},
+    onNavigation: () => {},
+    onSelect: () => {},
+    beforeCreateDay: (node) => {},
 });
 ```
 

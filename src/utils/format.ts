@@ -61,7 +61,7 @@ export function setToTimestamp(date?: string | Date): number {
     }
 
     if (date || typeof date === 'string') {
-        return new Date(date + 'T00:00:00Z').getTime();
+        return new Date(date).setHours(0, 0, 0, 0);
     }
 
     return new Date().setHours(0, 0, 0, 0);
