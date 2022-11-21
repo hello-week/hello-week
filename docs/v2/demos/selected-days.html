@@ -12,15 +12,22 @@
 
         <script type="module">
             import HelloWeek from './scripts/hello.week.min.js';
+          
+            const date = new Date();
+            const currentYear = date.getFullYear();
+            let currentMonth = date.getMonth();
+            currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;
+          
+            const daysSelected = [
+              `${currentYear}-${currentMonth}-20`,
+              `${currentYear}-${currentMonth}-21`,
+              `${currentYear}-${currentMonth}-22`,
+              `${currentYear}-${currentMonth}-25`,
+            ];
             new HelloWeek({
                 selector: '.calendar',
                 langFolder: './langs/',
-                daysSelected: [
-                    '2020-01-10',
-                    '2020-02-12',
-                    '2020-12-13',
-                    '2020-12-25',
-                ],
+                daysSelected,
                 multiplePick: true,
             });
         </script>
