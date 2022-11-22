@@ -16,7 +16,7 @@
             const date = new Date();
             const currentYear = date.getFullYear();
             let currentMonth = date.getMonth() + 1;
-            currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;
+            currentMonth.toString().padStart(2, 0);
           
             const daysSelected = [
               `${currentYear}-${currentMonth}-20`,
