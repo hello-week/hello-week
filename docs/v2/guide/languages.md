@@ -28,6 +28,7 @@ new HelloWeek({
 | Portuguese | `pt`   |
 | Occitan    | `oc`   |
 | Chinese    | `zh`   |
+| Indonesian | `id`   |
 
 ### Structure
 
