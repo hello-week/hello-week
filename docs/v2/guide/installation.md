@@ -38,7 +38,7 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 <script type="module">
     import HelloWeek from 'hello.week.esm.js';
     new HelloWeek({
-      selector: '.calendar'
+        selector: '.calendar',
     });
 </script>
 ```
@@ -49,4 +49,4 @@ Below is the list of frequently asked questions.
 If you think a common question is missing from the list, please create an issue here.
 
 **1.** How is Hello Week different to other tools?
-__TODO__
+Do not use any external dependencies.

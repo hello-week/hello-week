@@ -21,7 +21,7 @@
         return el.style.setProperty(prop, value);
     }
     function addClass(el, className) {
-        return el.className = el.className + ' ' + className;
+        return el.classList.add(className);
     }
     function removeClass(el, className) {
         return el.classList.remove(className);

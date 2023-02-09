@@ -4,10 +4,10 @@
 
 import { HelloWeek } from '../../src/core/hello-week';
 
-jest.mock('../../core/hello-week');
+jest.mock('../../src/core/hello-week');
 
 let fixture: HTMLElement;
-let element: HTMLElement;
+let element: HTMLElement | null;
 
 const getFixture = () => {
     const container = document.createElement('div');
@@ -33,6 +33,7 @@ describe('Core', () => {
     afterEach(clearTest);
 
     it('should be able to call new instance of HelloWeek', () => {
+        if (!element) return;
         const calendar = new HelloWeek(element);
         expect(calendar).toBeTruthy();
     });

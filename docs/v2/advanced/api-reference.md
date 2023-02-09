@@ -25,42 +25,9 @@ export type DayOptions = {
     isWeekend: boolean;
     locked: boolean;
     timestamp: number;
+    title?: string;
 };
 ```
-
-## Options
-
-```ts
-export interface Options {
-    selector?: string;
-    lang?: string;
-    langFolder?: string;
-    format?: string;
-    monthShort?: boolean;
-    weekShort?: boolean;
-    defaultDate?: null;
-    minDate?: Date;
-    maxDate?: Date;
-    disabledDaysOfWeek?: number[];
-    disableDates?: string[] | [string, string][];
-    weekStart?: number;
-    timezoneOffset?: number;
-    daysSelected?: string[];
-    daysHighlight?: DaysHighlight[];
-    multiplePick?: boolean;
-    disablePastDays?: boolean;
-    todayHighlight?: boolean;
-    range?: boolean;
-    locked?: boolean;
-    rtl?: boolean;
-    nav?: string[];
-    onClear?: () => void;
-    onLoad?: () => void;
-    onNavigation?: () => void;
-    onSelect?: () => void;
-    beforeCreateDay?: (data: DayOptions) => DayOptions;
-}
-````
 
 ## Days Highlight
 
@@ -79,6 +46,54 @@ export type DaysHighlight = {
 export type IntervalRange = { begin: number; end: number };
 ```
 
+## Options
+
+```ts
+export interface Options {
+    selector?: string;
+    lang?: string;
+    langFolder?: string;
+    format?: string;
+    weekShort?: boolean;
+    monthShort?: boolean;
+    multiplePick?: boolean;
+    defaultDate?: null;
+    minDate?: Date;
+    maxDate?: Date;
+    disabledDaysOfWeek?: number[];
+    disableDates?: string[] | [string, string][];
+    weekStart?: number;
+    timezoneOffset?: number;
+    daysSelected?: string[];
+    daysHighlight?: DaysHighlight[];
+    disablePastDays?: boolean;
+    todayHighlight?: boolean;
+    range?: boolean;
+    locked?: boolean;
+    rtl?: boolean;
+    nav?: string[];
+    onClear?: () => void;
+    onLoad?: () => void;
+    onNavigation?: () => void;
+    onSelect?: () => void;
+    beforeCreateDay?: (node: DayOptions) => DayOptions;
+}
+```
+
+## Day of Week
+
+```ts
+export interface DaysWeek {
+    FRIDAY: number;
+    MONDAY: number;
+    SATURDAY: number;
+    SUNDAY: number;
+    THURSDAY: number;
+    TUESDAY: number;
+    WEDNESDAY: number;
+}
+```
+
 ## Languages
 
 ```ts
@@ -87,5 +102,28 @@ export interface Langs {
     daysShort: string[];
     months: string[];
     monthsShort: string[];
+}
+```
+
+## Class Names
+
+```ts
+export interface ClassNames {
+    calendar?: string;
+    month?: string;
+    day?: string;
+    week?: string;
+    navigation?: string;
+    period?: string;
+    prev?: string;
+    next?: string;
+    rtl?: string;
+    isHighlight?: string;
+    isSelected?: string;
+    isBeginRange?: string;
+    isEndRange?: string;
+    isDisabled?: string;
+    isToday?: string;
+    isWeekend?: string;
 }
 ```
