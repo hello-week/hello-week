@@ -1,14 +1,14 @@
-import typescript from 'rollup-plugin-typescript2';
-import scss from 'rollup-plugin-scss';
-import filesize from 'rollup-plugin-filesize';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import serve from 'rollup-plugin-serve';
-import copy from 'rollup-plugin-copy';
-import fs from 'fs';
-import path from 'path';
-import rimraf from 'rimraf';
+const typescript = require('rollup-plugin-typescript2');
+const scss = require('rollup-plugin-scss');
+const filesize = require('rollup-plugin-filesize');
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const { terser } = require('rollup-plugin-terser');
+const serve = require('rollup-plugin-serve');
+const copy = require('rollup-plugin-copy');
+const fs = require('fs');
+const path = require('path');
+const rimraf = require('rimraf');
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const NAME = IS_PRODUCTION ? 'hello.week.min' : 'hello.week';
@@ -31,7 +31,7 @@ const outputConfigs = [
 
 rimraf.sync('types');
 
-export default [
+module.exports = [
     {
         input: entryFile,
         output: outputConfigs,

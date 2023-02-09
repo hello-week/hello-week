@@ -147,6 +147,9 @@ const DAYS_WEEK = {
 };
 
 class HelloWeek {
+    static get daysWeek() {
+        return DAYS_WEEK;
+    }
     constructor(options) {
         this.calendar = {
             navigation: undefined,
@@ -204,9 +207,6 @@ class HelloWeek {
             this.langs = data.default;
         })
             .then(() => this.init());
-    }
-    static get daysWeek() {
-        return DAYS_WEEK;
     }
     destroy() {
         this.removeStatesClass();
