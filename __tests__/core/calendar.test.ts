@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { HelloWeek } from '../../core/hello-week';
+import { HelloWeek } from '../../src/core/hello-week';
 
 jest.mock('../../core/hello-week');
 

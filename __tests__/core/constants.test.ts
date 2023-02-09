@@ -1,17 +1,12 @@
 import {
     CSS_CLASSES,
-    CSS_STATES,
     DAYS_WEEK,
     FORMAT_DATE,
-} from '../../core/constants';
+} from '../../src/core/constants';
 
 describe('Constants', () => {
     it('CSS_CLASSES should be a object', () => {
         expect(typeof CSS_CLASSES).toBe('object');
-    });
-
-    it('CSS_STATES should be a object', () => {
-        expect(typeof CSS_STATES).toBe('object');
     });
 
     it('DAYS_WEEK should be a object', () => {

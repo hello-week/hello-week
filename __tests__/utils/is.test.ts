@@ -7,7 +7,7 @@ import {
     isNull,
     isFunction,
     isArray,
-} from '../../utils/is';
+} from '../../src/utils/is';
 
 describe('Utils:is', () => {
     it('should check if parameter is STRING', () => {
