@@ -1,4 +1,4 @@
-# On Select
+# Before Create Day
 
 Callback will be executed before create each day, also allow consumer to manipulate DOM.
 

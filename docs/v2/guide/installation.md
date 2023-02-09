@@ -36,7 +36,7 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 <div class="calendar"></div>
 
 <script type="module">
-    import HelloWeek from 'hello.week.min.js';
+    import HelloWeek from 'hello.week.esm.js';
     new HelloWeek({
       selector: '.calendar'
     });

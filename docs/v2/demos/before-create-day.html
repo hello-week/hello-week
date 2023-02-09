@@ -11,8 +11,9 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.min.js';
-            const calendar = new HelloWeek({
+            import HelloWeek from './scripts/dist/hello.week.esm.js';
+
+            new HelloWeek({
                 selector: '.calendar',
                 langFolder: './langs/',
                 beforeCreateDay: (node) => {
@@ -20,11 +21,11 @@
 
                     Object.assign(span.style, {
                         position: 'absolute',
-                        top: "8px",
+                        top: '8px',
                         width: '5px',
                         height: '5px',
                         backgroundColor: '#5a67d8',
-                        borderRadius: "50%",
+                        borderRadius: '50%',
                     });
 
                     return {

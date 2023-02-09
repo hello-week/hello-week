@@ -11,16 +11,18 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.min.js';
+            import HelloWeek from './scripts/dist/hello.week.esm.js';
+
             new HelloWeek({
                 selector: '.calendar',
                 langFolder: './langs/',
                 daysSelected: [
-                    '2020-01-10',
-                    '2020-02-12',
-                    '2020-12-13',
-                    '2020-12-25',
+                    '2022-10-10',
+                    '2022-10-12',
+                    '2022-10-13',
+                    '2022-10-25',
                 ],
+                todayHighlight: true,
                 multiplePick: true,
             });
         </script>
