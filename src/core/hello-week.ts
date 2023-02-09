@@ -623,27 +623,26 @@ export class HelloWeek {
     }
 
     private setDayHighlight(newDay: HTMLElement, dayOptions: DayOptions): void {
-        for (const key in this.daysHighlight) {
-            if (isArray(this.daysHighlight[key].days[0])) {
-                this.daysHighlight[key].days.forEach((date) => {
+        this.daysHighlight.map((day, index) => {
+            if (isArray(day.days[0])) {
+                day.days.forEach((date) => {
                     if (
                         dayOptions.timestamp >= setToTimestamp(date[0]) &&
                         dayOptions.timestamp <= setToTimestamp(date[1])
                     ) {
-                        this.setStyleDayHighlight(newDay, +key, dayOptions);
+                        this.setStyleDayHighlight(newDay, +index, dayOptions);
                     }
                 });
                 return;
             }
-
-            if (isArray(this.daysHighlight[key])) {
-                this.daysHighlight[key].days.forEach((date: string) => {
+            if (isArray(day.days)) {
+                day.days.forEach((date) => {
                     if (dayOptions.timestamp === setToTimestamp(date)) {
-                        this.setStyleDayHighlight(newDay, +key, dayOptions);
+                        this.setStyleDayHighlight(newDay, +index, dayOptions);
                     }
                 });
             }
-        }
+        });
     }
 
     private setStyleDayHighlight(
