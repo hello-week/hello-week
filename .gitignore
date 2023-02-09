@@ -18,7 +18,7 @@ yarn.lock
 yarn-error.log
 
 # Dist
-dist
+/dist
 coverage
 .parcel-cache
 .vercel
