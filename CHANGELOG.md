@@ -1,3 +1,24 @@
+## [2.13.1](https://github.com/maurovieirareis/hello-week/compare/v2.13.0...v2.13.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* **dom:** reuse `addClass` utility ([cadba25](https://github.com/maurovieirareis/hello-week/commit/cadba256e7d1f518c5a1edd2c351f12026d41eb9))
+* improve `setDayHighlight` closes [#58](https://github.com/maurovieirareis/hello-week/issues/58) ([2552ace](https://github.com/maurovieirareis/hello-week/commit/2552aceaaca98099ac4ba504159a12ed3ebe4e45))
+* today highlight ([a0dc0a1](https://github.com/maurovieirareis/hello-week/commit/a0dc0a1a0265c915748c23b4a1f67071226ef72c))
+* **type:** improve type for `ClassNames` ([d795fb4](https://github.com/maurovieirareis/hello-week/commit/d795fb4b66dedcd7a34247081961d048cab978f3))
+
+
+### Features
+
+* add `beforeCreateDay` callback ([a43b2d1](https://github.com/maurovieirareis/hello-week/commit/a43b2d18180322c8caf1e094776c7cf2357d9d09))
+
+
+
+# [2.13.0](https://github.com/maurovieirareis/hello-week/compare/2.13.0...v2.13.0) (2022-09-10)
+
+
+
 # [2.13.0](https://github.com/maurovieirareis/hello-week/compare/3.0.3-alpha...2.13.0) (2022-09-10)
 
 
