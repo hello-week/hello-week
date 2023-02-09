@@ -1,6 +1,5 @@
 import { defaultOptions } from '../core/options';
-import { Options } from '../types';
 
-export function extend(options: Options, configurations?: Options): Options {
+export function extend<T>(options: T, configurations?: T): T {
     return Object.assign(configurations || defaultOptions, options);
 }

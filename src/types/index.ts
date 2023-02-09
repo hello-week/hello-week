@@ -57,29 +57,7 @@ export interface Options {
     onLoad?: () => void;
     onNavigation?: () => void;
     onSelect?: () => void;
-    beforeCreateDay?: (data: DayOptions) => DayOptions;
-}
-
-export interface CssClasses {
-    CALENDAR: string;
-    DAY: string;
-    MONTH: string;
-    NAVIGATION: string;
-    NEXT: string;
-    PERIOD: string;
-    PREV: string;
-    RTL: string;
-    WEEK: string;
-}
-
-export interface CssStates {
-    IS_HIGHLIGHT: string;
-    IS_SELECTED: string;
-    IS_BEGIN_RANGE: string;
-    IS_END_RANGE: string;
-    IS_DISABLED: string;
-    IS_TODAY: string;
-    IS_WEEKEND: string;
+    beforeCreateDay?: (node: DayOptions) => DayOptions;
 }
 
 export interface DaysWeek {
@@ -97,4 +75,23 @@ export interface Langs {
     daysShort: string[];
     months: string[];
     monthsShort: string[];
+}
+
+export interface ClassNames {
+    calendar?: string;
+    month?: string;
+    day?: string;
+    week?: string;
+    navigation?: string;
+    period?: string;
+    prev?: string;
+    next?: string;
+    rtl?: string;
+    isHighlight?: string;
+    isSelected?: string;
+    isBeginRange?: string;
+    isEndRange?: string;
+    isDisabled?: string;
+    isToday?: string;
+    isWeekend?: string;
 }
