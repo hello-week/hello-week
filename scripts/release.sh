@@ -4,33 +4,32 @@ echo "Enter release version: "
 read VERSION
 
 read -p "Releasing v$VERSION - are you sure? (y/n)" -n 1 -r
-echo    # (optional) move to a new line
+echo    # (OPTIONAL) MOVE TO A NEW LINE
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Releasing v$VERSION ..."
+  yarn run lint:js
+  yarn run test
 
-  npm run test
-  npm run lint:js
+  yarn run build
+  # GENERATE THE VERSION SO THAT THE CHANGELOG CAN BE GENERATED TOO
+  yarn version --no-git-tag-version --no-commit-hooks --new-version $VERSION
 
-  npm run build
-  # generate the version so that the changelog can be generated too
-  npm version --no-git-tag-version --no-commit-hooks --new-version $VERSION
+  # CHANGELOG
+  yarn run changelog
 
-  # changelog
-  npm run changelog
-
-  echo "Please check the git history and the CHANGELOG and press enter"
+  echo "Please check the git history and the changelog and press enter"
   read OKAY
 
-  # commit and tag
+  # COMMIT AND TAG
   git add CHANGELOG.md package.json
   git commit -m "chore(release): v$VERSION"
-  git tag "v$VERSION"
+  git tag -a "v$VERSION" -m $VERSION
 
-  # commit
-  npm publish --tag next --new-version "$VERSION" --no-commit-hooks --no-git-tag-version
+  # COMMIT
+  yarn publish --tag next --new-version "$VERSION" --no-commit-hooks --no-git-tag-version
 
-  # publish
+  # PUBLISH
   git push origin refs/tags/v$VERSION
   git push
 fi
