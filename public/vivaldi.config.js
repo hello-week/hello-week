@@ -9,7 +9,7 @@ const config = {
   defaultVersion: 'v2',
   versions: {
     v2: {
-      name: '2.13.0',
+      name: '2.13.1',
       path: 'docs/v2/'
     },
   },
