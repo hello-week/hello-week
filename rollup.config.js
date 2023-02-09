@@ -68,7 +68,13 @@ export default [
             commonjs(),
             terser(),
             copy({
-                targets: [{ src: 'dist', dest: 'docs/v2/demos/scripts' }],
+                targets: [{ src: 'dist/langs', dest: 'docs/v2/demos/scripts' }],
+                targets: [
+                    {
+                        src: 'dist/hello.week.esm.js',
+                        dest: 'docs/v2/demos/scripts',
+                    },
+                ],
             }),
         ],
     },
