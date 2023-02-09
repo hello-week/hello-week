@@ -7,7 +7,7 @@ export function createHTMLElement(
     let elem = el.querySelector('.' + className);
     if (!elem) {
         elem = document.createElement('div');
-        elem.classList.add(className);
+        addClass(elem, className);
         if (textNode !== null) {
             const text = document.createTextNode(textNode);
             (<HTMLElement>elem).appendChild(text);
