@@ -1,3 +1,31 @@
+# [2.14.0](https://github.com/maurovieirareis/hello-week/compare/v2.13.1...v2.14.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* improve destroy function to remove all events listeners ([00dc120](https://github.com/maurovieirareis/hello-week/commit/00dc120b2f9f18a6dc00b0de0fc9024a7e8186df))
+* initialize range based on selected days ([7a14b4d](https://github.com/maurovieirareis/hello-week/commit/7a14b4d384b04fab2e9ea44db7181d6684a68233))
+* update script used for demos ([c7cbd1b](https://github.com/maurovieirareis/hello-week/commit/c7cbd1b0b213aa934307128b3a7d9b2b5f5ff817))
+
+
+
+## [2.13.1](https://github.com/maurovieirareis/hello-week/compare/v2.13.0...v2.13.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* **dom:** reuse `addClass` utility ([cadba25](https://github.com/maurovieirareis/hello-week/commit/cadba256e7d1f518c5a1edd2c351f12026d41eb9))
+* improve `setDayHighlight` closes [#58](https://github.com/maurovieirareis/hello-week/issues/58) ([2552ace](https://github.com/maurovieirareis/hello-week/commit/2552aceaaca98099ac4ba504159a12ed3ebe4e45))
+* today highlight ([a0dc0a1](https://github.com/maurovieirareis/hello-week/commit/a0dc0a1a0265c915748c23b4a1f67071226ef72c))
+* **type:** improve type for `ClassNames` ([d795fb4](https://github.com/maurovieirareis/hello-week/commit/d795fb4b66dedcd7a34247081961d048cab978f3))
+
+
+### Features
+
+* add `beforeCreateDay` callback ([a43b2d1](https://github.com/maurovieirareis/hello-week/commit/a43b2d18180322c8caf1e094776c7cf2357d9d09))
+
+
+
 ## [2.13.1](https://github.com/maurovieirareis/hello-week/compare/v2.13.0...v2.13.1) (2023-02-09)
 
 
