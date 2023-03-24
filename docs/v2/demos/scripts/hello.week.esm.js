@@ -208,11 +208,14 @@ class HelloWeek {
         })
             .then(() => this.init());
     }
-    destroy() {
+    destroy(options) {
         this.removeEventsHandler();
         this.calendar.prevMonth.removeEventListener('click', () => this.prev());
         this.calendar.nextMonth.removeEventListener('click', () => this.next());
         this.selector.innerHTML = '';
+        if (options === null || options === void 0 ? void 0 : options.removeElement) {
+            this.selector.remove();
+        }
     }
     prev(callback) {
         const prevMonth = this.date.getMonth() - 1;

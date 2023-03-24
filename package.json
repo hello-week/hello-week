@@ -47,7 +47,7 @@
         "rollup-plugin-commonjs": "^10.0.1",
         "rollup-plugin-copy": "^3.4.0",
         "rollup-plugin-filesize": "^10.0.0",
-        "rollup-plugin-scss": "^3.0.0",
+        "rollup-plugin-scss": "^4.0.0",
         "rollup-plugin-serve": "^2.0.2",
         "rollup-plugin-typescript2": "^0.34.1",
         "sass": "^1.60.0",

@@ -11,14 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                range: ['2020-01-10', '2020-01-24'],
-                todayHighlight: false,
-            });
+            import { Example } from './scripts/main.js';
+            Example.Range();
         </script>
     </body>
 </html>

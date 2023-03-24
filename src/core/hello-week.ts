@@ -136,11 +136,15 @@ export class HelloWeek {
             .then(() => this.init());
     }
 
-    public destroy(): void {
+    public destroy(options?: { removeElement?: boolean }): void {
         this.removeEventsHandler();
         this.calendar.prevMonth.removeEventListener('click', () => this.prev());
         this.calendar.nextMonth.removeEventListener('click', () => this.next());
         this.selector.innerHTML = '';
+
+        if (options?.removeElement) {
+            this.selector.remove();
+        }
     }
 
     public prev(callback?: CallbackFunction): void {

@@ -11,13 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                rtl: true,
-            });
+            import { Example } from './scripts/main.js';
+            Example.RTL();
         </script>
     </body>
 </html>

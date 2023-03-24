@@ -8,26 +8,13 @@
     <body>
         <main>
             <button class="btn">Reset</button>
+            <button class="destroy">Destroy</button>
             <div class="calendar"></div>
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const calendar = new HelloWeek({
-                selector: '.calendar',
-                defaultDate: '2020-01-01',
-                langFolder: './langs/',
-                minDate: '2020-01-10',
-                maxDate: '2020-03-28',
-            });
-
-            document.querySelector('.btn').addEventListener('click', () => {
-                calendar.reset({
-                    minDate: false,
-                    maxDate: false,
-                });
-            });
+            import { Example } from './scripts/main.js';
+            Example.Reset();
         </script>
     </body>
 </html>
