@@ -1,3 +1,11 @@
+## [2.14.2](https://github.com/maurovieirareis/hello-week/compare/v2.14.1...v2.14.2) (2023-03-24)
+
+
+
+## [2.14.1](https://github.com/maurovieirareis/hello-week/compare/v2.14.0...v2.14.1) (2023-03-24)
+
+
+
 ## [2.14.1](https://github.com/maurovieirareis/hello-week/compare/v2.14.0...v2.14.1) (2023-03-24)
 
 
