@@ -534,15 +534,28 @@ export class HelloWeek {
             dayOptions.isToday = true;
         }
 
-        this.daysSelected.find((day: number) => {
+        if (this.options.range) {
+            const startRange = this.daysSelected[0];
+            const endRange = this.daysSelected.at(-1);
+
             if (
-                day === dayOptions.timestamp ||
-                setToTimestamp(day.toString()) === dayOptions.timestamp
+                setToTimestamp(startRange.toString()) <= dayOptions.timestamp &&
+                setToTimestamp(endRange.toString()) >= dayOptions.timestamp
             ) {
                 addClass(newDay, this.cssClasses.isSelected);
                 dayOptions.isSelected = true;
             }
-        });
+        } else {
+            this.daysSelected.find((day: number) => {
+                if (
+                    day === dayOptions.timestamp ||
+                    setToTimestamp(day.toString()) === dayOptions.timestamp
+                ) {
+                    addClass(newDay, this.cssClasses.isSelected);
+                    dayOptions.isSelected = true;
+                }
+            });
+        }
 
         if (dayOptions.timestamp === this.intervalRange.begin) {
             addClass(newDay, this.cssClasses.isBeginRange);
