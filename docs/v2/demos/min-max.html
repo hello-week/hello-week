@@ -6,8 +6,9 @@
         <link href="./styles/demo.css" rel="stylesheet" />
     </head>
     <body>
+        <button class="btn">Reset</button>
         <main>
-            <div class="flex">
+            <div class="flex gap-1">
                 <div class="calendar">
                     <div id="to"></div>
                 </div>
@@ -18,27 +19,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const to = new HelloWeek({
-                selector: '#to',
-                langFolder: './langs/',
-                todayHighlight: false,
-                onSelect: () => {
-                    from.setMinDate(to.getDaySelected());
-                    from.update();
-                },
-            });
-
-            const from = new HelloWeek({
-                selector: '#from',
-                langFolder: './langs/',
-                todayHighlight: false,
-                onSelect: () => {
-                    to.setMaxDate(from.getDaySelected());
-                    to.update();
-                },
-            });
+            import { Example } from './scripts/main.js';
+            Example.MinMax({ min: '#to', max: '#from' });
         </script>
     </body>
 </html>

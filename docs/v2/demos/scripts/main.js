@@ -5,20 +5,80 @@ const commonOptions = {
     langFolder: './langs/',
 };
 
+const YEAR = new Date().getFullYear();
+const MONTH = (new Date().getMonth() + 1).toString().padStart(2, 0);
+
+function locked() {
+    const calendar = new HelloWeek({
+        ...commonOptions,
+        locked: true,
+        onNavigation: () => {
+            calendar.setLocked(false);
+            calendar.update();
+        },
+    });
+}
+
+function minMax({ min, max }) {
+    document.querySelector('.btn').addEventListener('click', () => {
+        to.reset({ minDate: false });
+        from.reset({ maxDate: false });
+    });
+
+    const to = new HelloWeek({
+        ...commonOptions,
+        selector: min,
+        todayHighlight: false,
+        onSelect: () => {
+            from.setMinDate(to.getDaySelected());
+            from.update();
+        },
+    });
+
+    const from = new HelloWeek({
+        ...commonOptions,
+        selector: max,
+        todayHighlight: false,
+        onSelect: () => {
+            to.setMaxDate(from.getDaySelected());
+            to.update();
+        },
+    });
+}
+
+function onSelect() {
+    new HelloWeek({
+        ...commonOptions,
+        daysSelected: [
+            `${YEAR}-${MONTH}-6`,
+            `${YEAR}-${MONTH}-12`,
+            `${YEAR}-${MONTH}-13`,
+            `${YEAR}-${MONTH}-14`,
+            `${YEAR}-${MONTH}-18`,
+        ],
+        multiplePick: true,
+        onSelect: () => {
+            console.log(calendar.getDays());
+        },
+    });
+}
+
 function range() {
     new HelloWeek({
         ...commonOptions,
-        range: ['2020-01-10', '2020-01-24'],
         todayHighlight: false,
+        range: true,
+        multiplePick: true,
+        daysSelected: [`${YEAR}-${MONTH}-10`, `${YEAR}-${MONTH}-20`],
     });
 }
 
 function reset() {
     const calendar = new HelloWeek({
         ...commonOptions,
-        defaultDate: '2020-01-01',
-        minDate: '2020-01-10',
-        maxDate: '2020-03-28',
+        defaultDate: `${YEAR}-${MONTH}-01`,
+        minDate: `${YEAR}-${MONTH}-10`,
+        maxDate: `${YEAR}-${MONTH}-20`,
     });
 
     document.querySelector('.btn').addEventListener('click', () => {
@@ -26,10 +86,6 @@ function reset() {
             minDate: false,
             maxDate: false,
         });
-    });
-
-    document.querySelector('.destroy').addEventListener('click', () => {
-        calendar.destroy();
     });
 }
 
@@ -50,6 +106,9 @@ function selectedDays() {
 }
 
 export const Example = {
+    Locked: locked,
+    MinMax: minMax,
+    OnSelect: onSelect,
     Range: range,
     Reset: reset,
     RTL: rtl,

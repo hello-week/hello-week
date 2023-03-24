@@ -126,11 +126,6 @@ const config = {
             text: 'RTL'
           },
           {
-            path: 'examples/reset.md',
-            slug: 'reset',
-            text: 'Reset'
-          },
-          {
             path: 'examples/on-select.md',
             slug: 'on-select',
             text: 'On Select'

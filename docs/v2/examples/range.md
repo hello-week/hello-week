@@ -9,8 +9,10 @@ Each key is the label for the range, and its value an array with all dates betwe
 ```js
 new HelloWeek({
     selector: '.calendar',
-    range: true,
     todayHighlight: false,
+    range: true,
+    multiplePick: true,
+    daysSelected: ['2023-01-10', '2023-01-20'],
 });
 ```
 

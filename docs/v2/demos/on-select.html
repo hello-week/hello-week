@@ -11,22 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const calendar = new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                daysSelected: [
-                    '2020-01-10',
-                    '2020-02-12',
-                    '2020-12-13',
-                    '2020-12-25',
-                ],
-                multiplePick: true,
-                onSelect: () => {
-                    console.log(calendar.getDays());
-                },
-            });
+            import { Example } from './scripts/main.js';
+            Example.OnSelect();
         </script>
     </body>
 </html>

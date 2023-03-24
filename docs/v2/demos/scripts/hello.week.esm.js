@@ -513,13 +513,26 @@ class HelloWeek {
             addClass(newDay, this.cssClasses.isToday);
             dayOptions.isToday = true;
         }
-        this.daysSelected.find((day) => {
-            if (day === dayOptions.timestamp ||
-                setToTimestamp(day.toString()) === dayOptions.timestamp) {
+        if (this.options.range) {
+            const startRange = this.daysSelected[0];
+            const endRange = this.daysSelected.at(-1);
+            console.log("startRange", startRange);
+            console.log("endRange", endRange);
+            if (setToTimestamp(startRange.toString()) <= dayOptions.timestamp &&
+                setToTimestamp(endRange.toString()) >= dayOptions.timestamp) {
                 addClass(newDay, this.cssClasses.isSelected);
                 dayOptions.isSelected = true;
             }
-        });
+        }
+        else {
+            this.daysSelected.find((day) => {
+                if (day === dayOptions.timestamp ||
+                    setToTimestamp(day.toString()) === dayOptions.timestamp) {
+                    addClass(newDay, this.cssClasses.isSelected);
+                    dayOptions.isSelected = true;
+                }
+            });
+        }
         if (dayOptions.timestamp === this.intervalRange.begin) {
             addClass(newDay, this.cssClasses.isBeginRange);
         }
