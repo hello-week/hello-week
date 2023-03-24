@@ -137,11 +137,13 @@ export class HelloWeek {
     }
 
     public destroy(): void {
-        this.removeStatesClass();
-        this.selector.remove();
+        this.removeEventsHandler();
+        this.calendar.prevMonth.removeEventListener('click', () => this.prev());
+        this.calendar.nextMonth.removeEventListener('click', () => this.next());
+        this.selector.innerHTML = '';
     }
 
-    public prev(callback: CallbackFunction): void {
+    public prev(callback?: CallbackFunction): void {
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.update();
@@ -152,7 +154,7 @@ export class HelloWeek {
         }
     }
 
-    public next(callback: CallbackFunction): void {
+    public next(callback?: CallbackFunction): void {
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.update();
@@ -293,12 +295,7 @@ export class HelloWeek {
         this.daysOfMonth = this.selector.querySelectorAll(
             '.' + this.cssClasses.month + ' .' + this.cssClasses.day
         );
-        this.daysOfMonth.forEach((element: HTMLElement) => {
-            this.handleClickInteraction(element, callback);
-            if (this.options.range) {
-                this.handleMouseInteraction(element);
-            }
-        });
+        this.addEventsHandler(callback);
     }
 
     private getIntervalOfDates(startDate: number, endDate: number) {
@@ -323,132 +320,111 @@ export class HelloWeek {
         return dates;
     }
 
-    private handleClickInteraction(
-        target: HTMLElement,
-        callback: CallbackFunction
+    private onHandleClick(
+        event: MouseEvent & {
+            target: HTMLElement;
+        },
+        callback?: CallbackFunction
     ): void {
-        target.addEventListener(
-            'click',
-            (
-                event: MouseEvent & {
-                    target: HTMLElement;
+        const index = getIndexForEventTarget(this.daysOfMonth, event.target);
+        if (this.days[index].locked) return;
+
+        this.lastSelectedDay = this.days[index].timestamp;
+        if (!this.options.range) {
+            if (this.options.multiplePick) {
+                if (this.days[index].timestamp) {
+                    this.daysSelected = this.daysSelected.filter(
+                        (day: string) =>
+                            setToTimestamp(day) !== this.lastSelectedDay
+                    );
                 }
-            ) => {
-                const index = getIndexForEventTarget(
-                    this.daysOfMonth,
-                    event.target
+                if (!this.days[index].isSelected) {
+                    this.daysSelected.push(
+                        timestampToHuman({
+                            timestamp: this.lastSelectedDay,
+                            format: FORMAT_DATE,
+                            langs: this.langs,
+                            timezoneOffset: this.options.timezoneOffset,
+                        })
+                    );
+                }
+            } else {
+                if (!this.days[index].locked) {
+                    this.removeCSSClasses();
+                }
+                this.daysSelected = [];
+                this.daysSelected.push(
+                    timestampToHuman({
+                        timestamp: this.lastSelectedDay,
+                        format: FORMAT_DATE,
+                        langs: this.langs,
+                        timezoneOffset: this.options.timezoneOffset,
+                    })
                 );
-                if (this.days[index].locked) {
-                    return;
-                }
+            }
+        }
 
-                this.lastSelectedDay = this.days[index].timestamp;
-                if (!this.options.range) {
-                    if (this.options.multiplePick) {
-                        if (this.days[index].timestamp) {
-                            this.daysSelected = this.daysSelected.filter(
-                                (day: string) =>
-                                    setToTimestamp(day) !== this.lastSelectedDay
-                            );
-                        }
-                        if (!this.days[index].isSelected) {
-                            this.daysSelected.push(
-                                timestampToHuman({
-                                    timestamp: this.lastSelectedDay,
-                                    format: FORMAT_DATE,
-                                    langs: this.langs,
-                                    timezoneOffset: this.options.timezoneOffset,
-                                })
-                            );
-                        }
-                    } else {
-                        if (!this.days[index].locked) {
-                            this.removeStatesClass();
-                        }
-                        this.daysSelected = [];
-                        this.daysSelected.push(
-                            timestampToHuman({
-                                timestamp: this.lastSelectedDay,
-                                format: FORMAT_DATE,
-                                langs: this.langs,
-                                timezoneOffset: this.options.timezoneOffset,
-                            })
-                        );
-                    }
-                }
-                toggleClass(event.target, this.cssClasses.isSelected);
-                this.days[index].isSelected = !this.days[index].isSelected;
-                if (this.options.range) {
-                    if (this.intervalRange.begin && this.intervalRange.end) {
-                        this.intervalRange.begin = undefined;
-                        this.intervalRange.end = undefined;
-                        this.removeStatesClass();
-                    }
-                    if (this.intervalRange.begin && !this.intervalRange.end) {
-                        this.intervalRange.end = this.days[index].timestamp;
-                        this.daysSelected = this.getIntervalOfDates(
-                            this.intervalRange.begin,
-                            this.intervalRange.end
-                        );
-                        addClass(event.target, this.cssClasses.isEndRange);
-                        if (this.intervalRange.begin > this.intervalRange.end) {
-                            this.intervalRange.begin = undefined;
-                            this.intervalRange.end = undefined;
-                            this.removeStatesClass();
-                        }
-                    }
-
-                    if (!this.intervalRange.begin) {
-                        this.intervalRange.begin = this.days[index].timestamp;
-                    }
-
-                    addClass(event.target, this.cssClasses.isSelected);
-                }
-
-                this.options.onSelect.call(this);
-                if (callback) {
-                    callback.call(this);
+        toggleClass(event.target, this.cssClasses.isSelected);
+        this.days[index].isSelected = !this.days[index].isSelected;
+        if (this.options.range) {
+            if (this.intervalRange.begin && this.intervalRange.end) {
+                this.intervalRange.begin = undefined;
+                this.intervalRange.end = undefined;
+                this.removeCSSClasses();
+            }
+            if (this.intervalRange.begin && !this.intervalRange.end) {
+                this.intervalRange.end = this.days[index].timestamp;
+                this.daysSelected = this.getIntervalOfDates(
+                    this.intervalRange.begin,
+                    this.intervalRange.end
+                );
+                addClass(event.target, this.cssClasses.isEndRange);
+                if (this.intervalRange.begin > this.intervalRange.end) {
+                    this.intervalRange.begin = undefined;
+                    this.intervalRange.end = undefined;
+                    this.removeCSSClasses();
                 }
             }
-        );
+
+            if (!this.intervalRange.begin) {
+                this.intervalRange.begin = this.days[index].timestamp;
+            }
+
+            addClass(event.target, this.cssClasses.isSelected);
+        }
+
+        this.options.onSelect.call(this);
+        if (callback) {
+            callback.call(this);
+        }
     }
 
-    private handleMouseInteraction(target: HTMLElement): void {
-        target.addEventListener('mouseover', (event: MouseEvent) => {
-            const index = getIndexForEventTarget(
-                this.daysOfMonth,
-                event.target
-            );
-            if (
-                !this.intervalRange.begin ||
-                (this.intervalRange.begin && this.intervalRange.end)
-            ) {
-                return;
-            }
-            this.removeStatesClass();
-            for (let i = 1; i <= Object.keys(this.days).length; i++) {
-                this.days[i].isSelected = false;
-                if (this.days[index].timestamp >= this.intervalRange.begin) {
-                    if (
-                        this.days[i].timestamp >= this.intervalRange.begin &&
-                        this.days[i].timestamp <= this.days[index].timestamp
-                    ) {
+    private onHandleMouse(event: MouseEvent): void {
+        const index = getIndexForEventTarget(this.daysOfMonth, event.target);
+        if (
+            !this.intervalRange.begin ||
+            (this.intervalRange.begin && this.intervalRange.end)
+        ) {
+            return;
+        }
+        this.removeCSSClasses();
+        for (let i = 1; i <= Object.keys(this.days).length; i++) {
+            this.days[i].isSelected = false;
+            if (this.days[index].timestamp >= this.intervalRange.begin) {
+                if (
+                    this.days[i].timestamp >= this.intervalRange.begin &&
+                    this.days[i].timestamp <= this.days[index].timestamp
+                ) {
+                    addClass(this.days[i].element, this.cssClasses.isSelected);
+                    if (this.days[i].timestamp === this.intervalRange.begin) {
                         addClass(
                             this.days[i].element,
-                            this.cssClasses.isSelected
+                            this.cssClasses.isBeginRange
                         );
-                        if (
-                            this.days[i].timestamp === this.intervalRange.begin
-                        ) {
-                            addClass(
-                                this.days[i].element,
-                                this.cssClasses.isBeginRange
-                            );
-                        }
                     }
                 }
             }
-        });
+        }
     }
 
     private createWeek(dayShort: string): void {
@@ -700,11 +676,56 @@ export class HelloWeek {
         this.createMonth();
     }
 
+    private addEventsHandler(callback?: CallbackFunction): void {
+        this.daysOfMonth.forEach((element: HTMLElement) => {
+            element.addEventListener(
+                'click',
+                (
+                    event: MouseEvent & {
+                        target: HTMLElement;
+                    }
+                ) => {
+                    this.onHandleClick(event, callback);
+                }
+            );
+
+            if (this.options.range) {
+                element.addEventListener('mouseover', (event: MouseEvent) => {
+                    this.onHandleMouse(event);
+                });
+            }
+        });
+    }
+
+    private removeEventsHandler(): void {
+        this.daysOfMonth.forEach((element: HTMLElement) => {
+            element.removeEventListener(
+                'click',
+                (
+                    event: MouseEvent & {
+                        target: HTMLElement;
+                    }
+                ) => {
+                    this.onHandleClick(event);
+                }
+            );
+
+            if (this.options.range) {
+                element.removeEventListener(
+                    'mouseover',
+                    (event: MouseEvent) => {
+                        this.onHandleMouse(event);
+                    }
+                );
+            }
+        });
+    }
+
     private clearCalendar(): void {
         this.calendar.month.textContent = '';
     }
 
-    private removeStatesClass(): void {
+    private removeCSSClasses(): void {
         this.daysOfMonth.forEach((element: HTMLElement, i: number) => {
             removeClass(element, this.cssClasses.isSelected);
             removeClass(element, this.cssClasses.isBeginRange);
