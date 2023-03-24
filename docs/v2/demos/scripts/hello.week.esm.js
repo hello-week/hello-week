@@ -75,16 +75,16 @@ function timestampToHuman({ timestamp, format, langs, timezoneOffset, }) {
     const dt = setTimeZone({ date: timestamp, timezoneOffset });
     format = format.replace('dd', dt.getDate().toString());
     format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-    format = format.replace('mm', (dt.getMonth() + 1).toString());
+    format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
     format = format.replace('MMM', langs.months[dt.getMonth()]);
+    format = format.replace('mm', (dt.getMonth() + 1).toString());
     format = format.replace('MM', (dt.getMonth() + 1 > 9
         ? dt.getMonth() + 1
         : '0' + (dt.getMonth() + 1)).toString());
-    format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
     format = format.replace('yyyy', dt.getFullYear().toString());
     format = format.replace('YYYY', dt.getFullYear().toString());
-    format = format.replace('YY', dt.getFullYear().toString().substring(2));
     format = format.replace('yy', dt.getFullYear().toString().substring(2));
+    format = format.replace('YY', dt.getFullYear().toString().substring(2));
     return format;
 }
 function formatDate(day, month, year) {
