@@ -516,8 +516,6 @@ class HelloWeek {
         if (this.options.range) {
             const startRange = this.daysSelected[0];
             const endRange = this.daysSelected.at(-1);
-            console.log("startRange", startRange);
-            console.log("endRange", endRange);
             if (setToTimestamp(startRange.toString()) <= dayOptions.timestamp &&
                 setToTimestamp(endRange.toString()) >= dayOptions.timestamp) {
                 addClass(newDay, this.cssClasses.isSelected);

@@ -11,15 +11,8 @@
         </main>
 
         <script type="module">
-          import HelloWeek from './scripts/hello.week.esm.js';
-
-            const calendar = new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                onLoad: () => {
-                    calendar.goToDate('2030-06-01');
-                },
-            });
+            import { Example } from './scripts/main.js';
+            Example.GoTo();
         </script>
     </body>
 </html>

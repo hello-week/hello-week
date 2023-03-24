@@ -11,13 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                disabledDaysOfWeek: [0, 1], // disabling weekends
-            });
+            import { Example } from './scripts/main.js';
+            Example.DisabledDaysOfWeek();
         </script>
     </body>
 </html>
