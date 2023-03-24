@@ -11,17 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const calendar = new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                locked: true,
-                onNavigation: () => {
-                    calendar.setLocked(false);
-                    calendar.update();
-                },
-            });
+            import { Example } from './scripts/main.js';
+            Example.Locked();
         </script>
     </body>
 </html>

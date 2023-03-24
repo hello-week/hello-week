@@ -11,13 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                disableDates: [['2020-03-02', '2020-03-12']],
-            });
+            import { Example } from './scripts/main.js';
+            Example.DisableDates();
         </script>
     </body>
 </html>

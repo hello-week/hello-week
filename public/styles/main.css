@@ -15,6 +15,10 @@ body {
   display: flex;
 }
 
+.gap-1 {
+  gap: 8px;
+}
+
 .calendar {
   flex: 1;
   border: 1px solid #edf2f7;

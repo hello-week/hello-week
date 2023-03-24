@@ -11,16 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const calendar = new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                onNavigation: () => {
-                    console.log('Current Month: ', calendar.getMonth());
-                    console.log('Current Year: ', calendar.getYear());
-                },
-            });
+            import { Example } from './scripts/main.js';
+            Example.MonthYear();
         </script>
     </body>
 </html>

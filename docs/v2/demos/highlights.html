@@ -11,61 +11,8 @@
         </main>
 
         <script type="module">
-            import HelloWeek from './scripts/hello.week.esm.js';
-
-            const dt = new Date();
-            let month = dt.getMonth();
-            let year = dt.getFullYear();
-
-            new HelloWeek({
-                selector: '.calendar',
-                langFolder: './langs/',
-                todayHighlight: false,
-                daysHighlight: [
-                    {
-                        days: [
-                            [
-                                `${year}-${String(month + 1).padStart(
-                                    2,
-                                    '0'
-                                )}-03`,
-                                `${year}-${String(month + 1).padStart(
-                                    2,
-                                    '0'
-                                )}-07`,
-                            ],
-                        ],
-                        title: 'Holidays in Portugal',
-                        backgroundColor: '#f44336',
-                        color: '#fff',
-                    },
-                    {
-                        days: [
-                            [
-                                `${year}-${String(month + 1).padStart(
-                                    2,
-                                    '0'
-                                )}-20`,
-                                `${year}-${String(month + 1).padStart(
-                                    2,
-                                    '0'
-                                )}-22`,
-                            ],
-                        ],
-                        title: 'Holidays in Paris',
-                        backgroundColor: '#2196F3',
-                        color: '#fff',
-                    },
-                    {
-                        days: [
-                            `${year}-${String(month + 1).padStart(2, '0')}-18`,
-                        ],
-                        title: 'Mom Birthday',
-                        backgroundColor: '#9c27b0',
-                        color: '#fff',
-                    },
-                ],
-            });
+            import { Example } from './scripts/main.js';
+            Example.Highlights();
         </script>
     </body>
 </html>
