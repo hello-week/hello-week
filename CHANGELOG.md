@@ -1,3 +1,18 @@
+## [2.14.1](https://github.com/maurovieirareis/hello-week/compare/v2.14.0...v2.14.1) (2023-03-24)
+
+
+
+# [2.14.0](https://github.com/maurovieirareis/hello-week/compare/v2.13.1...v2.14.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* improve destroy function to remove all events listeners ([00dc120](https://github.com/maurovieirareis/hello-week/commit/00dc120b2f9f18a6dc00b0de0fc9024a7e8186df))
+* initialize range based on selected days ([7a14b4d](https://github.com/maurovieirareis/hello-week/commit/7a14b4d384b04fab2e9ea44db7181d6684a68233))
+* update script used for demos ([c7cbd1b](https://github.com/maurovieirareis/hello-week/commit/c7cbd1b0b213aa934307128b3a7d9b2b5f5ff817))
+
+
+
 # [2.14.0](https://github.com/maurovieirareis/hello-week/compare/v2.13.1...v2.14.0) (2023-03-24)
 
 
