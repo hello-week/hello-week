@@ -75,8 +75,8 @@ function highlights() {
             {
                 days: [
                     [
-                        `${YEAR}-${String(MONTH + 1).padStart(2, '0')}-03`,
-                        `${YEAR}-${String(MONTH + 1).padStart(2, '0')}-07`,
+                        `${YEAR}-${MONTH}-03`,
+                        `${YEAR}-${MONTH}-07`,
                     ],
                 ],
                 title: 'Holidays in Portugal',
@@ -86,8 +86,8 @@ function highlights() {
             {
                 days: [
                     [
-                        `${YEAR}-${String(MONTH + 1).padStart(2, '0')}-20`,
-                        `${YEAR}-${String(MONTH + 1).padStart(2, '0')}-22`,
+                        `${YEAR}-${MONTH}-20`,
+                        `${YEAR}-${MONTH}-22`,
                     ],
                 ],
                 title: 'Holidays in Paris',
@@ -95,7 +95,7 @@ function highlights() {
                 color: '#fff',
             },
             {
-                days: [`${YEAR}-${String(MONTH + 1).padStart(2, '0')}-18`],
+                days: [`${YEAR}-${MONTH}-18`],
                 title: 'Mom Birthday',
                 backgroundColor: '#9c27b0',
                 color: '#fff',
@@ -109,8 +109,7 @@ function locked() {
         ...commonOptions,
         locked: true,
         onNavigation: () => {
-            calendar.setLocked(false);
-            // calendar.update();
+            calendar.setOptions({ locked: false });
         },
     });
 }
@@ -126,8 +125,9 @@ function minMax({ min, max }) {
         selector: min,
         todayHighlight: false,
         onSelect: () => {
-            from.setMinDate(to.getDaySelected());
-            from.update();
+            const minDate = new Date(to.getDaySelected());
+            minDate.setDate(minDate.getDate() - 1);
+            from.setOptions({ minDate })
         },
     });
 
@@ -136,8 +136,9 @@ function minMax({ min, max }) {
         selector: max,
         todayHighlight: false,
         onSelect: () => {
-            to.setMaxDate(from.getDaySelected());
-            to.update();
+            const maxDate = new Date(from.getDaySelected());
+            maxDate.setDate(maxDate.getDate() + 1);
+            to.setOptions({ maxDate })
         },
     });
 }

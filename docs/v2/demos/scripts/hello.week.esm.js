@@ -265,9 +265,6 @@ class HelloWeek {
     getDaySelected() {
         return this.lastSelectedDay;
     }
-    getDaysHighlight() {
-        return this.daysHighlight;
-    }
     getMonth() {
         return this.date.getMonth() + 1;
     }
@@ -275,7 +272,13 @@ class HelloWeek {
         return this.date.getFullYear();
     }
     setDaysHighlight(daysHighlight) {
-        this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
+        this.options.daysHighlight = [
+            ...this.options.daysHighlight,
+            ...daysHighlight,
+        ];
+    }
+    getDaysHighlight() {
+        return this.options.daysHighlight;
     }
     setMultiplePick(state) {
         this.options.multiplePick = state;
@@ -302,8 +305,12 @@ class HelloWeek {
         this.options.maxDate.setHours(0, 0, 0, 0);
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     }
+    setOptions(options) {
+        this.options = Object.assign(Object.assign({}, this.options), options);
+        this.update();
+    }
     init(callback) {
-        this.daysHighlight = this.options.daysHighlight
+        this.options.daysHighlight = this.options.daysHighlight
             ? this.options.daysHighlight
             : [];
         this.daysSelected = this.options.daysSelected
@@ -537,7 +544,7 @@ class HelloWeek {
         if (dayOptions.timestamp === this.intervalRange.end) {
             addClass(newDay, this.cssClasses.isEndRange);
         }
-        if (this.daysHighlight) {
+        if (this.options.daysHighlight) {
             this.setDayHighlight(newDay, dayOptions);
         }
         if (this.calendar.month) {
@@ -569,7 +576,7 @@ class HelloWeek {
         }
     }
     setDayHighlight(newDay, dayOptions) {
-        this.daysHighlight.map((day, index) => {
+        this.options.daysHighlight.map((day, index) => {
             if (isArray(day.days[0])) {
                 day.days.forEach((date) => {
                     if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
@@ -590,15 +597,15 @@ class HelloWeek {
     }
     setStyleDayHighlight(newDay, key, dayOptions) {
         addClass(newDay, this.cssClasses.isHighlight);
-        if (this.daysHighlight[key].title) {
-            dayOptions.title = this.daysHighlight[key].title;
-            setDataAttr(newDay, 'data-title', this.daysHighlight[key].title);
+        if (this.options.daysHighlight[key].title) {
+            dayOptions.title = this.options.daysHighlight[key].title;
+            setDataAttr(newDay, 'data-title', this.options.daysHighlight[key].title);
         }
-        if (this.daysHighlight[key].color) {
-            setStyle(newDay, 'color', this.daysHighlight[key].color);
+        if (this.options.daysHighlight[key].color) {
+            setStyle(newDay, 'color', this.options.daysHighlight[key].color);
         }
-        if (this.daysHighlight[key].backgroundColor) {
-            setStyle(newDay, 'background-color', this.daysHighlight[key].backgroundColor);
+        if (this.options.daysHighlight[key].backgroundColor) {
+            setStyle(newDay, 'background-color', this.options.daysHighlight[key].backgroundColor);
         }
         dayOptions.isHighlight = true;
     }
