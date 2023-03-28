@@ -37,7 +37,6 @@ export class HelloWeek {
     private date: Date;
     private todayDate: number;
     private cssClasses: ClassNames = CSS_CLASSES;
-    private daysHighlight: DaysHighlight[];
     private defaultDate: Date;
     private langs: Langs;
     private daysOfMonth: NodeListOf<Element>;
@@ -207,10 +206,6 @@ export class HelloWeek {
         return this.lastSelectedDay;
     }
 
-    public getDaysHighlight(): DaysHighlight[] {
-        return this.daysHighlight;
-    }
-
     public getMonth(): number {
         return this.date.getMonth() + 1;
     }
@@ -220,7 +215,14 @@ export class HelloWeek {
     }
 
     public setDaysHighlight(daysHighlight: DaysHighlight[]): void {
-        this.daysHighlight = [...this.daysHighlight, ...daysHighlight];
+        this.options.daysHighlight = [
+            ...this.options.daysHighlight,
+            ...daysHighlight,
+        ];
+    }
+
+    public getDaysHighlight(): DaysHighlight[] {
+        return this.options.daysHighlight;
     }
 
     public setMultiplePick(state: boolean) {
@@ -239,24 +241,58 @@ export class HelloWeek {
         this.options.range = state;
     }
 
+    /**
+     * Sets Days Locked in Calendar.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setLocked(state: boolean) {
         this.options.locked = state;
     }
 
+    /**
+     * Sets Min Date.
+     *
+     * @param date - The date
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setMinDate(date: Date) {
         this.options.minDate = new Date(date);
         this.options.minDate.setHours(0, 0, 0, 0);
         this.options.minDate.setDate(this.options.minDate.getDate() - 1);
     }
 
+    /**
+     * Sets Max Date.
+     *
+     * @param date - The date
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setMaxDate(date: Date) {
         this.options.maxDate = new Date(date);
         this.options.maxDate.setHours(0, 0, 0, 0);
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     }
 
+    /**
+     * Sets the options.
+     * Method accept all calendar options, with the advantage of being able to modify multiple options at once,
+     * optimizing the number of calendar re-renders.
+     *
+     * @param options - The options
+     * @see {@link Options}
+     */
+    public setOptions(options: Options) {
+        this.options = {
+            ...this.options,
+            ...options,
+        };
+        this.update();
+    }
+
     private init(callback?: CallbackFunction) {
-        this.daysHighlight = this.options.daysHighlight
+        this.options.daysHighlight = this.options.daysHighlight
             ? this.options.daysHighlight
             : [];
         this.daysSelected = this.options.daysSelected
@@ -565,7 +601,7 @@ export class HelloWeek {
             addClass(newDay, this.cssClasses.isEndRange);
         }
 
-        if (this.daysHighlight) {
+        if (this.options.daysHighlight) {
             this.setDayHighlight(newDay, dayOptions);
         }
 
@@ -606,7 +642,7 @@ export class HelloWeek {
     }
 
     private setDayHighlight(newDay: HTMLElement, dayOptions: DayOptions): void {
-        this.daysHighlight.map((day, index) => {
+        this.options.daysHighlight.map((day, index) => {
             if (isArray(day.days[0])) {
                 day.days.forEach((date) => {
                     if (
@@ -634,19 +670,23 @@ export class HelloWeek {
         dayOptions: DayOptions
     ) {
         addClass(newDay, this.cssClasses.isHighlight);
-        if (this.daysHighlight[key].title) {
-            dayOptions.title = this.daysHighlight[key].title;
-            setDataAttr(newDay, 'data-title', this.daysHighlight[key].title);
+        if (this.options.daysHighlight[key].title) {
+            dayOptions.title = this.options.daysHighlight[key].title;
+            setDataAttr(
+                newDay,
+                'data-title',
+                this.options.daysHighlight[key].title
+            );
         }
 
-        if (this.daysHighlight[key].color) {
-            setStyle(newDay, 'color', this.daysHighlight[key].color);
+        if (this.options.daysHighlight[key].color) {
+            setStyle(newDay, 'color', this.options.daysHighlight[key].color);
         }
-        if (this.daysHighlight[key].backgroundColor) {
+        if (this.options.daysHighlight[key].backgroundColor) {
             setStyle(
                 newDay,
                 'background-color',
-                this.daysHighlight[key].backgroundColor
+                this.options.daysHighlight[key].backgroundColor
             );
         }
         dayOptions.isHighlight = true;
