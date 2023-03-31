@@ -53,10 +53,10 @@ export interface Options {
     locked?: boolean;
     rtl?: boolean;
     nav?: string[];
-    onClear?: () => void;
     onLoad?: () => void;
-    onNavigation?: () => void;
+    onReset?: () => void;
     onSelect?: () => void;
+    onNavigation?: () => void;
     beforeCreateDay?: (node: DayOptions) => DayOptions;
 }
 

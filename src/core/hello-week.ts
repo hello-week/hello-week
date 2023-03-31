@@ -149,7 +149,7 @@ export class HelloWeek {
     public prev(callback?: CallbackFunction): void {
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
-        this.update();
+        this.forceUpdate();
 
         this.options.onNavigation.call(this);
         if (callback) {
@@ -160,7 +160,7 @@ export class HelloWeek {
     public next(callback?: CallbackFunction): void {
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
-        this.update();
+        this.forceUpdate();
 
         this.options.onNavigation.call(this);
         if (callback) {
@@ -168,27 +168,38 @@ export class HelloWeek {
         }
     }
 
-    public update(): void {
+    /**
+     * Update calendar, this options force the unmount and mount calendar.
+     * Be careful with usage, rendering the entire calendar will impact performance.
+     */
+    public forceUpdate(): void {
         this.clearCalendar();
         this.mounted();
     }
 
-    public reset(options: Options, callback?: CallbackFunction): void {
+    /**
+     * Reset calendar, this method restore the calendar with initial options.
+     * Also provide the possibility to extends the initial options with the options passed by parameter.
+     * @param options - The calendar options
+     * @see {@link Options}
+     */
+    public reset(): void {
         this.clearCalendar();
-        this.options = extend(options, HelloWeek.initOptions);
-        this.init(callback);
+        this.options = extend({}, HelloWeek.initOptions);
+        this.init();
+        this.options.onReset();
     }
 
     public goToday(): void {
         this.date = new Date();
         this.date.setDate(1);
-        this.update();
+        this.forceUpdate();
     }
 
     public goToDate(date: Date | string | number): void {
         this.date = new Date(date || this.todayDate);
         this.date.setDate(1);
-        this.update();
+        this.forceUpdate();
     }
 
     public getDays(): string[] {
@@ -233,10 +244,22 @@ export class HelloWeek {
         this.options.disablePastDays = state;
     }
 
+    /**
+     * Sets today highlight.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setTodayHighlight(state: boolean) {
         this.options.todayHighlight = state;
     }
 
+    /**
+     * Sets Days Range.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setRange(state: boolean) {
         this.options.range = state;
     }
@@ -278,9 +301,9 @@ export class HelloWeek {
     /**
      * Sets the options.
      * Method accept all calendar options, with the advantage of being able to modify multiple options at once,
-     * optimizing the number of calendar re-renders.
+     * optimizing the number of re-renders.
      *
-     * @param options - The options
+     * @param options - The calendar options
      * @see {@link Options}
      */
     public setOptions(options: Options) {
@@ -288,10 +311,21 @@ export class HelloWeek {
             ...this.options,
             ...options,
         };
-        this.update();
+        this.forceUpdate();
     }
 
-    private init(callback?: CallbackFunction) {
+    /**
+     * Update calendar, this method force the unmount and mount calendar.
+     * Be careful with usage, rendering the entire calendar will impact performance.
+     *
+     * @deprecated Use the new `forceUpdate` instead.
+     */
+    public update(): void {
+        this.clearCalendar();
+        this.mounted();
+    }
+
+    private init() {
         this.options.daysHighlight = this.options.daysHighlight
             ? this.options.daysHighlight
             : [];
@@ -326,9 +360,6 @@ export class HelloWeek {
 
         this.mounted();
         this.options.onLoad.call(this);
-        if (callback) {
-            callback.call(this);
-        }
     }
 
     private selectDay(callback?: CallbackFunction): void {

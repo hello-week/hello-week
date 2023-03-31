@@ -23,7 +23,7 @@ export const defaultOptions: Options = {
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
-    onClear: () => {
+    onReset: () => {
         /** callback */
     },
     onLoad: () => {
