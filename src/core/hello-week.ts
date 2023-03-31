@@ -147,25 +147,25 @@ export class HelloWeek {
     }
 
     public prev(callback?: CallbackFunction): void {
+        const { onNavigation } = this.options;
         const prevMonth = this.date.getMonth() - 1;
+
         this.date.setMonth(prevMonth);
         this.forceUpdate();
 
-        this.options.onNavigation.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (onNavigation) onNavigation();
+        if (callback) callback();
     }
 
     public next(callback?: CallbackFunction): void {
+        const { onNavigation } = this.options;
         const nextMonth = this.date.getMonth() + 1;
+
         this.date.setMonth(nextMonth);
         this.forceUpdate();
 
-        this.options.onNavigation.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (onNavigation) onNavigation();
+        if (callback) callback();
     }
 
     /**
@@ -180,7 +180,7 @@ export class HelloWeek {
     /**
      * Reset calendar, this method restore the calendar with initial options.
      * Also provide the possibility to extends the initial options with the options passed by parameter.
-     * @param options - The calendar options
+     *
      * @see {@link Options}
      */
     public reset(): void {
@@ -303,14 +303,15 @@ export class HelloWeek {
      * Method accept all calendar options, with the advantage of being able to modify multiple options at once,
      * optimizing the number of re-renders.
      *
-     * @param options - The calendar options
+     * @param options - The calendar options, or callback with previous options.
      * @see {@link Options}
      */
-    public setOptions(options: Options) {
-        this.options = {
-            ...this.options,
-            ...options,
-        };
+    public setOptions(options: ((prev: Options) => Options) | Options) {
+        if (typeof options === 'function') {
+             this.options = options(this.options);
+        } else {
+            this.options = options;
+        }
         this.forceUpdate();
     }
 
