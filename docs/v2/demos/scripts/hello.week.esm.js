@@ -50,7 +50,7 @@ const defaultOptions = {
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
-    onClear: () => {
+    onReset: () => {
     },
     onLoad: () => {
     },
@@ -218,22 +218,24 @@ class HelloWeek {
         }
     }
     prev(callback) {
+        const { onNavigation } = this.options;
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
         this.forceUpdate();
-        this.options.onNavigation.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (onNavigation)
+            onNavigation();
+        if (callback)
+            callback();
     }
     next(callback) {
+        const { onNavigation } = this.options;
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
         this.forceUpdate();
-        this.options.onNavigation.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (onNavigation)
+            onNavigation();
+        if (callback)
+            callback();
     }
     forceUpdate() {
         this.clearCalendar();
@@ -243,7 +245,7 @@ class HelloWeek {
         this.clearCalendar();
         this.options = extend({}, HelloWeek.initOptions);
         this.init();
-        this.options.onClear();
+        this.options.onReset();
     }
     goToday() {
         this.date = new Date();
@@ -307,7 +309,14 @@ class HelloWeek {
         this.options.maxDate.setDate(this.options.maxDate.getDate() + 1);
     }
     setOptions(options) {
-        this.options = Object.assign(Object.assign({}, this.options), options);
+        if (typeof options === 'function') {
+            const aux = options(this.options);
+            console.log(aux);
+            this.options = aux;
+        }
+        else {
+            this.options = options;
+        }
         this.forceUpdate();
     }
     update() {

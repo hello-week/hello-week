@@ -1,6 +1,6 @@
 # Installation
 
-There are a few different ways to install the Hello Week library.
+There are a few different ways to install the Hello Week calendar.
 
 ## Package Manager
 
@@ -46,7 +46,8 @@ A number of free CDNs host Hello Week's dist files. A clever way to choose a CDN
 ## FAQ’s
 
 Below is the list of frequently asked questions.
-If you think a common question is missing from the list, please create an issue here.
+If you think a common question is missing from the list, please create an [issue here](https://github.com/mauroreisvieira/hello-week/issues/new).
 
 **1.** How is Hello Week different to other tools?
-Do not use any external dependencies.
+
+-   Not required a installation of external dependencies.

@@ -6,7 +6,7 @@ Callbacks are executed whenever something in the calendar is triggered, that way
 
 ```js
 new HelloWeek({
-    { /** other options... */}
+    ...{ /** other options... */}
     onLoad: () => {},
     onReset: () => {},
     onSelect: () => {},
@@ -17,10 +17,10 @@ new HelloWeek({
 
 ## Properties
 
-| Property          | Value Type                         | Description                                      |
-| ----------------- | ---------------------------------- | ------------------------------------------------ |
-| `onLoad`          | `() => void`                       | Callback fired immediately after initialization. |
-| `onReset`         | `() => void`                       | Callback fired when `reset` method is triggered. |
-| `onSelect`        | `() => void`                       | Callback fired on select the day.                |
-| `onNavigation`    | `() => void`                       | Callback fired after month change.               |
-| `beforeCreateDay` | `(node: DayOptions) => DayOptions` | Callback fired before create each day.           |
+| Property          | Value Type                         | Description                                         |
+| ----------------- | ---------------------------------- | --------------------------------------------------- |
+| `onLoad`          | `() => void`                       | Callback executed immediately after initialization. |
+| `onReset`         | `() => void`                       | Callback executed when `reset` method is triggered. |
+| `onSelect`        | `() => void`                       | Callback executed on select the day.                |
+| `onNavigation`    | `() => void`                       | Callback executed after month change.               |
+| `beforeCreateDay` | `(node: DayOptions) => DayOptions` | Callback executed before create each day.           |

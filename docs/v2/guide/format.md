@@ -6,6 +6,7 @@ Hello Week have your own date format. In the following table you can see the opt
 
 ```js
 new HelloWeek({
+    ...{ /** other options... */}
     format: 'DD-MMM-YYYY',
 });
 ```

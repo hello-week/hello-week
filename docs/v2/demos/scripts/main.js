@@ -73,23 +73,13 @@ function highlights() {
         todayHighlight: false,
         daysHighlight: [
             {
-                days: [
-                    [
-                        `${YEAR}-${MONTH}-03`,
-                        `${YEAR}-${MONTH}-07`,
-                    ],
-                ],
+                days: [[`${YEAR}-${MONTH}-03`, `${YEAR}-${MONTH}-07`]],
                 title: 'Holidays in Portugal',
                 backgroundColor: '#f44336',
                 color: '#fff',
             },
             {
-                days: [
-                    [
-                        `${YEAR}-${MONTH}-20`,
-                        `${YEAR}-${MONTH}-22`,
-                    ],
-                ],
+                days: [[`${YEAR}-${MONTH}-20`, `${YEAR}-${MONTH}-22`]],
                 title: 'Holidays in Paris',
                 backgroundColor: '#2196F3',
                 color: '#fff',
@@ -109,7 +99,10 @@ function locked() {
         ...commonOptions,
         locked: true,
         onNavigation: () => {
-            calendar.setOptions({ locked: false });
+            calendar.setOptions((prev) => ({
+                ...prev,
+                locked: false,
+            }));
         },
     });
 }
@@ -127,7 +120,10 @@ function minMax({ min, max }) {
         onSelect: () => {
             const minDate = new Date(to.getDaySelected());
             minDate.setDate(minDate.getDate() - 1);
-            from.setOptions({ minDate })
+            from.setOptions((prev) => ({
+                ...prev,
+                minDate,
+            }));
         },
     });
 
@@ -138,7 +134,10 @@ function minMax({ min, max }) {
         onSelect: () => {
             const maxDate = new Date(from.getDaySelected());
             maxDate.setDate(maxDate.getDate() + 1);
-            to.setOptions({ maxDate })
+            from.setOptions((prev) => ({
+                ...prev,
+                maxDate,
+            }));
         },
     });
 }
@@ -180,7 +179,12 @@ function rtl() {
 function selectedDays() {
     new HelloWeek({
         ...commonOptions,
-        daysSelected: [`${YEAR}-${MONTH}-10`, `${YEAR}-${MONTH}-12`, `${YEAR}-${MONTH}-13`, `${YEAR}-${MONTH}-25`],
+        daysSelected: [
+            `${YEAR}-${MONTH}-10`,
+            `${YEAR}-${MONTH}-12`,
+            `${YEAR}-${MONTH}-13`,
+            `${YEAR}-${MONTH}-25`,
+        ],
         todayHighlight: true,
         multiplePick: true,
     });

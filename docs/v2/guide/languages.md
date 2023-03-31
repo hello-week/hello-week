@@ -9,10 +9,13 @@ To add more languages, simply translate the example below, to the language you w
 file in `dist/langs` or other directory you wanted, then just initialize the calendar with you new language,
 and if you changed the directory you only need to indicate the `langFolder` in HelloWeek options.
 
+> Hello Week, there are plans to use the `Intl.DateTimeFormat` to optimize the performance of the calendar, taking that responsibility from the consumer side and passing it to the browser, that way we will no longer need to create/import the external languages.
+
 **Quick Example:**
 
 ```js
 new HelloWeek({
+    ...{ /** other options... */}
     lang: 'en',
 });
 ```
