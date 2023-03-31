@@ -220,7 +220,7 @@ class HelloWeek {
     prev(callback) {
         const prevMonth = this.date.getMonth() - 1;
         this.date.setMonth(prevMonth);
-        this.update();
+        this.forceUpdate();
         this.options.onNavigation.call(this);
         if (callback) {
             callback.call(this);
@@ -229,30 +229,31 @@ class HelloWeek {
     next(callback) {
         const nextMonth = this.date.getMonth() + 1;
         this.date.setMonth(nextMonth);
-        this.update();
+        this.forceUpdate();
         this.options.onNavigation.call(this);
         if (callback) {
             callback.call(this);
         }
     }
-    update() {
+    forceUpdate() {
         this.clearCalendar();
         this.mounted();
     }
-    reset(options, callback) {
+    reset() {
         this.clearCalendar();
-        this.options = extend(options, HelloWeek.initOptions);
-        this.init(callback);
+        this.options = extend({}, HelloWeek.initOptions);
+        this.init();
+        this.options.onClear();
     }
     goToday() {
         this.date = new Date();
         this.date.setDate(1);
-        this.update();
+        this.forceUpdate();
     }
     goToDate(date) {
         this.date = new Date(date || this.todayDate);
         this.date.setDate(1);
-        this.update();
+        this.forceUpdate();
     }
     getDays() {
         return this.daysSelected.map((day) => timestampToHuman({
@@ -307,9 +308,13 @@ class HelloWeek {
     }
     setOptions(options) {
         this.options = Object.assign(Object.assign({}, this.options), options);
-        this.update();
+        this.forceUpdate();
     }
-    init(callback) {
+    update() {
+        this.clearCalendar();
+        this.mounted();
+    }
+    init() {
         this.options.daysHighlight = this.options.daysHighlight
             ? this.options.daysHighlight
             : [];
@@ -337,9 +342,6 @@ class HelloWeek {
         }
         this.mounted();
         this.options.onLoad.call(this);
-        if (callback) {
-            callback.call(this);
-        }
     }
     selectDay(callback) {
         this.daysOfMonth = this.selector.querySelectorAll('.' + this.cssClasses.month + ' .' + this.cssClasses.day);

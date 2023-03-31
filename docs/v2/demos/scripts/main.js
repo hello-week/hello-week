@@ -116,8 +116,8 @@ function locked() {
 
 function minMax({ min, max }) {
     document.querySelector('.btn').addEventListener('click', () => {
-        to.reset({ minDate: false });
-        from.reset({ maxDate: false });
+        to.restore();
+        from.restore();
     });
 
     const to = new HelloWeek({
@@ -170,22 +170,6 @@ function range() {
     });
 }
 
-function reset() {
-    const calendar = new HelloWeek({
-        ...commonOptions,
-        defaultDate: `${YEAR}-${MONTH}-01`,
-        minDate: `${YEAR}-${MONTH}-10`,
-        maxDate: `${YEAR}-${MONTH}-20`,
-    });
-
-    document.querySelector('.btn').addEventListener('click', () => {
-        calendar.reset({
-            minDate: false,
-            maxDate: false,
-        });
-    });
-}
-
 function rtl() {
     new HelloWeek({
         ...commonOptions,
@@ -196,7 +180,7 @@ function rtl() {
 function selectedDays() {
     new HelloWeek({
         ...commonOptions,
-        daysSelected: ['2022-10-10', '2022-10-12', '2022-10-13', '2022-10-25'],
+        daysSelected: [`${YEAR}-${MONTH}-10`, `${YEAR}-${MONTH}-12`, `${YEAR}-${MONTH}-13`, `${YEAR}-${MONTH}-25`],
         todayHighlight: true,
         multiplePick: true,
     });
@@ -213,7 +197,6 @@ export const Example = {
     MinMax: minMax,
     OnSelect: onSelect,
     Range: range,
-    Reset: reset,
     RTL: rtl,
     SelectedDays: selectedDays,
 };

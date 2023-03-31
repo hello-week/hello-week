@@ -72,7 +72,7 @@ export interface Options {
     locked?: boolean;
     rtl?: boolean;
     nav?: string[];
-    onClear?: () => void;
+    onReset?: () => void;
     onLoad?: () => void;
     onNavigation?: () => void;
     onSelect?: () => void;

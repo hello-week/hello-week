@@ -78,11 +78,11 @@ new HelloWeek({
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
-    onClear: () => {},
-    onLoad: () => {},
-    onNavigation: () => {},
-    onSelect: () => {},
-    beforeCreateDay: (node) => {},
+    onLoad: () => void,
+    onSelect: () => void,
+    onReset: () => void,
+    onNavigation: () => void,
+    beforeCreateDay: (day: DayOptions) => void,
 });
 ```
 
