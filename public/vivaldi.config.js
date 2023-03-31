@@ -81,6 +81,11 @@ const config = {
             text: 'Selected Days'
           },
           {
+            path: 'examples/disable-past-days.md',
+            slug: 'disable-past-days',
+            text: 'Disable Past Days'
+          },
+          {
             path: 'examples/disabled-dates.md',
             slug: 'disabled-dates',
             text: 'Disabled Dates'

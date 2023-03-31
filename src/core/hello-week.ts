@@ -95,14 +95,10 @@ export class HelloWeek {
                 next
             );
             this.calendar.prevMonth.addEventListener('click', () => {
-                this.prev(() => {
-                    /** callback */
-                });
+                this.prev();
             });
             this.calendar.nextMonth.addEventListener('click', () => {
-                this.next(() => {
-                    /** callback */
-                });
+                this.next();
             });
         } else {
             this.calendar.period = createHTMLElement(
@@ -173,7 +169,7 @@ export class HelloWeek {
      * Be careful with usage, rendering the entire calendar will impact performance.
      */
     public forceUpdate(): void {
-        this.clearCalendar();
+        this.clearMonth();
         this.mounted();
     }
 
@@ -184,7 +180,7 @@ export class HelloWeek {
      * @see {@link Options}
      */
     public reset(): void {
-        this.clearCalendar();
+        this.clearMonth();
         this.options = extend({}, HelloWeek.initOptions);
         this.init();
         this.options.onReset();
@@ -240,6 +236,12 @@ export class HelloWeek {
         this.options.multiplePick = state;
     }
 
+    /**
+     * Sets past days disabled.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setDisablePastDays(state: boolean) {
         this.options.disablePastDays = state;
     }
@@ -308,7 +310,7 @@ export class HelloWeek {
      */
     public setOptions(options: ((prev: Options) => Options) | Options) {
         if (typeof options === 'function') {
-             this.options = options(this.options);
+            this.options = options(this.options);
         } else {
             this.options = options;
         }
@@ -322,7 +324,7 @@ export class HelloWeek {
      * @deprecated Use the new `forceUpdate` instead.
      */
     public update(): void {
-        this.clearCalendar();
+        this.clearMonth();
         this.mounted();
     }
 
@@ -810,7 +812,7 @@ export class HelloWeek {
         });
     }
 
-    private clearCalendar(): void {
+    private clearMonth(): void {
         this.calendar.month.textContent = '';
     }
 

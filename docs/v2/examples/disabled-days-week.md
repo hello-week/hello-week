@@ -1,6 +1,8 @@
 # Disabled Days Week
 
-Set disabled specific days of week.
+Set disabled specific(s) days of week.
+
+- 0 - Sunday
 
 ## Usage
 

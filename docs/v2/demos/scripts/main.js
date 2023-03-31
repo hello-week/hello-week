@@ -41,6 +41,13 @@ function disableDates() {
     });
 }
 
+function disablePastDays() {
+    new HelloWeek({
+        ...commonOptions,
+        disablePastDays: true,
+    });
+}
+
 function disabledDaysOfWeek() {
     new HelloWeek({
         ...commonOptions,
@@ -193,6 +200,7 @@ function selectedDays() {
 export const Example = {
     BeforeCreateDay: beforeCreateDay,
     DisableDates: disableDates,
+    DisablePastDays: disablePastDays,
     DisabledDaysOfWeek: disabledDaysOfWeek,
     MonthYear: getMonthYear,
     GoTo: gotTo,

@@ -43,11 +43,11 @@ export interface Options {
     maxDate?: Date;
     disabledDaysOfWeek?: number[];
     disableDates?: string[] | [string, string][];
+    disablePastDays?: boolean;
     weekStart?: number;
     timezoneOffset?: number;
     daysSelected?: string[];
     daysHighlight?: DaysHighlight[];
-    disablePastDays?: boolean;
     todayHighlight?: boolean;
     range?: boolean;
     locked?: boolean;

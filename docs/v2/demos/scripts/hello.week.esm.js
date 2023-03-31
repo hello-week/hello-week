@@ -184,12 +184,10 @@ class HelloWeek {
             this.calendar.period = createHTMLElement(this.selector, this.cssClasses.period, this.calendar.navigation);
             this.calendar.nextMonth = createHTMLElement(this.selector, this.cssClasses.next, this.calendar.navigation, next);
             this.calendar.prevMonth.addEventListener('click', () => {
-                this.prev(() => {
-                });
+                this.prev();
             });
             this.calendar.nextMonth.addEventListener('click', () => {
-                this.next(() => {
-                });
+                this.next();
             });
         }
         else {
@@ -238,11 +236,11 @@ class HelloWeek {
             callback();
     }
     forceUpdate() {
-        this.clearCalendar();
+        this.clearMonth();
         this.mounted();
     }
     reset() {
-        this.clearCalendar();
+        this.clearMonth();
         this.options = extend({}, HelloWeek.initOptions);
         this.init();
         this.options.onReset();
@@ -310,9 +308,7 @@ class HelloWeek {
     }
     setOptions(options) {
         if (typeof options === 'function') {
-            const aux = options(this.options);
-            console.log(aux);
-            this.options = aux;
+            this.options = options(this.options);
         }
         else {
             this.options = options;
@@ -320,7 +316,7 @@ class HelloWeek {
         this.forceUpdate();
     }
     update() {
-        this.clearCalendar();
+        this.clearMonth();
         this.mounted();
     }
     init() {
@@ -674,7 +670,7 @@ class HelloWeek {
             }
         });
     }
-    clearCalendar() {
+    clearMonth() {
         this.calendar.month.textContent = '';
     }
     removeCSSClasses() {
