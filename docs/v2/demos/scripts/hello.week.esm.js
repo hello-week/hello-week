@@ -50,14 +50,11 @@ const defaultOptions = {
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
-    onReset: () => {
-    },
-    onLoad: () => {
-    },
-    onNavigation: () => {
-    },
-    onSelect: () => {
-    },
+    onClear: undefined,
+    onReset: undefined,
+    onLoad: undefined,
+    onNavigation: undefined,
+    onSelect: undefined,
     beforeCreateDay: (data) => data,
 };
 
@@ -103,14 +100,14 @@ function setToTimestamp(date) {
     return new Date().setHours(0, 0, 0, 0);
 }
 
-function isString(val) {
-    return typeof val === 'string';
+function isString(value) {
+    return typeof value === 'string';
 }
-function isNull(val) {
-    return val === null;
+function isNull(value) {
+    return value === null;
 }
-function isArray(obj) {
-    return obj !== null && Array.isArray(obj);
+function isArray(value) {
+    return value !== null && Array.isArray(value);
 }
 
 function getIndexForEventTarget(daysOfMonth, target) {
@@ -243,6 +240,7 @@ class HelloWeek {
         this.clearMonth();
         this.options = extend({}, HelloWeek.initOptions);
         this.init();
+        this.options.onClear();
         this.options.onReset();
     }
     goToday() {
@@ -250,8 +248,8 @@ class HelloWeek {
         this.date.setDate(1);
         this.forceUpdate();
     }
-    goToDate(date) {
-        this.date = new Date(date || this.todayDate);
+    goToDate(date = this.todayDate) {
+        this.date = new Date(date);
         this.date.setDate(1);
         this.forceUpdate();
     }
@@ -346,7 +344,7 @@ class HelloWeek {
             this.setMaxDate(this.options.maxDate);
         }
         this.mounted();
-        this.options.onLoad.call(this);
+        if (this.options.onLoad) this.options.onLoad();
     }
     selectDay(callback) {
         this.daysOfMonth = this.selector.querySelectorAll('.' + this.cssClasses.month + ' .' + this.cssClasses.day);
@@ -426,10 +424,8 @@ class HelloWeek {
             }
             addClass(event.target, this.cssClasses.isSelected);
         }
-        this.options.onSelect.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (this.options.onSelect) this.options.onSelect();
+        if (callback) callback();
     }
     onHandleMouse(event) {
         const index = getIndexForEventTarget(this.daysOfMonth, event.target);

@@ -150,7 +150,7 @@ function minMax({ min, max }) {
 }
 
 function onSelect() {
-    new HelloWeek({
+    const calendar = new HelloWeek({
         ...commonOptions,
         daysSelected: [
             `${YEAR}-${MONTH}-6`,

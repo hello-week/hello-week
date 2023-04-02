@@ -54,6 +54,7 @@ export interface Options {
     rtl?: boolean;
     nav?: string[];
     onLoad?: () => void;
+    onClear?: () => void;
     onReset?: () => void;
     onSelect?: () => void;
     onNavigation?: () => void;
