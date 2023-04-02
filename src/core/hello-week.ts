@@ -184,6 +184,7 @@ export class HelloWeek {
         this.options = extend({}, HelloWeek.initOptions);
         this.init();
         this.options.onReset();
+        this.options.onClear();
     }
 
     public goToday(): void {
@@ -192,12 +193,18 @@ export class HelloWeek {
         this.forceUpdate();
     }
 
-    public goToDate(date: Date | string | number): void {
-        this.date = new Date(date || this.todayDate);
+    public goToDate(date: Date | string | number = this.todayDate): void {
+        this.date = new Date(date);
         this.date.setDate(1);
         this.forceUpdate();
     }
 
+    /**
+     * Get all days selected formatted by `format` option.
+     *
+     * @see {@link Options}
+     * @returns array of days selected formatted.
+     */
     public getDays(): string[] {
         return this.daysSelected.map((day: number) =>
             timestampToHuman({
@@ -209,18 +216,68 @@ export class HelloWeek {
         );
     }
 
+    /**
+     * Get all days selected.
+     *
+     * @returns array of days selected.
+     * @experimental
+     */
+    public getDaysSelected(): (string | number)[] {
+        return this.daysSelected;
+    }
+
+    /**
+     * Get the last selected day.
+     *
+     * @returns last day selected.
+     * @deprecated Use `getLastDaySelected` instead.
+     */
     public getDaySelected(): number {
         return this.lastSelectedDay;
     }
 
+    /**
+     * Get the last selected day.
+     *
+     * @returns last day selected.
+     */
+    public getLastDaySelected(): number {
+        return this.lastSelectedDay;
+    }
+
+    /**
+     * Gets the current month.
+     *
+     * @returns The month.
+     */
     public getMonth(): number {
         return this.date.getMonth() + 1;
     }
 
+    /**
+     * Gets the current year.
+     *
+     * @returns The year.
+     */
     public getYear(): number {
         return this.date.getFullYear();
     }
 
+    /**
+     * Gets the days highlighted.
+     *
+     * @returns array of days highlighted.
+     */
+    public getDaysHighlight(): DaysHighlight[] {
+        return this.options.daysHighlight;
+    }
+
+    /**
+     * Sets multiple days highlight.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setDaysHighlight(daysHighlight: DaysHighlight[]): void {
         this.options.daysHighlight = [
             ...this.options.daysHighlight,
@@ -228,10 +285,12 @@ export class HelloWeek {
         ];
     }
 
-    public getDaysHighlight(): DaysHighlight[] {
-        return this.options.daysHighlight;
-    }
-
+    /**
+     * Sets ability to select multiples days.
+     *
+     * @param state - The state
+     * @deprecated Use the new `setOptions` to update the options internally.
+     */
     public setMultiplePick(state: boolean) {
         this.options.multiplePick = state;
     }
@@ -279,6 +338,9 @@ export class HelloWeek {
     /**
      * Sets Min Date.
      *
+     * @privateRemarks
+     * This method will be private, and will be used to set the max date internally.
+     *
      * @param date - The date
      * @deprecated Use the new `setOptions` to update the options internally.
      */
@@ -291,6 +353,9 @@ export class HelloWeek {
     /**
      * Sets Max Date.
      *
+     * @privateRemarks
+     * This method will be private, and will be used to set the max date internally.
+     *
      * @param date - The date
      * @deprecated Use the new `setOptions` to update the options internally.
      */
@@ -302,11 +367,11 @@ export class HelloWeek {
 
     /**
      * Sets the options.
-     * Method accept all calendar options, with the advantage of being able to modify multiple options at once,
+     * Method accept all options, with the advantage of being able to modify multiple options at once,
      * optimizing the number of re-renders.
      *
-     * @param options - The calendar options, or callback with previous options.
      * @see {@link Options}
+     * @param options - The calendar options, or callback with previous options.
      */
     public setOptions(options: ((prev: Options) => Options) | Options) {
         if (typeof options === 'function') {
@@ -362,7 +427,7 @@ export class HelloWeek {
         }
 
         this.mounted();
-        this.options.onLoad.call(this);
+        if (this.options.onLoad) this.options.onLoad();
     }
 
     private selectDay(callback?: CallbackFunction): void {
@@ -467,10 +532,8 @@ export class HelloWeek {
             addClass(event.target, this.cssClasses.isSelected);
         }
 
-        this.options.onSelect.call(this);
-        if (callback) {
-            callback.call(this);
-        }
+        if (this.options.onSelect) this.options.onSelect();
+        if (callback) callback();
     }
 
     private onHandleMouse(event: MouseEvent): void {

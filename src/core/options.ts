@@ -23,17 +23,10 @@ export const defaultOptions: Options = {
     locked: false,
     rtl: false,
     nav: ['◀', '▶'],
-    onReset: () => {
-        /** callback */
-    },
-    onLoad: () => {
-        /** callback */
-    },
-    onNavigation: () => {
-        /** callback */
-    },
-    onSelect: () => {
-        /** callback */
-    },
+    onClear: undefined,
+    onReset: undefined,
+    onLoad: undefined,
+    onNavigation: undefined,
+    onSelect: undefined,
     beforeCreateDay: (data: DayOptions) => data,
 };

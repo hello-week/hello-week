@@ -1,32 +1,44 @@
-export function isString(val: unknown): boolean {
-    return typeof val === 'string';
+export function isString(value: unknown): boolean {
+    return typeof value === 'string';
 }
 
-export function isDef(val: unknown): boolean {
-    return val !== undefined && val !== null;
+export function isNumber(value: unknown): boolean {
+    return Number.isFinite(value);
 }
 
-export function isTrue(val: unknown): boolean {
-    return val === true;
+export function isDef(value: unknown): boolean {
+    return value !== undefined && value !== null;
 }
 
-export function isFalse(val: unknown): boolean {
-    return val === false;
+export function isTrue(value: unknown): boolean {
+    return value === true;
 }
 
-export function isNull(val: unknown): boolean {
-    return val === null;
+export function isFalse(value: unknown): boolean {
+    return value === false;
 }
 
-export function isObject(obj: unknown): boolean {
-    return obj !== null && typeof obj === 'object';
+export function isNull(value: unknown): boolean {
+    return value === null;
 }
 
-export function isArray(obj: unknown): boolean {
-    return obj !== null && Array.isArray(obj);
+export function isNan(value: unknown): boolean {
+    return Number.isNaN(value);
 }
 
-export function isFunction(func: unknown): boolean {
-    return typeof func === 'function';
+export function isObject(value: unknown): boolean {
+    return value !== null && typeof value === 'object' && Object(value) === value;;
+}
+
+export function isArray(value: unknown): boolean {
+    return value !== null && Array.isArray(value);
+}
+
+export function isFunction(value: any): boolean {
+    return typeof value === 'function';
+}
+
+export function isDate(value: unknown): boolean {
+  return toString.call(value) === '[object Date]';
 }
 
