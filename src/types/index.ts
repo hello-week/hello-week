@@ -11,13 +11,16 @@ export type CalendarOptions = {
 
 export type DayOptions = {
     day: number;
+    month: number;
+    year: number;
+    timestamp: number;
+    date: Date;
     element: Element;
     isHighlight: boolean;
     isSelected: boolean;
     isToday: boolean;
     isWeekend: boolean;
     locked: boolean;
-    timestamp: number;
     title?: string;
 };
 
