@@ -40,7 +40,7 @@ export function isFunction(value: unknown) {
     return typeof value === 'function';
 }
 
-export function isDate(value: unknown) {
+export function isDate(value: unknown): value is Date {
     return toString.call(value) === '[object Date]';
 }
 

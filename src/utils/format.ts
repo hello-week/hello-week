@@ -1,4 +1,4 @@
-import { Langs } from '../types';
+import { DateString, Langs } from '../types';
 
 export function setTimeZone({
     date,
@@ -47,7 +47,7 @@ export function timestampToHuman({
     return format;
 }
 
-export function formatDate(day: number, month: number, year: number): string {
+export function formatDate(day: number, month: number, year: number): DateString {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
 

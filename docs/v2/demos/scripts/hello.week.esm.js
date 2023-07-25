@@ -62,28 +62,6 @@ function extend(options, configurations) {
     return Object.assign(configurations || defaultOptions, options);
 }
 
-function setTimeZone({ date, timezoneOffset, }) {
-    const dt = date ? new Date(date) : new Date();
-    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
-    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
-    return dt;
-}
-function timestampToHuman({ timestamp, format, langs, timezoneOffset, }) {
-    const dt = setTimeZone({ date: timestamp, timezoneOffset });
-    format = format.replace('dd', dt.getDate().toString());
-    format = format.replace('DD', (dt.getDate() > 9 ? dt.getDate() : '0' + dt.getDate()).toString());
-    format = format.replace('mmm', langs.monthsShort[dt.getMonth()]);
-    format = format.replace('MMM', langs.months[dt.getMonth()]);
-    format = format.replace('mm', (dt.getMonth() + 1).toString());
-    format = format.replace('MM', (dt.getMonth() + 1 > 9
-        ? dt.getMonth() + 1
-        : '0' + (dt.getMonth() + 1)).toString());
-    format = format.replace('yyyy', dt.getFullYear().toString());
-    format = format.replace('YYYY', dt.getFullYear().toString());
-    format = format.replace('yy', dt.getFullYear().toString().substring(2));
-    format = format.replace('YY', dt.getFullYear().toString().substring(2));
-    return format;
-}
 function formatDate(day, month, year) {
     return `${year}-${('0' + (month + 1)).slice(-2)}-${('0' + day).slice(-2)}`;
 }
@@ -108,6 +86,9 @@ function isNull(value) {
 }
 function isArray(value) {
     return value !== null && Array.isArray(value);
+}
+function isDate(value) {
+    return toString.call(value) === '[object Date]';
 }
 
 function getIndexForEventTarget(daysOfMonth, target) {
@@ -157,9 +138,25 @@ var TimeUnit;
     Weekdays.Friday,
     Weekdays.Saturday,
 ];
+function isDateAfter(date, dateToCompare) {
+    console.log("isDateAfter", date);
+    return date.getTime() > dateToCompare.getTime();
+}
+function isDateBefore(date, dateToCompare) {
+    return date.getTime() < dateToCompare.getTime();
+}
 function isSameMonthAndYear(source, target) {
-    return (source.getFullYear() === target.getFullYear() &&
+    console.log("isSameMonthAndYear");
+    console.log("source", source);
+    console.log("target", target);
+    return (target &&
+        source.getFullYear() === target.getFullYear() &&
         source.getMonth() === target.getMonth());
+}
+function isSameDate(source, target) {
+    console.log("--ISSAMEDATE--");
+    return (isSameMonthAndYear(source, target) &&
+        source.getDate() === target.getDate());
 }
 
 const CSS_CLASSES = {
@@ -180,7 +177,6 @@ const CSS_CLASSES = {
     isToday: 'is-today',
     isWeekend: 'is-weekend',
 };
-const FORMAT_DATE = 'YYYY-MM-DD';
 const DAYS_WEEK = {
     SUNDAY: 0,
     MONDAY: 1,
@@ -205,10 +201,7 @@ class HelloWeek {
             month: undefined,
         };
         this.cssClasses = CSS_CLASSES;
-        this.intervalRange = {
-            begin: 0,
-            end: 0,
-        };
+        this.intervalRange = {};
         this.daysSelected = [];
         this.options = Object.assign({}, extend(options));
         HelloWeek.initOptions = Object.assign({}, extend(options));
@@ -295,6 +288,7 @@ class HelloWeek {
     }
     goToDate(date = this.todayDate) {
         const target = new Date(date);
+        console.log("--GO TO DATE--");
         if (isSameMonthAndYear(this.date, target))
             return;
         this.date = target;
@@ -302,15 +296,10 @@ class HelloWeek {
         this.forceUpdate();
     }
     getDays() {
-        return this.daysSelected.map((day) => timestampToHuman({
-            timestamp: day,
-            format: this.options.format,
-            langs: this.langs,
-            timezoneOffset: this.options.timezoneOffset,
-        }));
+        return this.daysSelected;
     }
     getDaysSelected() {
-        return this.daysSelected;
+        return this.daysSelected.map((day) => formatDate(day.getDay(), day.getMonth(), day.getFullYear()));
     }
     getDaySelected() {
         return this.lastSelectedDay;
@@ -384,6 +373,7 @@ class HelloWeek {
         }
         this.todayDate = setToTimestamp();
         this.date = new Date();
+        console.log("this.date", this.date);
         this.defaultDate = new Date();
         if (this.options.defaultDate) {
             this.date = new Date(this.options.defaultDate);
@@ -413,13 +403,10 @@ class HelloWeek {
             date.setDate(date.getDate() + days);
             return date.getTime();
         };
-        while (currentDate <= endDate) {
-            dates.push(timestampToHuman({
-                timestamp: currentDate,
-                format: FORMAT_DATE,
-                langs: this.langs,
-                timezoneOffset: this.options.timezoneOffset,
-            }));
+        console.log("getIntervalOfDates");
+        while (isDateAfter(currentDate, endDate) ||
+            isSameDate(currentDate, endDate)) {
+            dates.push(currentDate);
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -428,20 +415,15 @@ class HelloWeek {
         const index = getIndexForEventTarget(this.daysOfMonth, event.target);
         if (this.days[index].locked)
             return;
-        console.log("days", this.days[index]);
-        this.lastSelectedDay = this.days[index].timestamp;
+        console.log('days', this.days[index]);
+        this.lastSelectedDay = this.days[index].date;
         if (!this.options.range) {
             if (this.options.multiplePick) {
                 if (this.days[index].timestamp) {
-                    this.daysSelected = this.daysSelected.filter((day) => setToTimestamp(day) !== this.lastSelectedDay);
+                    this.daysSelected = this.daysSelected.filter((day) => !isSameDate(day, this.lastSelectedDay));
                 }
                 if (!this.days[index].isSelected) {
-                    this.daysSelected.push(timestampToHuman({
-                        timestamp: this.lastSelectedDay,
-                        format: FORMAT_DATE,
-                        langs: this.langs,
-                        timezoneOffset: this.options.timezoneOffset,
-                    }));
+                    this.daysSelected.push(this.lastSelectedDay);
                 }
             }
             else {
@@ -449,12 +431,7 @@ class HelloWeek {
                     this.removeCSSClasses();
                 }
                 this.daysSelected = [];
-                this.daysSelected.push(timestampToHuman({
-                    timestamp: this.lastSelectedDay,
-                    format: FORMAT_DATE,
-                    langs: this.langs,
-                    timezoneOffset: this.options.timezoneOffset,
-                }));
+                this.daysSelected.push(this.lastSelectedDay);
             }
         }
         toggleClass(event.target, this.cssClasses.isSelected);
@@ -466,7 +443,7 @@ class HelloWeek {
                 this.removeCSSClasses();
             }
             if (this.intervalRange.begin && !this.intervalRange.end) {
-                this.intervalRange.end = this.days[index].timestamp;
+                this.intervalRange.end = this.days[index].date;
                 this.daysSelected = this.getIntervalOfDates(this.intervalRange.begin, this.intervalRange.end);
                 addClass(event.target, this.cssClasses.isEndRange);
                 if (this.intervalRange.begin > this.intervalRange.end) {
@@ -476,7 +453,7 @@ class HelloWeek {
                 }
             }
             if (!this.intervalRange.begin) {
-                this.intervalRange.begin = this.days[index].timestamp;
+                this.intervalRange.begin = this.days[index].date;
             }
             addClass(event.target, this.cssClasses.isSelected);
         }
@@ -494,11 +471,12 @@ class HelloWeek {
         this.removeCSSClasses();
         for (let i = 1; i <= Object.keys(this.days).length; i++) {
             this.days[i].isSelected = false;
-            if (this.days[index].timestamp >= this.intervalRange.begin) {
-                if (this.days[i].timestamp >= this.intervalRange.begin &&
-                    this.days[i].timestamp <= this.days[index].timestamp) {
+            if (isDateAfter(this.days[index].date, this.intervalRange.begin) ||
+                isSameDate(this.days[index].date, this.intervalRange.begin)) {
+                if (isDateAfter(this.days[index].date, this.intervalRange.begin) &&
+                    isDateBefore(this.days[index].date, this.days[index].date)) {
                     addClass(this.days[i].element, this.cssClasses.isSelected);
-                    if (this.days[i].timestamp === this.intervalRange.begin) {
+                    if (isSameDate(this.days[i].date, this.intervalRange.begin)) {
                         addClass(this.days[i].element, this.cssClasses.isBeginRange);
                     }
                 }
@@ -524,10 +502,9 @@ class HelloWeek {
         const day = date.getDate();
         const dayOfWeek = date.getDay();
         const newDay = document.createElement('div');
-        console.log("createDay", day, dayOfWeek);
         let dayOptions = {
             day,
-            month: date.getMonth(),
+            month: date.getMonth() + 1,
             year: date.getFullYear(),
             date: new Date(date.getFullYear(), date.getMonth(), day),
             timestamp: setToTimestamp(formatDate(date.getDate(), date.getMonth(), date.getFullYear())),
@@ -543,7 +520,8 @@ class HelloWeek {
         addClass(newDay, this.cssClasses.day);
         if (dayOptions.day === 1) {
             if (this.options.weekStart === HelloWeek.daysWeek.SUNDAY) {
-                setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', dayOfWeek * (100 / Object.keys(HelloWeek.daysWeek).length) + '%');
+                setStyle(newDay, this.options.rtl ? 'margin-right' : 'margin-left', dayOfWeek * (100 / Object.keys(HelloWeek.daysWeek).length) +
+                    '%');
             }
             else {
                 if (dayOfWeek === HelloWeek.daysWeek.SUNDAY) {
@@ -595,18 +573,18 @@ class HelloWeek {
             }
         }
         else {
+            console.log("this.daysSelected", this.daysSelected);
             this.daysSelected.find((day) => {
-                if (day === dayOptions.timestamp ||
-                    setToTimestamp(day.toString()) === dayOptions.timestamp) {
+                if (isSameDate(day, dayOptions.date)) {
                     addClass(newDay, this.cssClasses.isSelected);
                     dayOptions.isSelected = true;
                 }
             });
         }
-        if (dayOptions.timestamp === this.intervalRange.begin) {
+        if (isSameDate(dayOptions.date, this.intervalRange.begin)) {
             addClass(newDay, this.cssClasses.isBeginRange);
         }
-        if (dayOptions.timestamp === this.intervalRange.end) {
+        if (isSameDate(dayOptions.date, this.intervalRange.end)) {
             addClass(newDay, this.cssClasses.isEndRange);
         }
         if (this.options.daysHighlight) {
@@ -622,8 +600,9 @@ class HelloWeek {
     setDaysDisable(newDay, dayOptions) {
         if (isArray(this.options.disableDates[0])) {
             this.options.disableDates.forEach((date) => {
-                if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-                    dayOptions.timestamp <= setToTimestamp(date[1])) {
+                if (Array.isArray(date) &&
+                    isDateAfter(dayOptions.date, date[0]) &&
+                    isDateBefore(dayOptions.date, date[1])) {
                     addClass(newDay, this.cssClasses.isDisabled);
                     dayOptions.locked = true;
                 }
@@ -632,8 +611,8 @@ class HelloWeek {
         }
         if (isArray(this.options.disableDates)) {
             this.options.disableDates.forEach((date) => {
-                if (isString(date) &&
-                    dayOptions.timestamp === setToTimestamp(date)) {
+                if (isDate(date) &&
+                    isSameDate(dayOptions.date, date)) {
                     addClass(newDay, this.cssClasses.isDisabled);
                     dayOptions.locked = true;
                 }
@@ -644,8 +623,9 @@ class HelloWeek {
         this.options.daysHighlight.map((day, index) => {
             if (isArray(day.days[0])) {
                 day.days.forEach((date) => {
-                    if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
-                        dayOptions.timestamp <= setToTimestamp(date[1])) {
+                    if (Array.isArray(date) &&
+                        isDateAfter(dayOptions.date, date[0]) &&
+                        isDateBefore(dayOptions.date, date[1])) {
                         this.setStyleDayHighlight(newDay, +index, dayOptions);
                     }
                 });
@@ -741,5 +721,7 @@ class HelloWeek {
         });
     }
 }
+
+console.log("%cHello Week v2.14.2", "color: red");
 
 export { HelloWeek as default };
