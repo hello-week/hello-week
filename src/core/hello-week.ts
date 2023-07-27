@@ -60,7 +60,7 @@ export class HelloWeek {
         // Next
         const calendar = new Calendar();
         console.log('Week Days', calendar.getWeekDays());
-        console.log('Days', calendar.getToday());
+        console.log('Today', calendar.getToday());
         console.log('Month', calendar.getMonthString({ format: undefined }));
         console.log('Year', calendar.getYearString({ format: undefined }));
         console.log('Days', calendar.getDays());

@@ -1,16 +1,21 @@
 import { isToday, isDateAfter, isDateBefore, isSameDay } from '../utils/date';
 import { isArray } from '../utils/is';
-import { DAYS_WEEK } from './constants';
 
-type IWeekdays = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type IWeek = (string | null)[];
 
-const WEEK_LENGTH = 7;
+type IWeekdays = {
+    SUNDAY: 0;
+    MONDAY: 1;
+    TUESDAY: 2;
+    WEDNESDAY: 3;
+    THURSDAY: 4;
+    FRIDAY: 5;
+    SATURDAY: 6;
+};
 
-const WEEKDAYS: IWeekdays[] = [0, 1, 2, 3, 4, 5, 6, 7];
+type IWeekdaysValues = IWeekdays[keyof IWeekdays];;
 
-export type Week = (string | null)[];
-
-export type IDayOptions = {
+type IDayOptions = {
     date: Date;
     formatted: string;
     dateString: {
@@ -20,30 +25,42 @@ export type IDayOptions = {
         weekday: string;
     };
     details: {
-        isHighlighted: boolean;
-        isSelected: boolean;
-        isRange: boolean;
-        isToday: boolean;
-        isWeekend: boolean;
-        isDisabled: boolean;
-        isLocked: boolean;
+        weekend: boolean;
+        today: boolean;
+        selected: boolean;
+        highlighted: boolean;
+        range: boolean;
+        locked: boolean;
+        disabled: boolean;
     };
 };
 
-export interface ICalendar {
+interface ICalendar {
     defaultDate?: Date;
     lang?: Intl.LocalesArgument;
     formatDate?: Intl.DateTimeFormatOptions;
-    formatMonth?: Intl.DateTimeFormatOptions['month'];
-    weekStart?: IWeekdays;
+    weekStart?: IWeekdaysValues;
     selectedDates?: Date[] | [Date, Date][];
+    highlightedDates?: Date[] | [Date, Date][];
     disabledDates?: Date[] | [Date, Date][];
     disabledPastDates?: boolean;
-    disabledDaysOfWeek?: IWeekdays[];
+    disabledDaysOfWeek?: IWeekdaysValues[];
     minDate?: Date;
     maxDate?: Date;
     locked?: boolean;
 }
+
+const WEEK_LENGTH = 7;
+const WEEKDAYS: IWeekdaysValues[] = [0, 1, 2, 3, 4, 5, 6];
+const DAYS_WEEK: IWeekdays = {
+    SUNDAY: 0,
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 3,
+    THURSDAY: 4,
+    FRIDAY: 5,
+    SATURDAY: 6,
+};
 
 const defaultOptions: ICalendar = {
     lang: 'en-UK',
@@ -56,10 +73,9 @@ const defaultOptions: ICalendar = {
     },
     weekStart: 0,
     selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
+    highlightedDates: [new Date('2023-07-10'), new Date('2023-07-15')],
     disabledPastDates: false,
-    disabledDaysOfWeek: undefined,
-    // disabledDates: [[new Date('2023-07-01'), new Date('2023-07-10')]],
-    disabledDates: undefined,
+    disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
     minDate: undefined,
     maxDate: undefined,
     locked: false,
@@ -89,6 +105,57 @@ export class Calendar {
     }
 
     /**
+     * Sets the options.
+     * Method accept all options, with the advantage of being able to modify multiple options at once.
+     *
+     * @see {@link ICalendar}
+     * @param options - The calendar options, or callback with previous options.
+     */
+    public setOptions(options: ((prev: ICalendar) => ICalendar) | ICalendar) {
+        if (typeof options === 'function') {
+            this.options = options(this.options);
+        } else {
+            this.options = options;
+        }
+    }
+
+    /**
+     * Move to the previous month.
+     * This method updates the current date to the previous month.
+     */
+    public prevMonth(): void {
+        const prevMonth = this.date.getMonth() - 1;
+        this.date.setMonth(prevMonth);
+    }
+
+    /**
+     * Move to the next month.
+     * This method updates the current date to the next month.
+     */
+    public nextMonth(): void {
+        const nextMonth = this.date.getMonth() + 1;
+        this.date.setMonth(nextMonth);
+    }
+
+    /**
+     * Move to the previous year.
+     * This method updates the current date to the previous year.
+     */
+    public prevYear(): void {
+        const prevYear = this.date.getFullYear() - 1;
+        this.date.setFullYear(prevYear);
+    }
+
+    /**
+     * Move to the next year.
+     * This method updates the current date to the next year.
+     */
+    public nextYear(): void {
+        const nextYear = this.date.getFullYear() + 1;
+        this.date.setFullYear(nextYear);
+    }
+
+    /**
      * Gets the week days for the current month in the specified language and format.
      * @returns An array of string with each day of week.
      */
@@ -98,16 +165,16 @@ export class Calendar {
         const month = date.getMonth();
         const year = date.getFullYear();
         const firstOfMonth = new Date(year, month, 1);
-        const firstDayOfWeek = firstOfMonth.getDay() as IWeekdays;
-        const weeks: Week[] = [[]];
+        const firstDayOfWeek = firstOfMonth.getDay() as IWeekdaysValues;
+        const weeks: IWeek[] = [[]];
         const orderedWeekday = WEEKDAYS.slice(weekStart).concat(
             WEEKDAYS.slice(0, weekStart)
         );
+        const orderedWeekdayIndex = orderedWeekday.indexOf(firstDayOfWeek);
 
         let currentWeek = weeks[0];
         let currentDate = firstOfMonth;
 
-        const orderedWeekdayIndex = orderedWeekday.indexOf(firstDayOfWeek);
         for (let i = 0; i < orderedWeekdayIndex; i++) {
             currentWeek.push(null);
         }
@@ -144,10 +211,15 @@ export class Calendar {
 
     /**
      * Get the current date.
+     * @param options - An optional object containing the format for the date.
      * @returns The today's date.
      */
-    public getToday(): Date {
-        return this.today;
+    public getToday(options?: {
+        format?: Intl.DateTimeFormatOptions;
+    }): string {
+        const { lang, formatDate } = this.options;
+        const format = options?.format || formatDate;
+        return this.today.toLocaleDateString(lang, format);
     }
 
     /**
@@ -155,7 +227,7 @@ export class Calendar {
      * @param options - An optional object containing the format for the month string.
      * @returns The month string representation.
      */
-    public getMonthString(options?: {
+    public getMonth(options?: {
         format?: Intl.DateTimeFormatOptions['month'];
     }): string {
         const { lang, formatDate } = this.options;
@@ -168,27 +240,12 @@ export class Calendar {
      * @param options - An optional object containing the format for the year string.
      * @returns The year string representation.
      */
-    public getYearString(options?: {
+    public getYear(options?: {
         format?: Intl.DateTimeFormatOptions['year'];
     }): string {
         const { lang, formatDate } = this.options;
         const format = options?.format || formatDate.year;
         return this.date.toLocaleDateString(lang, { year: format });
-    }
-
-    /**
-     * Sets the options.
-     * Method accept all options, with the advantage of being able to modify multiple options at once.
-     *
-     * @see {@link ICalendar}
-     * @param options - The calendar options, or callback with previous options.
-     */
-    public setOptions(options: ((prev: ICalendar) => ICalendar) | ICalendar) {
-        if (typeof options === 'function') {
-            this.options = options(this.options);
-        } else {
-            this.options = options;
-        }
     }
 
     private createMonth(): void {
@@ -205,6 +262,7 @@ export class Calendar {
             lang,
             formatDate: format,
             selectedDates,
+            highlightedDates,
             maxDate,
             minDate,
             locked,
@@ -213,7 +271,7 @@ export class Calendar {
             disabledDates,
         } = this.options;
         const day = date.getDate();
-        const weekday = date.getDay() as IWeekdays;
+        const weekday = date.getDay() as IWeekdaysValues;
         const dayOptions: IDayOptions = {
             date,
             dateString: {
@@ -230,24 +288,24 @@ export class Calendar {
                 year: format.year,
             }),
             details: {
-                isToday: false,
-                isWeekend: false,
-                isSelected: false,
-                isRange: false,
-                isDisabled: false,
-                isLocked: false,
-                isHighlighted: false,
+                today: false,
+                weekend: false,
+                selected: false,
+                highlighted: false,
+                range: false,
+                locked: false,
+                disabled: false,
             },
         };
 
         // Determining if the day is today.
         if (isToday(date)) {
-            dayOptions.details.isToday = true;
+            dayOptions.details.today = true;
         }
 
         // Determining if the day is weekday.
         if (weekday === DAYS_WEEK.SUNDAY || weekday === DAYS_WEEK.SATURDAY) {
-            dayOptions.details.isWeekend = true;
+            dayOptions.details.weekend = true;
         }
 
         // Determining if the day is selected based on specific dates or a range of dates.
@@ -255,20 +313,79 @@ export class Calendar {
             selectedDates &&
             selectedDates.some((day) => {
                 if (isArray(day)) {
+                    // For a range of dates, check if the day falls within the range.
                     const [startDate, endDate] = day as Date[];
                     return (
+                        // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
                         (isSameDay(date, startDate) ||
                             isDateAfter(date, startDate)) &&
                         (isSameDay(date, endDate) ||
                             isDateBefore(date, endDate))
                     );
                 } else {
+                    // For specific dates, check if the day matches any of the selected dates.
                     return isSameDay(day as Date, date);
                 }
             })
         ) {
-            dayOptions.details.isSelected = true;
-            dayOptions.details.isRange = isArray(selectedDates[0]); // If it's a range, set isRange to true.
+            dayOptions.details.selected = true; // Set the selected property to true to indicate the day is selected.
+            // Check if the selectedDates array is a range, and if so, set range to true.
+            dayOptions.details.range = isArray(selectedDates[0]);
+        }
+
+        // Determining if the day is highlighted based on specific dates.
+        // Determining if the day is highlighted based on specific dates or a range of dates.
+        if (
+            highlightedDates &&
+            highlightedDates.some((day) => {
+                if (isArray(day)) {
+                    // For a range of dates, check if the day falls within the range.
+                    const [startDate, endDate] = day as Date[];
+                    return (
+                        // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
+                        (isSameDay(date, startDate) ||
+                            isDateAfter(date, startDate)) &&
+                        (isSameDay(date, endDate) ||
+                            isDateBefore(date, endDate))
+                    );
+                } else {
+                    // For specific dates, check if the day matches any of the highlighted dates.
+                    return isSameDay(day as Date, date);
+                }
+            })
+        ) {
+            dayOptions.details.highlighted = true; // Set the highlighted property to true to indicate the day is highlighted.
+        }
+
+        // Determining if the day is disabled based on specific dates, weekdays, or past dates.
+        if (
+            // Checking if the day is disabled based on a range of dates.
+            (disabledDates &&
+                (isArray(disabledDates[0])
+                    ? disabledDates.some((day) => {
+                          // For each range of dates, check if the day falls within the range.
+                          if (Array.isArray(day)) {
+                              const [startDate, endDate] = day;
+                              return (
+                                  (isSameDay(date, startDate) ||
+                                      isDateAfter(date, startDate)) &&
+                                  (isSameDay(date, endDate) ||
+                                      isDateBefore(date, endDate))
+                              );
+                          } else {
+                              return false;
+                          }
+                      })
+                    : // Checking if the day is disabled based on specific dates.
+                      disabledDates.some((day) =>
+                          isSameDay(day as Date, date)
+                      ))) ||
+            // Checking if the day is disabled based on specific weekdays.
+            (disabledDaysOfWeek && disabledDaysOfWeek.includes(weekday)) ||
+            // Checking if the day is disabled based on past dates.
+            (disabledPastDates && isDateBefore(date, this.today))
+        ) {
+            dayOptions.details.disabled = true; // Set the disabled property to true to indicate the day is disabled.
         }
 
         // Determining if the day is locked.
@@ -277,28 +394,7 @@ export class Calendar {
             (minDate && isDateAfter(date, minDate)) || // If a `minDate` is specified and the date is after the `minDate`, the day should be considered locked.
             (maxDate && isDateBefore(date, maxDate)) // If a `maxDate`` is specified and the date is before the `maxDate`, the day should be considered locked.
         ) {
-            dayOptions.details.isLocked = true; // Set the isLocked property to true to indicate the day is locked.
-        }
-
-        // Determining if the day is disabled based on specific dates, weekdays, or past dates.
-        if (
-            (disabledDates &&
-                (isArray(disabledDates[0]) // Determining if the day is disabled based on a range of dates.
-                    ? disabledDates.some(
-                          (day) =>
-                              Array.isArray(day) &&
-                              (isSameDay(date, day[0] as Date) ||
-                                  isDateAfter(date, day[0] as Date)) &&
-                              (isSameDay(date, day[1] as Date) ||
-                                  isDateBefore(date, day[1]))
-                      )
-                    : disabledDates.some(
-                          (day) => isSameDay(day as Date, date) // Determining if the day is disabled based on specific dates.
-                      ))) ||
-            (disabledDaysOfWeek && disabledDaysOfWeek.includes(weekday)) || // If the weekday is in the `disabledDaysOfWeek`` array, the day should be considered disabled.
-            (disabledPastDates && isDateBefore(date, this.today)) // If `disabledPastDates` is true and the date is before the current date, the day should be considered disabled.
-        ) {
-            dayOptions.details.isDisabled = true; // Set the isDisabled property to true to indicate the day is disabled.
+            dayOptions.details.locked = true; // Set the locked property to true to indicate the day is locked.
         }
 
         this.days[day] = dayOptions;
