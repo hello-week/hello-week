@@ -58,11 +58,28 @@ export class HelloWeek {
 
     constructor(options: Options) {
         // Next
-        const calendar = new Calendar();
+        const calendar = new Calendar({
+            lang: 'pt-PT',
+            defaultDate: new Date(),
+            formatDate: {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                weekday: 'narrow',
+            },
+            weekStart: 0,
+            selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
+            highlightedDates: [new Date('2023-07-10'), new Date('2023-07-15')],
+            disabledPastDates: false,
+            disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
+            minDate: undefined,
+            maxDate: undefined,
+        });
+
         console.log('Week Days', calendar.getWeekDays());
         console.log('Today', calendar.getToday());
-        console.log('Month', calendar.getMonthString({ format: undefined }));
-        console.log('Year', calendar.getYearString({ format: undefined }));
+        console.log('Month', calendar.getMonth({ format: undefined }));
+        console.log('Year', calendar.getYear({ format: undefined }));
         console.log('Days', calendar.getDays());
 
         this.options = Object.assign({}, extend(options));

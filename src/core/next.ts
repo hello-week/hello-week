@@ -13,7 +13,7 @@ type IWeekdays = {
     SATURDAY: 6;
 };
 
-type IWeekdaysValues = IWeekdays[keyof IWeekdays];;
+type IWeekdaysValues = IWeekdays[keyof IWeekdays];
 
 type IDayOptions = {
     date: Date;
@@ -50,8 +50,8 @@ interface ICalendar {
     locked?: boolean;
 }
 
-const WEEK_LENGTH = 7;
 const WEEKDAYS: IWeekdaysValues[] = [0, 1, 2, 3, 4, 5, 6];
+const WEEK_LENGTH = WEEKDAYS.length;
 const DAYS_WEEK: IWeekdays = {
     SUNDAY: 0,
     MONDAY: 1,
@@ -60,25 +60,6 @@ const DAYS_WEEK: IWeekdays = {
     THURSDAY: 4,
     FRIDAY: 5,
     SATURDAY: 6,
-};
-
-const defaultOptions: ICalendar = {
-    lang: 'en-UK',
-    defaultDate: new Date(),
-    formatDate: {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        weekday: 'short',
-    },
-    weekStart: 0,
-    selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
-    highlightedDates: [new Date('2023-07-10'), new Date('2023-07-15')],
-    disabledPastDates: false,
-    disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
-    minDate: undefined,
-    maxDate: undefined,
-    locked: false,
 };
 
 /**
@@ -95,21 +76,71 @@ export class Calendar {
      * @param options - The configuration options for the calendar.
      */
     constructor(options?: ICalendar) {
-        const mergedOptions = { ...defaultOptions, ...options };
-        this.options = mergedOptions;
-        this.date = new Date(mergedOptions.defaultDate);
+        const defaultOptions: ICalendar = {
+            ...{
+                lang: 'en-UK',
+                defaultDate: new Date(),
+                formatDate: {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    weekday: 'short',
+                },
+                weekStart: 0,
+                disabledPastDates: false,
+                locked: false,
+            },
+            ...options,
+        };
+
+        // Configuration options for the calendar.
+        this.options = defaultOptions;
+        // The current date in the calendar.
+        this.date = new Date(defaultOptions.defaultDate);
+        // Set the day of the current date to the first day of the month.
         this.date.setDate(1);
+        // Today's date with time set to midnight (00:00:00).
         this.today = new Date(new Date().setHours(0, 0, 0, 0));
         // Create array with days of month.
         this.createMonth();
     }
 
     /**
-     * Sets the options.
-     * Method accept all options, with the advantage of being able to modify multiple options at once.
+     * Sets calendar options.
+     * This method allows you to modify the calendar options either by providing a new options object or by using a callback function to modify the existing options.
      *
-     * @see {@link ICalendar}
-     * @param options - The calendar options, or callback with previous options.
+     * @remarks
+     * The `options` parameter can be either an options object of type {@link IOptions},
+     * which will replace all current options with the provided ones,
+     * or a callback function that takes the previous options as an argument and returns the updated options.
+     * When using a callback, the function allows you to modify multiple options at once while preserving the previous options that are not explicitly modified.
+     *
+     * @example
+     * ```ts
+     * // Replace all current options with new options.
+     * calendar.setOptions({
+     *     lang: 'en-US',
+     *     format: {
+     *         day: 'numeric',
+     *         month: 'long',
+     *         year: 'numeric',
+     *         weekday: 'short',
+     *     },
+     *     weekStart: 1,
+     * });
+     *```
+     *
+     * @example
+     * ```ts
+     * // Modify specific options using a callback function.
+     * calendar.setOptions((prev) => ({
+     *     ...prev,
+     *     lang: 'fr-FR',
+     *     weekStart: 0,
+     * }));
+     * ```
+     *
+     * @param options - The calendar options, or a callback function with previous options.
      */
     public setOptions(options: ((prev: ICalendar) => ICalendar) | ICalendar) {
         if (typeof options === 'function') {
@@ -214,9 +245,7 @@ export class Calendar {
      * @param options - An optional object containing the format for the date.
      * @returns The today's date.
      */
-    public getToday(options?: {
-        format?: Intl.DateTimeFormatOptions;
-    }): string {
+    public getToday(options?: { format?: Intl.DateTimeFormatOptions }): string {
         const { lang, formatDate } = this.options;
         const format = options?.format || formatDate;
         return this.today.toLocaleDateString(lang, format);
