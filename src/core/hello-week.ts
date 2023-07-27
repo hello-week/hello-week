@@ -22,7 +22,7 @@ import { isArray, isNull, isString } from '../utils/is';
 import { getIndexForEventTarget } from '../utils/array';
 import { CSS_CLASSES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
-import { Calendar } from './next';
+import { Calendar } from '../../packages/core/src';
 
 export class HelloWeek {
     private static initOptions: Options;
@@ -70,6 +70,7 @@ export class HelloWeek {
             weekStart: 0,
             selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
             highlightedDates: [new Date('2023-07-10'), new Date('2023-07-15')],
+            highlightedToday: true,
             disabledPastDates: false,
             disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
             minDate: undefined,

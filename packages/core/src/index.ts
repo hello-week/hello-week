@@ -1,66 +1,7 @@
-import { isToday, isDateAfter, isDateBefore, isSameDay } from '../utils/date';
-import { isArray } from '../utils/is';
-
-type IWeek = (string | null)[];
-
-type IWeekdays = {
-    SUNDAY: 0;
-    MONDAY: 1;
-    TUESDAY: 2;
-    WEDNESDAY: 3;
-    THURSDAY: 4;
-    FRIDAY: 5;
-    SATURDAY: 6;
-};
-
-type IWeekdaysValues = IWeekdays[keyof IWeekdays];
-
-type IDayOptions = {
-    date: Date;
-    formatted: string;
-    dateString: {
-        day: string;
-        month: string;
-        year: string;
-        weekday: string;
-    };
-    details: {
-        weekend: boolean;
-        today: boolean;
-        selected: boolean;
-        highlighted: boolean;
-        range: boolean;
-        locked: boolean;
-        disabled: boolean;
-    };
-};
-
-interface ICalendar {
-    defaultDate?: Date;
-    lang?: Intl.LocalesArgument;
-    formatDate?: Intl.DateTimeFormatOptions;
-    weekStart?: IWeekdaysValues;
-    selectedDates?: Date[] | [Date, Date][];
-    highlightedDates?: Date[] | [Date, Date][];
-    disabledDates?: Date[] | [Date, Date][];
-    disabledPastDates?: boolean;
-    disabledDaysOfWeek?: IWeekdaysValues[];
-    minDate?: Date;
-    maxDate?: Date;
-    locked?: boolean;
-}
-
-const WEEKDAYS: IWeekdaysValues[] = [0, 1, 2, 3, 4, 5, 6];
-const WEEK_LENGTH = WEEKDAYS.length;
-const DAYS_WEEK: IWeekdays = {
-    SUNDAY: 0,
-    MONDAY: 1,
-    TUESDAY: 2,
-    WEDNESDAY: 3,
-    THURSDAY: 4,
-    FRIDAY: 5,
-    SATURDAY: 6,
-};
+import { IWeekdaysValues, ICalendar, IDayOptions, IWeek } from './types';
+import { isToday, isDateAfter, isDateBefore, isSameDay } from './utils/date';
+import { isArray } from './utils/predicate';
+import { DAYS_WEEK, WEEK_LENGTH, WEEKDAYS } from './constant';
 
 /**
  * Represents a calendar with configurable options for language, date format, and week start day.
@@ -96,7 +37,7 @@ export class Calendar {
         // Configuration options for the calendar.
         this.options = defaultOptions;
         // The current date in the calendar.
-        this.date = new Date(defaultOptions.defaultDate);
+        this.date = new Date(defaultOptions.defaultDate || '');
         // Set the day of the current date to the first day of the month.
         this.date.setDate(1);
         // Today's date with time set to midnight (00:00:00).
@@ -218,7 +159,7 @@ export class Calendar {
 
             currentWeek.push(
                 currentDate.toLocaleDateString(lang, {
-                    weekday: format.weekday,
+                    weekday: format?.weekday,
                 })
             );
 
@@ -229,7 +170,7 @@ export class Calendar {
             currentWeek.push(null);
         }
 
-        return weeks[1];
+        return weeks[1] as string[];
     }
 
     /**
@@ -248,7 +189,10 @@ export class Calendar {
     public getToday(options?: { format?: Intl.DateTimeFormatOptions }): string {
         const { lang, formatDate } = this.options;
         const format = options?.format || formatDate;
-        return this.today.toLocaleDateString(lang, format);
+        return this.today.toLocaleDateString(lang, {
+            ...format,
+            weekday: undefined,
+        });
     }
 
     /**
@@ -260,7 +204,7 @@ export class Calendar {
         format?: Intl.DateTimeFormatOptions['month'];
     }): string {
         const { lang, formatDate } = this.options;
-        const format = options?.format || formatDate.month;
+        const format = options?.format || formatDate?.month;
         return this.date.toLocaleDateString(lang, { month: format });
     }
 
@@ -273,7 +217,7 @@ export class Calendar {
         format?: Intl.DateTimeFormatOptions['year'];
     }): string {
         const { lang, formatDate } = this.options;
-        const format = options?.format || formatDate.year;
+        const format = options?.format || formatDate?.year;
         return this.date.toLocaleDateString(lang, { year: format });
     }
 
@@ -291,6 +235,7 @@ export class Calendar {
             lang,
             formatDate: format,
             selectedDates,
+            highlightedToday,
             highlightedDates,
             maxDate,
             minDate,
@@ -302,19 +247,19 @@ export class Calendar {
         const day = date.getDate();
         const weekday = date.getDay() as IWeekdaysValues;
         const dayOptions: IDayOptions = {
-            date,
+            date: new Date(date.setHours(0, 0, 0, 0)),
             dateString: {
-                day: date.toLocaleDateString(lang, { day: format.day }),
-                month: date.toLocaleDateString(lang, { month: format.month }),
-                year: date.toLocaleDateString(lang, { year: format.year }),
+                day: date.toLocaleDateString(lang, { day: format?.day }),
+                month: date.toLocaleDateString(lang, { month: format?.month }),
+                year: date.toLocaleDateString(lang, { year: format?.year }),
                 weekday: date.toLocaleDateString(lang, {
-                    weekday: format.weekday,
+                    weekday: format?.weekday,
                 }),
             },
             formatted: date.toLocaleDateString(lang, {
-                day: format.day,
-                month: format.month,
-                year: format.year,
+                day: format?.day,
+                month: format?.month,
+                year: format?.year,
             }),
             details: {
                 today: false,
@@ -330,6 +275,10 @@ export class Calendar {
         // Determining if the day is today.
         if (isToday(date)) {
             dayOptions.details.today = true;
+
+            if (highlightedToday) {
+              dayOptions.details.highlighted = true;
+            }
         }
 
         // Determining if the day is weekday.
@@ -426,6 +375,6 @@ export class Calendar {
             dayOptions.details.locked = true; // Set the locked property to true to indicate the day is locked.
         }
 
-        this.days[day] = dayOptions;
+        this.days[day - 1] = dayOptions;
     }
 }
