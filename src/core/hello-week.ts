@@ -22,6 +22,8 @@ import { isArray, isNull, isString } from '../utils/is';
 import { getIndexForEventTarget } from '../utils/array';
 import { CSS_CLASSES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
+import { Calendar } from './next';
+
 export class HelloWeek {
     private static initOptions: Options;
     private options: Options;
@@ -55,6 +57,14 @@ export class HelloWeek {
     }
 
     constructor(options: Options) {
+        // Next
+        const calendar = new Calendar();
+        console.log('Week Days', calendar.getWeekDays());
+        console.log('Days', calendar.getToday());
+        console.log('Month', calendar.getMonthString({ format: undefined }));
+        console.log('Year', calendar.getYearString({ format: undefined }));
+        console.log('Days', calendar.getDays());
+
         this.options = Object.assign({}, extend(options));
         HelloWeek.initOptions = Object.assign({}, extend(options));
         this.selector =
