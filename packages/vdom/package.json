@@ -1,0 +1,13 @@
+{
+  "name": "@hello-week/vdom",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "module": "main.esm.js",
+  "cjs:main": "main.cjs.js",
+  "types": "main.d.ts",
+  "license": "MIT",
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {}
+}

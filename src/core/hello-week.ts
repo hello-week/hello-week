@@ -22,7 +22,7 @@ import { isArray, isNull, isString } from '../utils/is';
 import { getIndexForEventTarget } from '../utils/array';
 import { CSS_CLASSES, DAYS_WEEK, FORMAT_DATE } from './constants';
 
-import { Calendar } from '../../packages/core/src';
+import { HelloWeekNext } from '../../packages/vanilla';
 
 export class HelloWeek {
     private static initOptions: Options;
@@ -57,31 +57,8 @@ export class HelloWeek {
     }
 
     constructor(options: Options) {
-        // Next
-        const calendar = new Calendar({
-            lang: 'pt-PT',
-            defaultDate: new Date(),
-            formatDate: {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                weekday: 'narrow',
-            },
-            weekStart: 0,
-            selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
-            highlightedDates: [new Date('2023-07-10'), new Date('2023-07-15')],
-            highlightedToday: true,
-            disabledPastDates: false,
-            disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
-            minDate: undefined,
-            maxDate: undefined,
-        });
-
-        console.log('Week Days', calendar.getWeekDays());
-        console.log('Today', calendar.getToday());
-        console.log('Month', calendar.getMonth({ format: undefined }));
-        console.log('Year', calendar.getYear({ format: undefined }));
-        console.log('Days', calendar.getDays());
+        // Next Version
+        new HelloWeekNext({ selector: '#root', lang: 'en-UK' });
 
         this.options = Object.assign({}, extend(options));
         HelloWeek.initOptions = Object.assign({}, extend(options));
