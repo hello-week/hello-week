@@ -248,7 +248,7 @@ export class Calendar {
         const weekday = date.getDay() as IWeekdaysValues;
         const dayOptions: IDayOptions = {
             date: new Date(date.setHours(0, 0, 0, 0)),
-            dateString: {
+            dateObject: {
                 day: date.toLocaleDateString(lang, { day: format?.day }),
                 month: date.toLocaleDateString(lang, { month: format?.month }),
                 year: date.toLocaleDateString(lang, { year: format?.year }),
@@ -256,7 +256,7 @@ export class Calendar {
                     weekday: format?.weekday,
                 }),
             },
-            formatted: date.toLocaleDateString(lang, {
+            dateFormatted: date.toLocaleDateString(lang, {
                 day: format?.day,
                 month: format?.month,
                 year: format?.year,
