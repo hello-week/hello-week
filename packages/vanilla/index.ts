@@ -1,9 +1,11 @@
 import { Calendar, IDayOptions, ICalendar } from '../core/src';
 import { isSameDay } from '../core/src/utils/date';
-import Component, { h, mount } from '../vdom/src';
+import Component, { h, mount, unmount } from '../vdom/src';
 import { classNames } from '../utils';
 
-interface IProps extends ICalendar {}
+interface IProps extends ICalendar {
+    onNavigate?: () => void;
+}
 
 interface IState {
     month: string;
@@ -120,8 +122,7 @@ class CalendarComponent extends Component<IProps, IState> {
      * @param state - The component's state.
      * @returns The virtual DOM representation.
      */
-    render({}: IProps, { month, year, weekDays, days }: IState) {
-        console.log('Render', days);
+    render({ onNavigate }: IProps, { month, year, weekDays, days }: IState) {
         return h(
             'div',
             {
@@ -138,6 +139,8 @@ class CalendarComponent extends Component<IProps, IState> {
                         onClick: () => {
                             this.calendar.prevMonth();
                             this.update();
+
+                            if (onNavigate) onNavigate();
                         },
                     },
                     '◀'
@@ -150,6 +153,8 @@ class CalendarComponent extends Component<IProps, IState> {
                         onClick: () => {
                             this.calendar.nextMonth();
                             this.update();
+
+                            if (onNavigate) onNavigate();
                         },
                     },
                     '▶'
@@ -173,16 +178,20 @@ class CalendarComponent extends Component<IProps, IState> {
             // Render calendar days
             h(
                 'div',
-                { className: '' },
+                { className: 'month' },
                 ...days.map((day) =>
                     h(
                         'div',
                         {
-                            forceUpdate: true,
+                          "data-formatted": day.dateFormatted,
                             onClick: () => {
-                                console.log('Handle Day Click', day);
+                                console.log(
+                                    'Handle Day Click',
+                                    day.dateFormatted
+                                );
                                 this.onHandleDayClick(day);
                             },
+                            onMouseEnter: () => console.log("mouse"),
                             className: classNames(
                                 'day',
                                 day.details.disabled && 'is-disabled',
@@ -205,19 +214,10 @@ class CalendarComponent extends Component<IProps, IState> {
     }
 }
 
-export class App extends Component {
-    render() {
-        return h(
-            'div',
-            { className: 'app' },
-            h('h1', {}, 'Hello Week'),
-            h(CalendarComponent, {})
-        );
-    }
-}
-
 export class HelloWeekNext {
-    constructor({ selector, defaultDate }: { selector: string } & ICalendar) {
-        mount(h(App, { defaultDate }), document.querySelector(selector));
+    constructor({ selector, defaultDate }: { selector: string } & IProps) {
+        const App = h(CalendarComponent, { selector, defaultDate });
+
+        mount(App, document.querySelector(selector));
     }
 }
