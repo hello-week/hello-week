@@ -1,5 +1,11 @@
 import { IWeekdaysValues, ICalendar, IDayOptions, IWeek } from './types';
-import { isToday, isDateAfter, isDateBefore, isSameDay } from './utils/date';
+import {
+    isToday,
+    isDateAfter,
+    isDateBefore,
+    isSameDay,
+    isDateInRange,
+} from './utils/date';
 import { isArray } from './utils/predicate';
 import { DAYS_WEEK, WEEK_LENGTH, WEEKDAYS } from './constant';
 
@@ -89,6 +95,9 @@ export class Calendar {
         } else {
             this.options = options;
         }
+
+        // Create array with days of month.
+        this.createMonth();
     }
 
     /**
@@ -226,6 +235,8 @@ export class Calendar {
     }
 
     private createMonth(): void {
+        // Initialize the `days` with empty array
+        this.days = [];
         const currentMonth = this.date.getMonth();
         while (this.date.getMonth() === currentMonth) {
             this.createDay(this.date);
@@ -296,14 +307,9 @@ export class Calendar {
             selectedDates.some((day) => {
                 if (isArray(day)) {
                     // For a range of dates, check if the day falls within the range.
-                    const [startDate, endDate] = day as Date[];
-                    return (
-                        // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
-                        (isSameDay(date, startDate) ||
-                            isDateAfter(date, startDate)) &&
-                        (isSameDay(date, endDate) ||
-                            isDateBefore(date, endDate))
-                    );
+                    const [startDate, endDate] = day;
+                    // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
+                    return isDateInRange(date, startDate, endDate);
                 } else {
                     // For specific dates, check if the day matches any of the selected dates.
                     return isSameDay(day as Date, date);
@@ -322,14 +328,9 @@ export class Calendar {
             highlightedDates.some((day) => {
                 if (isArray(day)) {
                     // For a range of dates, check if the day falls within the range.
-                    const [startDate, endDate] = day as Date[];
-                    return (
-                        // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
-                        (isSameDay(date, startDate) ||
-                            isDateAfter(date, startDate)) &&
-                        (isSameDay(date, endDate) ||
-                            isDateBefore(date, endDate))
-                    );
+                    const [startDate, endDate] = day;
+                    // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
+                    return isDateInRange(date, startDate, endDate);
                 } else {
                     // For specific dates, check if the day matches any of the highlighted dates.
                     return isSameDay(day as Date, date);
@@ -341,28 +342,17 @@ export class Calendar {
 
         // Determining if the day is disabled based on specific dates, weekdays, or past dates.
         if (
-            // Checking if the day is disabled based on a range of dates.
             (disabledDates &&
-                (isArray(disabledDates[0])
-                    ? disabledDates.some((day) => {
-                          // For each range of dates, check if the day falls within the range.
-                          if (Array.isArray(day)) {
-                              const [startDate, endDate] = day;
-                              return (
-                                  (isSameDay(date, startDate) ||
-                                      isDateAfter(date, startDate)) &&
-                                  (isSameDay(date, endDate) ||
-                                      isDateBefore(date, endDate))
-                              );
-                          } else {
-                              return false;
-                          }
-                      })
-                    : // Checking if the day is disabled based on specific dates.
-                      disabledDates.some((day) =>
-                          isSameDay(day as Date, date)
-                      ))) ||
-            // Checking if the day is disabled based on specific weekdays.
+                disabledDates.some((day) => {
+                    // Checking if the day is disabled based on a range of dates.
+                    if (isArray(day)) {
+                        const [startDate, endDate] = day;
+                        // For each range of dates, check if the day falls within the range.
+                        return isDateInRange(date, startDate, endDate);
+                    } else {
+                        return isSameDay(day as Date, date);
+                    }
+                })) || // Checking if the day is disabled based on specific weekdays.
             (disabledDaysOfWeek && disabledDaysOfWeek.includes(weekday)) ||
             // Checking if the day is disabled based on past dates.
             (disabledPastDates && isDateBefore(date, this.today))

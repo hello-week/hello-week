@@ -74,3 +74,19 @@ export function isToday(date: Date): boolean {
     const today = new Date();
     return isSameDate(today, date);
 }
+
+/**
+ * Checks if a given date is within a specified date range.
+ *
+ * @param {Date} date - The date to check.
+ * @param {Date} startDate - The start date of the range.
+ * @param {Date} endDate - The end date of the range.
+ * @returns A boolean indicating whether date is within the range.
+ */
+export function isDateInRange(date: Date, startDate: Date, endDate: Date): boolean {
+  return (
+    (isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
+    (isSameDay(date, endDate) || isDateBefore(date, endDate))
+  );
+}
+

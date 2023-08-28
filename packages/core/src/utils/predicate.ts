@@ -15,6 +15,6 @@
  * const result3 = isArray('hello');  // false
  * ```
  */
-export function isArray(obj: unknown): boolean {
+export function isArray<T>(obj: unknown): obj is Array<T> {
     return obj !== null && Array.isArray(obj);
 }

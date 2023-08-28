@@ -15,6 +15,9 @@ export type IWeekdays = {
 // Represents the numeric values of days of the week.
 export type IWeekdaysValues = IWeekdays[keyof IWeekdays];
 
+// Represents either a single Date object or a range of two Date objects.
+type DateOrDateRange = Date | [Date, Date];
+
 // Represents the options for each day in the calendar.
 export type IDayOptions = {
     // The date object representing the day.
@@ -58,11 +61,11 @@ export interface ICalendar {
     // The numeric value corresponding to the start day of the week (0 for Sunday, 1 for Monday, etc.).
     weekStart?: IWeekdaysValues;
     // An array of selected dates for the calendar.
-    selectedDates?: Date[] | [Date, Date][];
+    selectedDates?: DateOrDateRange[];
     // An array of dates to highlight on the calendar.
-    highlightedDates?: Date[] | [Date, Date][];
+    highlightedDates?: DateOrDateRange[];
     // An array of disabled dates on the calendar.
-    disabledDates?: Date[] | [Date, Date][];
+    disabledDates?: DateOrDateRange[];
     // Indicates if past dates are disabled on the calendar.
     disabledPastDates?: boolean;
     // An array of numeric values corresponding to days of the week to be disabled on the calendar.
