@@ -5,8 +5,8 @@
 .hello-week .day.is-weekend {
   color: #ff3860; }
 
-.hello-week .day.is-highlight {
-  background-color: #8fbc8f;
+.hello-week .day.is-highlighted {
+  background-color: #4566a8;
   color: #fff; }
 
 .hello-week .day.is-today {
