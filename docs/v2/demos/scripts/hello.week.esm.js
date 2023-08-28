@@ -109,7 +109,7 @@ function isString(val) {
 function isNull(val) {
     return val === null;
 }
-function isArray(obj) {
+function isArray$1(obj) {
     return obj !== null && Array.isArray(obj);
 }
 
@@ -136,6 +136,51 @@ const CSS_CLASSES = {
     isWeekend: 'is-weekend',
 };
 const FORMAT_DATE = 'YYYY-MM-DD';
+const DAYS_WEEK$1 = {
+    SUNDAY: 0,
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 3,
+    THURSDAY: 4,
+    FRIDAY: 5,
+    SATURDAY: 6,
+};
+
+function isSameDay(day1, day2) {
+    return (day1.getDate() === day2.getDate() &&
+        day1.getMonth() === day2.getMonth() &&
+        day1.getFullYear() === day2.getFullYear());
+}
+function isDateAfter(date, dateToCompare) {
+    return date.getTime() > dateToCompare.getTime();
+}
+function isDateBefore(date, dateToCompare) {
+    return date.getTime() < dateToCompare.getTime();
+}
+function isSameMonthAndYear(source, target) {
+    return (target &&
+        source.getFullYear() === target.getFullYear() &&
+        source.getMonth() === target.getMonth());
+}
+function isSameDate(source, target) {
+    return (isSameMonthAndYear(source, target) &&
+        source.getDate() === target.getDate());
+}
+function isToday(date) {
+    const today = new Date();
+    return isSameDate(today, date);
+}
+function isDateInRange(date, startDate, endDate) {
+    return ((isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
+        (isSameDay(date, endDate) || isDateBefore(date, endDate)));
+}
+
+function isArray(obj) {
+    return obj !== null && Array.isArray(obj);
+}
+
+const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
+const WEEK_LENGTH = WEEKDAYS.length;
 const DAYS_WEEK = {
     SUNDAY: 0,
     MONDAY: 1,
@@ -146,9 +191,501 @@ const DAYS_WEEK = {
     SATURDAY: 6,
 };
 
+class Calendar {
+    constructor(options) {
+        this.days = [];
+        const defaultOptions = Object.assign({
+            lang: 'en-UK',
+            defaultDate: new Date(),
+            formatDate: {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                weekday: 'short',
+            },
+            weekStart: 0,
+            disabledPastDates: false,
+            locked: false,
+        }, options);
+        this.options = defaultOptions;
+        this.date = new Date(defaultOptions.defaultDate || '');
+        this.date.setDate(1);
+        this.today = new Date(new Date().setHours(0, 0, 0, 0));
+        this.createMonth();
+    }
+    setOptions(options) {
+        if (typeof options === 'function') {
+            this.options = options(this.options);
+        }
+        else {
+            this.options = options;
+        }
+        this.createMonth();
+    }
+    prevMonth() {
+        const prevMonth = this.date.getMonth() - 1;
+        this.date.setMonth(prevMonth);
+        this.createMonth();
+    }
+    nextMonth() {
+        const nextMonth = this.date.getMonth() + 1;
+        this.date.setMonth(nextMonth);
+        this.createMonth();
+    }
+    prevYear() {
+        const prevYear = this.date.getFullYear() - 1;
+        this.date.setFullYear(prevYear);
+        this.createMonth();
+    }
+    nextYear() {
+        const nextYear = this.date.getFullYear() + 1;
+        this.date.setFullYear(nextYear);
+        this.createMonth();
+    }
+    getWeekDays() {
+        const { formatDate: format, lang, weekStart } = this.options;
+        const date = new Date();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        const firstOfMonth = new Date(year, month, 1);
+        const firstDayOfWeek = firstOfMonth.getDay();
+        const weeks = [[]];
+        const orderedWeekday = WEEKDAYS.slice(weekStart).concat(WEEKDAYS.slice(0, weekStart));
+        const orderedWeekdayIndex = orderedWeekday.indexOf(firstDayOfWeek);
+        let currentWeek = weeks[0];
+        let currentDate = firstOfMonth;
+        for (let i = 0; i < orderedWeekdayIndex; i++) {
+            currentWeek.push(null);
+        }
+        while (currentDate.getMonth() === month) {
+            if (currentWeek.length === WEEK_LENGTH) {
+                currentWeek = [];
+                weeks.push(currentWeek);
+            }
+            currentWeek.push(currentDate.toLocaleDateString(lang, {
+                weekday: format === null || format === void 0 ? void 0 : format.weekday,
+            }));
+            currentDate = new Date(year, month, currentDate.getDate() + 1);
+        }
+        while (currentWeek.length < 7) {
+            currentWeek.push(null);
+        }
+        return weeks[1];
+    }
+    getDays() {
+        return this.days;
+    }
+    getToday(options) {
+        const { lang, formatDate } = this.options;
+        const format = (options === null || options === void 0 ? void 0 : options.format) || formatDate;
+        return this.today.toLocaleDateString(lang, Object.assign(Object.assign({}, format), { weekday: undefined }));
+    }
+    getMonth(options) {
+        const { lang, formatDate } = this.options;
+        const format = (options === null || options === void 0 ? void 0 : options.format) || (formatDate === null || formatDate === void 0 ? void 0 : formatDate.month);
+        return this.date.toLocaleDateString(lang, { month: format });
+    }
+    getYear(options) {
+        const { lang, formatDate } = this.options;
+        const format = (options === null || options === void 0 ? void 0 : options.format) || (formatDate === null || formatDate === void 0 ? void 0 : formatDate.year);
+        return this.date.toLocaleDateString(lang, { year: format });
+    }
+    createMonth() {
+        this.days = [];
+        const currentMonth = this.date.getMonth();
+        while (this.date.getMonth() === currentMonth) {
+            this.createDay(this.date);
+            this.date.setDate(this.date.getDate() + 1);
+        }
+        this.date.setMonth(this.date.getMonth() - 1);
+    }
+    createDay(date) {
+        const { lang, formatDate: format, selectedDates, highlightedToday, highlightedDates, maxDate, minDate, locked, disabledDaysOfWeek, disabledPastDates, disabledDates, } = this.options;
+        const day = date.getDate();
+        const weekday = date.getDay();
+        const dayOptions = {
+            date: new Date(date.setHours(0, 0, 0, 0)),
+            dateObject: {
+                day: date.toLocaleDateString(lang, { day: format === null || format === void 0 ? void 0 : format.day }),
+                month: date.toLocaleDateString(lang, { month: format === null || format === void 0 ? void 0 : format.month }),
+                year: date.toLocaleDateString(lang, { year: format === null || format === void 0 ? void 0 : format.year }),
+                weekday: date.toLocaleDateString(lang, {
+                    weekday: format === null || format === void 0 ? void 0 : format.weekday,
+                }),
+            },
+            dateFormatted: date.toLocaleDateString(lang, {
+                day: format === null || format === void 0 ? void 0 : format.day,
+                month: format === null || format === void 0 ? void 0 : format.month,
+                year: format === null || format === void 0 ? void 0 : format.year,
+            }),
+            details: {
+                today: false,
+                weekend: false,
+                selected: false,
+                highlighted: false,
+                range: false,
+                locked: false,
+                disabled: false,
+            },
+        };
+        if (isToday(date)) {
+            dayOptions.details.today = true;
+            if (highlightedToday) {
+                dayOptions.details.highlighted = true;
+            }
+        }
+        if (weekday === DAYS_WEEK.SUNDAY || weekday === DAYS_WEEK.SATURDAY) {
+            dayOptions.details.weekend = true;
+        }
+        if (selectedDates &&
+            selectedDates.some((day) => {
+                if (isArray(day)) {
+                    const [startDate, endDate] = day;
+                    return isDateInRange(date, startDate, endDate);
+                }
+                else {
+                    return isSameDay(day, date);
+                }
+            })) {
+            dayOptions.details.selected = true;
+            dayOptions.details.range = isArray(selectedDates[0]);
+        }
+        if (highlightedDates &&
+            highlightedDates.some((day) => {
+                if (isArray(day)) {
+                    const [startDate, endDate] = day;
+                    return isDateInRange(date, startDate, endDate);
+                }
+                else {
+                    return isSameDay(day, date);
+                }
+            })) {
+            dayOptions.details.highlighted = true;
+        }
+        if ((disabledDates &&
+            disabledDates.some((day) => {
+                if (isArray(day)) {
+                    const [startDate, endDate] = day;
+                    return isDateInRange(date, startDate, endDate);
+                }
+                else {
+                    return isSameDay(day, date);
+                }
+            })) ||
+            (disabledDaysOfWeek && disabledDaysOfWeek.includes(weekday)) ||
+            (disabledPastDates && isDateBefore(date, this.today))) {
+            dayOptions.details.disabled = true;
+        }
+        if (locked ||
+            (minDate && isDateAfter(date, minDate)) ||
+            (maxDate && isDateBefore(date, maxDate))) {
+            dayOptions.details.locked = true;
+        }
+        this.days[day - 1] = dayOptions;
+    }
+}
+
+function h(nodeName, attrs, ...children) {
+    return { nodeName, attributes: attrs || {}, children };
+}
+
+const DOM_FORCE_UPDATE = 'forceUpdate';
+function isEventProp(name) {
+    return /^on/.test(name);
+}
+function extractEventName(name) {
+    return name.slice(2).toLowerCase();
+}
+function isCustomProp(name) {
+    return isEventProp(name) || name === DOM_FORCE_UPDATE;
+}
+function setBooleanProp(el, name, value) {
+    if (value) {
+        el.setAttribute(name, value.toString());
+        Object.assign(el, { [name]: true });
+    }
+    else {
+        Object.assign(el, { [name]: false });
+    }
+}
+function removeBooleanProp(el, name) {
+    el.removeAttribute(name);
+    Object.assign(el, { [name]: false });
+}
+function setProp(el, name, value) {
+    if (isCustomProp(name))
+        return;
+    if (name === 'className') {
+        el.setAttribute('class', value.toString());
+    }
+    else if (name === 'style') {
+        Object.assign(el.style, value);
+    }
+    else if (typeof value === 'boolean') {
+        setBooleanProp(el, name, value);
+    }
+    else {
+        el.setAttribute(name, value.toString());
+    }
+}
+function removeProp(el, name, value) {
+    if (isCustomProp(name))
+        return;
+    if (name === 'className') {
+        el.removeAttribute('class');
+    }
+    else if (typeof value === 'boolean') {
+        removeBooleanProp(el, name);
+    }
+    else {
+        el.removeAttribute(name);
+    }
+}
+function addEventListeners(el, props) {
+    for (const name in props) {
+        if (isEventProp(name)) {
+            el.addEventListener(extractEventName(name), props[name]);
+        }
+    }
+}
+function createElement(tagName) {
+    return document.createElement(tagName);
+}
+function createTextNode(text) {
+    return document.createTextNode(text);
+}
+
+function setProps(el, props) {
+    for (const name in props) {
+        setProp(el, name, props[name]);
+    }
+}
+function renderNode(vnode) {
+    let el;
+    if (typeof vnode === 'string')
+        return createTextNode(vnode);
+    if (typeof vnode.nodeName === 'string') {
+        el = createElement(vnode.nodeName);
+        setProps(el, vnode.attributes);
+        console.log('addEventListeners');
+        addEventListeners(el, vnode.attributes);
+    }
+    if (typeof vnode.nodeName === 'function') {
+        const component = new vnode.nodeName(vnode.attributes);
+        el = renderNode(component.render(component.props, component.state));
+        component.base = el;
+    }
+    (vnode.children || []).forEach((child) => {
+        el.appendChild(renderNode(child));
+    });
+    return el;
+}
+function diff(dom, vnode) {
+    if (typeof vnode === 'string') {
+        dom.nodeValue = vnode;
+        return dom;
+    }
+    if (typeof vnode.nodeName === 'function') {
+        const component = new vnode.nodeName(vnode.attributes);
+        const rendered = component.render(component.props, component.state);
+        diff(dom, rendered);
+        return dom;
+    }
+    if (vnode.children.length > dom.childNodes.length) {
+        console.log('ADD');
+        dom.appendChild(renderNode(vnode.children[vnode.children.length - 1]));
+    }
+    if (vnode.children.length < dom.childNodes.length) {
+        console.log('UNMOUNT', vnode.children.length, dom.childNodes.length);
+        dom.children[dom.children.length - 1].parentElement.replaceChildren();
+        vnode.children.forEach((child) => dom.appendChild(renderNode(child)));
+        console.log('UNMOUNT', dom.childNodes);
+    }
+    if (vnode.children.length === dom.childNodes.length) {
+        const newProps = vnode.attributes;
+        const oldProps = dom.attributes;
+        const props = Object.assign({}, newProps, oldProps);
+        for (const name in props) {
+            if (!newProps[name]) {
+                removeProp(dom, name, oldProps[name]);
+            }
+            else if (!oldProps[name] || newProps[name] !== oldProps[name]) {
+                setProp(dom, name, newProps[name]);
+            }
+        }
+    }
+    dom.childNodes.forEach((child, i) => diff(child, vnode.children[i]));
+    return dom;
+}
+function mount(vnode, parent) {
+    const newDom = renderNode(vnode);
+    parent.appendChild(newDom);
+    return newDom;
+}
+
+function updateComponent(component) {
+    const rendered = component.render(component.props, component.state);
+    component.base = diff(component.base, rendered);
+}
+class Component {
+    constructor(props) {
+        this.props = props;
+        this.state = null;
+    }
+    setState(state) {
+        if (typeof state === "function") {
+            this.state = state(this.state);
+        }
+        else {
+            this.state = state;
+        }
+        updateComponent(this);
+    }
+    render(props, state) {
+        const attributes = Object.assign(Object.assign({}, props), state);
+        return h(this, attributes);
+    }
+}
+
+const classNames = (...classes) => classes.filter(Boolean).join(' ');
+
+class Day extends Component {
+    constructor(props) {
+        super(props);
+    }
+    render({ day, onClick }) {
+        return h('div', {
+            onClick: () => {
+                if (onClick)
+                    onClick(day);
+            },
+            className: classNames('day', day.details.disabled && 'is-disabled', day.details.highlighted && 'is-highlighted', day.details.locked && 'is-locked', day.details.range && 'is-range', day.details.selected && 'is-selected', day.details.today && 'is-today', day.details.weekend && 'is-weekend'),
+            style: day.date.getDate() === 1 && {
+                marginLeft: `${day.date.getDay() * (100 / 7)}%`,
+            },
+        }, day.date.getDate().toString());
+    }
+}
+
+class Navigation extends Component {
+    constructor(props) {
+        super(props);
+        Navigation.cssClases = {
+            ROOT: "navigation",
+        };
+    }
+    render({ month, year, onPrevMonth, onNextMonth }) {
+        return h('div', { className: Navigation.cssClases.ROOT }, h('div', {
+            className: 'prev',
+            onClick: () => {
+                if (onPrevMonth)
+                    onPrevMonth();
+            },
+        }, '◀'), h('div', { className: 'period' }, `${month} ${year}`), h('div', {
+            className: 'next',
+            onClick: () => {
+                if (onNextMonth)
+                    onNextMonth();
+            },
+        }, '▶'));
+    }
+}
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.calendar = new Calendar({
+            lang: props.lang,
+            defaultDate: new Date("2023-09-10"),
+            formatDate: {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                weekday: 'narrow',
+            },
+            weekStart: 0,
+            selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
+            highlightedDates: [
+                new Date('2023-07-10'),
+                new Date('2023-07-15'),
+                new Date(),
+            ],
+            disabledPastDates: false,
+            disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
+            minDate: undefined,
+            maxDate: undefined,
+        });
+        this.state = {
+            month: this.getMonth(),
+            year: this.getYear(),
+            weekDays: this.calendar.getWeekDays(),
+            days: this.calendar.getDays(),
+            selectedDates: this.calendar
+                .getDays()
+                .map((day) => day.details.selected && day.date)
+                .filter(Boolean),
+        };
+    }
+    getMonth() {
+        return this.calendar.getMonth({ format: 'long' });
+    }
+    getYear() {
+        return this.calendar.getYear();
+    }
+    update() {
+        this.setState((prevState) => {
+            return Object.assign(Object.assign({}, prevState), { month: this.getMonth(), year: this.getYear(), days: this.calendar.getDays() });
+        });
+    }
+    onHandleDayClick(day) {
+        console.log('Day', day);
+        this.setState((prevState) => {
+            return Object.assign(Object.assign({}, prevState), { days: prevState.days.map((dayOptions) => {
+                    if (isSameDay(day.date, dayOptions.date)) {
+                        return Object.assign(Object.assign({}, day), { details: Object.assign(Object.assign({}, dayOptions.details), { selected: !dayOptions.details.selected }) });
+                    }
+                    return dayOptions;
+                }) });
+        });
+    }
+    render({ onNavigate }, { month, year, weekDays, days }) {
+        console.log("days", days);
+        return h('div', {
+            className: 'hello-week',
+        }, h(Navigation, {
+            month,
+            year,
+            onPrevMonth: () => {
+                this.calendar.prevMonth();
+                this.update();
+                if (onNavigate)
+                    onNavigate();
+            },
+            onNextMonth: () => {
+                this.calendar.nextMonth();
+                this.update();
+                if (onNavigate)
+                    onNavigate();
+            },
+        }), h('div', { className: 'week' }, ...weekDays.map((day) => h('div', {
+            onClick: () => { },
+            className: 'day',
+        }, day))), h('div', { className: 'month' }, ...days.map((day) => h(Day, {
+            day,
+            onClick: (day) => this.onHandleDayClick(day),
+        }))));
+    }
+}
+class HelloWeekNext {
+    constructor({ selector, defaultDate, onNavigate }) {
+        const Root = h(App, { selector, defaultDate, onNavigate });
+        mount(Root, document.querySelector(selector));
+    }
+}
+
 class HelloWeek {
     static get daysWeek() {
-        return DAYS_WEEK;
+        return DAYS_WEEK$1;
     }
     constructor(options) {
         this.calendar = {
@@ -165,6 +702,7 @@ class HelloWeek {
             end: 0,
         };
         this.daysSelected = [];
+        new HelloWeekNext({ selector: '#root', lang: 'en-UK' });
         this.options = Object.assign({}, extend(options));
         HelloWeek.initOptions = Object.assign({}, extend(options));
         this.selector =
@@ -548,7 +1086,7 @@ class HelloWeek {
         this.days[dayOptions.day] = dayOptions;
     }
     setDaysDisable(newDay, dayOptions) {
-        if (isArray(this.options.disableDates[0])) {
+        if (isArray$1(this.options.disableDates[0])) {
             this.options.disableDates.forEach((date) => {
                 if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
                     dayOptions.timestamp <= setToTimestamp(date[1])) {
@@ -558,7 +1096,7 @@ class HelloWeek {
             });
             return;
         }
-        if (isArray(this.options.disableDates)) {
+        if (isArray$1(this.options.disableDates)) {
             this.options.disableDates.forEach((date) => {
                 if (isString(date) &&
                     dayOptions.timestamp === setToTimestamp(date)) {
@@ -570,7 +1108,7 @@ class HelloWeek {
     }
     setDayHighlight(newDay, dayOptions) {
         this.daysHighlight.map((day, index) => {
-            if (isArray(day.days[0])) {
+            if (isArray$1(day.days[0])) {
                 day.days.forEach((date) => {
                     if (dayOptions.timestamp >= setToTimestamp(date[0]) &&
                         dayOptions.timestamp <= setToTimestamp(date[1])) {
@@ -579,7 +1117,7 @@ class HelloWeek {
                 });
                 return;
             }
-            if (isArray(day.days)) {
+            if (isArray$1(day.days)) {
                 day.days.forEach((date) => {
                     if (dayOptions.timestamp === setToTimestamp(date)) {
                         this.setStyleDayHighlight(newDay, +index, dayOptions);
