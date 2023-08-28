@@ -1,52 +1,15 @@
 import { Calendar, IDayOptions, ICalendar } from '../core/src';
 import { isSameDay } from '../core/src/utils/date';
-import Component, { h, mount, unmount } from '../vdom/src';
-import { classNames } from '../utils';
+import Component, { h, mount } from '../vdom/src';
+// Components
+import { Day } from './Day';
+import { Navigation } from './Navigation';
 
-interface IDayProps {
-    day: IDayOptions;
-    onClick: (options: IDayOptions) => void;
-}
-
-interface IDayState {}
-
-class Day extends Component<IDayProps, IDayState> {
-    constructor(props: IDayProps) {
-        super(props);
-    }
-
-    render({ day, onClick }: IDayProps) {
-        if (!day) return;
-        return h(
-            'div',
-            {
-                onClick: () => {
-                    if (onClick) onClick(day);
-                },
-                className: classNames(
-                    'day',
-                    day.details.disabled && 'is-disabled',
-                    day.details.highlighted && 'is-highlighted',
-                    day.details.locked && 'is-locked',
-                    day.details.range && 'is-range',
-                    day.details.selected && 'is-selected',
-                    day.details.today && 'is-today',
-                    day.details.weekend && 'is-weekend'
-                ),
-                style: day.date.getDate() === 1 && {
-                    marginLeft: `${day.date.getDay() * (100 / 7)}%`,
-                },
-            },
-            day.dateFormatted
-        );
-    }
-}
-
-interface ICalendarComponentProps extends ICalendar {
+interface IAppProps extends ICalendar {
     onNavigate?: () => void;
 }
 
-interface IICalendarComponentState {
+interface IAppState {
     month: string;
     year: string;
     weekDays: string[];
@@ -54,19 +17,15 @@ interface IICalendarComponentState {
     selectedDates: Date[];
 }
 
-class CalendarComponent extends Component<
-    ICalendarComponentProps,
-    IICalendarComponentState
-> {
+class App extends Component<IAppProps, IAppState> {
     private calendar: Calendar;
 
-    constructor(props: ICalendarComponentProps) {
+    constructor(props: IAppProps) {
         super(props);
-        // Initialize the calendar with default options
-        console.log('Initialize');
+
         this.calendar = new Calendar({
             lang: props.lang,
-            defaultDate: new Date(),
+            defaultDate: new Date("2023-09-10"),
             formatDate: {
                 day: '2-digit',
                 month: '2-digit',
@@ -113,23 +72,7 @@ class CalendarComponent extends Component<
                 ...prevState,
                 month: this.getMonth(),
                 year: this.getYear(),
-                days: this.calendar.getDays().map((day) => {
-                    if (
-                        this.state.selectedDates.find((dt) =>
-                            isSameDay(dt, day.date)
-                        )
-                    ) {
-                        return {
-                            ...day,
-                            details: {
-                                ...day.details,
-                                selected: true,
-                            },
-                        };
-                    }
-
-                    return day;
-                }),
+                days: this.calendar.getDays(),
             };
         });
     }
@@ -158,54 +101,32 @@ class CalendarComponent extends Component<
         });
     }
 
-    /**
-     * Render the CalendarComponent.
-     * @param props - The component's props.
-     * @param state - The component's state.
-     * @returns The virtual DOM representation.
-     */
     render(
-        { onNavigate }: ICalendarComponentProps,
-        { month, year, weekDays, days }: IICalendarComponentState
+        { onNavigate }: IAppProps,
+        { month, year, weekDays, days }: IAppState
     ) {
+      console.log("days",days);
         return h(
             'div',
             {
                 className: 'hello-week',
             },
-            // Render navigation bar
-            h(
-                'div',
-                { className: 'navigation' },
-                h(
-                    'div',
-                    {
-                        className: 'prev',
-                        onClick: () => {
-                            this.calendar.prevMonth();
-                            this.update();
+            h(Navigation, {
+                month,
+                year,
+                onPrevMonth: () => {
+                    this.calendar.prevMonth();
+                    this.update();
 
-                            if (onNavigate) onNavigate();
-                        },
-                    },
-                    '◀'
-                ),
-                h('div', { className: 'period' }, `${month} ${year}`),
-                h(
-                    'div',
-                    {
-                        className: 'next',
-                        onClick: () => {
-                            this.calendar.nextMonth();
-                            this.update();
+                    if (onNavigate) onNavigate();
+                },
+                onNextMonth: () => {
+                    this.calendar.nextMonth();
+                    this.update();
 
-                            if (onNavigate) onNavigate();
-                        },
-                    },
-                    '▶'
-                )
-            ),
-            // Render week days
+                    if (onNavigate) onNavigate();
+                },
+            }),
             h(
                 'div',
                 { className: 'week' },
@@ -220,7 +141,7 @@ class CalendarComponent extends Component<
                     )
                 )
             ),
-            // Render calendar days
+
             h(
                 'div',
                 { className: 'month' },
@@ -237,12 +158,9 @@ class CalendarComponent extends Component<
 }
 
 export class HelloWeekNext {
-    constructor({
-        selector,
-        defaultDate,
-    }: { selector: string } & ICalendarComponentProps) {
-        const App = h(CalendarComponent, { selector, defaultDate });
+    constructor({ selector, defaultDate, onNavigate }: { selector: string } & IAppProps) {
+        const Root = h(App, { selector, defaultDate, onNavigate });
 
-        mount(App, document.querySelector(selector));
+        mount(Root, document.querySelector(selector));
     }
 }
