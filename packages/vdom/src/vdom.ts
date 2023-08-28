@@ -1,12 +1,12 @@
-import Component from "./component";
+import Component from './component';
 import {
     addEventListeners,
     createElement,
     createTextNode,
     removeProp,
     setProp,
-} from "./dom";
-import { VNode } from "./types";
+} from './dom';
+import { VNode } from './types';
 
 /**
  * Set multiple properties on an element.
@@ -29,20 +29,26 @@ function setProps(el: Element, props: Record<string, string>): void {
 function renderNode<T>(vnode: VNode<T> | string): Element | Text {
     let el: Element;
 
-    if (typeof vnode === "string") return createTextNode(vnode);
+    if (typeof vnode === 'string') return createTextNode(vnode);
 
-    if (typeof vnode.nodeName === "string") {
+    if (typeof vnode.nodeName === 'string') {
         el = createElement(vnode.nodeName);
         setProps(el, vnode.attributes as Record<string, string>);
+        console.log('addEventListeners');
         addEventListeners(
             el,
-            vnode.attributes as Record<string, EventListenerOrEventListenerObject>
+            vnode.attributes as Record<
+                string,
+                EventListenerOrEventListenerObject
+            >
         );
     }
 
-    if (typeof vnode.nodeName === "function") {
+    if (typeof vnode.nodeName === 'function') {
         // initiate our component
-        const component = new (vnode.nodeName as typeof Component)(vnode.attributes);
+        const component = new (vnode.nodeName as typeof Component)(
+            vnode.attributes
+        );
         el = renderNode(
             component.render(component.props, component.state)
         ) as Element;
@@ -65,12 +71,15 @@ function renderNode<T>(vnode: VNode<T> | string): Element | Text {
  * @returns The updated DOM element representing the virtual node.
  */
 export function diff<T>(dom: Element, vnode: VNode<T>): Element {
-    if (typeof vnode === "string") {
+    if (typeof vnode === 'string') {
         dom.nodeValue = vnode;
         return dom;
     }
-    if (typeof vnode.nodeName === "function") {
-        const component = new (vnode.nodeName as typeof Component)(vnode.attributes);
+
+    if (typeof vnode.nodeName === 'function') {
+        const component = new (vnode.nodeName as typeof Component)(
+            vnode.attributes
+        );
         const rendered = component.render(component.props, component.state);
 
         diff(dom, rendered);
@@ -78,11 +87,29 @@ export function diff<T>(dom: Element, vnode: VNode<T>): Element {
     }
 
     // Naive check for the number of children of the virtual node and the DOM
-    if (vnode.children.length !== dom.childNodes.length) {
+    if (vnode.children.length > dom.childNodes.length) {
+        console.log('ADD');
         dom.appendChild(
             // render only the last child
-            renderNode(vnode.children[vnode.children.length - 1] as VNode<typeof vnode.children>)
+            renderNode(
+                vnode.children[vnode.children.length - 1] as VNode<
+                    typeof vnode.children
+                >
+            )
         );
+    }
+
+    if (vnode.children.length < dom.childNodes.length) {
+        console.log('UNMOUNT', vnode.children.length, dom.childNodes.length);
+        dom.children[dom.children.length - 1].parentElement.replaceChildren();
+        // dom.childNodes.forEach((child: Element) => {
+        //     console.log('child', child.parentNode);
+        //     // unmount({ el: child });
+        // });
+        vnode.children.forEach((child: VNode<typeof vnode.children>) =>
+            dom.appendChild(renderNode(child))
+        );
+        console.log('UNMOUNT', dom.childNodes);
     }
 
     if (vnode.children.length === dom.childNodes.length) {
@@ -114,7 +141,10 @@ export function diff<T>(dom: Element, vnode: VNode<T>): Element {
  * @param parent - The parent element to mount the virtual node into.
  * @returns The newly created DOM element representing the virtual node.
  */
-export function mount<T>(vnode: VNode<T>, parent: Element | null): Element | Text {
+export function mount<T>(
+    vnode: VNode<T>,
+    parent: Element | null
+): Element | Text {
     const newDom = renderNode(vnode);
     parent.appendChild(newDom);
     return newDom;
