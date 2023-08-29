@@ -6,22 +6,38 @@ import { Day } from './Day';
 import { Week } from './Week';
 import { WeekDay } from './WeekDay';
 // Calendar
-import { Calendar, ICalendar, IDayOptions } from '../../../../packages/core/src';
+import {
+    Calendar,
+    ICalendar,
+    IDayOptions,
+} from '../../../../packages/core/src';
 
 interface HelloWeekProps extends ICalendar {
     onNavigate?: () => void;
     onDayClick?: (day: IDayOptions) => void;
 }
 
+const DATE_FORMAT: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    weekday: 'narrow',
+};
+
 export const HelloWeek = ({
     lang,
     defaultDate,
+    formatDate,
     selectedDates,
     highlightedDates,
-    disabledDates,
+    disabledDaysOfWeek,
     disabledPastDates,
+    disabledDates,
     minDate,
     maxDate,
+    highlightedToday,
+    weekStart,
+    locked,
     onNavigate,
     onDayClick,
 }: HelloWeekProps): React.ReactElement => {
@@ -33,17 +49,8 @@ export const HelloWeek = ({
         weekDays: string[];
     }>();
 
-
     useEffect(() => {
-        const instance = new Calendar({
-            weekStart: 0,
-            formatDate: {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                weekday: 'narrow',
-            },
-        });
+        const instance = new Calendar();
         setCalendar(instance);
     }, []);
 
@@ -62,12 +69,17 @@ export const HelloWeek = ({
             ...prev,
             lang,
             defaultDate,
+            formatDate: formatDate || DATE_FORMAT,
             selectedDates,
             highlightedDates,
+            disabledDaysOfWeek,
             disabledPastDates,
             disabledDates,
             minDate,
             maxDate,
+            highlightedToday,
+            locked,
+            weekStart,
         }));
         updateCalendar();
     }, [
@@ -81,6 +93,11 @@ export const HelloWeek = ({
         disabledPastDates,
         minDate,
         maxDate,
+        disabledDaysOfWeek,
+        highlightedToday,
+        weekStart,
+        formatDate,
+        locked,
     ]);
 
     const onHandlePrevMonth = useCallback(() => {
@@ -97,26 +114,30 @@ export const HelloWeek = ({
 
     return (
         <div className="hello-week">
-            <Navigation
-                month={data?.month}
-                year={data?.year}
-                onPrevMonth={onHandlePrevMonth}
-                onNextMonth={onHandleNextMonth}
-            />
-            <Week>
-                {data?.weekDays?.map((week, index) => (
-                    <WeekDay key={`${week}-${index}`}>{week}</WeekDay>
-                ))}
-            </Week>
-            <Month>
-                {data?.days?.map((day) => (
-                    <Day
-                        key={day.date.getTime()}
-                        day={day}
-                        onClick={onDayClick}
+            {data && (
+                <>
+                    <Navigation
+                        month={data.month}
+                        year={data.year}
+                        onPrevMonth={onHandlePrevMonth}
+                        onNextMonth={onHandleNextMonth}
                     />
-                ))}
-            </Month>
+                    <Week>
+                        {data.weekDays?.map((week, index) => (
+                            <WeekDay key={`${week}-${index}`}>{week}</WeekDay>
+                        ))}
+                    </Week>
+                    <Month>
+                        {data.days?.map((day) => (
+                            <Day
+                                key={day.date.getTime()}
+                                day={day}
+                                onClick={onDayClick}
+                            />
+                        ))}
+                    </Month>
+                </>
+            )}
         </div>
     );
 };
