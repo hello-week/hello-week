@@ -17,9 +17,10 @@
 }
 .hello-week .period {
     width: 100%;
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: 400;
     text-align: center;
+    text-transform: capitalize;
 }
 .hello-week .week {
     display: flex;
