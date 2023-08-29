@@ -142,6 +142,18 @@ export class Calendar {
     }
 
     /**
+     * Sets the calendar to a specific date and updates the displayed month.
+     * @param date - The target date to navigate to.
+     */
+    public gotoDate(date: Date): void {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+
+        this.date.setFullYear(year, month); // Update year and month together
+        this.createMonth();
+    }
+
+    /**
      * Gets the week days for the current month in the specified language and format.
      * @returns An array of string with each day of week.
      */

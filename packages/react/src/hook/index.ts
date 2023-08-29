@@ -48,8 +48,7 @@ export const useHelloWeek = ({
 
     useEffect(() => {
         const calendar = calendarRef.current;
-        if (!calendar) return;
-        calendar.setOptions((prev) => ({
+        calendar?.setOptions((prev) => ({
             ...prev,
             lang,
             selectedDates,
@@ -89,18 +88,15 @@ export const useHelloWeek = ({
 
     const onPrevMonth = useCallback(() => {
         const calendar = calendarRef.current;
-        if (calendar) {
-            calendar.prevMonth();
-            updateCalendar();
-        }
+
+        calendar?.prevMonth();
+        updateCalendar();
     }, [updateCalendar]);
 
     const onNextMonth = useCallback(() => {
         const calendar = calendarRef.current;
-        if (calendar) {
-            calendar.nextMonth();
-            updateCalendar();
-        }
+        calendar?.nextMonth();
+        updateCalendar();
     }, [updateCalendar]);
 
     return {
