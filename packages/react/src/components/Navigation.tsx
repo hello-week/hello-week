@@ -1,23 +1,23 @@
+import React from "react";
+
 interface NavigationProps {
-    month?: string;
-    year?: string;
-    onPrevMonth?: () => void;
-    onNextMonth?: () => void;
+    className?: string;
+    children?: React.ReactNode;
+    prevSlot?: React.ReactNode;
+    nextSlot?: React.ReactNode;
 }
 
 export const Navigation = ({
-    month,
-    year,
-    onNextMonth,
-    onPrevMonth,
+    className,
+    children,
+    prevSlot,
+    nextSlot,
 }: NavigationProps): React.ReactElement => {
     return (
-        <div className="navigation">
-            <button className="prev" onClick={onPrevMonth}>◀</button>
-            <div className="period">
-                {`${month} ${year}`}
-            </div>
-            <button className="next" onClick={onNextMonth}>▶</button>
+        <div className={className}>
+            {prevSlot}
+            {children}
+            {nextSlot}
         </div>
     );
 };

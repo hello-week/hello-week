@@ -34,11 +34,6 @@ class App extends Component<IAppProps, IAppState> {
             },
             weekStart: 0,
             selectedDates: [new Date('2023-07-01'), new Date('2023-07-10')],
-            highlightedDates: [
-                new Date('2023-07-10'),
-                new Date('2023-07-15'),
-                new Date(), // Today will always be highlighted
-            ],
             disabledPastDates: false,
             disabledDates: [[new Date('2023-07-15'), new Date('2023-07-20')]],
             minDate: undefined,
@@ -81,7 +76,6 @@ class App extends Component<IAppProps, IAppState> {
      * @param day - The clicked day.
      */
     private onHandleDayClick(day: IDayOptions): void {
-        console.log('Day', day);
         this.setState((prevState) => {
             return {
                 ...prevState,

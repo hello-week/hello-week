@@ -1,9 +1,10 @@
 import React from 'react';
 
 interface WeekProps {
+    className?: string;
     children: React.ReactNode;
 }
 
-export const Week = ({ children }: WeekProps): React.ReactElement => {
-    return <div className="week">{children}</div>;
+export const Week = ({ className, children }: WeekProps): React.ReactElement => {
+    return <div className={className}>{children}</div>;
 };

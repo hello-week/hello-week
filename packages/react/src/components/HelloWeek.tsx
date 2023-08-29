@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 // Components
 import { Navigation } from './Navigation';
 import { Month } from './Month';
@@ -6,23 +6,13 @@ import { Day } from './Day';
 import { Week } from './Week';
 import { WeekDay } from './WeekDay';
 // Calendar
-import {
-    Calendar,
-    ICalendar,
-    IDayOptions,
-} from '../../../../packages/core/src';
+import { ICalendar, IDayOptions } from '../../../../packages/core/src';
+import { useHelloWeek } from '../hook';
 
 interface HelloWeekProps extends ICalendar {
     onNavigate?: () => void;
     onDayClick?: (day: IDayOptions) => void;
 }
-
-const DATE_FORMAT: Intl.DateTimeFormatOptions = {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    weekday: 'narrow',
-};
 
 export const HelloWeek = ({
     lang,
@@ -41,96 +31,93 @@ export const HelloWeek = ({
     onNavigate,
     onDayClick,
 }: HelloWeekProps): React.ReactElement => {
-    const [calendar, setCalendar] = useState<Calendar>();
-    const [data, setData] = useState<{
-        month: string;
-        year: string;
-        days: IDayOptions[];
-        weekDays: string[];
-    }>();
-
-    useEffect(() => {
-        const instance = new Calendar();
-        setCalendar(instance);
-    }, []);
-
-    const updateCalendar = useCallback(() => {
-        if (!calendar) return;
-        setData({
-            month: calendar.getMonth({ format: 'long' }),
-            year: calendar.getYear(),
-            days: calendar.getDays(),
-            weekDays: calendar.getWeekDays(),
-        });
-    }, [calendar]);
-
-    useEffect(() => {
-        calendar?.setOptions((prev) => ({
-            ...prev,
-            lang,
-            defaultDate,
-            formatDate: formatDate || DATE_FORMAT,
-            selectedDates,
-            highlightedDates,
-            disabledDaysOfWeek,
-            disabledPastDates,
-            disabledDates,
-            minDate,
-            maxDate,
-            highlightedToday,
-            locked,
-            weekStart,
-        }));
-        updateCalendar();
-    }, [
-        calendar,
-        defaultDate,
-        selectedDates,
+    const { data, onPrevMonth, onNextMonth } = useHelloWeek({
         lang,
-        updateCalendar,
+        defaultDate,
+        formatDate,
+        selectedDates,
         highlightedDates,
-        disabledDates,
+        disabledDaysOfWeek,
         disabledPastDates,
+        disabledDates,
         minDate,
         maxDate,
-        disabledDaysOfWeek,
         highlightedToday,
         weekStart,
-        formatDate,
         locked,
-    ]);
+    });
 
     const onHandlePrevMonth = useCallback(() => {
-        calendar?.prevMonth();
+        onPrevMonth();
         if (onNavigate) onNavigate();
-        updateCalendar();
-    }, [calendar, onNavigate, updateCalendar]);
+    }, []);
 
     const onHandleNextMonth = useCallback(() => {
-        calendar?.nextMonth();
+        onNextMonth();
         if (onNavigate) onNavigate();
-        updateCalendar();
-    }, [calendar, onNavigate, updateCalendar]);
+    }, []);
 
     return (
         <div className="hello-week">
             {data && (
                 <>
                     <Navigation
-                        month={data.month}
-                        year={data.year}
-                        onPrevMonth={onHandlePrevMonth}
-                        onNextMonth={onHandleNextMonth}
-                    />
-                    <Week>
+                        className="navigation"
+                        prevSlot={
+                            <button
+                                className="prev"
+                                onClick={onHandlePrevMonth}
+                            >
+                                <svg
+                                    width={24}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        }
+                        nextSlot={
+                            <button
+                                className="next"
+                                onClick={onHandleNextMonth}
+                            >
+                                <svg
+                                    width={24}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                                        clipRule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        }
+                    >
+                        <div className="period">{`${data.month} ${data.year}`}</div>
+                    </Navigation>
+                    <Week className="week">
                         {data.weekDays?.map((week, index) => (
-                            <WeekDay key={`${week}-${index}`}>{week}</WeekDay>
+                            <WeekDay key={`${week}-${index}`} className="day">
+                                {week}
+                            </WeekDay>
                         ))}
                     </Week>
-                    <Month>
+                    <Month className="month">
                         {data.days?.map((day) => (
                             <Day
                                 key={day.date.getTime()}
+                                className="day"
                                 day={day}
                                 onClick={onDayClick}
                             />

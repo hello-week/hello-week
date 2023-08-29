@@ -3,13 +3,14 @@ import { IDayOptions } from '../../../../packages/core/src';
 import { classNames } from '../../../../packages/utils';
 
 interface DayProps {
+    className?: string;
     day: IDayOptions;
     onClick?: (options: IDayOptions) => void;
 }
 
-export const Day = ({ day, onClick }: DayProps): React.ReactElement => {
+export const Day = ({ className, day, onClick }: DayProps): React.ReactElement => {
     const computedClasses = classNames(
-        'day',
+        className,
         day.is.disabled && 'is-disabled',
         day.is.highlighted && 'is-highlighted',
         day.is.locked && 'is-locked',
