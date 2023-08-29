@@ -34,6 +34,7 @@ export class Calendar {
                     weekday: 'short',
                 },
                 weekStart: 0,
+                highlightedToday: true,
                 disabledPastDates: false,
                 locked: false,
             },
@@ -276,29 +277,27 @@ export class Calendar {
                 month: format?.month,
                 year: format?.year,
             }),
-            details: {
+            is: {
                 today: false,
                 weekend: false,
                 selected: false,
                 highlighted: false,
                 range: false,
+                startRange: false,
+                endRange: false,
                 locked: false,
                 disabled: false,
             },
         };
 
         // Determining if the day is today.
-        if (isToday(date)) {
-            dayOptions.details.today = true;
-
-            if (highlightedToday) {
-                dayOptions.details.highlighted = true;
-            }
+        if (isToday(date) && highlightedToday) {
+            dayOptions.is.today = true;
         }
 
         // Determining if the day is weekday.
         if (weekday === DAYS_WEEK.SUNDAY || weekday === DAYS_WEEK.SATURDAY) {
-            dayOptions.details.weekend = true;
+            dayOptions.is.weekend = true;
         }
 
         // Determining if the day is selected based on specific dates or a range of dates.
@@ -309,35 +308,49 @@ export class Calendar {
                     // For a range of dates, check if the day falls within the range.
                     const [startDate, endDate] = day;
                     // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
-                    return isDateInRange(date, startDate, endDate);
+                    const withinRange = isDateInRange(date, startDate, endDate);
+                    // Update range-related properties.
+                    dayOptions.is.range = withinRange;
+                    dayOptions.is.startRange = isSameDay(date, startDate);
+                    dayOptions.is.endRange = isSameDay(date, endDate);
+                    return withinRange;
                 } else {
                     // For specific dates, check if the day matches any of the selected dates.
                     return isSameDay(day as Date, date);
                 }
             })
         ) {
-            dayOptions.details.selected = true; // Set the selected property to true to indicate the day is selected.
-            // Check if the selectedDates array is a range, and if so, set range to true.
-            dayOptions.details.range = isArray(selectedDates[0]);
+            dayOptions.is.selected = true;
         }
 
-        // Determining if the day is highlighted based on specific dates.
-        // Determining if the day is highlighted based on specific dates or a range of dates.
+        // Determine if the current day is highlighted based on specific dates or date ranges.
         if (
-            highlightedDates &&
-            highlightedDates.some((day) => {
-                if (isArray(day)) {
-                    // For a range of dates, check if the day falls within the range.
-                    const [startDate, endDate] = day;
-                    // If the day is the same as the start date or after the start date, and the day is the same as the end date or before the end date, it's within the range.
-                    return isDateInRange(date, startDate, endDate);
-                } else {
-                    // For specific dates, check if the day matches any of the highlighted dates.
-                    return isSameDay(day as Date, date);
+            highlightedDates?.some(({ days, ...restProps }) => {
+                const isHighlighted = days.some((day) => {
+                    if (isArray(day)) {
+                        // Handle date range: Extract start and end dates.
+                        const [startDate, endDate] = day;
+                        // Check if the current date falls within the range.
+                        return isDateInRange(
+                            date,
+                            startDate as Date,
+                            endDate as Date
+                        );
+                    } else {
+                        // Handle specific dates: Check if the current date matches any of the highlighted dates.
+                        return isSameDay(day as Date, date);
+                    }
+                });
+
+                if (isHighlighted) {
+                    dayOptions.details = restProps; // Assign additional properties for highlighting.
+                    return true; // Indicate that the day is highlighted.
                 }
+
+                return false; // Indicate that the day is not highlighted.
             })
         ) {
-            dayOptions.details.highlighted = true; // Set the highlighted property to true to indicate the day is highlighted.
+            dayOptions.is.highlighted = true;
         }
 
         // Determining if the day is disabled based on specific dates, weekdays, or past dates.
@@ -357,16 +370,16 @@ export class Calendar {
             // Checking if the day is disabled based on past dates.
             (disabledPastDates && isDateBefore(date, this.today))
         ) {
-            dayOptions.details.disabled = true; // Set the disabled property to true to indicate the day is disabled.
+            dayOptions.is.disabled = true;
         }
 
         // Determining if the day is locked.
         if (
             locked || // If the entire calendar or a specific day is locked, it should be considered locked.
-            (minDate && isDateAfter(date, minDate)) || // If a `minDate` is specified and the date is after the `minDate`, the day should be considered locked.
-            (maxDate && isDateBefore(date, maxDate)) // If a `maxDate`` is specified and the date is before the `maxDate`, the day should be considered locked.
+            (minDate && isDateBefore(date, minDate)) || // If a `minDate` is specified and the date is before the `minDate`, the day should be considered locked.
+            (maxDate && isDateAfter(date, maxDate)) // If a `maxDate`` is specified and the date is after the `maxDate`, the day should be considered locked.
         ) {
-            dayOptions.details.locked = true; // Set the locked property to true to indicate the day is locked.
+            dayOptions.is.locked = true; // Set the locked property to true to indicate the day is locked.
         }
 
         this.days[day - 1] = dayOptions;

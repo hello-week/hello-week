@@ -21,7 +21,10 @@ export function isSameDay(day1: Date, day2: Date): boolean {
  * @returns A boolean indicating whether the first date is after the second date.
  */
 export function isDateAfter(date: Date, dateToCompare: Date): boolean {
-    return date.getTime() > dateToCompare.getTime();
+    return (
+        new Date(date.setHours(0, 0, 0, 0)).getTime() >
+        new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
+    );
 }
 
 /**
@@ -32,7 +35,10 @@ export function isDateAfter(date: Date, dateToCompare: Date): boolean {
  * @returns A boolean indicating whether the first date is before the second date.
  */
 export function isDateBefore(date: Date, dateToCompare: Date): boolean {
-    return date.getTime() < dateToCompare.getTime();
+    return (
+        new Date(date.setHours(0, 0, 0, 0)).getTime() <
+        new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
+    );
 }
 
 /**
@@ -83,10 +89,13 @@ export function isToday(date: Date): boolean {
  * @param {Date} endDate - The end date of the range.
  * @returns A boolean indicating whether date is within the range.
  */
-export function isDateInRange(date: Date, startDate: Date, endDate: Date): boolean {
-  return (
-    (isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
-    (isSameDay(date, endDate) || isDateBefore(date, endDate))
-  );
+export function isDateInRange(
+    date: Date,
+    startDate: Date,
+    endDate: Date
+): boolean {
+    return (
+        (isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
+        (isSameDay(date, endDate) || isDateBefore(date, endDate))
+    );
 }
-

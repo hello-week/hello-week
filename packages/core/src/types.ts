@@ -18,36 +18,11 @@ export type IWeekdaysValues = IWeekdays[keyof IWeekdays];
 // Represents either a single Date object or a range of two Date objects.
 type DateOrDateRange = Date | [Date, Date];
 
-// Represents the options for each day in the calendar.
-export type IDayOptions = {
-    // The date object representing the day.
-    date: Date;
-    // The formatted string representation of the day's date.
-    dateFormatted: string;
-    // The date object containing individual parts of the day's date.
-    dateObject: {
-        day: string;
-        month: string;
-        year: string;
-        weekday: string;
-    };
-    // Additional details about the day.
-    details: {
-        // Indicates if the day falls on a weekend (Saturday or Sunday).
-        weekend: boolean;
-        // Indicates if the day is today's date.
-        today: boolean;
-        // Indicates if the day is selected.
-        selected: boolean;
-        // Indicates if the day is highlighted.
-        highlighted: boolean;
-        // Indicates if the day is part of a selected range.
-        range: boolean;
-        // Indicates if the day is locked and cannot be interacted with.
-        locked: boolean;
-        // Indicates if the day is disabled and cannot be selected or interacted with.
-        disabled: boolean;
-    };
+export type HighlightedDates = {
+  // An array containing individual dates or date ranges to be highlighted.
+  days: DateOrDateRange[];
+  // Additional properties or metadata associated with the highlighted dates.
+  [key: string]: unknown;
 };
 
 // Represents the configuration options for the calendar.
@@ -63,7 +38,7 @@ export interface ICalendar {
     // An array of selected dates for the calendar.
     selectedDates?: DateOrDateRange[];
     // An array of dates to highlight on the calendar.
-    highlightedDates?: DateOrDateRange[];
+    highlightedDates?: HighlightedDates[];
     // An array of disabled dates on the calendar.
     disabledDates?: DateOrDateRange[];
     // Indicates if past dates are disabled on the calendar.
@@ -79,3 +54,41 @@ export interface ICalendar {
     // Indicates if today's date should be highlighted on the calendar.
     highlightedToday?: boolean;
 }
+
+// Represents the options for each day in the calendar.
+export type IDayOptions = {
+    // The date object representing the day.
+    date: Date;
+    // The formatted string representation of the day's date.
+    dateFormatted: string;
+    // The date object containing individual parts of the day's date.
+    dateObject: {
+        day: string;
+        month: string;
+        year: string;
+        weekday: string;
+    };
+    // Additional details about the day.
+    is: {
+        // Indicates if the day falls on a weekend (Saturday or Sunday).
+        weekend: boolean;
+        // Indicates if the day is today's date.
+        today: boolean;
+        // Indicates if the day is selected.
+        selected: boolean;
+        // Indicates if the day is highlighted.
+        highlighted: boolean;
+       // Indicates if the day is part of a selected range.
+        range: boolean;
+        // Indicates if the day is the start of a selected range.
+        startRange: boolean;
+        // Indicates if the day is the end of a selected range.
+        endRange: boolean;
+        // Indicates if the day is locked and cannot be interacted with.
+        locked: boolean;
+        // Indicates if the day is disabled and cannot be selected or interacted with.
+        disabled: boolean;
+    };
+    // Highlighted details about the day.
+    details?: Omit<HighlightedDates, "days">;
+};
