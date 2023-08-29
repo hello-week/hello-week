@@ -23,13 +23,13 @@ export class Day extends Component<IDayProps, IDayState> {
                 },
                 className: classNames(
                     'day',
-                    day.details.disabled && 'is-disabled',
-                    day.details.highlighted && 'is-highlighted',
-                    day.details.locked && 'is-locked',
-                    day.details.range && 'is-range',
-                    day.details.selected && 'is-selected',
-                    day.details.today && 'is-today',
-                    day.details.weekend && 'is-weekend'
+                    day.is.disabled && 'is-disabled',
+                    day.is.highlighted && 'is-highlighted',
+                    day.is.locked && 'is-locked',
+                    day.is.range && 'is-range',
+                    day.is.selected && 'is-selected',
+                    day.is.today && 'is-today',
+                    day.is.weekend && 'is-weekend'
                 ),
                 style: day.date.getDate() === 1 && {
                     marginLeft: `${day.date.getDay() * (100 / 7)}%`,
