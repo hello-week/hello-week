@@ -1,43 +1,15 @@
-import { useCallback, useState } from 'react';
 import { HelloWeek } from './../../../packages/react/src';
-import { IDayOptions } from '../../../packages/core/src';
-import { isSameDay } from '../../../packages/core/src/utils/date';
 
 export const Calendar = (): React.ReactElement => {
-    const [selectedDates, setSelectedDates] = useState<Date[]>([new Date()]);
-
-    const onHandleDayClick = useCallback((day: IDayOptions) => {
-        const {
-            is: { selected, disabled },
-            date,
-        } = day;
-
-        if (disabled) return;
-
-        setSelectedDates((prev) =>
-            selected
-                ? prev.filter((val) => !isSameDay(val, date))
-                : [...prev, date]
-        );
-    }, []);
-
     return (
         <div className="grid">
             <div className="calendar">
-                <HelloWeek
-                    defaultDate={new Date('2023-01-01')}
-                    selectedDates={selectedDates}
-                    onDayClick={onHandleDayClick}
-                />
+                <HelloWeek defaultDate={new Date('2023-01-01')} />
             </div>
             <div className="calendar">
                 <HelloWeek
                     defaultDate={new Date('2023-02-01')}
-                    selectedDates={[
-                        new Date('2023-02-04'),
-                        new Date('2023-02-06'),
-                        [new Date('2023-02-13'), new Date('2023-02-19')],
-                    ]}
+                    range
                 />
             </div>
             <div className="calendar">

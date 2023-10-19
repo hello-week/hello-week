@@ -16,5 +16,5 @@
  * ```
  */
 export function isArray<T>(obj: unknown): obj is Array<T> {
-    return obj !== null && Array.isArray(obj);
+  return obj !== null && Array.isArray(obj);
 }

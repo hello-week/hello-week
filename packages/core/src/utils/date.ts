@@ -6,11 +6,11 @@
  * @returns A boolean indicating whether the two dates represent the same day.
  */
 export function isSameDay(day1: Date, day2: Date): boolean {
-    return (
-        day1.getDate() === day2.getDate() &&
-        day1.getMonth() === day2.getMonth() &&
-        day1.getFullYear() === day2.getFullYear()
-    );
+  return (
+    day1.getDate() === day2.getDate() &&
+    day1.getMonth() === day2.getMonth() &&
+    day1.getFullYear() === day2.getFullYear()
+  );
 }
 
 /**
@@ -21,10 +21,10 @@ export function isSameDay(day1: Date, day2: Date): boolean {
  * @returns A boolean indicating whether the first date is after the second date.
  */
 export function isDateAfter(date: Date, dateToCompare: Date): boolean {
-    return (
-        new Date(date.setHours(0, 0, 0, 0)).getTime() >
-        new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
-    );
+  return (
+    new Date(date.setHours(0, 0, 0, 0)).getTime() >
+    new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
+  );
 }
 
 /**
@@ -35,10 +35,10 @@ export function isDateAfter(date: Date, dateToCompare: Date): boolean {
  * @returns A boolean indicating whether the first date is before the second date.
  */
 export function isDateBefore(date: Date, dateToCompare: Date): boolean {
-    return (
-        new Date(date.setHours(0, 0, 0, 0)).getTime() <
-        new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
-    );
+  return (
+    new Date(date.setHours(0, 0, 0, 0)).getTime() <
+    new Date(dateToCompare.setHours(0, 0, 0, 0)).getTime()
+  );
 }
 
 /**
@@ -49,11 +49,11 @@ export function isDateBefore(date: Date, dateToCompare: Date): boolean {
  * @returns A boolean indicating whether the two dates represent the same month and year.
  */
 export function isSameMonthAndYear(source: Date, target?: Date): boolean {
-    return (
-        target &&
-        source.getFullYear() === target.getFullYear() &&
-        source.getMonth() === target.getMonth()
-    );
+  return (
+    target &&
+    source.getFullYear() === target.getFullYear() &&
+    source.getMonth() === target.getMonth()
+  );
 }
 
 /**
@@ -64,10 +64,10 @@ export function isSameMonthAndYear(source: Date, target?: Date): boolean {
  * @returns A boolean indicating whether the two dates represent the same date.
  */
 export function isSameDate(source: Date, target: Date): boolean {
-    return (
-        isSameMonthAndYear(source, target) &&
-        source.getDate() === target.getDate()
-    );
+  return (
+    isSameMonthAndYear(source, target) &&
+    source.getDate() === target.getDate()
+  );
 }
 
 /**
@@ -77,8 +77,8 @@ export function isSameDate(source: Date, target: Date): boolean {
  * @returns A boolean indicating whether the date represents today's date.
  */
 export function isToday(date: Date): boolean {
-    const today = new Date();
-    return isSameDate(today, date);
+  const today = new Date();
+  return isSameDate(today, date);
 }
 
 /**
@@ -90,12 +90,12 @@ export function isToday(date: Date): boolean {
  * @returns A boolean indicating whether date is within the range.
  */
 export function isDateInRange(
-    date: Date,
-    startDate: Date,
-    endDate: Date
+  date: Date,
+  startDate: Date,
+  endDate: Date
 ): boolean {
-    return (
-        (isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
-        (isSameDay(date, endDate) || isDateBefore(date, endDate))
-    );
+  return (
+    (isSameDay(date, startDate) || isDateAfter(date, startDate)) &&
+    (isSameDay(date, endDate) || isDateBefore(date, endDate))
+  );
 }
