@@ -40,7 +40,7 @@ const defaultOptions = {
     disabledDaysOfWeek: null,
     disableDates: null,
     weekStart: 0,
-    timezoneOffset: new Date().getTimezoneOffset(),
+    timezoneOffset: null,
     daysSelected: null,
     daysHighlight: null,
     multiplePick: false,
@@ -67,8 +67,9 @@ function extend(options, configurations) {
 
 function setTimeZone({ date, timezoneOffset, }) {
     const dt = date ? new Date(date) : new Date();
-    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
-    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
+    if (timezoneOffset) {
+        dt.setTime(dt.getTime() + (timezoneOffset * 60) * 1000);
+    }
     return dt;
 }
 function timestampToHuman({ timestamp, format, langs, timezoneOffset, }) {

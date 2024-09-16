@@ -13,7 +13,7 @@ export const defaultOptions: Options = {
     disabledDaysOfWeek: null,
     disableDates: null,
     weekStart: 0,
-    timezoneOffset: new Date().getTimezoneOffset(),
+    timezoneOffset: null,
     daysSelected: null,
     daysHighlight: null,
     multiplePick: false,

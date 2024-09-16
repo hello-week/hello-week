@@ -8,8 +8,9 @@ export function setTimeZone({
     timezoneOffset?: number;
 }) {
     const dt = date ? new Date(date) : new Date();
-    timezoneOffset = timezoneOffset ? timezoneOffset : dt.getTimezoneOffset();
-    dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
+    if (timezoneOffset) {
+      dt.setTime(dt.getTime() + (timezoneOffset * 60) * 1000);
+    }
     return dt;
 }
 
