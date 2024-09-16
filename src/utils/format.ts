@@ -9,7 +9,7 @@ export function setTimeZone({
 }) {
     const dt = date ? new Date(date) : new Date();
     if (timezoneOffset) {
-      dt.setTime(dt.getTime() + (timezoneOffset * 60) * 1000);
+      dt.setTime(dt.getTime() + timezoneOffset * 60 * 1000);
     }
     return dt;
 }
