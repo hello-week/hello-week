@@ -1,3 +1,16 @@
+## [2.14.3](https://github.com/maurovieirareis/hello-week/compare/v2.14.2...v2.14.3) (2024-09-16)
+
+
+### Bug Fixes
+
+* remove default `timezoneOffset` and apply only if passed as parameter ([64f8e1d](https://github.com/maurovieirareis/hello-week/commit/64f8e1d52d36f0c7e1ba74c3f48c21b4d07687e5))
+
+
+
+## [2.14.2](https://github.com/maurovieirareis/hello-week/compare/v2.14.1...v2.14.2) (2023-03-24)
+
+
+
 ## [2.14.2](https://github.com/maurovieirareis/hello-week/compare/v2.14.1...v2.14.2) (2023-03-24)
 
 
