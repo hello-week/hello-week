@@ -8,6 +8,7 @@
     "bugs": {
         "url": "https://github.com/maurovieirareis/hello-week/issues"
     },
+    "files": ["dist/"],
     "main": "dist/hello.week.min.js",
     "module": "dist/hello.week.min.esm.js",
     "cjs:main": "dist/hello.week.min.cjs.js",
